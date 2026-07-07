@@ -436,3 +436,34 @@ O componente continua seguindo os princípios definidos:
 - manter cada responsabilidade isolada em módulos independentes;
 - permitir evolução incremental da arquitetura.
 
+## 2026-07-07
+
+### Arquitetura da camada LLM
+
+Foi decidido criar uma camada independente para gerenciamento dos modelos de linguagem.
+
+A integração com LLMs será isolada dentro do módulo:
+
+src/llm/
+
+Responsabilidades definidas:
+
+- llm_client.py
+  - representar a interface genérica de comunicação com modelos de linguagem;
+  - evitar dependência direta do restante da aplicação com um fornecedor específico.
+
+- groq_client.py
+  - implementar inicialmente a comunicação com a Groq API;
+  - concentrar configurações e chamadas específicas do provedor.
+
+- README.md
+  - manter documentação interna sobre decisões, testes e evoluções da camada.
+
+Essa arquitetura permite futuras integrações com diferentes provedores de LLM sem necessidade de alterações nas demais camadas do sistema.
+
+Princípios mantidos:
+
+- baixo acoplamento entre componentes;
+- evolução incremental;
+- componentes reutilizáveis;
+- preparação futura para RAG e agentes inteligentes.
