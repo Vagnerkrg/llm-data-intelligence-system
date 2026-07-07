@@ -414,3 +414,25 @@ Validation confirmed:
 ## Status
 
 Completed.
+
+
+## 2026-07-07
+
+### Preprocessing determinístico
+
+Foi decidido substituir a conversão automática de datas baseada em inferência por uma abordagem baseada em regras determinísticas.
+
+A etapa de preprocessing agora identifica colunas relacionadas a datas através de padrões de nomenclatura, garantindo:
+
+- maior previsibilidade do pipeline;
+- resultados reproduzíveis;
+- redução de warnings e comportamentos inesperados;
+- melhor compatibilidade com futuras evoluções do sistema.
+
+O componente continua seguindo os princípios definidos:
+
+- não modificar os arquivos originais;
+- trabalhar através de cópias dos DataFrames;
+- manter cada responsabilidade isolada em módulos independentes;
+- permitir evolução incremental da arquitetura.
+
