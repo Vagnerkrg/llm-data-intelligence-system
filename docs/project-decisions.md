@@ -467,3 +467,17 @@ Princípios mantidos:
 - evolução incremental;
 - componentes reutilizáveis;
 - preparação futura para RAG e agentes inteligentes.
+
+---
+
+## 2026-07-07
+
+## Integração inicial com LLM externa
+
+Foi implementada a primeira camada de integração com modelos de linguagem utilizando Groq API através do LlamaIndex.
+
+A camada LLM foi isolada em módulos independentes dentro de `src/llm/`, permitindo futuras substituições de provedores de modelos sem impacto nas demais camadas da aplicação.
+
+A autenticação foi configurada utilizando variáveis de ambiente através de arquivo `.env`, mantendo informações sensíveis fora do controle de versão.
+
+A primeira chamada ao modelo foi validada com sucesso, confirmando a comunicação entre a aplicação e o serviço externo de LLM.
