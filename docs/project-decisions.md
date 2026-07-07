@@ -382,3 +382,35 @@ docs/
 
 └── project-decisions.md
     → Por que as decisões foram tomadas
+
+
+
+    # Decision 09 — Initial Data Loading Layer
+
+## Context
+
+The first functional component of the platform was the data loading layer.
+
+## Decision
+
+The project will use a dedicated data loader module responsible for accessing raw datasets without modifying original files.
+
+Implementation:
+
+src/data/data_loader.py
+
+
+## Validation
+
+The Olist orders dataset was successfully loaded into a Pandas DataFrame.
+
+Validation confirmed:
+
+- correct environment configuration;
+- correct dataset path;
+- successful CSV loading;
+- compatibility with Pandas processing.
+
+## Status
+
+Completed.
