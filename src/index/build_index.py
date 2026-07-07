@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.data.document_builder import DocumentBuilder
+from src.data.summary_builder import SummaryBuilder
 from src.embeddings.local_embedding import LocalEmbeddingGenerator
 from src.index.vector_index import VectorIndex
 
@@ -11,7 +12,7 @@ from src.index.vector_index import VectorIndex
 class BuildIndex:
     """
     Builds a vector index from processed datasets
-    using semantic documents and metadata.
+    using semantic documents, summaries and metadata.
     """
 
 
@@ -24,6 +25,8 @@ class BuildIndex:
         self.data_path = Path(data_path)
 
         self.document_builder = DocumentBuilder()
+
+        self.summary_builder = SummaryBuilder()
 
         self.embedding_generator = LocalEmbeddingGenerator()
 
@@ -55,7 +58,7 @@ class BuildIndex:
         limit=1000
     ):
         """
-        Creates documents, embeddings and vector index.
+        Creates documents, summaries, embeddings and vector index.
         """
 
 
@@ -66,6 +69,26 @@ class BuildIndex:
         documents = self.document_builder.build_from_datasets(
             datasets,
             limit=limit
+        )
+
+
+        summaries = self.summary_builder.build_dataset_summaries(
+            datasets
+        )
+
+
+        documents.extend(
+            [
+                {
+                    "text": summary,
+                    "metadata": {
+                        "source": "summary",
+                        "type": "analytical"
+                    }
+                }
+
+                for summary in summaries
+            ]
         )
 
 
@@ -104,7 +127,8 @@ class BuildIndex:
         return {
             "datasets": list(datasets.keys()),
             "documents": len(texts),
-            "vectors": len(embeddings)
+            "vectors": len(embeddings),
+            "summaries": len(summaries)
         }
 
 
@@ -120,6 +144,5 @@ if __name__ == "__main__":
 
 
     print("Vector index created")
-
 
     print(result)
