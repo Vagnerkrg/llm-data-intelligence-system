@@ -1,8 +1,18 @@
+# Virtual Environment
 venv/
+
+# Environment variables / Secrets
 .env
+
+# Python cache
 __pycache__/
 *.pyc
+
+# Jupyter
 .ipynb_checkpoints/
 
-# Ideias futuras de produto (documentação privada)
+# Generated data
+data/processed/
+
+# Private product ideas
 Ideias_futuras_produtos/
