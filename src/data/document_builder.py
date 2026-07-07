@@ -7,8 +7,9 @@ import pandas as pd
 class DocumentBuilder:
     """
     Converts structured datasets into semantic documents
-    optimized for embedding generation and RAG retrieval.
+    with metadata for RAG retrieval.
     """
+
 
 
     def build_from_dataframe(
@@ -16,9 +17,9 @@ class DocumentBuilder:
         dataframe: pd.DataFrame,
         dataset_name: str,
         limit: int = None
-    ) -> List[str]:
+    ) -> List[Dict]:
         """
-        Builds semantic documents from a dataframe.
+        Builds semantic documents with metadata.
         """
 
 
@@ -26,7 +27,9 @@ class DocumentBuilder:
 
 
         if limit:
+
             dataframe = dataframe.head(limit)
+
 
 
         for _, row in dataframe.iterrows():
@@ -35,6 +38,7 @@ class DocumentBuilder:
                 row,
                 dataset_name
             )
+
 
             documents.append(
                 document
@@ -45,11 +49,12 @@ class DocumentBuilder:
 
 
 
+
     def build_from_datasets(
         self,
         datasets: Dict[str, pd.DataFrame],
         limit: int = 50
-    ) -> List[str]:
+    ) -> List[Dict]:
         """
         Builds documents from multiple datasets.
         """
@@ -66,6 +71,7 @@ class DocumentBuilder:
                 limit
             )
 
+
             documents.extend(
                 dataset_documents
             )
@@ -75,15 +81,12 @@ class DocumentBuilder:
 
 
 
+
     def _build_document(
         self,
-        row: pd.Series,
-        dataset_name: str
-    ) -> str:
-        """
-        Creates a semantic document according to dataset type.
-        """
-
+        row,
+        dataset_name
+    ):
 
         if dataset_name == "products":
 
@@ -105,10 +108,30 @@ class DocumentBuilder:
             return self._customer_document(row)
 
 
+
         return self._generic_document(
             row,
             dataset_name
         )
+
+
+
+
+    def _create_document(
+        self,
+        text,
+        source,
+        document_type
+    ):
+
+        return {
+            "text": text,
+            "metadata": {
+                "source": source,
+                "type": document_type
+            }
+        }
+
 
 
 
@@ -117,13 +140,7 @@ class DocumentBuilder:
         row
     ):
 
-        return f"""
-Tipo de documento:
-Produto
-
-Fonte:
-products
-
+        text = f"""
 Produto cadastrado no marketplace.
 
 Categoria:
@@ -136,9 +153,15 @@ Dimensões:
 Altura: {row.get('product_height_cm')}
 Largura: {row.get('product_width_cm')}
 Comprimento: {row.get('product_length_cm')}
-
-Este documento representa informações de produtos disponíveis para venda.
 """
+
+
+        return self._create_document(
+            text,
+            "products",
+            "product"
+        )
+
 
 
 
@@ -147,26 +170,23 @@ Este documento representa informações de produtos disponíveis para venda.
         row
     ):
 
-        return f"""
-Tipo de documento:
-Avaliação de cliente
-
-Fonte:
-reviews
-
+        text = f"""
 Avaliação de compra realizada por cliente.
 
-Nota da avaliação:
+Nota:
 {row.get('review_score')}
 
 Comentário:
 {row.get('review_comment_message')}
-
-Data da avaliação:
-{row.get('review_creation_date')}
-
-Este documento representa uma experiência de pós-venda e satisfação do cliente.
 """
+
+
+        return self._create_document(
+            text,
+            "reviews",
+            "review"
+        )
+
 
 
 
@@ -175,29 +195,23 @@ Este documento representa uma experiência de pós-venda e satisfação do clien
         row
     ):
 
-        return f"""
-Tipo de documento:
-Pedido
-
-Fonte:
-orders
-
+        text = f"""
 Pedido realizado no marketplace.
 
 Status:
 {row.get('order_status')}
 
-Data da compra:
+Compra:
 {row.get('order_purchase_timestamp')}
-
-Entrega prevista:
-{row.get('order_estimated_delivery_date')}
-
-Entrega realizada:
-{row.get('order_delivered_customer_date')}
-
-Este documento representa informações de pedidos e logística.
 """
+
+
+        return self._create_document(
+            text,
+            "orders",
+            "order"
+        )
+
 
 
 
@@ -206,13 +220,7 @@ Este documento representa informações de pedidos e logística.
         row
     ):
 
-        return f"""
-Tipo de documento:
-Cliente
-
-Fonte:
-customers
-
+        text = f"""
 Cliente cadastrado no marketplace.
 
 Cidade:
@@ -220,9 +228,15 @@ Cidade:
 
 Estado:
 {row.get('customer_state')}
-
-Este documento representa informações cadastrais de clientes.
 """
+
+
+        return self._create_document(
+            text,
+            "customers",
+            "customer"
+        )
+
 
 
 
@@ -240,13 +254,8 @@ Este documento representa informações cadastrais de clientes.
         )
 
 
-        return f"""
-Tipo de documento:
-Dataset genérico
-
-Fonte:
-{dataset_name}
-
-Information:
-{information}
-"""
+        return self._create_document(
+            information,
+            dataset_name,
+            "generic"
+        )

@@ -1,16 +1,35 @@
 from src.embeddings.local_embedding import LocalEmbeddingGenerator
 from src.index.vector_index import VectorIndex
+from src.query.query_router import QueryRouter
+
 
 
 class DataQueryEngine:
     """
-    Engine responsible for querying processed data
-    using embeddings and vector similarity search.
+    Engine responsible for querying processed data.
+
+    Uses:
+    - Query routing
+    - Embeddings
+    - Metadata filtered vector search
     """
 
+
+
     def __init__(self):
-        self.embedding_generator = LocalEmbeddingGenerator()
-        self.vector_index = VectorIndex()
+
+        self.embedding_generator = (
+            LocalEmbeddingGenerator()
+        )
+
+        self.vector_index = (
+            VectorIndex()
+        )
+
+        self.router = (
+            QueryRouter()
+        )
+
 
 
     def load_index(self):
@@ -21,18 +40,49 @@ class DataQueryEngine:
         self.vector_index.load()
 
 
-    def query(self, question: str, top_k=5):
+
+    def query(
+        self,
+        question: str,
+        top_k=5
+    ):
         """
-        Searches for relevant documents based on user question.
+        Executes intelligent retrieval.
         """
 
-        query_embedding = self.embedding_generator.generate(
-            [question]
-        )[0]
 
-        results = self.vector_index.search(
-            query_embedding,
-            top_k=top_k
+        route = self.router.route(
+            question
         )
 
-        return results
+
+        query_embedding = (
+            self.embedding_generator
+            .generate([question])[0]
+        )
+
+
+
+        source = None
+
+
+        if route["domain"] != "general":
+
+            source = route["domain"]
+
+
+
+        results = (
+            self.vector_index.search(
+                query_embedding,
+                top_k=top_k,
+                source=source
+            )
+        )
+
+
+
+        return {
+            "route": route,
+            "results": results
+        }

@@ -10,8 +10,10 @@ from src.index.vector_index import VectorIndex
 
 class BuildIndex:
     """
-    Builds a vector index from processed datasets.
+    Builds a vector index from processed datasets
+    using semantic documents and metadata.
     """
+
 
 
     def __init__(
@@ -36,22 +38,29 @@ class BuildIndex:
 
         datasets = {}
 
+
         for file in self.data_path.glob("*.parquet"):
 
             datasets[file.stem] = pd.read_parquet(
                 file
             )
 
+
         return datasets
 
 
 
-    def build(self, limit=1000):
+    def build(
+        self,
+        limit=1000
+    ):
         """
         Creates documents, embeddings and vector index.
         """
 
+
         datasets = self.load_processed_data()
+
 
 
         documents = self.document_builder.build_from_datasets(
@@ -60,34 +69,57 @@ class BuildIndex:
         )
 
 
+
+        texts = [
+            document["text"]
+            for document in documents
+        ]
+
+
+        metadata = [
+            document["metadata"]
+            for document in documents
+        ]
+
+
+
         embeddings = self.embedding_generator.generate(
-            documents
+            texts
         )
+
 
 
         self.vector_index.add(
             embeddings,
-            documents
+            texts,
+            metadata
         )
+
 
 
         self.vector_index.save()
 
 
+
         return {
             "datasets": list(datasets.keys()),
-            "documents": len(documents),
+            "documents": len(texts),
             "vectors": len(embeddings)
         }
 
 
 
+
 if __name__ == "__main__":
+
 
     builder = BuildIndex()
 
+
     result = builder.build()
 
+
     print("Vector index created")
+
 
     print(result)
