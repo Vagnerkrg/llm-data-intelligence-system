@@ -1,0 +1,1 @@
+O grog pode nao ficar mais gratis entao deixe um ponto ou alternativa para outros agentes de ia APi

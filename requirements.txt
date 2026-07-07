@@ -1,6 +1,1 @@
-pandas
-llama-index
-llama-index-llms-groq
-llama-index-experimental
-gradio
-fpdf
+-r requirements/full.txt

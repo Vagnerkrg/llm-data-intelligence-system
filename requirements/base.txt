@@ -1,0 +1,9 @@
+pandas
+numpy
+
+python-dotenv
+
+jupyter
+ipykernel
+
+fpdf2

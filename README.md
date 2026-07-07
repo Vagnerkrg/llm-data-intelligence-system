@@ -49,3 +49,28 @@ Sistema de Resposta
 - `requirements.txt` → dependências  
 - `.gitignore` → arquivos ignorados  
 - `README.md` → documentação do projeto  
+
+##Estrutura do projeto em foco
+
+                LLM Data Intelligence System
+
+
+        Data Layer
+             |
+             |
+   ---------------------
+   |                   |
+Structured Data    Knowledge Base
+(Pandas/SQL)       (Embeddings)
+   |                   |
+   |              Vector Database
+   |                   |
+   -------> Intelligence Layer
+                    |
+                  RAG
+                    |
+                  LLM
+                    |
+                Agent Layer
+                    |
+               Applications
