@@ -1,80 +1,290 @@
-Arquitetura modular desde a versão inicial.
+# System Architecture
 
-Cada responsabilidade será isolada em um módulo independente para facilitar futuras integrações com bancos vetoriais, RAG e agentes inteligentes.
+## Project
 
-Status do checklist:
+**LLM Data Intelligence System**
 
-🟢 README → ainda não.
-🟡 Kanban → ainda não.
-🔵 Architecture → SIM ✅
+This document describes the architectural principles, components, responsibilities, and evolution strategy of the platform.
 
-Registrar essas regras.
+The architecture is designed to support incremental development, allowing the system to evolve from structured data analysis into a complete AI Data Intelligence platform with RAG, vector databases, and intelligent agents.
 
+---
 
-Regra 01
+# Architectural Principles
 
-A aplicação nunca altera o arquivo original enviado pelo usuário.
+The platform follows a modular architecture where each responsibility is isolated into independent components.
 
-------------------------
+The main objectives are:
 
-Regra 02
+* Maintain scalability.
+* Facilitate future integrations.
+* Avoid unnecessary coupling between components.
+* Allow incremental evolution.
+* Support reusable components across the AI Ecosystem.
 
-Toda consulta deve ser reproduzível.
+---
 
-------------------------
+# Core Architecture Rules
 
-Regra 03
+## Rule 01 — Original Data Protection
 
-Toda resposta da IA deve ser baseada apenas nos dados carregados.
+The application never modifies the original file uploaded by the user.
 
-------------------------
+Original data must remain immutable.
 
-Regra 04
+Any transformation or processing must create a new version of the data.
 
-Toda análise pode ser exportada.
+---
 
-------------------------
+## Rule 02 — Reproducible Analysis
 
-Regra 05
+Every query and analysis performed by the system must be reproducible.
 
-O usuário pode iniciar uma nova sessão sem perder estabilidade.
+The same input data and configuration should generate equivalent results.
 
-#Mudamos o requeriments.txt para pasta requeriments que vai conter os requerimentos dividos em arquivos para cada parte do projeto. iniciamos assim 
+---
 
+## Rule 03 — Data Grounded Responses
 
-requirements/
+Every AI response must be based only on the data and context provided to the system.
 
-base.txt
-llm.txt
-dev.txt
+The platform must avoid unsupported answers or hallucinated information.
 
-Não estamos "desistindo" do ambiente. Estamos aplicando um princípio muito usado em engenharia:
+---
 
-Se a base está inconsistente, é mais barato reconstruí-la corretamente do que tentar remendá-la.
+## Rule 04 — Exportable Intelligence
 
-Como ainda estamos no início do LLM Data Intelligence System, perderemos apenas alguns minutos e ganharemos uma base muito mais confiável.
+Every generated analysis should have the possibility of being exported.
 
-O que construiremos hoje
+Examples:
 
-Quando terminar, teremos algo parecido com:
+* Reports.
+* Summaries.
+* Data insights.
+* Visualizations.
 
-Vamos criar o Ambiente Base IA v1.0
+---
 
-Nossa estrutura ficará assim:
+## Rule 05 — Session Stability
 
+Users must be able to start new sessions without compromising system stability or previous executions.
+
+---
+
+# Initial Architecture
+
+The first version of the platform follows this flow:
+
+```
+User
+
+   |
+
+   v
+
+Interface Layer
+
+(Gradio)
+
+   |
+
+   v
+
+Session Management
+
+   |
+
+   v
+
+Data Loading and Processing
+
+(Pandas)
+
+   |
+
+   v
+
+LLM Orchestration Layer
+
+(LlamaIndex)
+
+   |
+
+   v
+
+LLM Provider
+
+(Groq API)
+
+   |
+
+   v
+
+Response Generation
+
+(Insights + Visualizations + Reports)
+```
+
+---
+
+# Component Responsibilities
+
+## Interface Layer
+
+Responsible for:
+
+* User interaction.
+* Data upload.
+* Query submission.
+* Visualization display.
+
+Technology:
+
+* Gradio
+
+---
+
+## Data Processing Layer
+
+Responsible for:
+
+* Loading datasets.
+* Validating input files.
+* Data preparation.
+* Maintaining original data integrity.
+
+Technology:
+
+* Python
+* Pandas
+
+---
+
+## LLM Orchestration Layer
+
+Responsible for:
+
+* Managing interactions with Large Language Models.
+* Creating query workflows.
+* Preparing context for responses.
+
+Technology:
+
+* LlamaIndex
+
+---
+
+## LLM Provider Layer
+
+Responsible for:
+
+* Language model inference.
+* Response generation.
+
+Initial provider:
+
+* Groq API
+
+---
+
+# Future Architecture Evolution
+
+The platform will progressively evolve with additional intelligence layers.
+
+Future components:
+
+```
+Documents
+
+    |
+
+    v
+
+Embedding Layer
+
+    |
+
+    v
+
+Vector Database
+
+    |
+
+    v
+
+RAG Pipeline
+
+    |
+
+    v
+
+AI Agents
+
+    |
+
+    v
+
+Autonomous Data Intelligence
+```
+
+---
+
+# Project Structure Evolution
+
+The target architecture follows the AI Ecosystem standard:
+
+```
 llm-data-intelligence-system/
 
-├── requirements/
-│   ├── base.txt
-│   ├── llm.txt
-│   ├── rag.txt
-│   ├── dev.txt
-│   └── full.txt
-│
-├── src/
-├── notebooks/
+├── data/
+
 ├── docs/
+
+├── models/
+
+├── notebooks/
+
+├── reports/
+
+├── requirements/
+
+│   ├── base.txt
+
+│   ├── llm.txt
+
+│   ├── rag.txt
+
+│   ├── dev.txt
+
+│   ├── full.txt
+
+│   └── lock.txt
+
+├── src/
+
 ├── tests/
+
 ├── .env.example
+
+├── .gitignore
+
 ├── README.md
-└── requirements.txt   ← apenas um "atalho"
+
+└── requirements.txt
+```
+
+---
+
+# Development Strategy
+
+The system will be developed incrementally.
+
+Each new capability must:
+
+1. Have a defined purpose.
+2. Follow the architecture principles.
+3. Be documented.
+4. Be validated.
+5. Be versioned through Git.
+
+The architecture will evolve together with the platform.

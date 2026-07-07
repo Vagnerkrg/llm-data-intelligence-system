@@ -1,236 +1,384 @@
 # Project Decisions
 
-## 2026-07-06
+This document records important technical, architectural, and strategic decisions made during the evolution of the LLM Data Intelligence System.
 
-### Arquitetura orientada a produto
+The purpose of this document is to preserve project context, explain decisions, and support future development.
 
-Este projeto será desenvolvido como uma plataforma de IA e não como um notebook de experimentação.
+---
 
-Toda funcionalidade será organizada em módulos independentes para facilitar escalabilidade, manutenção e integração de novos componentes ao longo da evolução do sistema.
+# 2026-07-06
 
-## foi sugerida outra e eu mantive a primeira salva para lembrar o incio da documentação do projeto. 
+# Decision 01 — Product-Oriented Architecture
 
-Agora uma decisão importante
-🔵 docs/project-decisions.md
+## Context
 
-Esse arquivo será nosso "diário de arquitetura".
+This project will be developed as an AI platform and not as a simple notebook experimentation project.
 
-E já temos a primeira entrada.
+The objective is to build a complete Data Intelligence solution capable of evolving into a real AI product.
 
-Eu colocaria:
+## Decision
 
-# Project Decisions
+The system will follow a modular architecture focused on:
 
-## 2026-07-06
+- scalability;
+- maintainability;
+- reusable components;
+- future integrations;
+- incremental evolution.
 
-## Arquitetura modular inicial
+## Reason
 
-Foi decidido estruturar o projeto utilizando módulos independentes dentro da pasta src/.
+A product-oriented architecture allows the platform to grow without requiring major structural changes in the future.
 
-Cada módulo possui uma responsabilidade específica, permitindo evolução incremental da plataforma.
+---
 
-Estrutura inicial:
+# Decision 02 — Initial Modular Architecture
 
-- llm → gerenciamento dos modelos de linguagem
-- data → carregamento dos dados
-- preprocessing → preparação dos dados
-- embeddings → futura camada semântica
-- index → futura camada de busca vetorial
-- rag → futura recuperação aumentada
-- agents → futura automação inteligente
+## Decision
+
+The project will be structured using independent modules inside the `src/` directory.
+
+Each module will have a specific responsibility.
+
+Initial architecture:
+src/
+
+├── llm/
+├── data/
+├── preprocessing/
+├── embeddings/
+├── index/
+├── rag/
+└── agents/
 
 
-Escolha do dataset inicial — Domínio de varejo/e-commerce
+Responsibilities:
 
-Foi decidido iniciar o desenvolvimento utilizando um dataset de vendas estruturado, permitindo construir progressivamente as camadas de análise de dados, inteligência semântica, RAG e agentes.
+## llm
 
+Responsible for:
 
+- Large Language Model integrations;
+- prompt management;
+- model communication.
 
-📊 Dataset inicial — E-commerce / Vendas
+---
 
-Essa escolha está muito alinhada com o objetivo do projeto.
+## data
 
-Agora vamos transformar essa escolha em uma definição de arquitetura.
+Responsible for:
 
-📌 Decisão do projeto — Dataset inicial
-Domínio escolhido
+- data loading;
+- dataset management;
+- input validation.
+
+---
+
+## preprocessing
+
+Responsible for:
+
+- data preparation;
+- cleaning processes;
+- transformations.
+
+---
+
+## embeddings
+
+Future semantic layer responsible for:
+
+- vector representations;
+- semantic understanding.
+
+---
+
+## index
+
+Future search layer responsible for:
+
+- indexing information;
+- retrieval optimization.
+
+---
+
+## rag
+
+Future Retrieval-Augmented Generation layer.
+
+Responsible for:
+
+- combining external knowledge with LLM responses;
+- contextual retrieval.
+
+---
+
+## agents
+
+Future intelligent automation layer.
+
+Responsible for:
+
+- autonomous workflows;
+- tool usage;
+- task execution.
+
+---
+
+# Decision 03 — Initial Dataset Domain
+
+## Domain
 
 Retail / E-commerce Intelligence
 
-Objetivo:
+## Decision
 
-Construir uma plataforma de inteligência de dados capaz de analisar informações comerciais e evoluir futuramente para:
+The initial development will use structured sales data from the e-commerce domain.
 
-análise automática de vendas;
-geração de insights;
-consultas em linguagem natural;
-busca semântica;
-RAG;
-agentes inteligentes.
+## Reason
 
-A arquitetura foi planejada para permitir evolução gradual sem necessidade de grandes refatorações.
+This domain allows the progressive construction of:
 
+- sales analysis;
+- business insights;
+- natural language queries;
+- automated reports;
+- semantic search;
+- RAG pipelines;
+- intelligent agents.
 
-##Aqui foi uma ideia de futuros investimentos quando o produto estiver com cara de produto para ser comercializado ou ultilizado de forma facil por usuarios da web, porem com a resalva que poderiamos sim ter 2 parte: A online que coleta informações para gerar soluções de problemas, mas nao coisas de tabelas ou historicos, as ideias que saem das pesquisas, isso vira mais ideias sobre soluções. 
-e a parte do produto fechado para empresas, ele guardar historico, e faz tudo com mais privacidade pois nao esta online e sim local para o uso pessoal diario. ( rascunho de uma ideia de negocios, um produto fechado e outro utilizavel gerando mais recursos)
-
-Essa ideia faz bastante sentido como **visão de longo prazo** e ela está alinhada com a forma como você vem conduzindo o portfólio: primeiro construir um produto sólido, depois pensar na comercialização.
-
-Já salvei essa preferência como memória de longo prazo para que ela faça parte do contexto das próximas conversas sobre o projeto.
-
-Eu transformaria essa ideia em uma anotação estratégica no arquivo `docs/project-decisions.md` (ou em um futuro `docs/product-roadmap.md`, se preferirmos separar arquitetura de produto). Eu escreveria algo assim:
+The chosen domain provides a realistic business context for the evolution of the platform.
 
 ---
 
-## 💡 Visão de Longo Prazo — Evolução para Produto
+# Decision 04 — Requirements Architecture
 
-### Objetivo
+## Context
 
-O **LLM Data Intelligence System** será desenvolvido inicialmente como um projeto técnico de portfólio, seguindo boas práticas de Engenharia de Software e Inteligência Artificial.
+As the AI Ecosystem grows, different projects may require different technology stacks.
 
-A longo prazo, a visão é evoluir o projeto para um **produto comercial**, pronto para utilização por empresas e profissionais.
+## Decision
 
-### Estratégia de crescimento
+Dependencies will be separated by responsibility.
 
-Após a conclusão de uma versão completa e validada do produto (MVP funcional e posteriormente versões mais robustas), estudar possibilidades de captação de investimento para acelerar:
+Current structure:
 
-* infraestrutura;
-* marketing;
-* aquisição de clientes;
-* expansão da equipe;
-* evolução tecnológica.
+requirements/
 
-### Princípios desejados
+├── base.txt
+├── llm.txt
+├── rag.txt
+├── dev.txt
+├── full.txt
+└── lock.txt
+~
 
-* Os investimentos devem servir para acelerar o crescimento do produto, não para transferir sua propriedade.
-* Priorizar modelos em que o investidor seja remunerado por participação nos resultados durante um período contratual previamente definido.
-* Buscar manter o controle intelectual, técnico e estratégico do produto com os fundadores.
-* Toda negociação deverá ser respaldada por contratos adequados e assessoria jurídica especializada.
+The root file:
+requirements.txt~
 
-### Status
 
-> **Ideia estratégica de longo prazo.**
->
-> Não faz parte do escopo atual de desenvolvimento. O foco da fase atual continua sendo construir um produto tecnicamente sólido e validado.
+will act only as an installation shortcut.
 
----
+Example:
+-r requirements/full.txt
 
-Eu gosto bastante dessa abordagem por um motivo: ela separa **o sonho da execução**.
 
-Hoje nosso objetivo continua sendo:
+## Reason
 
-* construir um sistema robusto;
-* documentar bem;
-* criar uma arquitetura escalável;
-* validar que ele resolve problemas reais.
+This approach allows:
 
-Só depois faz sentido discutir investimento, modelo de negócio, clientes e crescimento. Isso evita colocar a "carroça na frente dos bois".
-
-Uma observação que acho importante para o futuro: a ideia de um investidor colocar capital, receber retorno financeiro por um período e você manter a propriedade do produto **é um modelo que pode existir**, mas a forma jurídica pode variar (como dívida conversível, participação em receita, mútuo conversível, entre outras estruturas). Quando chegarmos nessa fase, vale a pena conversar com um advogado especializado em startups e contratos para definir o modelo mais adequado.
-
-Por enquanto, acho que essa visão está muito bem posicionada: **primeiro construir um produto excelente; depois decidir a melhor forma de crescer sem abrir mão daquilo que foi criado.**
-
-##Aqui temos a parte juricada do produto, como se defender de quais quer roubo de produto, financeiro ou intelectual do nosso projeto, a ideia em sim se tiver como ser protejida que seja e esteja. 
-alem de cria todo o processo de proteção patrimonia. 
-Esta aqui apenas para conhecimento.
-
-Essa é uma preocupação muito importante, e é bom pensar nisso **desde o início**, mas com expectativas corretas sobre como a proteção funciona.
-
-Primeiro, uma observação: tentei salvar essa nova preferência na memória, mas o espaço de memória está cheio. Para que eu possa guardar isso de forma permanente, você precisará liberar algum espaço em **Configurações → Personalização → Memória → Gerenciar**. Depois disso, você pode me pedir novamente para salvar essa preferência.
-
-Sobre a proteção do produto, eu faria um plano em etapas.
-
-### Fase 1 – Durante o desenvolvimento (agora)
-
-Esta é a fase em que conseguimos criar evidências de autoria.
-
-* Repositório Git com histórico de commits.
-* Publicação no GitHub com datas.
-* Documentação da arquitetura.
-* Registro das decisões técnicas.
-* Versionamento das releases.
-* Histórico do desenvolvimento.
-
-Tudo isso ajuda a demonstrar quem desenvolveu o projeto e quando.
+- easier dependency management;
+- reduced conflicts;
+- scalability across AI projects;
+- reproducible environments.
 
 ---
 
-### Fase 2 – Quando o produto estiver funcional
+# Decision 05 — Environment Reconstruction Strategy
 
-Nessa fase começamos a formalizar o negócio.
+## Context
 
-* Abrir uma empresa, se fizer sentido para a comercialização.
-* Definir a marca do produto.
-* Registrar o domínio do site.
-* Criar termos de uso e política de privacidade.
-* Definir contratos para clientes.
+During the initial setup, dependency organization required adjustments.
 
----
+## Decision
 
-### Fase 3 – Proteção da propriedade intelectual
+The environment was reconstructed following a cleaner engineering approach instead of applying temporary fixes.
 
-Aqui entram os órgãos e profissionais especializados.
+## Reason
 
-No Brasil, normalmente você vai conhecer estes dois:
+When the foundation is inconsistent, rebuilding the environment creates a more reliable and reproducible base.
 
-* Instituto Nacional da Propriedade Industrial (INPI)
-
-  * Registro de marca.
-  * Alguns tipos de propriedade industrial.
-
-* Escritório Central de Arrecadação e Distribuição não é o órgão para software (menciono apenas para evitar confusão).
-
-Para software, além do registro de marca, existe o **registro de programa de computador**, também relacionado ao INPI conforme a legislação brasileira. Além disso, os direitos autorais sobre o código surgem automaticamente com a criação da obra, mas o registro pode servir como prova adicional em uma eventual disputa.
+The project is still in the initial phase, making this the correct moment to establish standards.
 
 ---
 
-### Fase 4 – Antes de conversar com investidores
+# Decision 06 — Data Integrity Principles
 
-Essa é uma etapa que eu considero essencial.
+The platform follows strict data handling rules.
 
-Antes de apresentar detalhes técnicos ou comerciais para possíveis investidores, seria prudente conversar com:
+## Rule 01 — Original Data Protection
 
-* um advogado especializado em propriedade intelectual;
-* um advogado especializado em startups;
-* um contador com experiência em empresas de tecnologia (para a estrutura societária).
+The application never modifies the original file uploaded by the user.
 
-Esses profissionais podem ajudar a elaborar:
-
-* acordos de confidencialidade (NDA), quando apropriado;
-* contratos de investimento;
-* definição de participação societária (se houver);
-* proteção da marca;
-* proteção do software;
-* contratos com clientes.
+All processing must create derived versions.
 
 ---
 
-## O que eu quero que seja um objetivo do projeto
+## Rule 02 — Reproducible Analysis
 
-Eu acho que deveríamos adicionar uma etapa futura ao nosso roadmap:
+Every query and analysis should be reproducible.
 
-> **Product Readiness**
-
-Nela verificaríamos um checklist como:
-
-* ✅ documentação completa;
-* ✅ arquitetura estável;
-* ✅ testes;
-* ✅ marca registrada (quando aplicável);
-* ✅ registro do software, se desejado;
-* ✅ domínio;
-* ✅ documentação jurídica;
-* ✅ termos de uso;
-* ✅ política de privacidade;
-* ✅ estratégia comercial;
-* ✅ preparação para investimento.
+The same input and configuration should generate equivalent results.
 
 ---
 
-### Um ponto importante
+## Rule 03 — Grounded AI Responses
 
-Existe uma ideia comum de que "alguém pode copiar minha ideia". Na prática, **ideias, por si só, normalmente não são protegidas**. O que costuma ser protegido é a **implementação**: o código, a marca, a documentação, o design, os contratos e outros ativos relacionados ao produto.
+Every AI response must be based only on the available data and context provided.
 
-Por isso, construir um histórico consistente de desenvolvimento e cuidar da proteção jurídica quando o produto estiver maduro costuma ser mais eficaz do que tentar proteger apenas a ideia inicial.
+The system should avoid unsupported information.
 
-Quando chegarmos nessa fase, eu posso ajudar você a montar um **plano completo de lançamento e proteção do produto**, incluindo uma checklist técnica, documental e jurídica (sempre lembrando que, para decisões legais específicas, será importante contar com um advogado especializado). Acho que isso seria um excelente passo antes de qualquer conversa com investidores.
+---
+
+## Rule 04 — Exportable Intelligence
+
+Generated analysis should be exportable.
+
+Examples:
+
+- reports;
+- summaries;
+- insights;
+- visualizations.
+
+---
+
+## Rule 05 — Session Stability
+
+Users should be able to start new sessions without affecting system stability.
+
+---
+
+# Decision 07 — Long-Term Product Vision
+
+## Context
+
+The project may evolve from a technical portfolio project into a commercial AI product.
+
+## Decision
+
+Future product exploration may consider two possible directions.
+
+---
+
+# Online Intelligence Platform
+
+A platform focused on:
+
+- research;
+- information collection;
+- discovery of opportunities;
+- generation of solution ideas.
+
+The objective would be helping users explore problems and identify possible solutions.
+
+---
+
+# Private Enterprise Intelligence Solution
+
+A controlled environment focused on:
+
+- company data;
+- privacy;
+- historical information;
+- internal intelligence;
+- secure workflows.
+
+This model would prioritize local or private usage for organizations.
+
+---
+
+## Status
+
+Strategic idea for future exploration.
+
+Not part of the current development scope.
+
+Current priority remains:
+
+- technical development;
+- architecture;
+- validation;
+- creation of a solid AI product foundation.
+
+---
+
+# Decision 08 — Product Readiness Future Phase
+
+## Objective
+
+After technical validation, the project may enter a future phase called:
+
+Product Readiness
+
+
+Possible evaluation areas:
+
+- architecture stabilization;
+- testing;
+- documentation;
+- deployment strategy;
+- user experience;
+- brand evaluation;
+- software protection strategy;
+- privacy documentation;
+- commercial preparation.
+
+---
+
+## Intellectual Property and Protection Notes
+
+During development, the project will maintain:
+
+- Git history;
+- version control;
+- technical documentation;
+- architecture records;
+- development decisions.
+
+These elements create a historical record of project evolution.
+
+Future protection activities may include professional evaluation of:
+
+- trademark registration;
+- software registration;
+- contracts;
+- privacy documentation;
+- business structure.
+
+---
+
+## Status
+
+Future planning.
+
+The current priority remains building a technically strong and validated product.
+
+---
+
+# Notes
+
+This document should be updated whenever important architectural, technical, or strategic decisions are made.
+
+The goal is to preserve the reasoning behind the evolution of the LLM Data Intelligence System.
+
+docs/
+
+├── environment.md
+│   → Como recriar o ambiente
+
+├── architecture.md
+│   → Como o sistema funciona
+
+└── project-decisions.md
+    → Por que as decisões foram tomadas
