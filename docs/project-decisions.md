@@ -664,3 +664,71 @@ The existing evaluation modules already contain benchmark and answer evaluation 
 Implementation:
 
 QualityMonitor was added as an orchestration layer and EvaluationHistory as a persistence component.
+
+---
+
+# Decision: Introduce Hybrid Intelligence API Layer
+
+## Context
+
+The system evolved from an internal intelligence pipeline into an application layer exposed through a REST API.
+
+The previous architecture focused on internal execution through:
+
+- RAG pipeline.
+- Data analysis engine.
+- Hybrid query routing.
+- Evaluation and monitoring components.
+
+A standardized external interface was required to expose the intelligence capabilities.
+
+## Decision
+
+Introduce a FastAPI-based API layer with a dedicated route structure.
+
+The API will expose intelligence capabilities through standardized request and response schemas.
+
+The application layer will communicate through the IntelligenceResponse contract.
+
+## API Contract
+
+Incoming requests:
+
+- QuestionRequest
+
+Containing:
+
+- question
+
+
+Outgoing responses:
+
+- AnswerResponse / IntelligenceResponse
+
+Containing:
+
+- answer
+- source
+- confidence
+- metadata
+
+## Benefits
+
+* Standardized communication between clients and intelligence services.
+* Separation between API presentation and application logic.
+* Easier integration with external applications.
+* Improved testing through isolated API routes.
+* Foundation for future production deployment.
+
+## Consequence
+
+All external consumers must interact through the API layer.
+
+The API must not contain business logic.
+
+Responsibilities remain separated:
+
+- API Layer → request validation and response formatting.
+- Application Layer → intelligence orchestration.
+- Services Layer → RAG, analysis and decision execution.
+- Monitoring Layer → metrics and evaluation tracking.

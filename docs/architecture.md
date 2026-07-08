@@ -538,3 +538,31 @@ Objetivos:
 - proteção intelectual;
 - preparação para comercialização futura.
 
+## API Layer
+
+The system now includes an API presentation layer responsible for exposing intelligence capabilities through HTTP endpoints.
+
+Current flow:
+
+Client
+↓
+FastAPI Router
+↓
+Application Layer
+↓
+IntelligenceSystem
+↓
+HybridQueryEngine
+↓
+DecisionEngine
+↓
+Response
+
+The API layer is responsible for:
+
+* validating incoming requests
+* managing dependencies
+* formatting responses
+* exposing intelligence capabilities externally
+
+

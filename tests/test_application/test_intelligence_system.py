@@ -1,4 +1,6 @@
 from src.application.intelligence_system import IntelligenceSystem
+from src.core.interfaces.response import IntelligenceResponse
+
 
 
 class FakeEngine:
@@ -12,12 +14,15 @@ class FakeEngine:
         self.result = result
 
 
+
     def query(
         self,
         question
     ):
 
         return self.result
+
+
 
 
 
@@ -33,32 +38,17 @@ class FakeAnswerGenerator:
 
 
 
-class FakeDecisionEngine:
-
-
-    def decide(
-        self,
-        rag_result,
-        analysis_result
-    ):
-
-        return {
-
-            "type":"analysis",
-
-            "answer":analysis_result
-
-        }
-
 
 
 class TestIntelligenceSystem:
+
 
 
     def test_analysis_response(self):
 
 
         system = IntelligenceSystem()
+
 
 
         system.engine = FakeEngine(
@@ -84,20 +74,43 @@ class TestIntelligenceSystem:
         )
 
 
+
         system.answer_generator = (
+
             FakeAnswerGenerator()
+
         )
+
 
 
         result = system.ask(
+
             "Quantos produtos existem?"
+
         )
 
 
-        assert (
-            result
-            ==
+
+        assert isinstance(
+
+            result,
+
+            IntelligenceResponse
+
+        )
+
+
+        assert result.answer == (
+
             "analysis response"
+
+        )
+
+
+        assert result.source == (
+
+            "analysis"
+
         )
 
 
@@ -106,6 +119,7 @@ class TestIntelligenceSystem:
 
 
         system = IntelligenceSystem()
+
 
 
         system.engine = FakeEngine(
@@ -131,15 +145,35 @@ class TestIntelligenceSystem:
         )
 
 
+
         result = system.ask(
+
             "Quais produtos aparecem?"
+
         )
 
 
-        assert (
-            result
-            ==
+
+        assert isinstance(
+
+            result,
+
+            IntelligenceResponse
+
+        )
+
+
+        assert result.answer == (
+
             "rag response"
+
+        )
+
+
+        assert result.source == (
+
+            "rag"
+
         )
 
 
@@ -148,6 +182,7 @@ class TestIntelligenceSystem:
 
 
         system = IntelligenceSystem()
+
 
 
         system.engine = FakeEngine(
@@ -163,13 +198,33 @@ class TestIntelligenceSystem:
         )
 
 
+
         result = system.ask(
+
             "???"
+
         )
 
 
-        assert (
-            result["type"]
-            ==
+
+        assert isinstance(
+
+            result,
+
+            IntelligenceResponse
+
+        )
+
+
+        assert result.source == (
+
             "error"
+
+        )
+
+
+        assert result.answer == (
+
+            "Não foi possível processar a pergunta."
+
         )

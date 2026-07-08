@@ -3,7 +3,7 @@ from src.services.decision_engine import DecisionEngine
 from src.services.answer_generator import AnswerGenerator
 from src.logging import AppLogger
 from src.monitoring.metrics_tracker import MetricsTracker
-
+from src.core.interfaces.response import IntelligenceResponse
 
 
 class IntelligenceSystem:
@@ -101,10 +101,22 @@ class IntelligenceSystem:
                 )
 
 
-                return self.answer_generator.generate(
-                    internal_result.get(
-                        "answer"
-                    )
+                return IntelligenceResponse(
+
+                    answer=self.answer_generator.generate(
+                        internal_result.get(
+                            "answer"
+                        )
+                    ),
+
+                    source="analysis",
+
+                    confidence=1.0,
+
+                    metadata={
+                        "route": route
+                    }
+
                 )
 
 
@@ -129,9 +141,19 @@ class IntelligenceSystem:
                 )
 
 
-                return answer.get(
-                    "answer",
-                    "Resposta não encontrada."
+                return IntelligenceResponse(
+
+                    answer=answer.get(
+                        "answer",
+                        "Resposta não encontrada."
+                    ),
+
+                    source="rag",
+
+                    metadata={
+                        "route": route
+                    }
+
                 )
 
 
@@ -172,6 +194,7 @@ class IntelligenceSystem:
             )
 
 
+
             if decision.get(
                 "type"
             ) == "analysis":
@@ -182,8 +205,26 @@ class IntelligenceSystem:
                 )
 
 
-                return self.answer_generator.generate(
-                    answer
+                return IntelligenceResponse(
+
+                    answer=self.answer_generator.generate(
+                        answer
+                    ),
+
+                    source="hybrid",
+
+                    confidence=decision.get(
+                        "confidence"
+                    ),
+
+                    metadata={
+
+                        "route": route,
+
+                        "decision_type": "analysis"
+
+                    }
+
                 )
 
 
@@ -198,9 +239,25 @@ class IntelligenceSystem:
                 )
 
 
-                return answer.get(
-                    "answer"
+                return IntelligenceResponse(
+
+                    answer=answer.get(
+                        "answer",
+                        "Resposta não encontrada."
+                    ),
+
+                    source="hybrid",
+
+                    metadata={
+
+                        "route": route,
+
+                        "decision_type": "rag"
+
+                    }
+
                 )
+
 
 
             self.logger.info(
@@ -208,9 +265,27 @@ class IntelligenceSystem:
             )
 
 
-            return str(answer)
+            return IntelligenceResponse(
+
+                answer=str(answer),
+
+                source="hybrid",
+
+                metadata={
+
+                    "route": route,
+
+                    "decision_type": "direct"
+
+                }
+
+            )
 
 
+
+        # -------------------------
+        # Error response
+        # -------------------------
 
         self.logger.error(
             "[SYSTEM] Unable to process question."
@@ -224,11 +299,19 @@ class IntelligenceSystem:
         )
 
 
-        return {
+        return IntelligenceResponse(
 
-            "type":"error",
+            answer=
+                "Não foi possível processar a pergunta.",
 
-            "message":
-                "Não foi possível processar a pergunta."
+            source="error",
 
-        }
+            metadata={
+
+                "route": "unknown",
+
+                "status": "error"
+
+            }
+
+        )
