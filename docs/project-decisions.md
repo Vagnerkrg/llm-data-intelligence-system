@@ -732,3 +732,37 @@ Responsibilities remain separated:
 - Application Layer → intelligence orchestration.
 - Services Layer → RAG, analysis and decision execution.
 - Monitoring Layer → metrics and evaluation tracking.
+
+# Decision: Centralize Application Configuration and Error Handling
+
+## Context
+
+The system was growing with multiple application layers requiring consistent configuration management and standardized error responses.
+
+Previously, configuration values and error behaviors were distributed across different modules.
+
+## Decision
+
+Adopt a centralized configuration layer using:
+
+* Environment variables.
+* Application settings.
+* Shared constants.
+
+Adopt a standardized API error contract using dedicated exception handling modules.
+
+## Benefits
+
+* Improved maintainability.
+* Easier deployment configuration.
+* Better separation of responsibilities.
+* Consistent API behavior.
+* Preparation for production environments.
+
+## Consequence
+
+Future application modules must use:
+
+* `src.config.settings` for configuration access.
+* Centralized exception classes.
+* Standard API error responses.

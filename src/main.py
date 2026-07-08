@@ -1,21 +1,24 @@
 from fastapi import FastAPI
 
 from src.api.routes import router
+from src.config.settings import settings
 
 
 
 app = FastAPI(
 
-    title="LLM Data Intelligence System",
+    title=settings.app_name,
 
-    version="1.0.0"
+    version=settings.version
 
 )
 
 
 
 app.include_router(
+
     router
+
 )
 
 
@@ -23,11 +26,19 @@ app.include_router(
 @app.get("/")
 def health_check():
 
+
     return {
 
-        "status": "online",
+        "status":
+
+            "online",
 
         "service":
-            "LLM Data Intelligence System"
+
+            settings.app_name,
+
+        "version":
+
+            settings.version
 
     }

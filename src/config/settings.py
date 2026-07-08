@@ -7,6 +7,8 @@ environment variables.
 
 
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
+
 
 from src.config.constants import (
     APP_NAME,
@@ -38,11 +40,13 @@ class Settings(BaseSettings):
 
 
 
-    class Config:
+    model_config = ConfigDict(
 
-        env_file = ".env"
+        env_file=".env",
 
-        extra = "ignore"
+        extra="ignore"
+
+    )
 
 
 

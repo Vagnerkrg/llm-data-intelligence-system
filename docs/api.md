@@ -46,3 +46,27 @@ Returned when the system cannot process the request.
 ## Current Version
 
 V1.4 - Hybrid Intelligence API Layer
+
+
+# Error Handling Contract
+
+## Internal Server Errors
+
+Unexpected application errors are handled through the global API exception layer.
+
+Response format:
+
+```json
+{
+    "error": "internal_error",
+    "message": "Unable to process request"
+}
+```
+
+## Principles
+
+The API follows a consistent error response strategy:
+
+* Errors must have a predictable structure.
+* Internal implementation details should not be exposed.
+* Future error categories should extend the same contract.
