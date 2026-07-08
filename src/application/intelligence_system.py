@@ -4,6 +4,8 @@ from src.services.answer_generator import AnswerGenerator
 from src.logging import AppLogger
 from src.monitoring.metrics_tracker import MetricsTracker
 from src.core.interfaces.response import IntelligenceResponse
+from src.core.request_context import set_request_id
+
 
 
 class IntelligenceSystem:
@@ -46,6 +48,9 @@ class IntelligenceSystem:
         self,
         question: str
     ):
+
+
+        request_id = set_request_id()
 
 
         self.metrics.start_timer()
@@ -114,7 +119,8 @@ class IntelligenceSystem:
                     confidence=1.0,
 
                     metadata={
-                        "route": route
+                        "route": route,
+                        "request_id": request_id
                     }
 
                 )
@@ -151,7 +157,8 @@ class IntelligenceSystem:
                     source="rag",
 
                     metadata={
-                        "route": route
+                        "route": route,
+                        "request_id": request_id
                     }
 
                 )
@@ -221,7 +228,9 @@ class IntelligenceSystem:
 
                         "route": route,
 
-                        "decision_type": "analysis"
+                        "decision_type": "analysis",
+
+                        "request_id": request_id
 
                     }
 
@@ -233,6 +242,7 @@ class IntelligenceSystem:
                 answer,
                 dict
             ):
+
 
                 self.logger.info(
                     "[HYBRID] Dictionary response generated."
@@ -252,7 +262,9 @@ class IntelligenceSystem:
 
                         "route": route,
 
-                        "decision_type": "rag"
+                        "decision_type": "rag",
+
+                        "request_id": request_id
 
                     }
 
@@ -275,17 +287,15 @@ class IntelligenceSystem:
 
                     "route": route,
 
-                    "decision_type": "direct"
+                    "decision_type": "direct",
+
+                    "request_id": request_id
 
                 }
 
             )
 
 
-
-        # -------------------------
-        # Error response
-        # -------------------------
 
         self.logger.error(
             "[SYSTEM] Unable to process question."
@@ -304,13 +314,15 @@ class IntelligenceSystem:
             answer=
                 "Não foi possível processar a pergunta.",
 
-            source="error",
+            source="system",
 
             metadata={
 
                 "route": "unknown",
 
-                "status": "error"
+                "status": "error",
+
+                "request_id": request_id
 
             }
 

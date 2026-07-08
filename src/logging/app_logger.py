@@ -1,14 +1,5 @@
-"""
-Application logging interface.
-
-Provides a centralized logging abstraction
-with support for standard and structured logs.
-"""
-
-
 from src.logging import Logger
-
-from src.logging.structured_logger import StructuredLogger
+from src.core.request_context import get_request_id
 
 
 
@@ -17,7 +8,7 @@ class AppLogger:
     High-level logging interface.
 
     Provides a centralized logging abstraction
-    for the entire application.
+    with request tracing and structured metadata.
     """
 
 
@@ -31,8 +22,48 @@ class AppLogger:
         )
 
 
-        self.structured_logger = StructuredLogger(
-            name
+
+    def _format_message(
+        self,
+        message: str,
+        context: dict | None = None
+    ) -> str:
+        """
+        Formats log messages with request context
+        and optional structured metadata.
+        """
+
+
+        parts = []
+
+
+        request_id = get_request_id()
+
+
+        if request_id:
+
+            parts.append(
+                f"request_id={request_id}"
+            )
+
+
+
+        parts.append(
+            message
+        )
+
+
+
+        if context:
+
+            parts.append(
+                str(context)
+            )
+
+
+
+        return " | ".join(
+            parts
         )
 
 
@@ -43,21 +74,13 @@ class AppLogger:
         context: dict | None = None
     ):
 
-        if context:
+        self.logger.info(
 
-            self.structured_logger.info(
-
+            self._format_message(
                 message,
-
                 context
-
             )
 
-            return
-
-
-        self.logger.info(
-            message
         )
 
 
@@ -68,21 +91,13 @@ class AppLogger:
         context: dict | None = None
     ):
 
-        if context:
+        self.logger.warning(
 
-            self.structured_logger.warning(
-
+            self._format_message(
                 message,
-
                 context
-
             )
 
-            return
-
-
-        self.logger.warning(
-            message
         )
 
 
@@ -93,19 +108,11 @@ class AppLogger:
         context: dict | None = None
     ):
 
-        if context:
+        self.logger.error(
 
-            self.structured_logger.error(
-
+            self._format_message(
                 message,
-
                 context
-
             )
 
-            return
-
-
-        self.logger.error(
-            message
         )

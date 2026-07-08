@@ -50,11 +50,9 @@ class TestIntelligenceSystem:
         system = IntelligenceSystem()
 
 
-
         system.engine = FakeEngine(
 
             {
-
                 "route":"analysis",
 
                 "result":{
@@ -74,12 +72,7 @@ class TestIntelligenceSystem:
         )
 
 
-
-        system.answer_generator = (
-
-            FakeAnswerGenerator()
-
-        )
+        system.answer_generator = FakeAnswerGenerator()
 
 
 
@@ -112,6 +105,9 @@ class TestIntelligenceSystem:
             "analysis"
 
         )
+
+
+        assert "request_id" in result.metadata
 
 
 
@@ -177,6 +173,9 @@ class TestIntelligenceSystem:
         )
 
 
+        assert "request_id" in result.metadata
+
+
 
     def test_unknown_response(self):
 
@@ -218,7 +217,7 @@ class TestIntelligenceSystem:
 
         assert result.source == (
 
-            "error"
+            "system"
 
         )
 
@@ -228,3 +227,13 @@ class TestIntelligenceSystem:
             "Não foi possível processar a pergunta."
 
         )
+
+
+        assert result.metadata["status"] == (
+
+            "error"
+
+        )
+
+
+        assert "request_id" in result.metadata
