@@ -826,3 +826,13 @@ Test suite:
 
 The system now supports request traceability across execution flows,
 improving debugging, monitoring and future production readiness.
+
+## V1.5.1 Released
+
+- 39 tests passing
+- Evaluation layer stabilized
+- Monitoring validated
+- Production architecture checkpoint created
+
+Next milestone:
+V1.6 - Real Data Intelligence Layer
