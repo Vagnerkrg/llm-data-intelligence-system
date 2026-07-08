@@ -1,0 +1,26 @@
+[
+    {
+        "question": "Quais categorias de produtos existem nos dados?",
+        "expected_domain": "products"
+    },
+    {
+        "question": "Qual a média das avaliações dos clientes?",
+        "expected_domain": "reviews"
+    },
+    {
+        "question": "Qual foi o prazo de entrega dos pedidos?",
+        "expected_domain": "orders"
+    },
+    {
+        "question": "Quais estados possuem mais clientes?",
+        "expected_domain": "customers"
+    },
+    {
+        "question": "Quais produtos aparecem nos dados?",
+        "expected_domain": "products"
+    },
+    {
+        "question": "Como os clientes avaliaram os produtos?",
+        "expected_domain": "reviews"
+    }
+]

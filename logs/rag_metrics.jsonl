@@ -1,2 +1,8 @@
 {"timestamp": "2026-07-07T21:23:29.644234", "question": "teste", "domain": "reviews", "best_score": 0.65}
 {"timestamp": "2026-07-07T21:26:53.617017", "question": "Qual a média das avaliações dos clientes?", "domain": "reviews", "confidence": 3, "documents_found": 3, "best_score": 0.6257, "sources": ["reviews"], "fallback_used": false}
+{"timestamp": "2026-07-07T21:34:45.071092", "question": "Quais categorias de produtos existem nos dados?", "domain": "products", "confidence": 4, "documents_found": 3, "best_score": 0.5444, "sources": ["products"], "fallback_used": false}
+{"timestamp": "2026-07-07T21:34:45.767566", "question": "Qual a média das avaliações dos clientes?", "domain": "reviews", "confidence": 3, "documents_found": 3, "best_score": 0.6257, "sources": ["reviews"], "fallback_used": false}
+{"timestamp": "2026-07-07T21:34:46.199629", "question": "Qual foi o prazo de entrega dos pedidos?", "domain": "orders", "confidence": 4, "documents_found": 3, "best_score": 0.4892, "sources": ["orders"], "fallback_used": false}
+{"timestamp": "2026-07-07T21:34:46.598731", "question": "Quais estados possuem mais clientes?", "domain": "customers", "confidence": 3, "documents_found": 3, "best_score": 0.6773, "sources": ["customers"], "fallback_used": false}
+{"timestamp": "2026-07-07T21:34:47.095090", "question": "Quais produtos aparecem nos dados?", "domain": "products", "confidence": 2, "documents_found": 3, "best_score": 0.4561, "sources": ["products"], "fallback_used": false}
+{"timestamp": "2026-07-07T21:34:47.573822", "question": "Como os clientes avaliaram os produtos?", "domain": "reviews", "confidence": 2, "documents_found": 3, "best_score": 0.6175, "sources": ["reviews"], "fallback_used": false}

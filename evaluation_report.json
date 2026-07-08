@@ -1,0 +1,109 @@
+{
+    "total_questions": 6,
+    "correct_predictions": 6,
+    "routing_accuracy": 1.0,
+    "results": [
+        {
+            "question": "Quais categorias de produtos existem nos dados?",
+            "expected_domain": "products",
+            "predicted_domain": "products",
+            "correct": true,
+            "metrics": {
+                "question": "Quais categorias de produtos existem nos dados?",
+                "domain": "products",
+                "confidence": 4,
+                "documents_found": 3,
+                "best_score": 0.5444,
+                "sources": [
+                    "products"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Qual a média das avaliações dos clientes?",
+            "expected_domain": "reviews",
+            "predicted_domain": "reviews",
+            "correct": true,
+            "metrics": {
+                "question": "Qual a média das avaliações dos clientes?",
+                "domain": "reviews",
+                "confidence": 3,
+                "documents_found": 3,
+                "best_score": 0.6257,
+                "sources": [
+                    "reviews"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Qual foi o prazo de entrega dos pedidos?",
+            "expected_domain": "orders",
+            "predicted_domain": "orders",
+            "correct": true,
+            "metrics": {
+                "question": "Qual foi o prazo de entrega dos pedidos?",
+                "domain": "orders",
+                "confidence": 4,
+                "documents_found": 3,
+                "best_score": 0.4892,
+                "sources": [
+                    "orders"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quais estados possuem mais clientes?",
+            "expected_domain": "customers",
+            "predicted_domain": "customers",
+            "correct": true,
+            "metrics": {
+                "question": "Quais estados possuem mais clientes?",
+                "domain": "customers",
+                "confidence": 3,
+                "documents_found": 3,
+                "best_score": 0.6773,
+                "sources": [
+                    "customers"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quais produtos aparecem nos dados?",
+            "expected_domain": "products",
+            "predicted_domain": "products",
+            "correct": true,
+            "metrics": {
+                "question": "Quais produtos aparecem nos dados?",
+                "domain": "products",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.4561,
+                "sources": [
+                    "products"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Como os clientes avaliaram os produtos?",
+            "expected_domain": "reviews",
+            "predicted_domain": "reviews",
+            "correct": true,
+            "metrics": {
+                "question": "Como os clientes avaliaram os produtos?",
+                "domain": "reviews",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.6175,
+                "sources": [
+                    "reviews"
+                ],
+                "fallback_used": false
+            }
+        }
+    ]
+}
