@@ -44,13 +44,34 @@ class DataFrameRepository:
     ):
         """
         Returns a specific dataset.
+
+        Raises an error if the dataset does not exist.
         """
 
         datasets = self.load()
 
-        return datasets.get(
-            dataset_name
-        )
+
+        if dataset_name not in datasets:
+
+            raise ValueError(
+                f"Dataset not found: {dataset_name}"
+            )
+
+
+        return datasets[dataset_name]
+
+
+    def exists(
+        self,
+        dataset_name
+    ):
+        """
+        Checks if a dataset exists.
+        """
+
+        datasets = self.load()
+
+        return dataset_name in datasets
 
 
     def list_datasets(
