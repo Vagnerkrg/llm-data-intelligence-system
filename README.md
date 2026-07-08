@@ -109,3 +109,42 @@ Structured Data    Knowledge Base
               |
               v
           Final Answer
+
+
+
+
+          ##V0.3
+
+
+                              USER
+                     |
+                     v
+              Query Router
+                     |
+                     v
+             Domain Detection
+                     |
+                     v
+          Metadata Filter Search
+                     |
+                     v
+             Similarity Score
+                     |
+          +----------+----------+
+          |                     |
+     Score OK              Score baixo
+          |                     |
+          v                     v
+    Use Context          Global Fallback
+          |
+          v
+       RAG Metrics
+          |
+          v
+    Prompt Template
+          |
+          v
+          LLM
+          |
+          v
+       Response

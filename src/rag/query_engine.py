@@ -3,6 +3,7 @@ from src.index.vector_index import VectorIndex
 from src.llm.groq_client import GroqClient
 from src.rag.prompt_templates import RAGPromptTemplate
 from src.query.query_router import QueryRouter
+from src.evaluation.rag_metrics import RAGMetrics
 
 
 
@@ -25,6 +26,9 @@ class RAGQueryEngine:
         |
         v
     Fallback Search
+        |
+        v
+    Metrics Evaluation
         |
         v
     Prompt Template
@@ -67,6 +71,11 @@ class RAGQueryEngine:
         )
 
 
+        self.metrics = (
+            RAGMetrics()
+        )
+
+
 
     def retrieve(
         self,
@@ -75,8 +84,8 @@ class RAGQueryEngine:
         min_score=0.40
     ):
         """
-        Retrieves relevant documents using routing
-        with fallback to global search.
+        Retrieves documents with domain routing
+        and fallback search.
         """
 
 
@@ -107,20 +116,26 @@ class RAGQueryEngine:
         )
 
 
+        fallback_used = False
+
+
         if results:
 
             best_score = results[0]["score"]
+
 
             if best_score < min_score:
 
                 results = self.vector_index.search(
                     embedding,
-                    top_k=top_k,
-                    source=None
+                    top_k=top_k
                 )
 
+                fallback_used = True
 
-        return results, route
+
+
+        return results, route, fallback_used
 
 
 
@@ -128,16 +143,16 @@ class RAGQueryEngine:
         self,
         results
     ):
-        """
-        Creates context from retrieved documents.
-        """
 
 
         return "\n\n".join(
+
             [
                 item["document"]
+
                 for item in results
             ]
+
         )
 
 
@@ -147,12 +162,9 @@ class RAGQueryEngine:
         question,
         top_k=3
     ):
-        """
-        Executes complete RAG pipeline.
-        """
 
 
-        results, route = self.retrieve(
+        results, route, fallback_used = self.retrieve(
             question,
             top_k
         )
@@ -174,12 +186,27 @@ class RAGQueryEngine:
         )
 
 
+        metrics = self.metrics.evaluate(
+
+            question,
+
+            route,
+
+            results,
+
+            fallback_used
+
+        )
+
+
         return {
 
             "answer": answer,
 
             "route": route,
 
-            "sources": results
+            "sources": results,
+
+            "metrics": metrics
 
         }
