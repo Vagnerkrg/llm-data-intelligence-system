@@ -836,3 +836,172 @@ improving debugging, monitoring and future production readiness.
 
 Next milestone:
 V1.6 - Real Data Intelligence Layer
+
+---
+
+# V1.6 - Real Data Layer Expansion
+
+## Objetivo
+
+Evolução da camada de dados para suportar um fluxo completo entre dados brutos, processamento, persistência e consumo pelos módulos de inteligência.
+
+## Implementações
+
+### Processed Data Layer
+
+Criada uma nova camada para consumo de dados processados.
+
+Novo componente:
+
+src/data/processed_loader.py
+
+
+Responsabilidades:
+
+* carregar datasets processados em formato parquet;
+* disponibilizar dados preparados para os agentes;
+* separar leitura de dados tratados da leitura dos dados originais.
+
+
+### Repository Evolution
+
+Atualizado o:
+
+src/analysis/dataframe_repository.py
+
+
+Nova estratégia:
+
+* priorizar datasets processados;
+* utilizar dados raw como fallback;
+* manter compatibilidade com agentes existentes.
+
+
+Fluxo atualizado:
+
+Raw Data
+|
+v
+Data Pipeline
+|
+v
+Processed Data
+|
+v
+DataFrame Repository
+|
++--> Analytics
++--> Agents
++--> Intelligence Layer
+
+## Validação
+
+Suite completa de testes executada:
+
+62 passed
+
+
+Todas as camadas existentes permaneceram funcionais:
+
+* Data Layer
+* Preprocessing
+* Analytics
+* RAG
+* Hybrid Intelligence
+* API
+* Monitoring
+* Evaluation
+
+
+## Decisão Técnica
+
+A separação entre:
+
+* Raw Data Loader
+* Processed Data Loader
+
+foi adotada para manter responsabilidades independentes e permitir evolução futura para:
+
+* bancos analíticos;
+* data warehouses;
+* pipelines distribuídos;
+* novos formatos de armazenamento.
+
+
+# V1.6 - Real Data Intelligence Layer Completed
+
+## Overview
+
+The V1.6 milestone expanded the data architecture,
+creating a complete flow between processed datasets,
+analytics components and intelligence services.
+
+## Implemented Features
+
+### Data Processing Integration
+
+Implemented:
+
+- Processed dataset loading
+- DataFrame repository evolution
+- Analytics consumption layer
+
+### Analytics Service Layer
+
+Created:
+
+src/services/data_intelligence_service.py
+
+
+Responsibilities:
+
+- expose analytical operations through a service interface;
+- separate agents from analytical implementation;
+- prepare architecture for future intelligence modules.
+
+
+## Architecture Flow
+
+Raw Data
+
+↓
+
+Preprocessing Pipeline
+
+↓
+
+Processed Data
+
+↓
+
+DataFrame Repository
+
+↓
+
+Analytics Engine
+
+↓
+
+Data Intelligence Service
+
+↓
+
+Agents / Intelligence Layer
+
+
+## Validation
+
+Test suite:
+
+62 passed
+
+
+## Status
+
+V1.6 completed successfully.
+
+
+Next milestone:
+
+V1.7 - Data Intelligence Expansion
+

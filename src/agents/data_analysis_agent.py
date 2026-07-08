@@ -1,7 +1,8 @@
 from typing import Dict
 
+from src.services.data_intelligence_service import DataIntelligenceService
+from src.analysis.analytics_engine import AnalyticsEngine
 from src.analysis.dataframe_repository import DataFrameRepository
-from src.analysis.statistics_engine import StatisticsEngine
 from src.logging import AppLogger
 
 
@@ -10,29 +11,50 @@ class DataAnalysisAgent:
     """
     Agent responsible for structured data analysis.
 
-    Uses pandas datasets through the repository
-    and executes analytical operations.
+    Uses DataIntelligenceService as the primary abstraction layer.
+
+    Maintains backward compatibility with previous
+    repository and analytics_engine injection.
     """
 
 
     def __init__(
         self,
-        repository=None,
-        statistics_engine=None
+        intelligence_service=None,
+        analytics_engine=None,
+        repository=None
     ):
 
-        self.repository = (
-            repository
-            if repository
-            else DataFrameRepository()
-        )
+
+        if intelligence_service:
+
+            self.intelligence = intelligence_service
 
 
-        self.statistics_engine = (
-            statistics_engine
-            if statistics_engine
-            else StatisticsEngine()
-        )
+        else:
+
+            if analytics_engine:
+
+                self.intelligence = DataIntelligenceService(
+                    analytics_engine=analytics_engine
+                )
+
+
+            elif repository:
+
+                analytics = AnalyticsEngine(
+                    repository=repository
+                )
+
+                self.intelligence = DataIntelligenceService(
+                    analytics_engine=analytics
+                )
+
+
+            else:
+
+                self.intelligence = DataIntelligenceService()
+
 
 
         self.logger = AppLogger(
@@ -45,9 +67,6 @@ class DataAnalysisAgent:
         self,
         question: str
     ) -> Dict:
-        """
-        Executes analytical questions.
-        """
 
 
         self.logger.info(
@@ -59,28 +78,11 @@ class DataAnalysisAgent:
 
 
 
-        # Count products
-
         if "quantos produtos" in text:
 
 
-            self.logger.info(
-                "[ANALYSIS_AGENT] Operation: count products"
-            )
-
-
-            products = self.repository.get(
+            result = self.intelligence.count_dataset_rows(
                 "products"
-            )
-
-
-            result = self.statistics_engine.count_rows(
-                products
-            )
-
-
-            self.logger.info(
-                f"[ANALYSIS_AGENT] Products count result: {result}"
             )
 
 
@@ -98,28 +100,11 @@ class DataAnalysisAgent:
 
 
 
-        # Count customers
-
         if "quantos clientes" in text:
 
 
-            self.logger.info(
-                "[ANALYSIS_AGENT] Operation: count customers"
-            )
-
-
-            customers = self.repository.get(
+            result = self.intelligence.count_dataset_rows(
                 "customers"
-            )
-
-
-            result = self.statistics_engine.count_rows(
-                customers
-            )
-
-
-            self.logger.info(
-                f"[ANALYSIS_AGENT] Customers count result: {result}"
             )
 
 
@@ -137,23 +122,11 @@ class DataAnalysisAgent:
 
 
 
-        # Product columns
-
         if "colunas" in text:
 
 
-            self.logger.info(
-                "[ANALYSIS_AGENT] Operation: get columns"
-            )
-
-
-            products = self.repository.get(
+            result = self.intelligence.get_dataset_columns(
                 "products"
-            )
-
-
-            result = self.statistics_engine.columns(
-                products
             )
 
 
@@ -171,33 +144,19 @@ class DataAnalysisAgent:
 
 
 
-        # Most frequent product categories
-
         if (
             "categoria" in text
             and
             (
                 "mais" in text
-                or
-                "maior" in text
-                or
-                "possui" in text
+                or "maior" in text
+                or "possui" in text
             )
         ):
 
 
-            self.logger.info(
-                "[ANALYSIS_AGENT] Operation: category frequency"
-            )
-
-
-            products = self.repository.get(
-                "products"
-            )
-
-
-            result = self.statistics_engine.value_counts(
-                products,
+            result = self.intelligence.get_value_counts(
+                "products",
                 "product_category_name",
                 limit=5
             )
@@ -217,11 +176,6 @@ class DataAnalysisAgent:
 
             }
 
-
-
-        self.logger.warning(
-            "[ANALYSIS_AGENT] Unknown analytical question."
-        )
 
 
         return {

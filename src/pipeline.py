@@ -2,7 +2,7 @@ from pathlib import Path
 
 from src.data.data_loader import OlistDataLoader
 from src.data.validator import DataValidator
-from src.preprocessing.preprocess import DataPreprocessor
+from src.preprocessing.pipeline import PreprocessingPipeline
 
 
 class DataPipeline:
@@ -22,6 +22,7 @@ class DataPipeline:
         data_path="data/raw/olist",
         output_path="data/processed"
     ):
+
         self.loader = OlistDataLoader(
             data_path=data_path
         )
@@ -93,6 +94,7 @@ class DataPipeline:
                 dataframe
             )
 
+
             validation_result = (
                 validator.validate()
             )
@@ -103,13 +105,13 @@ class DataPipeline:
             )
 
 
-            preprocessor = DataPreprocessor(
+            preprocessing_pipeline = PreprocessingPipeline(
                 dataframe
             )
 
 
             processed_dataframe = (
-                preprocessor.process()
+                preprocessing_pipeline.run()
             )
 
 

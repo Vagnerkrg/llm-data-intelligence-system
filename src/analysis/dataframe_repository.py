@@ -1,18 +1,28 @@
+from pathlib import Path
+
 from src.data.data_loader import OlistDataLoader
+from src.data.processed_loader import ProcessedDataLoader
 
 
 class DataFrameRepository:
     """
     Repository responsible for loading and providing
-    access to the Olist datasets.
+    access to project datasets.
+
+    Priority:
+
+    1. Processed datasets (parquet)
+    2. Raw datasets (CSV fallback)
 
     DataFrames are loaded once and kept in memory,
     allowing multiple agents to reuse the same data.
     """
 
+
     def __init__(
         self,
-        data_loader=None
+        data_loader=None,
+        processed_loader=None
     ):
 
         self.data_loader = (
@@ -21,21 +31,67 @@ class DataFrameRepository:
             else OlistDataLoader()
         )
 
+
+        self.processed_loader = (
+            processed_loader
+            if processed_loader
+            else ProcessedDataLoader()
+        )
+
+
         self._datasets = None
+
+
+
+    def _processed_exists(self):
+        """
+        Checks if processed data is available.
+        """
+
+        path = Path(
+            "data/processed"
+        )
+
+        return (
+            path.exists()
+            and
+            any(
+                path.glob(
+                    "*.parquet"
+                )
+            )
+        )
+
 
 
     def load(self):
         """
-        Loads all datasets into memory.
+        Loads datasets into memory.
+
+        Uses processed data when available.
+        Falls back to raw CSV otherwise.
         """
+
 
         if self._datasets is None:
 
-            self._datasets = (
-                self.data_loader.load_all()
-            )
+
+            if self._processed_exists():
+
+                self._datasets = (
+                    self.processed_loader.load_all()
+                )
+
+
+            else:
+
+                self._datasets = (
+                    self.data_loader.load_all()
+                )
+
 
         return self._datasets
+
 
 
     def get(
@@ -45,8 +101,9 @@ class DataFrameRepository:
         """
         Returns a specific dataset.
 
-        Raises an error if the dataset does not exist.
+        Raises an error if dataset does not exist.
         """
+
 
         datasets = self.load()
 
@@ -61,6 +118,7 @@ class DataFrameRepository:
         return datasets[dataset_name]
 
 
+
     def exists(
         self,
         dataset_name
@@ -69,17 +127,20 @@ class DataFrameRepository:
         Checks if a dataset exists.
         """
 
+
         datasets = self.load()
 
         return dataset_name in datasets
+
 
 
     def list_datasets(
         self
     ):
         """
-        Returns the available dataset names.
+        Returns available dataset names.
         """
+
 
         return list(
             self.load().keys()
