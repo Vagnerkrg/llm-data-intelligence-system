@@ -1,176 +1,403 @@
-# 🚀 LLM Data Intelligence System (RAG + Agents)
+# 🚀 LLM Data Intelligence System
 
-## 🎯 Objetivo
+## RAG + Data Analysis + Intelligent Decision Layer
 
-Este projeto tem como objetivo construir um sistema completo de **Data Intelligence baseado em LLMs**, integrando análise de dados estruturados, embeddings, bancos de dados vetoriais, arquitetura RAG (Retrieval-Augmented Generation) e agentes inteligentes com ferramentas personalizadas.
+## Overview
 
-O sistema será desenvolvido de forma incremental, simulando um ambiente real de engenharia de software aplicado a Inteligência Artificial.
+The **LLM Data Intelligence System** is a modular AI platform designed to transform structured and unstructured data into actionable intelligence through natural language interaction.
+
+The project combines:
+
+- Large Language Models (LLMs)
+- Retrieval-Augmented Generation (RAG)
+- Semantic Search
+- Vector Databases
+- Data Analysis Agents
+- Hybrid Intelligence Routing
+- Decision-based Answer Generation
+
+The objective is to build a production-oriented AI foundation capable of evolving into enterprise intelligence applications.
 
 ---
 
-## 🧠 Proposta do Sistema
+# 🎯 Project Objective
 
-O sistema permitirá:
+The system aims to allow users to ask questions in natural language and receive answers based on:
 
-- Análise de dados estruturados com Pandas
-- Geração de embeddings para representação semântica
-- Armazenamento e busca em banco de dados vetorial
-- Recuperação de contexto via RAG
-- Geração de respostas com LLMs (Groq)
-- Criação de agentes inteligentes com ferramentas personalizadas
+- structured datasets;
+- semantic knowledge retrieval;
+- analytical operations;
+- contextual AI generation.
+
+Example:
+
+User:
+
+```
+How many products exist?
+```
+
+System:
+
+```
+The products dataset contains 32951 records.
+```
 
 ---
 
-## 🏗️ Arquitetura Inicial
+# 🧠 Current Capabilities
 
-```text
-Dados Estruturados (CSV / Pandas)
-   ↓
-Processamento e Limpeza
-   ↓
-Embeddings
-   ↓
-Banco Vetorial
-   ↓
-RAG (Retrieval-Augmented Generation)
-   ↓
-LLM (Groq)
-   ↓
-Agentes Inteligentes
-   ↓
-Sistema de Resposta
+The platform currently supports:
 
-## 📁 Estrutura do Projeto
+## Data Intelligence
 
-- `src/` → código principal do sistema  
-- `notebooks/` → experimentos e testes  
-- `data/` → datasets  
-- `models/` → modelos e artefatos  
-- `requirements.txt` → dependências  
-- `.gitignore` → arquivos ignorados  
-- `README.md` → documentação do projeto  
+- Dataset loading
+- Data repository abstraction
+- Structured data analysis
+- Statistical operations
+- Column inspection
+- Category analysis
 
-##Estrutura do projeto em foco v0,1
+---
 
-                LLM Data Intelligence System
+## RAG Pipeline
 
+- Document processing
+- Embedding generation
+- Vector indexing
+- Semantic retrieval
+- Context-based answers
+- Retrieval evaluation metrics
 
-        Data Layer
-             |
-             |
-   ---------------------
-   |                   |
-Structured Data    Knowledge Base
-(Pandas/SQL)       (Embeddings)
-   |                   |
-   |              Vector Database
-   |                   |
-   -------> Intelligence Layer
-                    |
-                  RAG
-                    |
-                  LLM
-                    |
-                Agent Layer
-                    |
-               Applications
+---
 
+## Hybrid Intelligence
 
-##Estrutura do projeto em foco Atuallização v0.2
+The system combines two intelligence sources:
 
-                    USER QUESTION
-                         |
-                         v
-                 QueryRouter
-                         |
-                         v
-              +----------------+
-              | Domain Routing |
-              +----------------+
-                         |
-                         v
-              Metadata Filtering
-                         |
-                         v
-                Vector Retrieval
-                         |
-              +----------+----------+
-              |                     |
-        score suficiente       score baixo
-              |                     |
-              v                     v
-        usa contexto        busca global
-              |
-              v
-          Prompt Template
-              |
-              v
-             LLM
-              |
-              v
-          Final Answer
+### RAG Layer
 
+Responsible for:
 
+- semantic search;
+- contextual retrieval;
+- knowledge-based answers.
 
+### Analysis Layer
 
-          ##V0.3
+Responsible for:
 
+- deterministic calculations;
+- statistics;
+- structured dataset operations.
 
-                    USER
-                     |
-                     v
-              Query Router
-                     |
-                     v
-             Domain Detection
-                     |
-                     v
-          Metadata Filter Search
-                     |
-                     v
-             Similarity Score
-                     |
-          +----------+----------+
-          |                     |
-     Score OK              Score baixo
-          |                     |
-          v                     v
-    Use Context          Global Fallback
-          |
-          v
-       RAG Metrics
-          |
-          v
-    Prompt Template
-          |
-          v
-          LLM
-          |
-          v
-       Response
+---
 
+## Decision Layer
 
-       ## Current Architecture
-                User Question
-                       │
-                       ▼
-                 Query Router
-                       │
-        ┌──────────────┴───────────────┐
-        ▼                              ▼
- Metadata Filter                 General Search
-        │
-        ▼
- Vector Search
-        │
-        ▼
- Retrieval Evaluation
-        │
-        ▼
- Prompt Builder
-        │
-        ▼
-      Groq LLM
-        │
-        ▼
- Generated Answer
+The Decision Engine selects the most appropriate answer source:
+
+```
+                 User Question
+                       |
+                       v
+              Hybrid Query Engine
+                       |
+          +------------+-------------+
+          |                          |
+          v                          v
+        RAG                    Data Analysis
+          |                          |
+          +------------+-------------+
+                       |
+                       v
+              Decision Engine
+                       |
+                       v
+             Answer Generation
+                       |
+                       v
+                Final Response
+```
+
+---
+
+# 🏗️ Current Architecture
+
+```
+User Question
+
+        |
+        v
+
+IntelligenceSystem
+
+        |
+        v
+
+HybridQueryEngine
+
+        |
+        +----------------------+
+        |                      |
+        v                      v
+
+   RAG Engine          Data Analysis Agent
+
+        |                      |
+        |                      |
+        +----------+-----------+
+
+                   |
+                   v
+
+            Decision Engine
+
+                   |
+                   v
+
+           Answer Generator
+
+                   |
+                   v
+
+             Final Response
+```
+
+---
+
+# 📁 Project Structure
+
+```
+llm-data-intelligence-system/
+
+├── src/
+│
+├── agents/
+│   └── data_analysis_agent.py
+│
+├── analysis/
+│   ├── dataframe_repository.py
+│   ├── statistics_engine.py
+│   └── analysis_router.py
+│
+├── application/
+│   └── intelligence_system.py
+│
+├── embeddings/
+│
+├── index/
+│
+├── llm/
+│
+├── rag/
+│   └── query_engine.py
+│
+├── services/
+│   ├── hybrid_query_engine.py
+│   ├── decision_engine.py
+│   ├── answer_generator.py
+│   └── response_formatter.py
+│
+├── data/
+│
+└── pipeline.py
+```
+
+---
+
+# 🔬 Example Interactions
+
+## Data Analysis
+
+Question:
+
+```
+How many products exist?
+```
+
+Response:
+
+```
+The products dataset contains 32951 records.
+```
+
+---
+
+## Hybrid Intelligence
+
+Question:
+
+```
+Which category has the most products?
+```
+
+Response:
+
+```
+The category with the highest number of products is
+'cama_mesa_banho', with 3029 records.
+```
+
+---
+
+## RAG Search
+
+Question:
+
+```
+Which products appear in the data?
+```
+
+Response:
+
+The system retrieves relevant product documents and generates a contextual answer.
+
+---
+
+# 🧩 Technology Stack
+
+## Programming
+
+- Python
+
+## Data Processing
+
+- Pandas
+- CSV datasets
+- Parquet processing
+
+## AI Components
+
+- LLM APIs
+- Embedding Models
+- Retrieval-Augmented Generation
+
+## Vector Search
+
+- Vector indexes
+- Semantic similarity search
+
+## Development
+
+- Git
+- Virtual environments
+- Modular architecture
+
+---
+
+# 📈 Project Evolution
+
+## Phase 0 — Foundation
+
+Completed:
+
+- Project structure
+- Environment setup
+- Documentation foundation
+
+---
+
+## Phase 1 — Knowledge Pipeline
+
+Completed:
+
+- Data loading
+- Preprocessing
+- Embeddings
+- Vector indexing
+- RAG pipeline
+
+---
+
+## Phase 2 — Hybrid Intelligence Platform
+
+Current:
+
+Completed:
+
+- Data Analysis Agent
+- Statistics Engine
+- Hybrid Query Engine
+- Decision Engine
+- Answer Generation Layer
+- Application orchestration layer
+
+---
+
+## Future Evolution
+
+Planned:
+
+- Advanced retrieval strategies
+- Evaluation framework expansion
+- AI agents with tools
+- APIs
+- Web interface
+- Authentication
+- Enterprise integrations
+- Production deployment
+
+---
+
+# 🛡️ Engineering Principles
+
+The project follows:
+
+- modular architecture;
+- separation of responsibilities;
+- reproducible processing;
+- documented decisions;
+- scalable components;
+- provider independence.
+
+---
+
+# 🌎 Long-Term Vision
+
+The goal is not only to create a single AI application.
+
+The objective is to build a reusable AI engineering ecosystem capable of supporting:
+
+- business intelligence solutions;
+- enterprise knowledge systems;
+- intelligent assistants;
+- automated analysis platforms;
+- future AI products.
+
+---
+
+# 📌 Current Status
+
+Version:
+
+```
+v0.7
+```
+
+Current milestone:
+
+```
+Hybrid Data Intelligence Foundation Completed
+```
+
+Implemented:
+
+✅ Data pipeline  
+✅ RAG system  
+✅ Semantic retrieval  
+✅ Data analysis layer  
+✅ Hybrid orchestration  
+✅ Decision layer  
+✅ Answer generation  
+✅ Application interface  
+
+Next milestone:
+
+```
+Documentation consolidation
++
+Architecture stabilization
++
+Evaluation improvements
+```
