@@ -132,3 +132,29 @@ Itens registrados como backlog.
 Nenhuma refatoração será realizada na versão atual.
 
 A implementação atual permanece estável enquanto novas funcionalidades são adicionadas.
+
+
+## V1.6 - Real Data Intelligence Layer
+
+### Completed
+
+- Added data contracts:
+  - DataSource
+  - DatasetInfo
+  - LoadResult
+
+- Integrated OlistDataLoader with data contracts
+
+- Added data layer tests:
+  - test_models.py
+  - test_validators.py
+  - test_data_loader.py
+
+### Validation
+
+- Full test suite:
+  - 49 tests passing
+
+### Next
+
+- Implement Preprocessing Layer
