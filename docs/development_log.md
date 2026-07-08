@@ -1005,3 +1005,42 @@ Next milestone:
 
 V1.7 - Data Intelligence Expansion
 
+---
+
+# V1.7 - Data Intelligence Expansion
+
+## Objetivo
+
+Evoluir a camada de inteligência de dados criada na V1.6,
+ampliando as capacidades analíticas e preparando o sistema
+para cenários mais próximos de uso empresarial.
+
+
+## Status
+
+Em desenvolvimento.
+
+
+## Planejamento Inicial
+
+Componentes envolvidos:
+
+- Analytics Engine;
+- Data Intelligence Service;
+- Data Analysis Agent;
+- testes automatizados.
+
+
+## Direção Arquitetural
+
+A V1.7 continuará mantendo:
+
+- separação entre dados brutos e processados;
+- serviços desacoplados;
+- agentes especializados;
+- validação automatizada.
+
+
+Branch:
+
+feature/v1.7-data-intelligence-expansion

@@ -717,3 +717,33 @@ Main evolutions:
 * Full test validation with 62 passing tests.
 
 The project is now prepared for the next evolution cycle focused on expanding intelligence capabilities.
+
+
+---
+
+# V1.7 - Data Intelligence Expansion
+
+Status:
+
+🚧 In Development
+
+
+Objetivo:
+
+Expandir a camada de inteligência de dados,
+melhorando a capacidade analítica do sistema
+sobre datasets reais.
+
+
+Planejado:
+
+- evolução do Analytics Engine;
+- expansão do Data Intelligence Service;
+- melhorias no Data Analysis Agent;
+- novas capacidades analíticas;
+- aumento da cobertura de testes.
+
+
+Branch:
+
+feature/v1.7-data-intelligence-expansion
