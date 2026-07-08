@@ -116,7 +116,7 @@ Structured Data    Knowledge Base
           ##V0.3
 
 
-                              USER
+                    USER
                      |
                      v
               Query Router
