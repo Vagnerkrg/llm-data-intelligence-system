@@ -158,28 +158,35 @@ A implementação atual permanece estável enquanto novas funcionalidades são a
 ### Next
 
 - Implement Preprocessing Layer
-
 ## V1.6 - Real Data Intelligence Layer
 
 ### Completed
 
 #### Data Layer
-- Data loading contracts implemented
-- Dataset metadata models created
-- Data validation layer covered by tests
+
+- Implemented real data loading foundation
+- Added dataset contracts:
+  - DataSource
+  - DatasetInfo
+  - LoadResult
+- Added validation layer
+- Added automated tests for data components
 
 #### Preprocessing Layer
-- Added modular preprocessing architecture
+
+- Created modular preprocessing architecture
 - Implemented DataCleaner
 - Implemented DataTransformer
 - Implemented PreprocessingPipeline
+- Migrated preprocessing responsibilities into separated modules
 
 ### Validation
 
 Full test suite:
 
-57 tests passing
+- 57 tests passing
 
-### Next
+### Next Steps
 
-Connect processed datasets with Intelligence Engine.
+- Connect processed datasets with Data Intelligence Engine
+- Prepare real data flow for RAG and Analysis layers
