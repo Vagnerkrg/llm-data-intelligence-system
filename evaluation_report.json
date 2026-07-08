@@ -2,6 +2,30 @@
     "total_questions": 6,
     "correct_predictions": 6,
     "routing_accuracy": 1.0,
+    "average_retrieval_score": 0.5684,
+    "fallback_rate": 0.0,
+    "domain_metrics": {
+        "products": {
+            "questions": 2,
+            "accuracy": 1.0,
+            "average_score": 0.5002
+        },
+        "reviews": {
+            "questions": 2,
+            "accuracy": 1.0,
+            "average_score": 0.6216
+        },
+        "orders": {
+            "questions": 1,
+            "accuracy": 1.0,
+            "average_score": 0.4892
+        },
+        "customers": {
+            "questions": 1,
+            "accuracy": 1.0,
+            "average_score": 0.6773
+        }
+    },
     "results": [
         {
             "question": "Quais categorias de produtos existem nos dados?",
