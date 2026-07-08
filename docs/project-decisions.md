@@ -646,3 +646,21 @@ Metrics will store structured execution data for monitoring, evaluation and futu
 Reason:
 
 This separation improves scalability and allows future integration with monitoring systems without coupling operational logs with analytics data.
+
+
+## Decision - Extend Existing Evaluation Layer Instead of Creating Separate Monitoring System
+
+Date:
+2026-07-08
+
+Decision:
+
+The project will extend the existing evaluation architecture by adding monitoring capabilities instead of creating an isolated quality system.
+
+Reason:
+
+The existing evaluation modules already contain benchmark and answer evaluation responsibilities. Extending this layer keeps the architecture cohesive and avoids duplicated evaluation logic.
+
+Implementation:
+
+QualityMonitor was added as an orchestration layer and EvaluationHistory as a persistence component.
