@@ -297,6 +297,47 @@ Resposta Final
 
 ---
 
+# V1.1 - Automated Testing Foundation
+
+## Objetivo
+
+Adicionar uma camada inicial de testes automatizados para validar os componentes principais do sistema.
+
+## Implementações
+
+Criada estrutura:
+tests/
+
+├── test_analysis/
+├── test_services/
+└── test_application/
+
+Configurado:
+
+- pytest;
+- ambiente de testes;
+- execução automatizada.
+
+## Validação
+
+Primeira execução:
+
+pytest
+
+3 passed
+
+Componentes validados:
+
+- IntelligenceSystem;
+- integração entre camadas;
+- fluxo completo de perguntas e respostas.
+
+## Resultado
+
+O projeto passou a possuir uma base inicial de qualidade de software, permitindo evolução mais segura dos próximos módulos.
+
+---
+
 # V1.1 - Hybrid Intelligence Validation
 
 ## Objetivo

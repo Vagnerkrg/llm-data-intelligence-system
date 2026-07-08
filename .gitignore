@@ -16,3 +16,6 @@ data/processed/
 
 # Private product ideas
 Ideias_futuras_produtos/
+
+# Runtime logs
+logs/

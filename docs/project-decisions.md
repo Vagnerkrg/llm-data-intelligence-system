@@ -603,3 +603,10 @@ This document should be updated whenever a significant:
 decision is made.
 
 The objective is preserving the reasoning behind the evolution of the LLM Data Intelligence System.
+
+
+
+
+Foi solicitado a entrada desse paragrafo 
+
+Decision 10 — Automated Testing Strategy ( sera melhorado ou colocado em seu devido lugar no futuro )
