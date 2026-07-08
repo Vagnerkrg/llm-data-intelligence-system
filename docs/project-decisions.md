@@ -610,3 +610,39 @@ The objective is preserving the reasoning behind the evolution of the LLM Data I
 Foi solicitado a entrada desse paragrafo 
 
 Decision 10 — Automated Testing Strategy ( sera melhorado ou colocado em seu devido lugar no futuro )
+
+# Decision XX — Automated Testing as a Development Standard
+
+## Context
+
+The project reached a level of architectural maturity where new features should be developed with automated validation.
+
+## Decision
+
+Automated tests become part of the standard development workflow.
+
+Every new module should be accompanied by unit tests whenever applicable.
+
+## Result
+
+The first testing foundation was established with validation of the main architectural components.
+
+This decision increases project reliability, facilitates maintenance, and supports long-term evolution.
+
+
+## Decision - Separate Logging and Metrics Layers
+
+Date:
+2026-07-08
+
+Decision:
+
+The project will maintain separate responsibilities between logging and metrics.
+
+Logging will record operational events and debugging information.
+
+Metrics will store structured execution data for monitoring, evaluation and future production dashboards.
+
+Reason:
+
+This separation improves scalability and allows future integration with monitoring systems without coupling operational logs with analytics data.

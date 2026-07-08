@@ -489,3 +489,61 @@ O projeto seguirá os princípios:
 * arquitetura modular;
 * separação entre núcleo técnico e produto final;
 * preparação para futura comercialização.
+
+
+# V1.1 - Automated Testing Foundation
+
+## Objetivo
+
+Validar os principais componentes da arquitetura através de testes automatizados.
+
+## Implementações
+
+Criada a estrutura completa de testes:
+
+tests/
+
+├── test_analysis/
+├── test_services/
+└── test_application/
+
+Componentes validados:
+
+- StatisticsEngine
+- DataAnalysisAgent
+- AnswerGenerator
+- DecisionEngine
+- HybridQueryEngine
+- IntelligenceSystem
+
+## Resultado
+
+Primeira suíte de testes concluída com sucesso.
+
+24 testes automatizados aprovados.
+
+A plataforma passa a possuir uma base validada para evolução contínua.
+
+## V1.2 - Logging & Observability Foundation
+
+Status:
+Completed
+
+Implemented:
+
+- MetricsTracker monitoring layer
+- Application execution metrics
+- Route tracking
+- Execution status tracking
+- Error tracking
+- Integration with IntelligenceSystem
+
+Validation:
+
+- 25 automated tests passing
+- application_metrics.jsonl generated successfully
+
+Result:
+
+The system now has a structured observability foundation combining application logs and execution metrics.
+

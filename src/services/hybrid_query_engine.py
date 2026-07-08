@@ -2,6 +2,7 @@ from src.analysis.analysis_router import AnalysisRouter
 from src.agents.data_analysis_agent import DataAnalysisAgent
 from src.rag.query_engine import RAGQueryEngine
 from src.services.decision_engine import DecisionEngine
+from src.logging import AppLogger
 
 
 
@@ -57,6 +58,11 @@ class HybridQueryEngine:
         )
 
 
+        self.logger = AppLogger(
+            self.__class__.__name__
+        )
+
+
 
     def query(
         self,
@@ -64,13 +70,33 @@ class HybridQueryEngine:
     ):
 
 
+        self.logger.info(
+            f"[HYBRID_QUERY] Question received: {question}"
+        )
+
+
         route = self.analysis_router.route(
             question
         )
 
 
+        route_type = route.get(
+            "type"
+        )
 
-        if route["type"] == "rag":
+
+        self.logger.info(
+            f"[HYBRID_QUERY] Route selected: {route_type}"
+        )
+
+
+
+        if route_type == "rag":
+
+            self.logger.info(
+                "[HYBRID_QUERY] Executing RAG pipeline."
+            )
+
 
             rag_result = self.rag_engine.query(
                 question
@@ -90,7 +116,12 @@ class HybridQueryEngine:
 
 
 
-        if route["type"] == "analysis":
+        if route_type == "analysis":
+
+            self.logger.info(
+                "[HYBRID_QUERY] Executing analysis pipeline."
+            )
+
 
             analysis_result = self.analysis_agent.run(
                 question
@@ -110,7 +141,12 @@ class HybridQueryEngine:
 
 
 
-        if route["type"] == "hybrid":
+        if route_type == "hybrid":
+
+
+            self.logger.info(
+                "[HYBRID_QUERY] Executing hybrid pipeline."
+            )
 
 
             rag_result = self.rag_engine.query(
@@ -129,6 +165,11 @@ class HybridQueryEngine:
             )
 
 
+            self.logger.info(
+                "[HYBRID_QUERY] Decision generated."
+            )
+
+
             return {
 
                 "route": "hybrid",
@@ -137,6 +178,11 @@ class HybridQueryEngine:
 
             }
 
+
+
+        self.logger.warning(
+            "[HYBRID_QUERY] Unknown route."
+        )
 
 
         return {

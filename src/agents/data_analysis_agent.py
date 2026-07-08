@@ -2,6 +2,7 @@ from typing import Dict
 
 from src.analysis.dataframe_repository import DataFrameRepository
 from src.analysis.statistics_engine import StatisticsEngine
+from src.logging import AppLogger
 
 
 
@@ -34,6 +35,11 @@ class DataAnalysisAgent:
         )
 
 
+        self.logger = AppLogger(
+            self.__class__.__name__
+        )
+
+
 
     def run(
         self,
@@ -44,6 +50,11 @@ class DataAnalysisAgent:
         """
 
 
+        self.logger.info(
+            f"[ANALYSIS_AGENT] Question received: {question}"
+        )
+
+
         text = question.lower()
 
 
@@ -52,8 +63,24 @@ class DataAnalysisAgent:
 
         if "quantos produtos" in text:
 
+
+            self.logger.info(
+                "[ANALYSIS_AGENT] Operation: count products"
+            )
+
+
             products = self.repository.get(
                 "products"
+            )
+
+
+            result = self.statistics_engine.count_rows(
+                products
+            )
+
+
+            self.logger.info(
+                f"[ANALYSIS_AGENT] Products count result: {result}"
             )
 
 
@@ -65,9 +92,7 @@ class DataAnalysisAgent:
 
                 "dataset": "products",
 
-                "result": self.statistics_engine.count_rows(
-                    products
-                )
+                "result": result
 
             }
 
@@ -77,8 +102,24 @@ class DataAnalysisAgent:
 
         if "quantos clientes" in text:
 
+
+            self.logger.info(
+                "[ANALYSIS_AGENT] Operation: count customers"
+            )
+
+
             customers = self.repository.get(
                 "customers"
+            )
+
+
+            result = self.statistics_engine.count_rows(
+                customers
+            )
+
+
+            self.logger.info(
+                f"[ANALYSIS_AGENT] Customers count result: {result}"
             )
 
 
@@ -90,9 +131,7 @@ class DataAnalysisAgent:
 
                 "dataset": "customers",
 
-                "result": self.statistics_engine.count_rows(
-                    customers
-                )
+                "result": result
 
             }
 
@@ -102,8 +141,19 @@ class DataAnalysisAgent:
 
         if "colunas" in text:
 
+
+            self.logger.info(
+                "[ANALYSIS_AGENT] Operation: get columns"
+            )
+
+
             products = self.repository.get(
                 "products"
+            )
+
+
+            result = self.statistics_engine.columns(
+                products
             )
 
 
@@ -115,9 +165,7 @@ class DataAnalysisAgent:
 
                 "dataset": "products",
 
-                "result": self.statistics_engine.columns(
-                    products
-                )
+                "result": result
 
             }
 
@@ -137,8 +185,21 @@ class DataAnalysisAgent:
             )
         ):
 
+
+            self.logger.info(
+                "[ANALYSIS_AGENT] Operation: category frequency"
+            )
+
+
             products = self.repository.get(
                 "products"
+            )
+
+
+            result = self.statistics_engine.value_counts(
+                products,
+                "product_category_name",
+                limit=5
             )
 
 
@@ -152,14 +213,15 @@ class DataAnalysisAgent:
 
                 "column": "product_category_name",
 
-                "result": self.statistics_engine.value_counts(
-                    products,
-                    "product_category_name",
-                    limit=5
-                )
+                "result": result
 
             }
 
+
+
+        self.logger.warning(
+            "[ANALYSIS_AGENT] Unknown analytical question."
+        )
 
 
         return {
