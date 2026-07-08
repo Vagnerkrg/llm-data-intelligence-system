@@ -1,5 +1,8 @@
 from pathlib import Path
+
 import pandas as pd
+
+from .models import DataSource, DatasetInfo, LoadResult
 
 
 class OlistDataLoader:
@@ -7,16 +10,23 @@ class OlistDataLoader:
     Responsável pelo carregamento dos dados brutos do dataset Olist.
 
     Este módulo não modifica os arquivos originais.
-    Apenas realiza leitura e disponibiliza os dados para as próximas etapas.
+    Apenas realiza leitura e disponibiliza os dados
+    com metadados para as próximas etapas.
     """
+
 
     def __init__(self, data_path="data/raw/olist"):
         self.data_path = Path(data_path)
 
 
-    def load_csv(self, filename):
+    def load_csv(self, filename, name=None):
         """
         Carrega um arquivo CSV específico do dataset.
+
+        Retorna um LoadResult contendo:
+        - dataframe
+        - origem
+        - informações do dataset
         """
 
         file_path = self.data_path / filename
@@ -26,7 +36,32 @@ class OlistDataLoader:
                 f"Arquivo não encontrado: {file_path}"
             )
 
-        return pd.read_csv(file_path)
+
+        dataframe = pd.read_csv(file_path)
+
+
+        dataset_name = name or file_path.stem
+
+
+        source = DataSource(
+            name=dataset_name,
+            path=str(file_path),
+            format="csv"
+        )
+
+
+        info = DatasetInfo(
+            name=dataset_name,
+            rows=dataframe.shape[0],
+            columns=list(dataframe.columns)
+        )
+
+
+        return LoadResult(
+            name=dataset_name,
+            dataframe=dataframe,
+            info=info
+        )
 
 
     def load_all(self):
@@ -45,9 +80,15 @@ class OlistDataLoader:
             "geolocation": "olist_geolocation_dataset.csv"
         }
 
+
         data = {}
 
+
         for name, filename in datasets.items():
-            data[name] = self.load_csv(filename)
+            data[name] = self.load_csv(
+                filename,
+                name=name
+            )
+
 
         return data
