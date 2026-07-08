@@ -747,3 +747,59 @@ Planejado:
 Branch:
 
 feature/v1.7-data-intelligence-expansion
+
+
+## V1.7 - Data Intelligence Expansion
+
+Status:
+In Progress
+
+Implemented:
+
+- AnalyticsEngine expansion
+- DataIntelligenceService integration
+- Advanced analytical operations
+- Improved separation between agents and services
+- Extended analytics test coverage
+
+Architecture evolution:
+
+Before:
+
+DataAnalysisAgent
+|
+v
+Direct dataframe operations
+
+
+After:
+
+DataAnalysisAgent
+|
+v
+DataIntelligenceService
+|
+v
+AnalyticsEngine
+|
+v
+DataFrameRepository
+|
+v
+Datasets
+
+
+Validation:
+
+- 67 automated tests passing
+
+Current phase:
+
+The project now contains a stronger analytical abstraction layer,
+preparing the system for more advanced data intelligence capabilities.
+
+Next steps:
+
+- Expand analytical operations
+- Improve natural language interpretation
+- Add richer business intelligence capabilities
