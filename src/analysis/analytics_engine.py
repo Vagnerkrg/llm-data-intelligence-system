@@ -13,6 +13,7 @@ class AnalyticsEngine:
     making the analytical layer reusable.
     """
 
+
     def __init__(
         self,
         repository=None,
@@ -25,15 +26,18 @@ class AnalyticsEngine:
             else DataFrameRepository()
         )
 
+
         self.statistics = (
             statistics_engine
             if statistics_engine
             else StatisticsEngine()
         )
 
+
+
     def count_rows(
         self,
-        dataset_name: str
+        dataset_name
     ):
 
         dataframe = self.repository.get(
@@ -44,9 +48,11 @@ class AnalyticsEngine:
             dataframe
         )
 
+
+
     def columns(
         self,
-        dataset_name: str
+        dataset_name
     ):
 
         dataframe = self.repository.get(
@@ -57,10 +63,12 @@ class AnalyticsEngine:
             dataframe
         )
 
+
+
     def value_counts(
         self,
-        dataset_name: str,
-        column: str,
+        dataset_name,
+        column,
         limit=5
     ):
 
@@ -74,9 +82,11 @@ class AnalyticsEngine:
             limit
         )
 
+
+
     def describe(
         self,
-        dataset_name: str
+        dataset_name
     ):
 
         dataframe = self.repository.get(
@@ -87,6 +97,10 @@ class AnalyticsEngine:
             include="all"
         )
 
-    def datasets(self):
+
+
+    def datasets(
+        self
+    ):
 
         return self.repository.list_datasets()
