@@ -19,7 +19,7 @@ class SummaryBuilder:
         dataframe: pd.DataFrame
     ) -> str:
         """
-        Creates a summary document for products dataset.
+        Creates analytical summary for products.
         """
 
 
@@ -32,15 +32,28 @@ class SummaryBuilder:
             dataframe["product_category_name"]
             .dropna()
             .value_counts()
-            .head(10)
+        )
+
+
+        total_categories = len(
+            categories
         )
 
 
         category_text = "\n".join(
             [
                 f"- {category}: {count} produtos"
-                for category, count in categories.items()
+                for category, count in categories.head(15).items()
             ]
+        )
+
+
+        average_weight = (
+            dataframe["product_weight_g"]
+            .dropna()
+            .mean()
+            if "product_weight_g" in dataframe.columns
+            else None
         )
 
 
@@ -57,9 +70,17 @@ Total de produtos analisados:
 {total_products}
 
 
+Quantidade de categorias:
+{total_categories}
+
+
 Principais categorias:
 
 {category_text}
+
+
+Peso médio dos produtos:
+{average_weight:.2f} gramas
 
 
 Este documento representa uma visão agregada
@@ -73,7 +94,7 @@ do catálogo de produtos do marketplace.
         dataframe: pd.DataFrame
     ) -> str:
         """
-        Creates a summary document for reviews dataset.
+        Creates analytical summary for reviews.
         """
 
 
@@ -85,6 +106,21 @@ do catálogo de produtos do marketplace.
         average_score = (
             dataframe["review_score"]
             .mean()
+        )
+
+
+        score_distribution = (
+            dataframe["review_score"]
+            .value_counts()
+            .sort_index()
+        )
+
+
+        distribution_text = "\n".join(
+            [
+                f"- Nota {score}: {count} avaliações"
+                for score, count in score_distribution.items()
+            ]
         )
 
 
@@ -105,8 +141,122 @@ Média das avaliações:
 {average_score:.2f}
 
 
+Distribuição das notas:
+
+{distribution_text}
+
+
 Este documento representa uma visão agregada
 da satisfação dos clientes.
+"""
+
+
+
+    def build_order_summary(
+        self,
+        dataframe: pd.DataFrame
+    ) -> str:
+        """
+        Creates analytical summary for orders.
+        """
+
+
+        total_orders = len(
+            dataframe
+        )
+
+
+        status_distribution = (
+            dataframe["order_status"]
+            .value_counts()
+            if "order_status" in dataframe.columns
+            else pd.Series()
+        )
+
+
+        status_text = "\n".join(
+            [
+                f"- {status}: {count} pedidos"
+                for status, count in status_distribution.items()
+            ]
+        )
+
+
+        return f"""
+Tipo de documento:
+Resumo analítico de pedidos
+
+
+Fonte:
+orders
+
+
+Total de pedidos:
+{total_orders}
+
+
+Distribuição de status:
+
+{status_text}
+
+
+Este documento representa uma visão agregada
+da operação logística do marketplace.
+"""
+
+
+
+    def build_customer_summary(
+        self,
+        dataframe: pd.DataFrame
+    ) -> str:
+        """
+        Creates analytical summary for customers.
+        """
+
+
+        total_customers = len(
+            dataframe
+        )
+
+
+        states = (
+            dataframe["customer_state"]
+            .value_counts()
+            .head(10)
+            if "customer_state" in dataframe.columns
+            else pd.Series()
+        )
+
+
+        state_text = "\n".join(
+            [
+                f"- {state}: {count} clientes"
+                for state, count in states.items()
+            ]
+        )
+
+
+        return f"""
+Tipo de documento:
+Resumo analítico de clientes
+
+
+Fonte:
+customers
+
+
+Total de clientes:
+{total_customers}
+
+
+Principais estados:
+
+{state_text}
+
+
+Este documento representa uma visão agregada
+dos clientes do marketplace.
 """
 
 
@@ -138,6 +288,24 @@ da satisfação dos clientes.
             summaries.append(
                 self.build_review_summary(
                     datasets["reviews"]
+                )
+            )
+
+
+        if "orders" in datasets:
+
+            summaries.append(
+                self.build_order_summary(
+                    datasets["orders"]
+                )
+            )
+
+
+        if "customers" in datasets:
+
+            summaries.append(
+                self.build_customer_summary(
+                    datasets["customers"]
                 )
             )
 

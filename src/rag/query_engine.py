@@ -24,6 +24,9 @@ class RAGQueryEngine:
     Vector Search
         |
         v
+    Fallback Search
+        |
+        v
     Prompt Template
         |
         v
@@ -68,10 +71,12 @@ class RAGQueryEngine:
     def retrieve(
         self,
         question,
-        top_k=3
+        top_k=3,
+        min_score=0.40
     ):
         """
-        Retrieves relevant documents using routing.
+        Retrieves relevant documents using routing
+        with fallback to global search.
         """
 
 
@@ -100,6 +105,19 @@ class RAGQueryEngine:
             top_k=top_k,
             source=source
         )
+
+
+        if results:
+
+            best_score = results[0]["score"]
+
+            if best_score < min_score:
+
+                results = self.vector_index.search(
+                    embedding,
+                    top_k=top_k,
+                    source=None
+                )
 
 
         return results, route

@@ -50,7 +50,7 @@ Sistema de Resposta
 - `.gitignore` → arquivos ignorados  
 - `README.md` → documentação do projeto  
 
-##Estrutura do projeto em foco
+##Estrutura do projeto em foco v0,1
 
                 LLM Data Intelligence System
 
@@ -76,4 +76,36 @@ Structured Data    Knowledge Base
                Applications
 
 
-               
+##Estrutura do projeto em foco Atuallização v0.2
+
+                    USER QUESTION
+                         |
+                         v
+                 QueryRouter
+                         |
+                         v
+              +----------------+
+              | Domain Routing |
+              +----------------+
+                         |
+                         v
+              Metadata Filtering
+                         |
+                         v
+                Vector Retrieval
+                         |
+              +----------+----------+
+              |                     |
+        score suficiente       score baixo
+              |                     |
+              v                     v
+        usa contexto        busca global
+              |
+              v
+          Prompt Template
+              |
+              v
+             LLM
+              |
+              v
+          Final Answer

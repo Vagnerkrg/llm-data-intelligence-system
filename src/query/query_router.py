@@ -10,27 +10,39 @@ class QueryRouter:
     """
 
 
+
     def __init__(self):
 
         self.routes = {
 
             "reviews": [
-                "avaliação",
+
+                "avalia",
                 "avaliacao",
+                "avaliação",
+                "avaliacoes",
+                "avaliações",
                 "avaliar",
                 "nota",
-                "comentário",
+                "media",
+                "média",
+                "estrela",
+                "estrelas",
                 "comentario",
-                "satisfação",
+                "comentário",
                 "satisfacao",
-                "reclamação",
+                "satisfação",
                 "reclamacao",
-                "opinião",
-                "opiniao"
+                "reclamação",
+                "opiniao",
+                "opinião"
+
             ],
 
 
+
             "orders": [
+
                 "pedido",
                 "pedidos",
                 "entrega",
@@ -38,11 +50,16 @@ class QueryRouter:
                 "prazo",
                 "atrasado",
                 "status",
-                "compra"
+                "compra",
+                "logistica",
+                "logística"
+
             ],
 
 
+
             "products": [
+
                 "produto",
                 "produtos",
                 "categoria",
@@ -51,17 +68,23 @@ class QueryRouter:
                 "venda",
                 "mercadoria",
                 "item",
-                "itens"
+                "itens",
+                "catalogo",
+                "catálogo"
+
             ],
 
 
+
             "customers": [
+
                 "cliente",
                 "clientes",
                 "cidade",
                 "estado",
-                "localização",
-                "localizacao"
+                "localizacao",
+                "localização"
+
             ]
 
         }
@@ -69,10 +92,12 @@ class QueryRouter:
 
 
         self.priority = [
+
             "reviews",
             "orders",
             "products",
             "customers"
+
         ]
 
 
@@ -86,6 +111,7 @@ class QueryRouter:
 
 
         scores = {}
+
 
 
         for domain, keywords in self.routes.items():
@@ -108,13 +134,19 @@ class QueryRouter:
             if scores[domain] > 0:
 
                 return {
+
                     "domain": domain,
+
                     "confidence": scores[domain]
+
                 }
 
 
 
         return {
+
             "domain": "general",
+
             "confidence": 0
+
         }
