@@ -5,17 +5,23 @@ from pathlib import Path
 
 from src.rag.query_engine import RAGQueryEngine
 
+from src.evaluation.answer_evaluator import AnswerEvaluator
+
+from src.evaluation.benchmark_report import BenchmarkReport
+
 
 
 class EvaluationRunner:
     """
     Runs automated evaluation over RAG benchmarks.
 
-    Supports multiple evaluation datasets
-    and measures routing accuracy,
-    retrieval quality and fallback behavior.
-    """
+    Measures:
 
+    - routing accuracy
+    - retrieval quality
+    - fallback behavior
+    - answer quality
+    """
 
 
     def __init__(
@@ -39,11 +45,18 @@ class EvaluationRunner:
         self.rag = RAGQueryEngine()
 
 
+        self.answer_evaluator = (
+            AnswerEvaluator()
+        )
+
+
+        self.benchmark_report = (
+            BenchmarkReport()
+        )
+
+
 
     def load_questions(self):
-        """
-        Loads evaluation benchmark questions.
-        """
 
         with open(
             self.questions_path,
@@ -58,14 +71,13 @@ class EvaluationRunner:
 
 
     def run(self):
-        """
-        Executes benchmark evaluation.
-        """
 
         questions = self.load_questions()
 
 
         results = []
+
+        answer_results = []
 
 
         correct = 0
@@ -111,9 +123,11 @@ class EvaluationRunner:
             metrics = response["metrics"]
 
 
+
             retrieval_scores.append(
                 metrics["best_score"]
             )
+
 
 
             if metrics["fallback_used"]:
@@ -139,6 +153,7 @@ class EvaluationRunner:
             domain_stats[expected]["questions"] += 1
 
 
+
             if is_correct:
 
                 domain_stats[expected]["correct"] += 1
@@ -147,6 +162,25 @@ class EvaluationRunner:
 
             domain_stats[expected]["scores"].append(
                 metrics["best_score"]
+            )
+
+
+
+            answer_evaluation = (
+                self.answer_evaluator.evaluate(
+
+                    item["question"],
+
+                    response["answer"],
+
+                    response["sources"]
+
+                )
+            )
+
+
+            answer_results.append(
+                answer_evaluation
             )
 
 
@@ -163,7 +197,9 @@ class EvaluationRunner:
 
                     "correct": is_correct,
 
-                    "metrics": metrics
+                    "metrics": metrics,
+
+                    "answer_evaluation": answer_evaluation
 
                 }
 
@@ -183,16 +219,34 @@ class EvaluationRunner:
                 "questions": stats["questions"],
 
                 "accuracy": round(
-                    stats["correct"] / stats["questions"],
+
+                    stats["correct"]
+                    /
+                    stats["questions"],
+
                     4
+
                 ),
 
                 "average_score": round(
-                    sum(stats["scores"]) / len(stats["scores"]),
+
+                    sum(stats["scores"])
+                    /
+                    len(stats["scores"]),
+
                     4
+
                 )
 
             }
+
+
+
+        answer_quality_report = (
+            self.benchmark_report.generate(
+                answer_results
+            )
+        )
 
 
 
@@ -207,24 +261,42 @@ class EvaluationRunner:
 
 
             "routing_accuracy": round(
-                correct / len(questions),
+
+                correct
+                /
+                len(questions),
+
                 4
+
             ),
 
 
             "average_retrieval_score": round(
-                sum(retrieval_scores) / len(retrieval_scores),
+
+                sum(retrieval_scores)
+                /
+                len(retrieval_scores),
+
                 4
+
             ),
 
 
             "fallback_rate": round(
-                fallback_count / len(questions),
+
+                fallback_count
+                /
+                len(questions),
+
                 4
+
             ),
 
 
             "domain_metrics": formatted_domain_metrics,
+
+
+            "answer_quality": answer_quality_report,
 
 
             "results": results
@@ -239,17 +311,22 @@ class EvaluationRunner:
             encoding="utf-8"
         ) as file:
 
+
             json.dump(
+
                 report,
+
                 file,
+
                 ensure_ascii=False,
+
                 indent=4
+
             )
 
 
 
         return report
-
 
 
 
@@ -271,9 +348,7 @@ if __name__ == "__main__":
     )
 
 
-
     result = runner.run()
-
 
 
     print(

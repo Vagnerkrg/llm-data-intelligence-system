@@ -53,7 +53,7 @@ class SummaryBuilder:
             .dropna()
             .mean()
             if "product_weight_g" in dataframe.columns
-            else None
+            else 0
         )
 
 
@@ -182,6 +182,27 @@ da satisfação dos clientes.
         )
 
 
+        delivered_percentage = 0
+
+
+        if "order_status" in dataframe.columns:
+
+            delivered_count = (
+                dataframe["order_status"]
+                .eq("delivered")
+                .sum()
+            )
+
+
+            if total_orders > 0:
+
+                delivered_percentage = (
+                    delivered_count /
+                    total_orders *
+                    100
+                )
+
+
         return f"""
 Tipo de documento:
 Resumo analítico de pedidos
@@ -191,7 +212,7 @@ Fonte:
 orders
 
 
-Total de pedidos:
+Total de pedidos analisados:
 {total_orders}
 
 
@@ -200,8 +221,13 @@ Distribuição de status:
 {status_text}
 
 
+Percentual de pedidos entregues:
+{delivered_percentage:.2f}%
+
+
 Este documento representa uma visão agregada
-da operação logística do marketplace.
+do desempenho operacional e logístico
+dos pedidos do marketplace.
 """
 
 
