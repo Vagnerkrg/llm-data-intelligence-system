@@ -1,8 +1,8 @@
 # Project Decisions
 
-This document records important technical, architectural, and strategic decisions made during the evolution of the LLM Data Intelligence System.
+This document records important technical, architectural, and strategic decisions made during the evolution of the **LLM Data Intelligence System**.
 
-The purpose of this document is to preserve project context, explain decisions, and support future development.
+The purpose of this document is to preserve project context, explain architectural choices, and maintain a historical record of the system evolution.
 
 ---
 
@@ -12,65 +12,62 @@ The purpose of this document is to preserve project context, explain decisions, 
 
 ## Context
 
-This project will be developed as an AI platform and not as a simple notebook experimentation project.
+The project was defined as an AI platform foundation and not as a simple experimentation notebook.
 
-The objective is to build a complete Data Intelligence solution capable of evolving into a real AI product.
+The objective is to build a reusable Data Intelligence system capable of evolving into real AI applications.
 
 ## Decision
 
 The system will follow a modular architecture focused on:
 
-- scalability;
-- maintainability;
-- reusable components;
-- future integrations;
-- incremental evolution.
+* scalability;
+* maintainability;
+* reusable components;
+* independent evolution;
+* future integrations.
 
 ## Reason
 
-A product-oriented architecture allows the platform to grow without requiring major structural changes in the future.
+A product-oriented architecture allows the platform to evolve without requiring major structural redesigns.
 
 ---
 
-# Decision 02 — Initial Modular Architecture
+# Decision 02 — Modular System Architecture
 
 ## Decision
 
-The project will be structured using independent modules inside the `src/` directory.
+The project will use independent modules inside the `src/` directory.
 
-Each module will have a specific responsibility.
+Each module must have a clear responsibility.
 
-Initial architecture:
+Current architecture:
+
+```
 src/
 
-├── llm/
 ├── data/
 ├── preprocessing/
 ├── embeddings/
 ├── index/
 ├── rag/
-└── agents/
-
-
-Responsibilities:
-
-## llm
-
-Responsible for:
-
-- Large Language Model integrations;
-- prompt management;
-- model communication.
+├── analysis/
+├── agents/
+├── services/
+├── llm/
+└── application/
+```
 
 ---
+
+# Module Responsibilities
 
 ## data
 
 Responsible for:
 
-- data loading;
-- dataset management;
-- input validation.
+* dataset loading;
+* validation;
+* data access abstraction.
 
 ---
 
@@ -78,50 +75,112 @@ Responsible for:
 
 Responsible for:
 
-- data preparation;
-- cleaning processes;
-- transformations.
+* data preparation;
+* transformations;
+* deterministic processing.
 
 ---
 
 ## embeddings
 
-Future semantic layer responsible for:
+Responsible for:
 
-- vector representations;
-- semantic understanding.
+* vector representations;
+* semantic transformation.
 
 ---
 
 ## index
 
-Future search layer responsible for:
+Responsible for:
 
-- indexing information;
-- retrieval optimization.
+* vector storage;
+* similarity search.
 
 ---
 
 ## rag
 
-Future Retrieval-Augmented Generation layer.
+Responsible for:
+
+* contextual retrieval;
+* knowledge grounding;
+* semantic answers.
+
+---
+
+## analysis
 
 Responsible for:
 
-- combining external knowledge with LLM responses;
-- contextual retrieval.
+* structured data analysis;
+* dataframe operations;
+* statistical processing.
+
+Implemented components:
+
+```
+dataframe_repository.py
+statistics_engine.py
+analysis_router.py
+```
 
 ---
 
 ## agents
 
-Future intelligent automation layer.
+Responsible for specialized intelligence components.
 
-Responsible for:
+Implemented:
 
-- autonomous workflows;
-- tool usage;
-- task execution.
+```
+data_analysis_agent.py
+```
+
+Responsibilities:
+
+* interpret analytical questions;
+* execute structured operations;
+* return structured results.
+
+---
+
+## services
+
+Responsible for orchestration and business intelligence logic.
+
+Implemented:
+
+```
+hybrid_query_engine.py
+decision_engine.py
+answer_generator.py
+response_formatter.py
+```
+
+Responsibilities:
+
+* combine intelligence sources;
+* decide best response;
+* generate user-friendly answers.
+
+---
+
+## application
+
+Responsible for the main application workflow.
+
+Implemented:
+
+```
+intelligence_system.py
+```
+
+Responsibilities:
+
+* receive user questions;
+* orchestrate system components;
+* return final responses.
 
 ---
 
@@ -133,21 +192,24 @@ Retail / E-commerce Intelligence
 
 ## Decision
 
-The initial development will use structured sales data from the e-commerce domain.
+The initial development uses public e-commerce datasets.
+
+Primary dataset:
+
+```
+Olist Dataset
+```
 
 ## Reason
 
-This domain allows the progressive construction of:
+The domain allows progressive implementation of:
 
-- sales analysis;
-- business insights;
-- natural language queries;
-- automated reports;
-- semantic search;
-- RAG pipelines;
-- intelligent agents.
-
-The chosen domain provides a realistic business context for the evolution of the platform.
+* business analysis;
+* natural language queries;
+* semantic search;
+* RAG;
+* intelligent agents;
+* decision support systems.
 
 ---
 
@@ -155,14 +217,15 @@ The chosen domain provides a realistic business context for the evolution of the
 
 ## Context
 
-As the AI Ecosystem grows, different projects may require different technology stacks.
+The AI ecosystem may contain multiple projects with different technological requirements.
 
 ## Decision
 
-Dependencies will be separated by responsibility.
+Dependencies are separated by responsibility.
 
-Current structure:
+Structure:
 
+```
 requirements/
 
 ├── base.txt
@@ -171,26 +234,23 @@ requirements/
 ├── dev.txt
 ├── full.txt
 └── lock.txt
-~
+```
 
-The root file:
-requirements.txt~
+The root:
 
+```
+requirements.txt
+```
 
-will act only as an installation shortcut.
-
-Example:
--r requirements/full.txt
-
+acts only as an installation shortcut.
 
 ## Reason
 
-This approach allows:
+This approach improves:
 
-- easier dependency management;
-- reduced conflicts;
-- scalability across AI projects;
-- reproducible environments.
+* dependency management;
+* environment reproducibility;
+* scalability between projects.
 
 ---
 
@@ -198,17 +258,19 @@ This approach allows:
 
 ## Context
 
-During the initial setup, dependency organization required adjustments.
+During initial development, dependency organization required adjustments.
 
 ## Decision
 
-The environment was reconstructed following a cleaner engineering approach instead of applying temporary fixes.
+The environment was reconstructed using engineering standards instead of applying temporary fixes.
 
 ## Reason
 
-When the foundation is inconsistent, rebuilding the environment creates a more reliable and reproducible base.
+A clean foundation improves:
 
-The project is still in the initial phase, making this the correct moment to establish standards.
+* reliability;
+* reproducibility;
+* future maintenance.
 
 ---
 
@@ -216,268 +278,328 @@ The project is still in the initial phase, making this the correct moment to est
 
 The platform follows strict data handling rules.
 
+---
+
 ## Rule 01 — Original Data Protection
 
-The application never modifies the original file uploaded by the user.
+Original user files must never be modified.
 
-All processing must create derived versions.
+All processing creates derived representations.
 
 ---
 
 ## Rule 02 — Reproducible Analysis
 
-Every query and analysis should be reproducible.
-
-The same input and configuration should generate equivalent results.
+The same input and configuration should produce equivalent results.
 
 ---
 
 ## Rule 03 — Grounded AI Responses
 
-Every AI response must be based only on the available data and context provided.
+AI answers must be based on available information and retrieved context.
 
-The system should avoid unsupported information.
+The system should avoid unsupported generation.
 
 ---
 
 ## Rule 04 — Exportable Intelligence
 
-Generated analysis should be exportable.
+Future analysis outputs should support:
 
-Examples:
-
-- reports;
-- summaries;
-- insights;
-- visualizations.
+* reports;
+* summaries;
+* visualizations;
+* business insights.
 
 ---
 
-## Rule 05 — Session Stability
-
-Users should be able to start new sessions without affecting system stability.
-
----
-
-# Decision 07 — Long-Term Product Vision
+# Decision 07 — Data Loading Layer
 
 ## Context
 
-The project may evolve from a technical portfolio project into a commercial AI product.
+The first functional system component was the data loading layer.
 
 ## Decision
 
-Future product exploration may consider two possible directions.
-
----
-
-# Online Intelligence Platform
-
-A platform focused on:
-
-- research;
-- information collection;
-- discovery of opportunities;
-- generation of solution ideas.
-
-The objective would be helping users explore problems and identify possible solutions.
-
----
-
-# Private Enterprise Intelligence Solution
-
-A controlled environment focused on:
-
-- company data;
-- privacy;
-- historical information;
-- internal intelligence;
-- secure workflows.
-
-This model would prioritize local or private usage for organizations.
-
----
-
-## Status
-
-Strategic idea for future exploration.
-
-Not part of the current development scope.
-
-Current priority remains:
-
-- technical development;
-- architecture;
-- validation;
-- creation of a solid AI product foundation.
-
----
-
-# Decision 08 — Product Readiness Future Phase
-
-## Objective
-
-After technical validation, the project may enter a future phase called:
-
-Product Readiness
-
-
-Possible evaluation areas:
-
-- architecture stabilization;
-- testing;
-- documentation;
-- deployment strategy;
-- user experience;
-- brand evaluation;
-- software protection strategy;
-- privacy documentation;
-- commercial preparation.
-
----
-
-## Intellectual Property and Protection Notes
-
-During development, the project will maintain:
-
-- Git history;
-- version control;
-- technical documentation;
-- architecture records;
-- development decisions.
-
-These elements create a historical record of project evolution.
-
-Future protection activities may include professional evaluation of:
-
-- trademark registration;
-- software registration;
-- contracts;
-- privacy documentation;
-- business structure.
-
----
-
-## Status
-
-Future planning.
-
-The current priority remains building a technically strong and validated product.
-
----
-
-# Notes
-
-This document should be updated whenever important architectural, technical, or strategic decisions are made.
-
-The goal is to preserve the reasoning behind the evolution of the LLM Data Intelligence System.
-
-docs/
-
-├── environment.md
-│   → Como recriar o ambiente
-
-├── architecture.md
-│   → Como o sistema funciona
-
-└── project-decisions.md
-    → Por que as decisões foram tomadas
-
-
-
-    # Decision 09 — Initial Data Loading Layer
-
-## Context
-
-The first functional component of the platform was the data loading layer.
-
-## Decision
-
-The project will use a dedicated data loader module responsible for accessing raw datasets without modifying original files.
+A dedicated repository-based access layer was created.
 
 Implementation:
 
-src/data/data_loader.py
+```
+src/data/
+```
 
+and:
 
-## Validation
+```
+src/analysis/dataframe_repository.py
+```
 
-The Olist orders dataset was successfully loaded into a Pandas DataFrame.
+Responsibilities:
 
-Validation confirmed:
-
-- correct environment configuration;
-- correct dataset path;
-- successful CSV loading;
-- compatibility with Pandas processing.
+* load datasets;
+* provide controlled access;
+* avoid duplicated loading logic.
 
 ## Status
 
 Completed.
 
+---
 
-## 2026-07-07
+# Decision 08 — Deterministic Preprocessing
 
-### Preprocessing determinístico
+## Context
 
-Foi decidido substituir a conversão automática de datas baseada em inferência por uma abordagem baseada em regras determinísticas.
+Automatic inference can generate inconsistent preprocessing behavior.
 
-A etapa de preprocessing agora identifica colunas relacionadas a datas através de padrões de nomenclatura, garantindo:
+## Decision
 
-- maior previsibilidade do pipeline;
-- resultados reproduzíveis;
-- redução de warnings e comportamentos inesperados;
-- melhor compatibilidade com futuras evoluções do sistema.
+Date and transformation handling should use deterministic rules.
 
-O componente continua seguindo os princípios definidos:
+## Benefits
 
-- não modificar os arquivos originais;
-- trabalhar através de cópias dos DataFrames;
-- manter cada responsabilidade isolada em módulos independentes;
-- permitir evolução incremental da arquitetura.
-
-## 2026-07-07
-
-### Arquitetura da camada LLM
-
-Foi decidido criar uma camada independente para gerenciamento dos modelos de linguagem.
-
-A integração com LLMs será isolada dentro do módulo:
-
-src/llm/
-
-Responsabilidades definidas:
-
-- llm_client.py
-  - representar a interface genérica de comunicação com modelos de linguagem;
-  - evitar dependência direta do restante da aplicação com um fornecedor específico.
-
-- groq_client.py
-  - implementar inicialmente a comunicação com a Groq API;
-  - concentrar configurações e chamadas específicas do provedor.
-
-- README.md
-  - manter documentação interna sobre decisões, testes e evoluções da camada.
-
-Essa arquitetura permite futuras integrações com diferentes provedores de LLM sem necessidade de alterações nas demais camadas do sistema.
-
-Princípios mantidos:
-
-- baixo acoplamento entre componentes;
-- evolução incremental;
-- componentes reutilizáveis;
-- preparação futura para RAG e agentes inteligentes.
+* predictable pipeline behavior;
+* reproducible results;
+* reduced warnings;
+* easier debugging.
 
 ---
 
-## 2026-07-07
+# Decision 09 — LLM Abstraction Layer
 
-## Integração inicial com LLM externa
+## Decision
 
-Foi implementada a primeira camada de integração com modelos de linguagem utilizando Groq API através do LlamaIndex.
+LLM integrations must remain isolated from business logic.
 
-A camada LLM foi isolada em módulos independentes dentro de `src/llm/`, permitindo futuras substituições de provedores de modelos sem impacto nas demais camadas da aplicação.
+Implementation:
 
-A autenticação foi configurada utilizando variáveis de ambiente através de arquivo `.env`, mantendo informações sensíveis fora do controle de versão.
+```
+src/llm/
+```
 
-A primeira chamada ao modelo foi validada com sucesso, confirmando a comunicação entre a aplicação e o serviço externo de LLM.
+Responsibilities:
+
+* abstract model communication;
+* support multiple providers;
+* avoid vendor lock-in.
+
+Initial provider:
+
+* Groq API.
+
+## Reason
+
+Future models and providers should be replaceable without changing the core architecture.
+
+---
+
+# Decision 10 — RAG Architecture
+
+## Context
+
+Knowledge retrieval is a fundamental capability of the platform.
+
+## Decision
+
+RAG is implemented as an independent intelligence layer.
+
+Responsibilities:
+
+* retrieve relevant information;
+* provide contextual grounding;
+* support natural language answers.
+
+## Reason
+
+Separating retrieval from generation improves flexibility and evaluation.
+
+---
+
+# Decision 11 — Hybrid Intelligence Architecture
+
+## Date
+
+2026-07-08
+
+## Context
+
+Pure RAG is insufficient for quantitative questions.
+
+Structured analysis is required for accurate numerical answers.
+
+## Decision
+
+The system will combine:
+
+* semantic retrieval;
+* structured data analysis.
+
+Implemented through:
+
+```
+HybridQueryEngine
+```
+
+The system decides between:
+
+* RAG;
+* Analysis;
+* Hybrid execution.
+
+## Reason
+
+Different questions require different intelligence strategies.
+
+---
+
+# Decision 12 — Specialized Analysis Agent
+
+## Date
+
+2026-07-08
+
+## Context
+
+Data questions require dedicated analytical execution.
+
+## Decision
+
+Create specialized agents instead of placing all logic inside the application layer.
+
+Implemented:
+
+```
+src/agents/data_analysis_agent.py
+```
+
+Capabilities:
+
+* row counting;
+* column inspection;
+* category analysis;
+* statistical operations.
+
+---
+
+# Decision 13 — Response Intelligence Layer
+
+## Date
+
+2026-07-08
+
+## Decision
+
+Internal system outputs should be separated from user-facing responses.
+
+Implemented:
+
+```
+answer_generator.py
+response_formatter.py
+```
+
+## Reason
+
+This allows future interfaces such as:
+
+* web applications;
+* APIs;
+* mobile applications;
+* dashboards.
+
+---
+
+# Decision 14 — Long-Term Product Vision
+
+## Context
+
+The project may evolve from a technical foundation into commercial AI products.
+
+## Decision
+
+The current priority remains:
+
+* architecture;
+* validation;
+* technical maturity.
+
+Future exploration may include:
+
+## Enterprise Intelligence Platform
+
+Focused on:
+
+* company data;
+* privacy;
+* internal intelligence;
+* secure workflows.
+
+---
+
+## AI Solution Ecosystem
+
+Focused on:
+
+* reusable AI components;
+* intelligent assistants;
+* automation platforms;
+* data intelligence products.
+
+---
+
+# Decision 15 — Intellectual Property and Project History
+
+During development, the project will maintain:
+
+* Git history;
+* documentation;
+* architecture records;
+* development decisions;
+* version evolution.
+
+These records create a historical timeline of technical creation.
+
+Future considerations:
+
+* software protection;
+* trademark evaluation;
+* privacy documentation;
+* commercial preparation.
+
+---
+
+# Current Documentation Structure
+
+```
+docs/
+
+├── architecture.md
+│   System architecture
+
+├── current_status.md
+│   Current implementation status
+
+├── development_log.md
+│   Historical evolution
+
+├── roadmap.md
+│   Strategic future evolution
+
+└── project-decisions.md
+    Reasons behind technical decisions
+```
+
+---
+
+# Update Policy
+
+This document should be updated whenever a significant:
+
+* architectural;
+* technical;
+* strategic;
+
+decision is made.
+
+The objective is preserving the reasoning behind the evolution of the LLM Data Intelligence System.

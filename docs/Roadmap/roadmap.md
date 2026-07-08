@@ -1,12 +1,12 @@
-# Roadmap
+# LLM Data Intelligence System - Roadmap
 
 ## Purpose
 
-This document describes the strategic evolution of the LLM Data Intelligence System.
+This document describes the strategic evolution of the **LLM Data Intelligence System**.
 
-The roadmap represents the maturity journey of the platform, from initial foundations to a complete AI ecosystem capable of supporting real-world intelligent applications.
+The roadmap represents the maturity journey of the platform, from an experimental AI pipeline into a modular intelligence platform capable of supporting real-world data applications.
 
-The roadmap focuses on capabilities and architectural evolution rather than isolated tasks.
+The roadmap focuses on architectural evolution, platform capabilities, and long-term product development.
 
 ---
 
@@ -14,7 +14,7 @@ The roadmap focuses on capabilities and architectural evolution rather than isol
 
 The platform evolves through progressive maturity stages.
 
-Each phase represents an important architectural milestone.
+Each phase represents a significant architectural capability added to the system.
 
 ---
 
@@ -26,19 +26,19 @@ Completed
 
 ## Objective
 
-Establish the initial project structure, development environment, and architectural foundation.
+Establish the initial engineering foundation of the project.
 
-## Main Achievements
+## Achievements
 
-- Project initialization.
-- Development environment configuration.
-- Documentation structure.
-- Initial architecture definition.
-- Engineering principles definition.
+* Project structure created.
+* Development environment configured.
+* Documentation system established.
+* Modular architecture defined.
+* Engineering principles established.
 
 ## Result
 
-A structured foundation capable of supporting future evolution.
+A structured environment prepared for continuous evolution.
 
 ---
 
@@ -46,39 +46,69 @@ A structured foundation capable of supporting future evolution.
 
 ## Status
 
-Completed Foundation
+Completed
 
 ## Objective
 
-Build the initial pipeline for processing information and generating AI responses.
+Create the first functional AI knowledge pipeline.
 
-## Main Capabilities
+## Implemented Capabilities
 
-- Data ingestion.
-- Document processing.
-- Embeddings.
-- Vector storage.
-- Semantic retrieval.
-- LLM interaction.
-- RAG pipeline.
-
-## Technologies Studied
-
-Examples:
-
-- LLM APIs.
-- Embedding models.
-- Vector databases.
-- LlamaIndex.
-- ChromaDB.
+* Data ingestion.
+* Data validation.
+* Data preprocessing.
+* Embedding generation.
+* Vector indexing.
+* Semantic retrieval.
+* RAG query processing.
 
 ## Result
 
-First functional AI knowledge pipeline.
+The system became capable of retrieving contextual information from datasets using AI techniques.
 
 ---
 
-# Phase 2 — Modular Platform Architecture
+# Phase 2 — Modular Intelligence Architecture
+
+## Status
+
+Completed
+
+## Objective
+
+Transform the initial pipeline into a modular intelligence system.
+
+## Implemented Capabilities
+
+Created specialized layers:
+
+```
+src/
+
+analysis/
+agents/
+services/
+application/
+```
+
+Implemented:
+
+* DataFrame Repository.
+* Statistics Engine.
+* Analysis Router.
+* Data Analysis Agent.
+* Hybrid Query Engine.
+* Decision Engine.
+* Answer Generator.
+* Application orchestration layer.
+
+## Result
+
+The system evolved from a RAG pipeline into a multi-component intelligence architecture.
+
+---
+
+# Phase 3 — Hybrid Intelligence Platform
 
 ## Status
 
@@ -86,26 +116,58 @@ Current Phase
 
 ## Objective
 
-Transform the initial pipeline into a reusable and maintainable platform.
+Improve the combination between semantic knowledge and structured data analysis.
 
-## Goals
+## Current Capabilities
 
-- Separate responsibilities into modules.
-- Create clear interfaces.
-- Reduce technology coupling.
-- Establish reusable services.
-- Improve testing structure.
+The platform can decide between:
 
-## Expected Capabilities
+* RAG responses;
+* analytical responses;
+* hybrid processing.
 
-- Core layer.
-- Service layer.
-- Infrastructure abstraction.
-- Provider independence.
+Supported examples:
+
+* "Quantos produtos existem?"
+* "Qual categoria possui mais produtos?"
+* "Quais produtos aparecem nos dados?"
+
+## Current Focus
+
+* Improve routing accuracy.
+* Improve answer quality.
+* Expand analytical capabilities.
+* Create evaluation metrics.
 
 ---
 
-# Phase 3 — Multi Provider AI Platform
+# Phase 4 — AI Evaluation and Quality Layer
+
+## Status
+
+Next Phase
+
+## Objective
+
+Create a professional evaluation system for AI responses.
+
+## Goals
+
+Implement:
+
+* response quality metrics;
+* retrieval evaluation;
+* benchmark datasets;
+* confidence scoring;
+* regression tests.
+
+## Expected Result
+
+Ability to measure and improve system intelligence objectively.
+
+---
+
+# Phase 5 — Advanced Retrieval Systems
 
 ## Status
 
@@ -113,105 +175,129 @@ Planned
 
 ## Objective
 
-Enable the platform to support multiple AI providers without architectural changes.
+Increase RAG intelligence and retrieval precision.
+
+## Goals
+
+* advanced chunking strategies;
+* metadata filtering;
+* hybrid search;
+* reranking;
+* retrieval optimization;
+* domain-specific indexes.
+
+## Expected Result
+
+Higher accuracy in complex knowledge scenarios.
+
+---
+
+# Phase 6 — Intelligent Agents
+
+## Status
+
+In Development Direction
+
+## Objective
+
+Expand specialized AI agents capable of reasoning and executing tasks.
+
+## Goals
+
+* specialized agents;
+* tool execution;
+* planning;
+* memory systems;
+* multi-agent workflows.
+
+## Expected Result
+
+A coordinated AI workforce architecture.
+
+---
+
+# Phase 7 — Multi Provider AI Platform
+
+## Status
+
+Planned
+
+## Objective
+
+Remove dependency on specific AI providers.
 
 ## Goals
 
 Support:
 
-- multiple LLM providers;
-- multiple embedding providers;
-- multiple vector databases;
-- local and cloud models.
+* multiple LLM providers;
+* local models;
+* cloud models;
+* different embedding providers;
+* different vector databases.
 
 ## Expected Result
 
-Technology independence and flexibility.
+Flexible and scalable AI infrastructure.
 
 ---
 
-# Phase 4 — Advanced Retrieval Systems
+# Phase 8 — AI Application Platform
 
 ## Status
 
-Planned
+Long-Term Development
 
 ## Objective
 
-Improve knowledge retrieval quality and intelligence.
+Expose intelligence capabilities through user-facing applications.
 
-## Goals
+## Possible Capabilities
 
-- advanced chunking strategies;
-- metadata filtering;
-- hybrid search;
-- evaluation systems;
-- retrieval optimization.
+* web interface;
+* mobile interface;
+* file uploads;
+* dashboards;
+* user accounts;
+* history management;
+* integrations.
+
+Possible integrations:
+
+* messaging platforms;
+* email;
+* cloud storage;
+* enterprise systems.
+
+## Expected Result
+
+Transformation from engineering platform into usable AI products.
 
 ---
 
-# Phase 5 — AI Agents
+# Phase 9 — Production Engineering
 
 ## Status
 
-Planned
+Future
 
 ## Objective
 
-Introduce autonomous components capable of reasoning and executing tasks.
+Prepare the platform for enterprise environments.
 
 ## Goals
 
-- agent architecture;
-- tool usage;
-- planning;
-- memory;
-- multi-agent workflows.
+* containerization;
+* deployment pipelines;
+* monitoring;
+* observability;
+* logging;
+* security;
+* performance optimization.
 
 ---
 
-# Phase 6 — AI Application Platform
-
-## Status
-
-Planned
-
-## Objective
-
-Expose platform capabilities through real applications.
-
-## Goals
-
-- APIs;
-- user interfaces;
-- authentication;
-- integrations;
-- application templates.
-
----
-
-# Phase 7 — Production Engineering
-
-## Status
-
-Planned
-
-## Objective
-
-Prepare the platform for production environments.
-
-## Goals
-
-- containerization;
-- deployment;
-- monitoring;
-- logging;
-- observability;
-- performance optimization.
-
----
-
-# Phase 8 — AI Product Ecosystem
+# Phase 10 — AI Product Ecosystem
 
 ## Status
 
@@ -219,56 +305,69 @@ Long-Term Vision
 
 ## Objective
 
-Transform platform capabilities into reusable AI products.
+Transform the platform into a reusable AI ecosystem.
 
 ## Possible Applications
 
-- intelligent assistants;
-- enterprise knowledge systems;
-- data intelligence solutions;
-- automation platforms;
-- predictive AI applications.
+* enterprise AI assistants;
+* business intelligence systems;
+* automated analysis platforms;
+* intelligent data products;
+* specialized AI solutions.
 
 ---
 
 # Roadmap Principles
 
-The roadmap follows these principles:
+The evolution follows these principles:
 
-1. Build foundations before complexity.
-2. Prefer reusable capabilities over isolated features.
-3. Preserve architectural consistency.
-4. Document important decisions.
-5. Continuously transform learning into technical assets.
+1. Build strong foundations before adding complexity.
+2. Prefer reusable architecture over isolated features.
+3. Maintain separation between technical foundation and future products.
+4. Document architectural decisions continuously.
+5. Convert learning into permanent engineering assets.
+6. Preserve intellectual property and project evolution history.
 
 ---
 
 # Current Position
 
-The LLM Data Intelligence System is currently transitioning from a learning project into a structured AI platform foundation.
+The LLM Data Intelligence System currently represents a transition:
 
-The next evolution focus is:
+```
+Learning Project
 
-Architecture Foundation
+        ↓
 
-↓
+Modular AI Engineering Platform
 
-Modular Implementation
+        ↓
 
-↓
+Reusable Intelligence Services
 
-Reusable AI Services
+        ↓
 
-↓
+AI Product Ecosystem
+```
 
-Intelligent Applications
+Current technical priority:
 
+1. Stabilize architecture.
+2. Improve evaluation.
+3. Increase intelligence quality.
+4. Expand capabilities.
+5. Prepare future product layers.
 
 ---
 
 # Long-Term Vision
 
-The final objective is not only to build a single AI application.
+The objective is not only to build a single AI application.
 
-The objective is to create a reusable AI engineering ecosystem capable of supporting the development of multiple intelligent solutions over time.
+The objective is to create a reusable AI engineering ecosystem capable of supporting multiple intelligent solutions, combining:
 
+* data intelligence;
+* retrieval systems;
+* AI agents;
+* automation;
+* business applications.
