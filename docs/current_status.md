@@ -1,31 +1,36 @@
 # LLM Data Intelligence System - Current Status
 
-**Current Version:** v0.7  
+**Current Version:** V1.7  
 **Last Update:** 08-07-2026  
 
 ---
 
 # 1. Project Status Overview
 
-O **LLM Data Intelligence System** encontra-se atualmente na fase de consolidação da fundação técnica.
+O **LLM Data Intelligence System** encontra-se atualmente em uma fase avançada de consolidação da arquitetura de inteligência de dados.
 
-O projeto evoluiu de uma arquitetura inicial baseada em RAG para um sistema híbrido de inteligência de dados, combinando:
+O projeto evoluiu de uma arquitetura inicial baseada em RAG para uma plataforma modular de inteligência artificial aplicada a dados, combinando:
 
+- recuperação aumentada por geração (RAG);
 - busca semântica;
-- recuperação de conhecimento;
-- análise estruturada;
-- agentes especializados;
-- geração de respostas.
+- análise estruturada de dados;
+- inteligência híbrida;
+- avaliação de qualidade;
+- monitoramento;
+- agentes especializados.
 
-Status atual:
+Estado atual:
 
 Foundation Completed
-|
-v
-Hybrid Intelligence Layer Completed
-|
-v
-Product Layer In Development
+    ↓
+Hybrid Intelligence Platform Completed
+    ↓
+Data Intelligence Expansion Completed
+    ↓
+Agent Intelligence Expansion (Next Evolution)
+
+
+O sistema atualmente possui uma base técnica preparada para evolução em direção a uma plataforma inteligente capaz de analisar dados, recuperar conhecimento e executar tarefas especializadas.
 
 ---
 
@@ -42,7 +47,8 @@ Implementado:
 - ambiente virtual Python;
 - gerenciamento de dependências;
 - estrutura modular do projeto;
-- organização profissional de diretórios.
+- organização profissional de diretórios;
+- documentação técnica contínua.
 
 ---
 
@@ -57,11 +63,11 @@ Implementado:
 
 - carregamento dos datasets;
 - validação inicial;
-- acesso padronizado aos dados.
+- acesso padronizado aos dados;
+- separação entre dados brutos e processados.
 
 
 Datasets disponíveis:
-
 customers
 orders
 order_items
@@ -70,6 +76,7 @@ payments
 reviews
 sellers
 geolocation
+
 
 ---
 
@@ -100,7 +107,8 @@ Implementado:
 - geração de embeddings;
 - armazenamento vetorial;
 - busca semântica;
-- recuperação de documentos relevantes.
+- recuperação contextual;
+- indexação de conhecimento.
 
 
 Componentes:
@@ -125,12 +133,14 @@ O sistema consegue:
 
 - receber perguntas em linguagem natural;
 - recuperar contexto relevante;
-- gerar respostas baseadas nos dados.
+- gerar respostas baseadas nos dados;
+- utilizar conhecimento indexado.
 
 
 Exemplo validado:
 
 Quais produtos aparecem nos dados?
+
 
 
 Resultado:
@@ -150,15 +160,16 @@ Implementado:
 
 - avaliação de respostas;
 - benchmark de perguntas;
-- métricas de recuperação.
+- métricas de recuperação;
+- monitoramento de qualidade.
 
 
 Validação realizada:
 
 - benchmark RAG executado;
 - routing validado;
-- métricas registradas.
-
+- métricas registradas;
+- qualidade das respostas monitorada.
 
 ---
 
@@ -166,30 +177,64 @@ Validação realizada:
 
 Status:
 
-✅ Completed v0.7
+✅ Completed
 
 
-Nova camada adicionada ao sistema.
+Nova camada adicionada ao sistema para análise estruturada de dados.
+
 
 Componentes:
 
 src/analysis/
 
 dataframe_repository.py
+
 statistics_engine.py
+
 analysis_router.py
+
 
 
 Responsabilidades:
 
 - acesso aos DataFrames;
 - operações estatísticas;
+- análise estruturada;
 - identificação de perguntas analíticas.
+
+---
+
+# 9. Analytics Engine
+
+Status:
+
+✅ Completed
+
+
+Responsável por fornecer uma camada de abstração para operações analíticas.
+
+
+Capacidades:
+
+- contagem de registros;
+- inspeção de colunas;
+- análise de frequência;
+- descoberta de datasets;
+- operações estatísticas.
+
+
+Arquitetura:
+
+AnalyticsEngine
+    ↓
+DataFrameRepository
+    ↓
+Datasets
 
 
 ---
 
-# 9. Analysis Agent
+# 10. Analysis Agent
 
 Status:
 
@@ -201,15 +246,18 @@ Arquivo:
 src/agents/data_analysis_agent.py
 
 
+
 Capacidades atuais:
 
 - contagem de registros;
 - consulta de colunas;
 - análise de categorias;
-- operações estatísticas.
+- operações estatísticas;
+- interpretação de perguntas analíticas.
 
 
 Exemplos validados:
+
 
 Pergunta:
 Quantos produtos existem?
@@ -221,9 +269,10 @@ Qual categoria possui mais produtos?
 Resposta:
 A categoria com maior quantidade de produtos é 'cama_mesa_banho', com 3029 registros.
 
+
 ---
 
-# 10. Hybrid Intelligence Engine
+# 11. Hybrid Intelligence Engine
 
 Status:
 
@@ -237,21 +286,25 @@ src/services/hybrid_query_engine.py
 Responsável por combinar:
 
 RAG
+
 |
+
 Analysis
+
 |
+
 Hybrid
+
 
 
 O sistema consegue decidir qual fluxo utilizar baseado na intenção da pergunta.
 
----
-
-# 11. Decision & Answer Layer
+# 12. Decision & Answer Layer
 
 Status:
 
 ✅ Completed
+
 
 Componentes:
 
@@ -261,16 +314,18 @@ answer_generator.py
 
 response_formatter.py
 
+
+
 Responsabilidades:
 
 - escolher melhor fonte de resposta;
-- transformar resultados internos;
-- apresentar respostas amigáveis.
-
+- combinar resultados internos;
+- transformar resultados técnicos;
+- apresentar respostas amigáveis ao usuário.
 
 ---
 
-# 12. Application Layer
+# 13. Application Layer
 
 Status:
 
@@ -282,134 +337,285 @@ Arquivo:
 src/application/intelligence_system.py
 
 
-Representa a camada principal de execução.
+
+Representa a camada principal de execução do sistema.
 
 
 Fluxo:
 
 Question
-|
-v
+    ↓
 IntelligenceSystem
-|
-v
+    ↓
 Hybrid Engine
-|
-v
-Decision
-|
-v
-Answer
-
+    ↓
+Decision Layer
+    ↓
+Answer Generation
+    
 
 ---
 
-# 13. Current Validation Results
-
-Testes realizados:
-
-
-## Compilation
+# 14. Automated Testing Foundation
 
 Status:
 
-✅ Passed
+✅ Completed
 
 
-Comandos utilizados:
-
-python -m compileall src
+A plataforma possui uma base de testes automatizados para permitir evolução segura.
 
 
+Histórico:
 
----
-
-## Data Repository
+## V1.1 — Automated Testing Foundation
 
 Status:
 
-✅ Passed
+Completed
 
 
-Validado:
+Entregas:
 
-- carregamento dos datasets;
-- acesso aos DataFrames.
+- arquitetura de testes;
+- testes unitários;
+- validação de serviços;
+- validação da camada analítica;
+- validação da aplicação.
+
+
+Resultado:
+
+O projeto passou a possuir uma fundação de testes para evolução incremental.
+
+Validação:
+
+24 automated tests passing
 
 
 ---
 
-## Statistics Engine
+# 15. Logging & Observability Foundation
+
+## V1.2
 
 Status:
 
-✅ Passed
+✅ Completed
 
 
-Validado:
+Implementado:
 
-- contagem;
-- colunas;
-- resumo;
-- frequência de valores.
+- logging estruturado;
+- métricas de execução;
+- monitoramento de fluxo;
+- acompanhamento de erros.
+
+
+Validação:
+
+25 automated tests passing
+
 
 
 ---
 
-## Analysis Agent
+# 16. Evaluation Monitoring Layer
+
+## V1.3
 
 Status:
 
-✅ Passed
+✅ Completed
 
 
-Validado:
+Implementado:
 
-- perguntas analíticas;
-- operações estruturadas.
+- avaliação de qualidade de respostas;
+- histórico de avaliações;
+- métricas de qualidade;
+- integração com componentes existentes.
+
+
+Capacidades atuais:
+
+- Hybrid query execution;
+- automated testing;
+- application observability;
+- execution metrics tracking;
+- response quality monitoring;
+- evaluation history persistence.
+
+
+Validação:
+
+27 automated tests passing
 
 
 ---
 
-## Hybrid Query Engine
+# 17. Real Data Intelligence Layer
+
+## V1.6
 
 Status:
 
-✅ Passed
+✅ Completed
 
 
-Validado:
+Objetivo:
 
-- roteamento;
-- integração RAG + Analysis.
+Adicionar uma camada real de inteligência sobre datasets estruturados.
 
+
+Implementado:
+
+
+## Data Layer
+
+Completed:
+
+- DataSource contract;
+- DatasetInfo contract;
+- LoadResult contract;
+- carregamento através do OlistDataLoader;
+- validação de datasets;
+- acesso estruturado aos dados.
+
+
+## Processed Data Layer
+
+Completed:
+
+- suporte a datasets processados;
+- separação entre dados brutos e processados;
+- preparação para armazenamento analítico futuro.
+
+
+## Analytics Layer
+
+Completed:
+
+- AnalyticsEngine abstraction;
+- integração com DataFrameRepository;
+- operações estatísticas.
+
+
+Capacidades:
+
+- contagem de registros;
+- inspeção de colunas;
+- análise de frequência;
+- descoberta de datasets.
+
+
+## Intelligence Integration
+
+Completed:
+
+- DataAnalysisAgent integrado ao AnalyticsEngine;
+- DataIntelligenceService criado;
+- separação entre agentes e serviços.
+
+
+Arquitetura:
+
+Question
+    ↓
+DataAnalysisAgent
+    ↓
+DataIntelligenceService
+    ↓
+AnalyticsEngine
+    ↓
+DataFrameRepository
+    ↓
+Datasets
+
+Validação:
+62 automated tests passing
+
+
+
+Componentes validados:
+
+- Data Layer;
+- Processing Layer;
+- Analytics Layer;
+- Analysis Agent;
+- RAG System;
+- Hybrid Intelligence;
+- Application Layer;
+- API Layer;
+- Monitoring Layer;
+- Evaluation Layer.
 
 ---
 
-## Intelligence System
+# 18. Data Intelligence Expansion
+
+## V1.7
 
 Status:
 
-✅ Passed
+✅ Completed
 
 
-Validado:
+Branch:
 
-Perguntas:
-
-Quantos produtos existem?
-
-Qual categoria possui mais produtos?
-
-Quais produtos aparecem nos dados?
+feature/v1.7-data-intelligence-expansion
 
 
+
+Objetivo:
+
+Expandir a camada de inteligência de dados, aumentando a capacidade analítica do sistema sobre datasets reais.
+
+
+Implementado:
+
+- evolução do Analytics Engine;
+- integração do Data Intelligence Service;
+- expansão das operações analíticas;
+- melhoria da separação entre agentes e serviços;
+- aumento da cobertura de testes.
+
+
+Arquitetura:
+
+Antes:
+
+DataAnalysisAgent
+    ↓
+Direct dataframe operations
+
+Depois:
+
+DataAnalysisAgent
+    ↓
+DataIntelligenceService
+    ↓
+AnalyticsEngine
+    ↓
+DataFrameRepository
+    ↓
+Datasets
+
+
+Validação:
+67 automated tests passing
+
+
+
+Resultado:
+
+O projeto possui uma camada analítica mais robusta, preparada para evoluir para capacidades avançadas de inteligência artificial.
 
 ---
 
-# 14. Current Limitations
+# 19. Current Limitations
 
-Apesar da fundação estar funcional, existem pontos planejados.
+Apesar da arquitetura estar funcional, existem pontos planejados para evolução.
 
 
 ## Natural Language Understanding
@@ -425,381 +631,152 @@ Melhorias futuras:
 
 ## RAG Quality
 
-Melhorias:
+Melhorias futuras:
 
 - ranking de documentos;
-- melhor chunking;
+- estratégias avançadas de chunking;
 - filtros por metadata;
-- avaliação contínua.
+- otimização de recuperação.
 
 
 ---
 
-## Production Layer
+## User Experience Layer
 
 Ainda não implementado:
 
-- API;
-- autenticação;
-- usuários;
-- interface web;
-- histórico persistente.
+- interface web final;
+- upload de arquivos pelo usuário;
+- histórico persistente;
+- gerenciamento de usuários.
 
 
 ---
 
-# 15. Current Project Phase
+# 20. Current Project Phase
 
 Estado atual:
 
-Phase 1 - Technical Foundation
+Phase 0 - Foundation
+
 ✅ Completed
 
-Phase 2 - Intelligence Expansion
-✅ In Progress
+Phase 1 - AI Knowledge Pipeline
 
-Phase 3 - Product Interface
+✅ Completed
+
+Phase 2 - Modular Intelligence Architecture
+
+✅ Completed
+
+Phase 3 - Hybrid Intelligence Platform
+
+✅ Completed
+
+Phase 4 - Evaluation & Quality Layer
+
+✅ Completed
+
+Phase 5 - Advanced Retrieval Systems
+
 ⏳ Planned
 
+Phase 6 - Intelligent Agents
+
+🚧 Planning
+
+Próxima evolução:
+
+V1.8 - Agent Intelligence Expansion
 
 
 ---
 
-# 16. Next Development Steps
+# 21. Next Development Steps
 
-Prioridade:
+Prioridades:
 
-1. Finalizar documentação técnica.
-2. Criar testes automatizados.
-3. Melhorar inteligência híbrida.
-4. Criar camada de API.
-5. Desenvolver interface para usuário final.
-
+1. Preparar arquitetura de agentes.
+2. Implementar camada de ferramentas.
+3. Integrar Function Calling.
+4. Criar Agent Layer.
+5. Evoluir para workflows inteligentes.
+6. Preparar interface de usuário.
+7. Planejar deploy e validação de produto.
 
 ---
 
-# 17. Product Vision
+# 22. Product Vision
 
 O objetivo final é evoluir o sistema para uma plataforma de inteligência de dados empresarial.
 
 
 Possíveis aplicações:
 
-- pequenos varejos;
-- empresas com planilhas operacionais;
-- análise automática de estoque;
-- relatórios inteligentes;
-- assistentes internos.
+- análise automática de dados empresariais;
+- assistentes internos inteligentes;
+- geração automática de relatórios;
+- análise de indicadores de negócio;
+- soluções especializadas por domínio.
 
 
 Canais futuros:
 
 - navegador;
-- aplicativo;
-- WhatsApp;
-- Email;
-- integrações empresariais.
+- aplicações web;
+- integrações empresariais;
+- APIs;
+- plataformas internas.
 
 
 ---
 
-# 18. Documentation History
+# 23. Documentation History
 
-## v0.7
+## V1.7 — Data Intelligence Expansion
 
-Data:
+Date:
 
 08-07-2026
 
 
 Principais evoluções:
 
-- Hybrid Query Engine;
-- Data Analysis Agent;
-- Statistics Engine;
-- Decision Engine;
-- Answer Generation;
-- Application Layer.
+- Analytics Engine expansion;
+- Data Intelligence Service integration;
+- analytical capability expansion;
+- improved abstraction layers;
+- increased test coverage.
 
 
-O projeto atualmente possui uma base técnica preparada para evolução em direção a uma plataforma completa de inteligência artificial aplicada a dados.
-
-## V1.1 — Automated Testing Foundation
-
-Status:
-Completed
-
-Current validation:
-
-- 24 automated tests passing
-- Analysis layer validated
-- Service layer validated
-- Application layer validated
-
-The project now has a stable testing foundation for future architectural evolution.
-
-## Current Phase
-
-V1.2 - Logging & Observability Foundation
-
-Completed.
-
-The project currently contains:
-
-- validated hybrid intelligence architecture;
-- automated testing foundation;
-- application logging;
-- execution metrics tracking.
-
-Current validation:
-
-25 automated tests passing.
+O projeto atualmente possui uma base técnica preparada para evoluir de uma plataforma de inteligência de dados para uma arquitetura baseada em agentes inteligentes.
 
 
-## Current Phase
+---
 
-V1.3 - Evaluation Monitoring Layer
+# Next Evolution
 
-Completed.
-
-Current capabilities:
-
-- Hybrid query execution
-- Automated testing
-- Application observability
-- Execution metrics tracking
-- Response quality monitoring
-- Evaluation history persistence
-
-Current validation:
-
-27 automated tests passing.
-
-## Current Phase
-
-## Current Phase
-
-# V1.6 - Real Data Intelligence Layer
+## V1.8 — Agent Intelligence Expansion
 
 Status:
 
-Completed
-
----
-
-## Implemented
-
-### Data Layer
-
-Completed:
-
-* Data contracts:
-
-  * DataSource
-  * DatasetInfo
-  * LoadResult
-
-* Raw dataset loading through OlistDataLoader
-
-* Dataset validation
-
-* Structured data access
-
-### Processed Data Layer
-
-Completed:
-
-* Processed dataset loading support
-* Separation between raw and processed data sources
-* Repository strategy prepared for future analytical storage
-
-### Analytics Layer
-
-Completed:
-
-* AnalyticsEngine abstraction
-* DataFrameRepository integration
-* Statistics operations abstraction
-
-Capabilities:
-
-* dataset row counting;
-* dataset columns inspection;
-* value frequency analysis;
-* dataset discovery.
-
-### Intelligence Integration
-
-Completed:
-
-* DataAnalysisAgent integrated with AnalyticsEngine
-* DataIntelligenceService created
-* Separation between agents and analytical services
-
-Architecture evolution:
-
-Question
-
-↓
-
-DataAnalysisAgent
-
-↓
-
-DataIntelligenceService
-
-↓
-
-AnalyticsEngine
-
-↓
-
-DataFrameRepository
-
-↓
-
-Datasets
-
----
-
-## Validation
-
-Full automated test suite:
-
-```
-62 passed
-```
-
-Validated components:
-
-* Data Layer
-* Preprocessing Layer
-* Analytics Layer
-* Analysis Agent
-* RAG System
-* Hybrid Intelligence
-* Application Layer
-* API Layer
-* Monitoring Layer
-* Evaluation Layer
-
----
-
-# Release Status
-
-V1.6 is ready for release.
-
-Next steps:
-
-* finalize documentation;
-* create release commit;
-* merge version branch into main;
-* create Git tag v1.6.0;
-* start V1.7 development branch.
-
----
-
-## Documentation History
-
-## V1.6 - Real Data Intelligence Layer
-
-Date:
-
-08-07-2026
-
-Main evolutions:
-
-* Real data intelligence foundation;
-* Analytics abstraction layer;
-* DataFrame repository architecture;
-* Data intelligence service layer;
-* Agent/service separation;
-* Full test validation with 62 passing tests.
-
-The project is now prepared for the next evolution cycle focused on expanding intelligence capabilities.
-
-
----
-
-# V1.7 - Data Intelligence Expansion
-
-Status:
-
-🚧 In Development
+Planning
 
 
 Objetivo:
 
-Expandir a camada de inteligência de dados,
-melhorando a capacidade analítica do sistema
-sobre datasets reais.
+Adicionar uma camada de agentes inteligentes capazes de selecionar ferramentas, executar ações e combinar diferentes capacidades do sistema.
 
 
-Planejado:
+Principais conceitos:
 
-- evolução do Analytics Engine;
-- expansão do Data Intelligence Service;
-- melhorias no Data Analysis Agent;
-- novas capacidades analíticas;
-- aumento da cobertura de testes.
-
-
-Branch:
-
-feature/v1.7-data-intelligence-expansion
+- Function Tools;
+- Function Calling;
+- Agent Layer;
+- Query Engine Tools;
+- ReAct Agent;
+- Tool Registry.
 
 
-## V1.7 - Data Intelligence Expansion
+A V1.8 representa a evolução do sistema de uma arquitetura orientada a respostas para uma arquitetura orientada a execução inteligente.
 
-Status:
-In Progress
-
-Implemented:
-
-- AnalyticsEngine expansion
-- DataIntelligenceService integration
-- Advanced analytical operations
-- Improved separation between agents and services
-- Extended analytics test coverage
-
-Architecture evolution:
-
-Before:
-
-DataAnalysisAgent
-|
-v
-Direct dataframe operations
-
-
-After:
-
-DataAnalysisAgent
-|
-v
-DataIntelligenceService
-|
-v
-AnalyticsEngine
-|
-v
-DataFrameRepository
-|
-v
-Datasets
-
-
-Validation:
-
-- 67 automated tests passing
-
-Current phase:
-
-The project now contains a stronger analytical abstraction layer,
-preparing the system for more advanced data intelligence capabilities.
-
-Next steps:
-
-- Expand analytical operations
-- Improve natural language interpretation
-- Add richer business intelligence capabilities

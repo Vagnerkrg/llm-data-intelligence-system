@@ -82,14 +82,13 @@ Transform the initial pipeline into a modular intelligence system.
 
 Created specialized layers:
 
-```
 src/
 
 analysis/
 agents/
 services/
 application/
-```
+
 
 Implemented:
 
@@ -112,7 +111,7 @@ The system evolved from a RAG pipeline into a multi-component intelligence archi
 
 ## Status
 
-Current Phase
+Completed
 
 ## Objective
 
@@ -132,12 +131,9 @@ Supported examples:
 * "Qual categoria possui mais produtos?"
 * "Quais produtos aparecem nos dados?"
 
-## Current Focus
+## Result
 
-* Improve routing accuracy.
-* Improve answer quality.
-* Expand analytical capabilities.
-* Create evaluation metrics.
+The system became capable of combining retrieval and analytical reasoning.
 
 ---
 
@@ -145,15 +141,15 @@ Supported examples:
 
 ## Status
 
-Next Phase
+Completed
 
 ## Objective
 
 Create a professional evaluation system for AI responses.
 
-## Goals
+## Implemented Capabilities
 
-Implement:
+Implemented:
 
 * response quality metrics;
 * retrieval evaluation;
@@ -161,9 +157,9 @@ Implement:
 * confidence scoring;
 * regression tests.
 
-## Expected Result
+## Result
 
-Ability to measure and improve system intelligence objectively.
+The platform gained the ability to measure and improve AI response quality objectively.
 
 ---
 
@@ -196,23 +192,88 @@ Higher accuracy in complex knowledge scenarios.
 
 ## Status
 
-In Development Direction
+Planning
+
+## Version Target
+
+V1.8 — Agent Intelligence Expansion
 
 ## Objective
 
-Expand specialized AI agents capable of reasoning and executing tasks.
+Expand the platform with intelligent agents capable of reasoning, selecting tools and executing specialized tasks.
+
+## Strategic Direction
+
+The system evolves from a response-oriented architecture into an action-oriented intelligence platform.
+
+The objective is to enable AI agents to understand user requests, select appropriate capabilities and execute intelligent workflows using specialized tools.
 
 ## Goals
 
-* specialized agents;
-* tool execution;
-* planning;
-* memory systems;
-* multi-agent workflows.
+Implement:
+
+* Function Tools;
+* Function Calling;
+* Agent Layer;
+* Query Engine Tools;
+* ReAct Agent;
+* Tool Registry.
+
+## Future Evolution
+
+Future improvements may include:
+
+* specialized domain agents;
+* planning systems;
+* memory capabilities;
+* multi-agent workflows;
+* autonomous task execution.
 
 ## Expected Result
 
-A coordinated AI workforce architecture.
+A coordinated AI intelligence layer capable of combining:
+
+* knowledge retrieval;
+* structured data analysis;
+* external tools;
+* automated reasoning workflows.
+
+The platform evolves from answering questions into executing intelligent tasks.
+
+---
+
+# Agent Architecture Direction
+
+The next architectural evolution introduces an agent-based intelligence layer.
+
+The objective is to allow the system to understand requests, select capabilities and execute specialized actions.
+
+Architecture direction:
+
+User Request
+    ↓
+Agent Reasoning Layer
+    ↓
+Specialized Capabilities
+    ├── RAG Search
+    ├── Analytics Engine
+    ├── Data Processing
+    ├── Document Analysis
+    └── External Tools
+
+    ↓
+Validated Response
+    ↓
+Continuous Improvement
+
+This architecture enables the platform to combine:
+
+* knowledge retrieval;
+* data analysis;
+* automated reasoning;
+* specialized tools.
+
+The result is an evolution from conversational AI into an intelligent execution platform.
 
 ---
 
@@ -334,29 +395,34 @@ The evolution follows these principles:
 
 The LLM Data Intelligence System currently represents a transition:
 
-```
 Learning Project
-
-        ↓
-
+    ↓
 Modular AI Engineering Platform
-
-        ↓
-
-Reusable Intelligence Services
-
-        ↓
-
+    ↓
+Intelligent Data Platform
+    ↓
 AI Product Ecosystem
-```
+
+
+Current maturity:
+
+The platform already contains:
+
+* modular architecture;
+* data processing capabilities;
+* retrieval augmented generation;
+* analytical intelligence;
+* evaluation and monitoring foundations.
 
 Current technical priority:
 
-1. Stabilize architecture.
-2. Improve evaluation.
-3. Increase intelligence quality.
-4. Expand capabilities.
-5. Prepare future product layers.
+1. Expand intelligent agent capabilities.
+2. Integrate tools with existing intelligence layers.
+3. Improve analytical workflows.
+4. Prepare user interaction interfaces.
+5. Move toward product validation.
+
+The next evolution focuses on transforming the system from a platform that provides intelligent responses into a platform capable of executing intelligent workflows.
 
 ---
 
@@ -371,58 +437,3 @@ The objective is to create a reusable AI engineering ecosystem capable of suppor
 * AI agents;
 * automation;
 * business applications.
-
-
-# Phase V1.1 — Automated Testing Foundation
-
-Status
-
-Completed
-
-Main Deliverables
-
-- Test architecture
-- Unit tests
-- Service validation
-- Analysis validation
-- Application validation
-
-Result
-
-The platform now includes an automated testing foundation that supports safe and incremental evolution.
-
-Next Phase
-
-V1.2 — Quality & Observability Foundation
-
-
-## Completed - V1.2 Logging & Observability Foundation
-
-Implemented:
-
-- structured application logging;
-- metrics tracking layer;
-- execution monitoring;
-- route monitoring;
-- error tracking.
-
-Future improvements:
-
-- latency analysis;
-- performance dashboards;
-- production monitoring.
-
-## Completed - V1.3 Evaluation Monitoring Layer
-
-Implemented:
-
-- answer quality monitoring;
-- evaluation history;
-- quality tracking pipeline;
-- integration with existing evaluation components.
-
-Future improvements:
-
-- quality dashboards;
-- automatic regression detection;
-- evaluation trend analysis.

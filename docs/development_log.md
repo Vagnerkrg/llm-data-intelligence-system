@@ -4,18 +4,20 @@
 
 Este documento registra a evolução técnica do **LLM Data Intelligence System**, incluindo decisões arquiteturais, módulos implementados e principais marcos do projeto.
 
+O objetivo deste documento é preservar a evolução do sistema desde sua fundação até uma futura plataforma de inteligência artificial aplicada a dados.
+
 ---
 
 # V0.1 - Fundação do Projeto
 
 ## Objetivo
 
-Criação da base inicial do sistema de inteligência de dados utilizando arquitetura modular.
+Criação da base inicial do sistema de inteligência de dados utilizando uma arquitetura modular.
 
 ## Implementações
 
 * Estrutura inicial do projeto criada.
-* Organização das camadas:
+* Organização das principais camadas:
 
   * data;
   * preprocessing;
@@ -27,26 +29,37 @@ Criação da base inicial do sistema de inteligência de dados utilizando arquit
 
 ## Decisão Arquitetural
 
-O projeto foi desenvolvido seguindo separação de responsabilidades, permitindo evolução independente dos componentes.
+O projeto foi desenvolvido seguindo princípios de:
+
+* separação de responsabilidades;
+* modularidade;
+* evolução incremental;
+* baixo acoplamento entre componentes.
+
+## Resultado
+
+Foi criada uma base técnica preparada para evolução contínua.
 
 ---
 
 # V0.2 - Data Pipeline Foundation
 
+## Objetivo
+
+Criar a primeira camada funcional de dados.
+
 ## Implementações
 
-Criada a primeira camada funcional de dados.
-
-Componentes:
+Criada a camada:
 
 src/data/
-
 
 Implementado:
 
 * carregamento dos datasets;
 * validação inicial;
-* organização dos dados brutos.
+* organização dos dados brutos;
+* estrutura para consumo pelos módulos superiores.
 
 ## Resultado
 
@@ -56,27 +69,31 @@ O sistema passou a possuir uma base confiável para processamento e análise.
 
 # V0.3 - RAG Foundation
 
+## Objetivo
+
+Construir a primeira arquitetura de Retrieval-Augmented Generation.
+
 ## Implementações
 
-Construção da primeira arquitetura Retrieval-Augmented Generation.
-
-Componentes:
+Criados componentes:
 
 src/rag/
-src/embeddings/
-src/index/
 
+src/embeddings/
+
+src/index/
 
 Implementado:
 
 * geração de embeddings;
 * criação de índice vetorial;
 * busca semântica;
-* recuperação de contexto.
+* recuperação de contexto;
+* geração de respostas utilizando conhecimento recuperado.
 
 ## Resultado
 
-O sistema passou a responder perguntas utilizando conhecimento recuperado dos datasets.
+O sistema passou a responder perguntas utilizando informações presentes nos datasets indexados.
 
 ---
 
@@ -88,12 +105,11 @@ Adicionar capacidade de análise estruturada dos dados.
 
 ## Implementações
 
-Criados componentes:
+Criada a camada:
 
 src/analysis/
 
-
-Incluindo:
+Componentes iniciais:
 
 * DataFrame Repository;
 * Statistics Engine;
@@ -108,7 +124,10 @@ Capacidades adicionadas:
 
 ## Resultado
 
-O sistema passou a combinar busca semântica com análise direta dos dados.
+O sistema passou a combinar:
+
+* recuperação semântica;
+* análise direta dos dados.
 
 ---
 
@@ -116,14 +135,13 @@ O sistema passou a combinar busca semântica com análise direta dos dados.
 
 ## Objetivo
 
-Criar uma camada capaz de decidir o melhor caminho para responder perguntas.
+Criar uma camada capaz de identificar o melhor caminho para responder perguntas.
 
 ## Implementações
 
 Criado:
 
 src/analysis/analysis_router.py
-
 
 Responsável por classificar consultas em:
 
@@ -141,7 +159,7 @@ O sistema passou a direcionar perguntas automaticamente para o componente adequa
 
 ## Objetivo
 
-Introduzir agentes especializados.
+Introduzir agentes especializados para execução de tarefas analíticas.
 
 ## Implementações
 
@@ -149,12 +167,11 @@ Criado:
 
 src/agents/data_analysis_agent.py
 
-
 Responsabilidades:
 
 * interpretar perguntas analíticas;
-* executar operações;
-* retornar resultados estruturados.
+* executar operações estruturadas;
+* retornar resultados organizados.
 
 Operações suportadas:
 
@@ -164,7 +181,7 @@ Operações suportadas:
 
 ## Resultado
 
-Primeira versão funcional de agente analítico.
+Primeira versão funcional de um agente analítico.
 
 ---
 
@@ -172,14 +189,13 @@ Primeira versão funcional de agente analítico.
 
 ## Objetivo
 
-Unificar RAG e análise estruturada.
+Unificar recuperação de conhecimento e análise estruturada.
 
 ## Implementações
 
 Criado:
 
 src/services/hybrid_query_engine.py
-
 
 Responsável por:
 
@@ -208,11 +224,11 @@ Criado:
 
 src/services/decision_engine.py
 
-
-Responsabilidade:
+Responsabilidades:
 
 * comparar respostas RAG e análise;
-* selecionar a melhor fonte.
+* selecionar a melhor fonte;
+* melhorar consistência das respostas.
 
 ## Resultado
 
@@ -232,12 +248,18 @@ Criado:
 
 src/services/answer_generator.py
 
-
 Responsável por:
 
 * transformar resultados técnicos;
 * gerar respostas amigáveis;
 * preparar saída final.
+
+## Resultado
+
+A arquitetura passou a separar:
+
+* processamento interno;
+* geração de resposta.
 
 ---
 
@@ -245,7 +267,7 @@ Responsável por:
 
 ## Objetivo
 
-Criar a camada principal de aplicação.
+Criar a camada principal de execução do sistema.
 
 ## Implementação
 
@@ -253,20 +275,19 @@ Criado:
 
 src/application/intelligence_system.py
 
-
 Responsável por:
 
 * receber perguntas;
-* executar o fluxo completo;
-* integrar:
+* executar fluxo completo;
+* integrar componentes de inteligência.
 
-  * Hybrid Query Engine;
-  * Decision Engine;
-  * Answer Generator.
+Integra:
 
-## Resultado
+* Hybrid Query Engine;
+* Decision Engine;
+* Answer Generator.
 
-Primeiro fluxo completo:
+## Fluxo Completo
 
 Usuário
 
@@ -295,21 +316,27 @@ Answer Generator
 Resposta Final
 
 
+## Resultado
+
+Primeiro fluxo completo de inteligência aplicado ao sistema.
 ---
 
 # V1.1 - Automated Testing Foundation
 
 ## Objetivo
 
-Adicionar uma camada inicial de testes automatizados para validar os componentes principais do sistema.
+Adicionar uma camada de testes automatizados para validar os principais componentes da arquitetura.
 
 ## Implementações
 
-Criada estrutura:
+Criada a estrutura:
+
 tests/
 
 ├── test_analysis/
+
 ├── test_services/
+
 └── test_application/
 
 Configurado:
@@ -318,23 +345,20 @@ Configurado:
 - ambiente de testes;
 - execução automatizada.
 
-## Validação
-
-Primeira execução:
-
-pytest
-
-3 passed
-
-Componentes validados:
+Componentes inicialmente validados:
 
 - IntelligenceSystem;
-- integração entre camadas;
+- serviços internos;
 - fluxo completo de perguntas e respostas.
+
+## Validação Inicial
+
+Primeira execução:
+3 passed
 
 ## Resultado
 
-O projeto passou a possuir uma base inicial de qualidade de software, permitindo evolução mais segura dos próximos módulos.
+O projeto passou a possuir uma base inicial de qualidade de software, permitindo evolução mais segura.
 
 ---
 
@@ -342,34 +366,38 @@ O projeto passou a possuir uma base inicial de qualidade de software, permitindo
 
 ## Objetivo
 
-Validar o funcionamento integrado de todas as camadas principais.
+Validar o funcionamento integrado das principais camadas do sistema.
 
-## Validações realizadas
+## Validações Realizadas
 
 Pergunta:
 Quantos produtos existem?
-Resultados:
+Resultado:
 O dataset products possui 32951 registros.
+
+---
 
 Pergunta:
 Qual categoria possui mais produtos?
-Resultados:
+Resultado:
 A categoria com maior quantidade de produtos é
 'cama_mesa_banho', com 3029 registros.
+
+---
 
 Pergunta:
 Quais produtos aparecem nos dados?
 Resultado:
-Resposta gerada através da camada RAG utilizando documentos recuperados.
+Resposta gerada utilizando a camada RAG com documentos recuperados pelo índice vetorial.
 
 ## Resultado
 
 O fluxo completo de inteligência híbrida foi validado:
 
-* análise estruturada;
-* recuperação semântica;
-* decisão de resposta;
-* geração final.
+- análise estruturada;
+- recuperação semântica;
+- decisão de resposta;
+- geração final.
 
 ---
 
@@ -382,585 +410,328 @@ Consolidar a camada de aplicação como ponto único de entrada do sistema.
 ## Implementações
 
 O componente:
-
 src/application/intelligence_system.py
 
+passou a centralizar:
 
-passa a centralizar:
-
-* entrada das perguntas;
-* execução dos serviços;
-* escolha da resposta adequada;
-* retorno ao usuário.
+- entrada das perguntas;
+- execução dos serviços;
+- escolha da resposta adequada;
+- retorno ao usuário.
 
 ## Resultado
 
-A arquitetura passa a possuir uma separação clara entre:
+A arquitetura passou a possuir separação clara entre:
 
-* lógica interna;
-* serviços;
-* camada de aplicação;
-* resposta final.
-
----
-
-# Estado Atual do Sistema
-
-Componentes implementados:
-
-src/
-
-├── analysis/
-│
-├── agents/
-│
-├── rag/
-│
-├── services/
-│
-├── application/
-│
-├── embeddings/
-│
-├── index/
-│
-├── data/
-│
-└── llm/
-
-
-Capacidades atuais:
-
-✅ carregamento de dados  
-✅ processamento estruturado  
-✅ análise com Pandas  
-✅ busca semântica  
-✅ RAG  
-✅ roteamento inteligente  
-✅ agente analítico  
-✅ engine híbrida  
-✅ decisão de resposta  
-✅ geração de respostas amigáveis  
-
+- lógica interna;
+- serviços;
+- aplicação;
+- resposta final.
 
 ---
 
-# Próximas Evoluções Planejadas
-
-## V1.3
-
-Melhorias previstas:
-
-* testes automatizados;
-* avaliação contínua;
-* métricas de qualidade;
-* melhoria dos documentos RAG.
-
-
-## V1.4
-
-Possíveis evoluções:
-
-* memória de conversação;
-* histórico de perguntas;
-* observabilidade;
-* logs estruturados.
-
-
-## V2.0
-
-Visão futura:
-
-* interface web;
-* upload de arquivos;
-* dashboards;
-* integrações externas;
-* plataforma empresarial de inteligência de dados.
-
-
----
-
-# Registro de Evolução
-
-O projeto seguirá os princípios:
-
-* documentação contínua;
-* evolução incremental;
-* arquitetura modular;
-* separação entre núcleo técnico e produto final;
-* preparação para futura comercialização.
-
-
-# V1.1 - Automated Testing Foundation
+# V1.2 - Logging & Observability Foundation
 
 ## Objetivo
 
-Validar os principais componentes da arquitetura através de testes automatizados.
+Adicionar capacidade de monitoramento da execução do sistema.
 
 ## Implementações
 
-Criada a estrutura completa de testes:
+Criada uma camada inicial de observabilidade.
 
-tests/
+Implementado:
 
-├── test_analysis/
-├── test_services/
-└── test_application/
+- logging estruturado;
+- métricas de execução;
+- rastreamento de rotas;
+- acompanhamento de erros;
+- integração com IntelligenceSystem.
 
-Componentes validados:
+## Validação
 
-- StatisticsEngine
-- DataAnalysisAgent
-- AnswerGenerator
-- DecisionEngine
-- HybridQueryEngine
-- IntelligenceSystem
+25 automated tests passing
 
 ## Resultado
 
-Primeira suíte de testes concluída com sucesso.
+O sistema passou a registrar informações de execução, criando uma base para monitoramento futuro.
 
-24 testes automatizados aprovados.
+---
 
-A plataforma passa a possuir uma base validada para evolução contínua.
+# V1.3 - Evaluation Monitoring Layer
 
-## V1.2 - Logging & Observability Foundation
+## Objetivo
 
-Status:
-Completed
+Criar uma camada capaz de avaliar a qualidade das respostas geradas pelo sistema.
 
-Implemented:
+## Implementações
 
-- MetricsTracker monitoring layer
-- Application execution metrics
-- Route tracking
-- Execution status tracking
-- Error tracking
-- Integration with IntelligenceSystem
+Criado:
 
-Validation:
+- EvaluationHistory;
+- QualityMonitor;
+- persistência histórica de avaliações;
+- integração entre avaliação e monitoramento.
 
-- 25 automated tests passing
-- application_metrics.jsonl generated successfully
+Implementado armazenamento:
 
-Result:
+JSONL evaluation history
 
-The system now has a structured observability foundation combining application logs and execution metrics.
+## Validação
 
-## V1.3 - Evaluation Monitoring Layer
+27 automated tests passing
 
-Status:
-Completed
+## Resultado
 
-Implemented:
+O sistema passou a monitorar não apenas execução técnica, mas também qualidade das respostas ao longo do tempo.
 
-- EvaluationHistory persistence layer
-- QualityMonitor evaluation layer
-- Integration between answer evaluation and historical tracking
-- JSONL evaluation history storage
+---
 
-Validation:
+# V1.4 - Hybrid Intelligence API Layer
 
-- 27 automated tests passing
+## Objetivo
 
-Result:
+Disponibilizar a arquitetura interna através de uma API externa.
 
-The system now monitors not only execution behavior but also response quality over time.
+## Implementações
 
-# V1.4 - Hybrid Intelligence API Layer Completed
+Criada camada:
 
-## Overview
+FastAPI API Layer
 
-Implemented the API integration layer for the LLM Data Intelligence System.
+Implementado:
 
-This milestone connected the internal intelligence pipeline with an external API interface using FastAPI.
+- endpoint `/ask`;
+- schemas de request e response;
+- integração com IntelligenceSystem;
+- injeção de dependências;
+- contratos de resposta padronizados;
+- testes de API.
 
-## Completed Features
+## Arquitetura
 
-* Created FastAPI API layer.
-* Added `/ask` endpoint.
-* Implemented request and response schemas.
-* Integrated dependency injection for IntelligenceSystem.
-* Standardized API responses using IntelligenceResponse.
-* Added API route tests.
-* Validated complete application flow through automated testing.
+User Request
 
-## Validation
+↓
 
-Test suite status:
+FastAPI
 
-* 31 tests executed
-* 31 tests passed
-* 0 failures
-* 0 warnings
+↓
 
-## Architecture Impact
+IntelligenceSystem
 
-The system now exposes the intelligence pipeline through a production-style API layer:
+↓
 
-User Request → FastAPI → IntelligenceSystem → Hybrid Intelligence → Response
+Hybrid Intelligence
 
-## Version Status
+↓
 
-V1.4 completed.
+Response
 
 
-# V1.5 - Configuration and Error Handling Layer Completed
+## Validação
 
-## Overview
+Suite completa:
 
-The V1.5 milestone introduced the configuration foundation and centralized error handling architecture for the LLM Data Intelligence System.
+31 tests executed
 
-The objective was to improve maintainability, environment management, and API reliability.
+31 tests passed
 
-## Implemented Features
+## Resultado
+
+O sistema passou a possuir uma interface de serviço seguindo padrões próximos de aplicações reais.
+
+---
+
+# V1.5 - Configuration & Reliability Layer
+
+## Objetivo
+
+Melhorar organização da aplicação, configuração e confiabilidade operacional.
+
+## Implementações
 
 ### Configuration Layer
 
-Implemented centralized application configuration:
+Criado:
 
-* Created `src/config` package.
-* Added centralized constants.
-* Added environment-based settings management.
-* Integrated `.env` loading support.
-* Added support for application metadata and API configuration.
+src/config/
 
-Main components:
+Componentes:
 
-* `src/config/constants.py`
-* `src/config/settings.py`
-* `src/config/__init__.py`
+- constants.py;
+- settings.py;
+- __init__.py.
+
+
+Implementado:
+
+- configuração centralizada;
+- suporte a variáveis de ambiente;
+- carregamento `.env`;
+- gerenciamento de informações da aplicação.
+
+---
 
 ## Error Handling Layer
 
-Implemented standardized exception handling:
+Implementado:
 
-* Created core exception structure.
-* Added API exception definitions.
-* Added global API error handlers.
-* Standardized unexpected error responses.
+- estrutura de exceções;
+- handlers globais;
+- respostas padronizadas de erro;
+- tratamento de falhas inesperadas.
 
-Error responses now follow a consistent contract:
+Contrato:
 
 ```json
 {
     "error": "internal_error",
     "message": "Unable to process request"
 }
-```
 
-## Testing
-
-Validation completed successfully:
-
-```
-pytest --cache-clear
+Validação
 
 34 passed
-```
 
-The new layer maintains compatibility with the existing:
+Resultado
 
-* RAG pipeline
-* Analysis pipeline
-* Hybrid intelligence flow
-* Monitoring system
-* Evaluation system
+O projeto evoluiu de um protótipo funcional para uma arquitetura de aplicação mais estruturada e preparada para produção.
 
-## Status
+V1.5.1 - Logging Observability Layer
+Objetivo
 
-V1.5 completed successfully.
+Melhorar rastreabilidade e diagnóstico das execuções.
 
+Implementações
 
-# V1.5 - Configuration & Reliability Layer Completed
+Criado:
 
-## Overview
+Structured Logging Foundation;
+AppLogger centralizado;
+Request Context;
+geração de Request ID;
+rastreamento de execução.
+Integração
 
-The V1.5 milestone focused on improving the application's reliability, maintainability, and production readiness.
+O Request ID passou a acompanhar:
 
-The system moved from a functional prototype architecture toward a more structured application foundation, introducing better configuration management, API reliability patterns, and integration validation.
+execução da aplicação;
+logs;
+respostas da API.
 
----
+Validação 
 
-## Completed Features
+39 tests passed
 
-### Configuration Layer
+Impacto
 
-Implemented centralized application configuration:
+O sistema passou a possuir:
 
-* Application constants centralized in `src/config/constants.py`.
-* Global settings management through `src/config/settings.py`.
-* Environment variable support using `.env`.
-* Groq API key configuration support.
-* Application version centralized.
+rastreabilidade de requisições;
+melhor capacidade de debugging;
+base para observabilidade em ambientes maiores.
+Status
 
----
+V1.5.1 concluída.
 
-### API Reliability Layer
+Próxima evolução:
 
-Implemented the initial error handling foundation:
-
-* Created API exception structure.
-* Added generic API error handler.
-* Standardized unexpected error responses.
-* Added automated validation through API tests.
-
----
-
-### Integration Testing
-
-Added integration validation for the main intelligence workflow.
-
-The integration test validates:
-
-```
-User Question
-      |
-      v
-API/Application Layer
-      |
-      v
-Intelligence System
-      |
-      v
-Hybrid Routing
-      |
-      v
-Final Response Contract
-```
-
----
-
-## Testing Status
-
-Current automated test suite:
-
-```
-34 passed
-```
-
-Coverage includes:
-
-* Analysis agents
-* Statistics engine
-* API endpoints
-* Exception handlers
-* Intelligence orchestration
-* Evaluation layer
-* Monitoring layer
-* Service components
-* Hybrid query engine
-* Integration flow
-
----
-
-## Architectural Impact
-
-The project now contains:
-
-* Modular application layers.
-* Standardized response contracts.
-* Automated regression validation.
-* Configuration management.
-* Error handling foundation.
-* Integration testing workflow.
-
-This milestone represents the transition from an experimental implementation toward a production-oriented software architecture.
-
----
-
-## Next Steps
-
-The next development phase will focus on:
-
-1. Creating domain-specific exceptions.
-2. Improving structured logging.
-3. Adding reliability tests.
-4. Preparing the system for real data and LLM integration.
-
-
-## V1.5.1 - Logging Observability Layer Completed
-
-Status: Completed
-
-Implementações:
-
-- Added structured logging foundation.
-- Created centralized AppLogger abstraction.
-- Added request context management.
-- Implemented request ID generation and tracking.
-- Added automated tests for request context behavior.
-
-Validation:
-
-- pytest --cache-clear
-- 39 tests passed
-
-Impact:
-
-The system now has a foundation for distributed request tracking,
-better debugging capability and future observability integrations.
-
-# V1.5.1 - Logging Observability Layer Completed
-
-## Overview
-
-Implemented application-level observability improvements.
-
-## Implemented
-
-- Structured logging abstraction.
-- Centralized AppLogger.
-- Request context tracking.
-- Request ID generation.
-- Request ID propagation through application responses.
-- Request ID integration with application logs.
-
-## Validation
-
-Test suite:
-
-- 39 tests passed.
-
-## Impact
-
-The system now supports request traceability across execution flows,
-improving debugging, monitoring and future production readiness.
-
-## V1.5.1 Released
-
-- 39 tests passing
-- Evaluation layer stabilized
-- Monitoring validated
-- Production architecture checkpoint created
-
-Next milestone:
 V1.6 - Real Data Intelligence Layer
-
 ---
 
-# V1.6 - Real Data Layer Expansion
+# V1.6 - Real Data Intelligence Layer
 
 ## Objetivo
 
-Evolução da camada de dados para suportar um fluxo completo entre dados brutos, processamento, persistência e consumo pelos módulos de inteligência.
+Evoluir a arquitetura de dados para suportar um fluxo completo entre dados brutos, processamento, persistência e consumo pelos módulos de inteligência.
 
-## Implementações
+A V1.6 representa a transição do sistema para uma arquitetura mais próxima de cenários reais de dados.
 
-### Processed Data Layer
+---
 
-Criada uma nova camada para consumo de dados processados.
+# Implementações
+
+## Data Processing Integration
+
+Foi criada uma camada para trabalhar com dados processados.
 
 Novo componente:
 
 src/data/processed_loader.py
 
-
 Responsabilidades:
 
-* carregar datasets processados em formato parquet;
-* disponibilizar dados preparados para os agentes;
-* separar leitura de dados tratados da leitura dos dados originais.
+- carregar datasets processados;
+- disponibilizar dados preparados para os agentes;
+- separar dados tratados dos dados originais.
 
+---
 
-### Repository Evolution
+## Repository Evolution
 
-Atualizado o:
+Atualizado:
 
 src/analysis/dataframe_repository.py
 
 
 Nova estratégia:
 
-* priorizar datasets processados;
-* utilizar dados raw como fallback;
-* manter compatibilidade com agentes existentes.
+- priorizar datasets processados;
+- utilizar dados raw como fallback;
+- manter compatibilidade com componentes existentes.
 
+---
 
-Fluxo atualizado:
+## Novo Fluxo de Dados
+
+Arquitetura atualizada:
 
 Raw Data
-|
-v
+
+↓
+
 Data Pipeline
-|
-v
+
+↓
+
 Processed Data
-|
-v
+
+↓
+
 DataFrame Repository
-|
-+--> Analytics
-+--> Agents
-+--> Intelligence Layer
 
-## Validação
+↓
 
-Suite completa de testes executada:
+Analytics
 
-62 passed
+↓
 
+Agents
 
-Todas as camadas existentes permaneceram funcionais:
+↓
 
-* Data Layer
-* Preprocessing
-* Analytics
-* RAG
-* Hybrid Intelligence
-* API
-* Monitoring
-* Evaluation
+Intelligence Layer
 
+---
 
-## Decisão Técnica
+# Analytics Service Layer
 
-A separação entre:
-
-* Raw Data Loader
-* Processed Data Loader
-
-foi adotada para manter responsabilidades independentes e permitir evolução futura para:
-
-* bancos analíticos;
-* data warehouses;
-* pipelines distribuídos;
-* novos formatos de armazenamento.
-
-
-# V1.6 - Real Data Intelligence Layer Completed
-
-## Overview
-
-The V1.6 milestone expanded the data architecture,
-creating a complete flow between processed datasets,
-analytics components and intelligence services.
-
-## Implemented Features
-
-### Data Processing Integration
-
-Implemented:
-
-- Processed dataset loading
-- DataFrame repository evolution
-- Analytics consumption layer
-
-### Analytics Service Layer
-
-Created:
+Criado:
 
 src/services/data_intelligence_service.py
 
+Responsabilidades:
 
-Responsibilities:
+- disponibilizar operações analíticas através de uma interface de serviço;
+- separar agentes da implementação analítica;
+- preparar arquitetura para futuras expansões.
 
-- expose analytical operations through a service interface;
-- separate agents from analytical implementation;
-- prepare architecture for future intelligence modules.
+---
 
+# Architecture Evolution
 
-## Architecture Flow
+Fluxo final:
 
 Raw Data
 
@@ -988,22 +759,48 @@ Data Intelligence Service
 
 Agents / Intelligence Layer
 
+---
 
-## Validation
+# Validation
 
-Test suite:
+Suite completa:
 
-62 passed
+62 tests passed
 
+Componentes validados:
 
-## Status
+- Data Layer;
+- Processing Layer;
+- Analytics Layer;
+- RAG System;
+- Hybrid Intelligence;
+- API Layer;
+- Monitoring Layer;
+- Evaluation Layer.
 
-V1.6 completed successfully.
+---
 
+# Technical Decision
 
-Next milestone:
+A separação entre:
 
-V1.7 - Data Intelligence Expansion
+- Raw Data Loader;
+- Processed Data Loader;
+
+foi adotada para manter responsabilidades independentes.
+
+Essa decisão prepara o sistema para futuras evoluções:
+
+- bancos analíticos;
+- data warehouses;
+- pipelines distribuídos;
+- novos formatos de armazenamento.
+
+---
+
+# Resultado
+
+A V1.6 consolidou uma arquitetura real de inteligência de dados, criando uma ponte entre processamento de dados e capacidades de IA.
 
 ---
 
@@ -1011,123 +808,621 @@ V1.7 - Data Intelligence Expansion
 
 ## Objetivo
 
-Evoluir a camada de inteligência de dados criada na V1.6,
-ampliando as capacidades analíticas e preparando o sistema
-para cenários mais próximos de uso empresarial.
+Expandir a camada de inteligência de dados criada na V1.6, aumentando a capacidade analítica do sistema sobre datasets reais.
 
+A V1.7 teve como foco melhorar abstração, escalabilidade e separação de responsabilidades.
 
-## Status
+---
 
-Em desenvolvimento.
+# Status
 
-
-## Planejamento Inicial
-
-Componentes envolvidos:
-
-- Analytics Engine;
-- Data Intelligence Service;
-- Data Analysis Agent;
-- testes automatizados.
-
-
-## Direção Arquitetural
-
-A V1.7 continuará mantendo:
-
-- separação entre dados brutos e processados;
-- serviços desacoplados;
-- agentes especializados;
-- validação automatizada.
-
+✅ Completed
 
 Branch:
 
 feature/v1.7-data-intelligence-expansion
 
-
-# V1.7 - Data Intelligence Expansion
-
-## Objective
-
-Expand the analytical intelligence layer by introducing
-a stronger separation between agents, services and analytics operations.
-
 ---
 
-## Implementations
+# Implementações
 
-### Analytics Engine Expansion
+## Analytics Engine Expansion
 
-Enhanced:
+Componente evoluído:
 
 src/analysis/analytics_engine.py
 
+Melhorias adicionadas:
 
-Added support for:
-
-- aggregation operations;
-- numerical analysis;
-- grouping operations;
-- reusable analytical methods.
+- operações analíticas reutilizáveis;
+- agregações;
+- análises numéricas;
+- operações de agrupamento;
+- maior abstração sobre DataFrames.
 
 ---
 
-### Data Intelligence Service
+## Data Intelligence Service
 
-Created:
+Componente:
 
 src/services/data_intelligence_service.py
 
 
-Responsibilities:
+Responsabilidades:
 
-- centralize analytical execution;
-- abstract analytics from agents;
-- provide reusable intelligence operations.
+- centralizar execução analítica;
+- abstrair operações dos agentes;
+- disponibilizar serviços reutilizáveis.
 
 ---
 
-### Agent Architecture Evolution
+## Agent Architecture Evolution
 
-Updated:
+Atualizado:
 
 src/agents/data_analysis_agent.py
 
 
-The agent now delegates analytical operations through
-the service layer instead of accessing analysis components directly.
+Mudança arquitetural:
+
+Antes:
+
+DataAnalysisAgent
+
+↓
+
+Direct dataframe operations
+
+Depois:
+
+DataAnalysisAgent
+
+↓
+
+DataIntelligenceService
+
+↓
+
+AnalyticsEngine
+
+↓
+
+DataFrameRepository
+
+↓
+
+Datasets
 
 ---
 
-## Validation
+# Validation
 
-Automated test suite:
+Suite automatizada:
+
 67 tests passed
 
+Componentes validados:
 
-Validated components:
-
-- Data Layer
-- Preprocessing Layer
-- Analytics Layer
-- Agents
-- Hybrid Intelligence
-- API Layer
-- Application Layer
-- Monitoring
-- Evaluation
+- Data Layer;
+- Processing Layer;
+- Analytics Layer;
+- Agents;
+- Hybrid Intelligence;
+- API Layer;
+- Application Layer;
+- Monitoring;
+- Evaluation.
 
 ---
 
-## Result
+# Result
 
-The system evolved from an analytical agent architecture
-into a more modular data intelligence architecture.
+A V1.7 transformou a arquitetura analítica do projeto.
 
-The new structure improves:
+O sistema evoluiu de um agente realizando operações diretamente nos dados para uma arquitetura baseada em serviços especializados.
 
-- maintainability;
-- scalability;
-- separation of responsibilities;
-- future integration with enterprise analytics workflows.
+Benefícios:
+
+- maior manutenção;
+- melhor escalabilidade;
+- separação de responsabilidades;
+- preparação para agentes avançados;
+- integração futura com workflows empresariais.
+
+---
+
+# Current Architecture State
+
+A arquitetura atual representa:
+
+Data Sources
+
+↓
+
+Processing Layer
+
+↓
+
+Data Repository
+
+↓
+
+Analytics Engine
+
+↓
+
+Intelligence Services
+
+↓
+
+Agents
+
+↓
+
+Hybrid Intelligence
+
+↓
+
+Application/API
+
+---
+
+# Current Project Maturity
+
+O projeto atualmente possui:
+
+✅ Pipeline de dados  
+✅ Processamento estruturado  
+✅ Busca semântica  
+✅ RAG  
+✅ Inteligência híbrida  
+✅ Analytics Engine  
+✅ Serviços analíticos  
+✅ Agentes especializados  
+✅ API Layer  
+✅ Logging e observabilidade  
+✅ Avaliação de qualidade  
+✅ Testes automatizados  
+
+---
+
+# Development Milestone
+
+## V1.7 Completed
+
+Data:
+
+08-07-2026
+
+
+Principais evoluções:
+
+- expansão do Analytics Engine;
+- evolução do Data Intelligence Service;
+- melhoria da arquitetura de agentes;
+- aumento da cobertura de testes;
+- preparação para próxima geração de inteligência.
+
+---
+
+# Próxima Evolução
+
+V1.8 - Agent Intelligence Expansion
+
+Status:
+
+Planning
+---
+
+# Current Project Status
+
+## Atualização
+
+Data:
+
+08-07-2026
+
+
+O **LLM Data Intelligence System** encontra-se em uma fase avançada de evolução arquitetural.
+
+O projeto deixou de ser apenas um pipeline experimental de RAG e evoluiu para uma plataforma modular de inteligência artificial aplicada a dados.
+
+---
+
+# Current Capabilities
+
+O sistema atualmente possui:
+
+
+## Data Intelligence
+
+✅ carregamento de dados reais  
+✅ processamento estruturado  
+✅ separação entre dados raw e processados  
+✅ acesso padronizado através de repositórios  
+
+
+## Knowledge Intelligence
+
+✅ embeddings  
+✅ indexação vetorial  
+✅ busca semântica  
+✅ recuperação contextual  
+✅ RAG  
+
+
+## Analytical Intelligence
+
+✅ Analytics Engine  
+✅ operações estatísticas  
+✅ análise estruturada  
+✅ Data Intelligence Service  
+
+
+## Hybrid Intelligence
+
+✅ roteamento inteligente  
+✅ combinação entre RAG e análise  
+✅ decisão de resposta  
+✅ geração de respostas contextualizadas  
+
+
+## Software Engineering
+
+✅ API Layer  
+✅ configuração centralizada  
+✅ tratamento de erros  
+✅ logging estruturado  
+✅ monitoramento  
+✅ avaliação de qualidade  
+✅ testes automatizados  
+
+
+---
+
+# Engineering Foundation
+
+O projeto possui atualmente uma base preparada para evolução em direção a sistemas inteligentes mais complexos.
+
+
+Arquitetura consolidada:
+
+Data Sources
+
+↓
+
+Data Processing
+
+↓
+
+Data Repository
+
+↓
+
+Analytics Engine
+
+↓
+
+Intelligence Services
+
+↓
+
+Agents
+
+↓
+
+Hybrid Intelligence
+
+↓
+
+Application Layer
+
+↓
+
+API
+
+---
+
+# Test Evolution History
+
+Histórico de validações:
+
+V1.1
+24 tests
+
+↓
+
+V1.2
+25 tests
+
+↓
+
+V1.3
+27 tests
+
+↓
+
+V1.4
+31 tests
+
+↓
+
+V1.5
+34 tests
+
+↓
+
+V1.5.1
+39 tests
+
+↓
+
+V1.6
+62 tests
+
+↓
+
+V1.7
+67 tests
+
+A evolução dos testes demonstra o crescimento da arquitetura mantendo estabilidade durante novas implementações.
+
+---
+
+# Next Evolution
+
+# V1.8 - Agent Intelligence Expansion
+
+Status:
+
+Planning
+
+
+Objetivo:
+
+Adicionar capacidade agentic ao sistema, permitindo que componentes inteligentes selecionem ferramentas, executem ações e coordenem tarefas.
+
+---
+
+# Conceitos incorporados da evolução LlamaIndex
+
+A próxima fase será baseada nos conceitos estudados:
+
+## Function Tools
+
+Transformar funções Python em ferramentas compreendidas por LLMs.
+
+Objetivo:
+
+Permitir que modelos de linguagem utilizem capacidades externas através de ferramentas controladas.
+
+
+---
+
+## Function Calling
+
+Permitir que agentes decidam quando executar funções específicas.
+
+Exemplo:
+
+Usuário
+
+↓
+
+LLM
+
+↓
+
+Seleção da ferramenta
+
+↓
+
+Execução da função
+
+↓
+
+Resposta
+
+---
+
+## Agent Layer
+
+Criar uma camada especializada de agentes capazes de:
+
+- interpretar objetivos;
+- selecionar ferramentas;
+- executar tarefas;
+- combinar resultados.
+
+
+---
+
+## Query Engine Tools
+
+Transformar engines existentes em ferramentas reutilizáveis pelos agentes.
+
+Possíveis integrações:
+
+- RAG Query Engine;
+- Analytics Engine;
+- Data Intelligence Service;
+- pesquisas externas.
+
+---
+
+## ReAct Agent
+
+Explorar agentes capazes de:
+
+- raciocinar;
+- escolher ações;
+- observar resultados;
+- continuar execução.
+
+
+Fluxo:
+
+Reasoning
+
+↓
+
+Action
+
+↓
+
+Observation
+
+↓
+
+Final Answer
+
+---
+
+## Tool Registry
+
+Criar uma camada central para gerenciamento das ferramentas disponíveis.
+
+Possíveis ferramentas:
+
+- análise de dados;
+- busca documental;
+- consultas estatísticas;
+- geração de relatórios;
+- integrações externas.
+
+---
+
+# Future Agent Architecture
+
+Visão planejada:
+
+User
+
+↓
+
+Agent Controller
+
+↓
+
+Tool Registry
+
+↓
+
++----------------+
+|                |
+|  RAG Tool      |
+|                |
+|  Analytics Tool|
+|                |
+|  Search Tool   |
+|                |
+|  Data Tool     |
+|                |
++----------------+
+
+↓
+
+Response Generation
+
+---
+
+# Long-Term Product Direction
+
+A evolução do projeto possui como objetivo criar uma plataforma reutilizável de inteligência artificial aplicada a dados.
+
+
+Possíveis aplicações futuras:
+
+- análise automática de datasets empresariais;
+- assistentes internos;
+- inteligência de negócios;
+- geração automática de relatórios;
+- sistemas especializados por domínio;
+- automação de processos analíticos.
+
+
+---
+
+# Development Principles
+
+O projeto continuará seguindo:
+
+
+## Arquitetura
+
+- modularidade;
+- separação de responsabilidades;
+- componentes reutilizáveis;
+- evolução incremental.
+
+
+## Engenharia
+
+- testes antes de grandes mudanças;
+- documentação contínua;
+- versionamento estratégico;
+- validação antes de releases.
+
+
+## Produto
+
+- construir tecnologia reutilizável;
+- preservar propriedade intelectual;
+- evoluir de projeto técnico para solução aplicável.
+
+---
+
+# Final Milestone
+
+## V1.7 - Completed
+
+O sistema atualmente representa:
+
+Learning Project
+
+↓
+
+Modular AI Engineering Platform
+
+↓
+
+Reusable Intelligence Services
+
+↓
+
+Agent-Based Intelligence Platform
+
+↓
+
+AI Product Ecosystem
+
+A próxima etapa será transformar a arquitetura existente em um sistema capaz de executar tarefas inteligentes através de agentes e ferramentas.
+
+---
+
+# Status Final
+
+Current Version:
+
+V1.7 - Data Intelligence Expansion
+
+Current Status:
+
+Completed
+
+Next Version:
+
+V1.8 - Agent Intelligence Expansion
+
+Status:
+
+Planning
+
+
+
+
+
+
+
+

@@ -792,3 +792,14 @@ to maintain request identification during execution.
 
 Application flows can attach request identifiers
 to logs and metrics.
+
+## Decision: Introdução da camada de agentes
+
+Contexto:
+A evolução do sistema exige que o LLM deixe de atuar apenas como gerador de respostas.
+
+Decisão:
+Adicionar uma camada de agentes com ferramentas especializadas.
+
+Motivo:
+Permitir integração futura com análise de dados, documentos e automações.
