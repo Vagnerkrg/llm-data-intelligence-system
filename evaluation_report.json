@@ -1,43 +1,111 @@
 {
-    "total_questions": 6,
-    "correct_predictions": 6,
+    "total_questions": 20,
+    "correct_predictions": 20,
     "routing_accuracy": 1.0,
-    "average_retrieval_score": 0.5684,
-    "fallback_rate": 0.0,
+    "average_retrieval_score": 0.5986,
+    "fallback_rate": 0.05,
     "domain_metrics": {
         "products": {
-            "questions": 2,
+            "questions": 5,
             "accuracy": 1.0,
-            "average_score": 0.5002
+            "average_score": 0.6042
         },
         "reviews": {
-            "questions": 2,
+            "questions": 5,
             "accuracy": 1.0,
-            "average_score": 0.6216
+            "average_score": 0.6121
         },
         "orders": {
-            "questions": 1,
+            "questions": 5,
             "accuracy": 1.0,
-            "average_score": 0.4892
+            "average_score": 0.5107
         },
         "customers": {
-            "questions": 1,
+            "questions": 5,
             "accuracy": 1.0,
-            "average_score": 0.6773
+            "average_score": 0.6673
         }
     },
     "results": [
         {
-            "question": "Quais categorias de produtos existem nos dados?",
+            "question": "Quais categorias de produtos existem no catálogo?",
             "expected_domain": "products",
             "predicted_domain": "products",
             "correct": true,
             "metrics": {
-                "question": "Quais categorias de produtos existem nos dados?",
+                "question": "Quais categorias de produtos existem no catálogo?",
                 "domain": "products",
-                "confidence": 4,
+                "confidence": 5,
                 "documents_found": 3,
-                "best_score": 0.5444,
+                "best_score": 0.656,
+                "sources": [
+                    "products"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Qual categoria de produto aparece com maior frequência?",
+            "expected_domain": "products",
+            "predicted_domain": "products",
+            "correct": true,
+            "metrics": {
+                "question": "Qual categoria de produto aparece com maior frequência?",
+                "domain": "products",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.6259,
+                "sources": [
+                    "products"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quantos produtos existem nos dados?",
+            "expected_domain": "products",
+            "predicted_domain": "products",
+            "correct": true,
+            "metrics": {
+                "question": "Quantos produtos existem nos dados?",
+                "domain": "products",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.4573,
+                "sources": [
+                    "products"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quais informações existem sobre os produtos cadastrados?",
+            "expected_domain": "products",
+            "predicted_domain": "products",
+            "correct": true,
+            "metrics": {
+                "question": "Quais informações existem sobre os produtos cadastrados?",
+                "domain": "products",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.6201,
+                "sources": [
+                    "products"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Qual é o peso médio dos produtos?",
+            "expected_domain": "products",
+            "predicted_domain": "products",
+            "correct": true,
+            "metrics": {
+                "question": "Qual é o peso médio dos produtos?",
+                "domain": "products",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.6617,
                 "sources": [
                     "products"
                 ],
@@ -62,6 +130,74 @@
             }
         },
         {
+            "question": "Como está a satisfação dos clientes?",
+            "expected_domain": "reviews",
+            "predicted_domain": "reviews",
+            "correct": true,
+            "metrics": {
+                "question": "Como está a satisfação dos clientes?",
+                "domain": "reviews",
+                "confidence": 1,
+                "documents_found": 3,
+                "best_score": 0.7064,
+                "sources": [
+                    "reviews"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quantas avaliações negativas existem?",
+            "expected_domain": "reviews",
+            "predicted_domain": "reviews",
+            "correct": true,
+            "metrics": {
+                "question": "Quantas avaliações negativas existem?",
+                "domain": "reviews",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.437,
+                "sources": [
+                    "reviews"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quais problemas aparecem nos comentários dos clientes?",
+            "expected_domain": "reviews",
+            "predicted_domain": "reviews",
+            "correct": true,
+            "metrics": {
+                "question": "Quais problemas aparecem nos comentários dos clientes?",
+                "domain": "reviews",
+                "confidence": 1,
+                "documents_found": 3,
+                "best_score": 0.6738,
+                "sources": [
+                    "reviews"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Como os clientes avaliaram os produtos?",
+            "expected_domain": "reviews",
+            "predicted_domain": "reviews",
+            "correct": true,
+            "metrics": {
+                "question": "Como os clientes avaliaram os produtos?",
+                "domain": "reviews",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.6175,
+                "sources": [
+                    "reviews"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
             "question": "Qual foi o prazo de entrega dos pedidos?",
             "expected_domain": "orders",
             "predicted_domain": "orders",
@@ -72,6 +208,75 @@
                 "confidence": 4,
                 "documents_found": 3,
                 "best_score": 0.4892,
+                "sources": [
+                    "orders"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quais status de pedidos existem?",
+            "expected_domain": "orders",
+            "predicted_domain": "orders",
+            "correct": true,
+            "metrics": {
+                "question": "Quais status de pedidos existem?",
+                "domain": "orders",
+                "confidence": 3,
+                "documents_found": 3,
+                "best_score": 0.5145,
+                "sources": [
+                    "orders"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quantos pedidos foram realizados?",
+            "expected_domain": "orders",
+            "predicted_domain": "orders",
+            "correct": true,
+            "metrics": {
+                "question": "Quantos pedidos foram realizados?",
+                "domain": "orders",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.5099,
+                "sources": [
+                    "orders"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Como está o desempenho das entregas?",
+            "expected_domain": "orders",
+            "predicted_domain": "orders",
+            "correct": true,
+            "metrics": {
+                "question": "Como está o desempenho das entregas?",
+                "domain": "orders",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.5815,
+                "sources": [
+                    "reviews",
+                    "products"
+                ],
+                "fallback_used": true
+            }
+        },
+        {
+            "question": "Existem pedidos atrasados?",
+            "expected_domain": "orders",
+            "predicted_domain": "orders",
+            "correct": true,
+            "metrics": {
+                "question": "Existem pedidos atrasados?",
+                "domain": "orders",
+                "confidence": 3,
+                "documents_found": 3,
+                "best_score": 0.4585,
                 "sources": [
                     "orders"
                 ],
@@ -96,35 +301,69 @@
             }
         },
         {
-            "question": "Quais produtos aparecem nos dados?",
-            "expected_domain": "products",
-            "predicted_domain": "products",
+            "question": "Quais cidades possuem clientes cadastrados?",
+            "expected_domain": "customers",
+            "predicted_domain": "customers",
             "correct": true,
             "metrics": {
-                "question": "Quais produtos aparecem nos dados?",
-                "domain": "products",
-                "confidence": 2,
+                "question": "Quais cidades possuem clientes cadastrados?",
+                "domain": "customers",
+                "confidence": 3,
                 "documents_found": 3,
-                "best_score": 0.4561,
+                "best_score": 0.7627,
                 "sources": [
-                    "products"
+                    "customers"
                 ],
                 "fallback_used": false
             }
         },
         {
-            "question": "Como os clientes avaliaram os produtos?",
-            "expected_domain": "reviews",
-            "predicted_domain": "reviews",
+            "question": "Como os clientes estão distribuídos?",
+            "expected_domain": "customers",
+            "predicted_domain": "customers",
             "correct": true,
             "metrics": {
-                "question": "Como os clientes avaliaram os produtos?",
-                "domain": "reviews",
+                "question": "Como os clientes estão distribuídos?",
+                "domain": "customers",
                 "confidence": 2,
                 "documents_found": 3,
-                "best_score": 0.6175,
+                "best_score": 0.6805,
                 "sources": [
-                    "reviews"
+                    "customers"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quantos clientes existem nos dados?",
+            "expected_domain": "customers",
+            "predicted_domain": "customers",
+            "correct": true,
+            "metrics": {
+                "question": "Quantos clientes existem nos dados?",
+                "domain": "customers",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.6312,
+                "sources": [
+                    "customers"
+                ],
+                "fallback_used": false
+            }
+        },
+        {
+            "question": "Quais regiões possuem mais clientes?",
+            "expected_domain": "customers",
+            "predicted_domain": "customers",
+            "correct": true,
+            "metrics": {
+                "question": "Quais regiões possuem mais clientes?",
+                "domain": "customers",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.5849,
+                "sources": [
+                    "customers"
                 ],
                 "fallback_used": false
             }

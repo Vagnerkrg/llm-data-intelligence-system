@@ -1,8 +1,7 @@
 import json
+import sys
 
 from pathlib import Path
-
-from collections import defaultdict
 
 from src.rag.query_engine import RAGQueryEngine
 
@@ -10,30 +9,32 @@ from src.rag.query_engine import RAGQueryEngine
 
 class EvaluationRunner:
     """
-    Runs automated evaluation over RAG questions.
+    Runs automated evaluation over RAG benchmarks.
 
-    Measures:
-    - routing accuracy
-    - retrieval quality
-    - fallback usage
-    - domain performance
+    Supports multiple evaluation datasets
+    and measures routing accuracy,
+    retrieval quality and fallback behavior.
     """
 
 
 
     def __init__(
         self,
-        questions_path="tests/evaluation/rag_questions.json",
+        questions_path=None,
         output_path="evaluation_report.json"
     ):
 
         self.questions_path = Path(
             questions_path
+            if questions_path
+            else "tests/evaluation/rag_questions.json"
         )
+
 
         self.output_path = Path(
             output_path
         )
+
 
         self.rag = RAGQueryEngine()
 
@@ -41,7 +42,7 @@ class EvaluationRunner:
 
     def load_questions(self):
         """
-        Loads evaluation dataset.
+        Loads evaluation benchmark questions.
         """
 
         with open(
@@ -58,7 +59,7 @@ class EvaluationRunner:
 
     def run(self):
         """
-        Executes evaluation.
+        Executes benchmark evaluation.
         """
 
         questions = self.load_questions()
@@ -69,18 +70,12 @@ class EvaluationRunner:
 
         correct = 0
 
-        total_scores = []
+        retrieval_scores = []
 
         fallback_count = 0
 
 
-        domain_stats = defaultdict(
-            lambda: {
-                "questions": 0,
-                "correct": 0,
-                "scores": []
-            }
-        )
+        domain_stats = {}
 
 
 
@@ -92,12 +87,14 @@ class EvaluationRunner:
             )
 
 
-            predicted = response["route"]["domain"]
+            predicted = (
+                response["route"]["domain"]
+            )
 
-            expected = item["expected_domain"]
 
-
-            metrics = response["metrics"]
+            expected = (
+                item["expected_domain"]
+            )
 
 
             is_correct = (
@@ -111,17 +108,31 @@ class EvaluationRunner:
 
 
 
+            metrics = response["metrics"]
+
+
+            retrieval_scores.append(
+                metrics["best_score"]
+            )
+
+
             if metrics["fallback_used"]:
 
                 fallback_count += 1
 
 
 
-            score = metrics["best_score"]
+            if expected not in domain_stats:
 
-            total_scores.append(
-                score
-            )
+                domain_stats[expected] = {
+
+                    "questions": 0,
+
+                    "correct": 0,
+
+                    "scores": []
+
+                }
 
 
 
@@ -133,8 +144,9 @@ class EvaluationRunner:
                 domain_stats[expected]["correct"] += 1
 
 
+
             domain_stats[expected]["scores"].append(
-                score
+                metrics["best_score"]
             )
 
 
@@ -142,6 +154,7 @@ class EvaluationRunner:
             results.append(
 
                 {
+
                     "question": item["question"],
 
                     "expected_domain": expected,
@@ -158,14 +171,14 @@ class EvaluationRunner:
 
 
 
-        domain_metrics = {}
+        formatted_domain_metrics = {}
 
 
 
         for domain, stats in domain_stats.items():
 
 
-            domain_metrics[domain] = {
+            formatted_domain_metrics[domain] = {
 
                 "questions": stats["questions"],
 
@@ -185,7 +198,6 @@ class EvaluationRunner:
 
         report = {
 
-
             "total_questions": len(
                 questions
             ),
@@ -201,7 +213,7 @@ class EvaluationRunner:
 
 
             "average_retrieval_score": round(
-                sum(total_scores) / len(total_scores),
+                sum(retrieval_scores) / len(retrieval_scores),
                 4
             ),
 
@@ -212,7 +224,7 @@ class EvaluationRunner:
             ),
 
 
-            "domain_metrics": domain_metrics,
+            "domain_metrics": formatted_domain_metrics,
 
 
             "results": results
@@ -226,7 +238,6 @@ class EvaluationRunner:
             "w",
             encoding="utf-8"
         ) as file:
-
 
             json.dump(
                 report,
@@ -242,22 +253,39 @@ class EvaluationRunner:
 
 
 
-
 if __name__ == "__main__":
 
 
-    runner = EvaluationRunner()
+    questions_path = None
+
+
+
+    if len(sys.argv) > 1:
+
+        questions_path = sys.argv[1]
+
+
+
+    runner = EvaluationRunner(
+        questions_path=questions_path
+    )
+
 
 
     result = runner.run()
 
 
+
     print(
 
         json.dumps(
+
             result,
+
             ensure_ascii=False,
+
             indent=4
+
         )
 
     )

@@ -1,0 +1,85 @@
+[
+    {
+        "question": "Quais categorias de produtos existem no catálogo?",
+        "expected_domain": "products"
+    },
+    {
+        "question": "Qual categoria de produto aparece com maior frequência?",
+        "expected_domain": "products"
+    },
+    {
+        "question": "Quantos produtos existem nos dados?",
+        "expected_domain": "products"
+    },
+    {
+        "question": "Quais informações existem sobre os produtos cadastrados?",
+        "expected_domain": "products"
+    },
+    {
+        "question": "Qual é o peso médio dos produtos?",
+        "expected_domain": "products"
+    },
+
+    {
+        "question": "Qual a média das avaliações dos clientes?",
+        "expected_domain": "reviews"
+    },
+    {
+        "question": "Como está a satisfação dos clientes?",
+        "expected_domain": "reviews"
+    },
+    {
+        "question": "Quantas avaliações negativas existem?",
+        "expected_domain": "reviews"
+    },
+    {
+        "question": "Quais problemas aparecem nos comentários dos clientes?",
+        "expected_domain": "reviews"
+    },
+    {
+        "question": "Como os clientes avaliaram os produtos?",
+        "expected_domain": "reviews"
+    },
+
+    {
+        "question": "Qual foi o prazo de entrega dos pedidos?",
+        "expected_domain": "orders"
+    },
+    {
+        "question": "Quais status de pedidos existem?",
+        "expected_domain": "orders"
+    },
+    {
+        "question": "Quantos pedidos foram realizados?",
+        "expected_domain": "orders"
+    },
+    {
+        "question": "Como está o desempenho das entregas?",
+        "expected_domain": "orders"
+    },
+    {
+        "question": "Existem pedidos atrasados?",
+        "expected_domain": "orders"
+    },
+
+    {
+        "question": "Quais estados possuem mais clientes?",
+        "expected_domain": "customers"
+    },
+    {
+        "question": "Quais cidades possuem clientes cadastrados?",
+        "expected_domain": "customers"
+    },
+    {
+        "question": "Como os clientes estão distribuídos?",
+        "expected_domain": "customers"
+    },
+    {
+        "question": "Quantos clientes existem nos dados?",
+        "expected_domain": "customers"
+    },
+    {
+        "question": "Quais regiões possuem mais clientes?",
+        "expected_domain": "customers"
+    }
+]
