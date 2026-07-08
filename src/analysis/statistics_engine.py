@@ -8,7 +8,13 @@ class StatisticsEngine:
 
     This layer abstracts dataframe operations
     from AI agents.
+
+    V1.0
+    - Initial reusable analysis layer.
+    - Compatible with Data Analysis Agent.
+    - Provides safe analytical operations.
     """
+
 
 
     def count_rows(
@@ -33,6 +39,23 @@ class StatisticsEngine:
 
         return list(
             dataframe.columns
+        )
+
+
+
+    def get_column_names(
+        self,
+        dataframe
+    ):
+        """
+        Returns dataframe column names.
+
+        Compatibility method for
+        external consumers and tests.
+        """
+
+        return self.columns(
+            dataframe
         )
 
 
@@ -75,11 +98,14 @@ class StatisticsEngine:
         from a column.
         """
 
+
         if column not in dataframe.columns:
 
-            raise ValueError(
-                f"Column not found: {column}"
-            )
+            return {
+                "error": (
+                    f"Column not found: {column}"
+                )
+            }
 
 
         return (

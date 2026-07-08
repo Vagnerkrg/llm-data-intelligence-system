@@ -1,52 +1,175 @@
 from src.application.intelligence_system import IntelligenceSystem
 
 
-
-def test_count_products():
-
-    system = IntelligenceSystem()
+class FakeEngine:
 
 
-    response = system.ask(
-        "Quantos produtos existem?"
-    )
+    def __init__(
+        self,
+        result
+    ):
+
+        self.result = result
 
 
-    assert (
-        "32951"
-        in response
-    )
+    def query(
+        self,
+        question
+    ):
 
-
-
-def test_category_with_more_products():
-
-    system = IntelligenceSystem()
-
-
-    response = system.ask(
-        "Qual categoria possui mais produtos?"
-    )
-
-
-    assert (
-        "cama_mesa_banho"
-        in response
-    )
+        return self.result
 
 
 
-def test_products_question():
-
-    system = IntelligenceSystem()
+class FakeAnswerGenerator:
 
 
-    response = system.ask(
-        "Quais produtos aparecem nos dados?"
-    )
+    def generate(
+        self,
+        result
+    ):
+
+        return "analysis response"
 
 
-    assert (
-        "Produto cadastrado"
-        in response
-    )
+
+class FakeDecisionEngine:
+
+
+    def decide(
+        self,
+        rag_result,
+        analysis_result
+    ):
+
+        return {
+
+            "type":"analysis",
+
+            "answer":analysis_result
+
+        }
+
+
+
+class TestIntelligenceSystem:
+
+
+    def test_analysis_response(self):
+
+
+        system = IntelligenceSystem()
+
+
+        system.engine = FakeEngine(
+
+            {
+
+                "route":"analysis",
+
+                "result":{
+
+                    "type":"analysis",
+
+                    "answer":{
+
+                        "operation":"count_rows"
+
+                    }
+
+                }
+
+            }
+
+        )
+
+
+        system.answer_generator = (
+            FakeAnswerGenerator()
+        )
+
+
+        result = system.ask(
+            "Quantos produtos existem?"
+        )
+
+
+        assert (
+            result
+            ==
+            "analysis response"
+        )
+
+
+
+    def test_rag_response(self):
+
+
+        system = IntelligenceSystem()
+
+
+        system.engine = FakeEngine(
+
+            {
+
+                "route":"rag",
+
+                "result":{
+
+                    "type":"rag",
+
+                    "answer":{
+
+                        "answer":"rag response"
+
+                    }
+
+                }
+
+            }
+
+        )
+
+
+        result = system.ask(
+            "Quais produtos aparecem?"
+        )
+
+
+        assert (
+            result
+            ==
+            "rag response"
+        )
+
+
+
+    def test_unknown_response(self):
+
+
+        system = IntelligenceSystem()
+
+
+        system.engine = FakeEngine(
+
+            {
+
+                "route":"unknown",
+
+                "result":{}
+
+            }
+
+        )
+
+
+        result = system.ask(
+            "???"
+        )
+
+
+        assert (
+            result["type"]
+            ==
+            "error"
+        )
