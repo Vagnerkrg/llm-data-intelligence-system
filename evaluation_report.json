@@ -1,40 +1,40 @@
 {
-    "total_questions": 20,
-    "correct_predictions": 20,
+    "total_questions": 6,
+    "correct_predictions": 6,
     "routing_accuracy": 1.0,
-    "average_retrieval_score": 0.5986,
-    "fallback_rate": 0.05,
+    "average_retrieval_score": 0.5684,
+    "fallback_rate": 0.0,
     "domain_metrics": {
         "products": {
-            "questions": 5,
+            "questions": 2,
             "accuracy": 1.0,
-            "average_score": 0.6042
+            "average_score": 0.5002
         },
         "reviews": {
-            "questions": 5,
+            "questions": 2,
             "accuracy": 1.0,
-            "average_score": 0.6121
+            "average_score": 0.6216
         },
         "orders": {
-            "questions": 5,
+            "questions": 1,
             "accuracy": 1.0,
-            "average_score": 0.5107
+            "average_score": 0.4892
         },
         "customers": {
-            "questions": 5,
+            "questions": 1,
             "accuracy": 1.0,
-            "average_score": 0.6673
+            "average_score": 0.6773
         }
     },
     "answer_quality": {
-        "total_answers": 20,
-        "average_quality_score": 0.1081,
-        "average_faithfulness": 0.1464,
-        "average_completeness": 0.147,
-        "average_context_relevance": 0.0308,
+        "total_answers": 6,
+        "average_quality_score": 0.1167,
+        "average_faithfulness": 0.1618,
+        "average_completeness": 0.1467,
+        "average_context_relevance": 0.0417,
         "results": [
             {
-                "question": "Quais categorias de produtos existem no catálogo?",
+                "question": "Quais categorias de produtos existem nos dados?",
                 "answer_length": 6,
                 "documents_used": 3,
                 "context_relevance": 0.0,
@@ -43,307 +43,77 @@
                 "quality_score": 0.0756
             },
             {
-                "question": "Qual categoria de produto aparece com maior frequência?",
-                "answer_length": 11,
-                "documents_used": 3,
-                "context_relevance": 0.1667,
-                "faithfulness": 0.0909,
-                "completeness": 0.11,
-                "quality_score": 0.1225
-            },
-            {
-                "question": "Quantos produtos existem nos dados?",
-                "answer_length": 3,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.03,
-                "quality_score": 0.01
-            },
-            {
-                "question": "Quais informações existem sobre os produtos cadastrados?",
-                "answer_length": 20,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.45,
-                "completeness": 0.2,
-                "quality_score": 0.2167
-            },
-            {
-                "question": "Qual é o peso médio dos produtos?",
-                "answer_length": 19,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.1579,
-                "completeness": 0.19,
-                "quality_score": 0.116
-            },
-            {
                 "question": "Qual a média das avaliações dos clientes?",
-                "answer_length": 17,
+                "answer_length": 16,
                 "documents_used": 3,
                 "context_relevance": 0.0,
-                "faithfulness": 0.0588,
-                "completeness": 0.17,
-                "quality_score": 0.0763
-            },
-            {
-                "question": "Como está a satisfação dos clientes?",
-                "answer_length": 27,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.2963,
-                "completeness": 0.27,
-                "quality_score": 0.1888
-            },
-            {
-                "question": "Quantas avaliações negativas existem?",
-                "answer_length": 15,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.15,
-                "quality_score": 0.05
-            },
-            {
-                "question": "Quais problemas aparecem nos comentários dos clientes?",
-                "answer_length": 14,
-                "documents_used": 3,
-                "context_relevance": 0.2,
-                "faithfulness": 0.5714,
-                "completeness": 0.14,
-                "quality_score": 0.3038
-            },
-            {
-                "question": "Como os clientes avaliaram os produtos?",
-                "answer_length": 21,
-                "documents_used": 3,
-                "context_relevance": 0.25,
-                "faithfulness": 0.2381,
-                "completeness": 0.21,
-                "quality_score": 0.2327
+                "faithfulness": 0.0625,
+                "completeness": 0.16,
+                "quality_score": 0.0742
             },
             {
                 "question": "Qual foi o prazo de entrega dos pedidos?",
-                "answer_length": 14,
+                "answer_length": 9,
                 "documents_used": 3,
                 "context_relevance": 0.0,
                 "faithfulness": 0.0,
-                "completeness": 0.14,
-                "quality_score": 0.0467
-            },
-            {
-                "question": "Quais status de pedidos existem?",
-                "answer_length": 5,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.05,
-                "quality_score": 0.0167
-            },
-            {
-                "question": "Quantos pedidos foram realizados?",
-                "answer_length": 3,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.03,
-                "quality_score": 0.01
-            },
-            {
-                "question": "Como está o desempenho das entregas?",
-                "answer_length": 38,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.3684,
-                "completeness": 0.38,
-                "quality_score": 0.2495
-            },
-            {
-                "question": "Existem pedidos atrasados?",
-                "answer_length": 10,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.1,
-                "quality_score": 0.0333
+                "completeness": 0.09,
+                "quality_score": 0.03
             },
             {
                 "question": "Quais estados possuem mais clientes?",
-                "answer_length": 13,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0769,
-                "completeness": 0.13,
-                "quality_score": 0.069
-            },
-            {
-                "question": "Quais cidades possuem clientes cadastrados?",
-                "answer_length": 7,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.2857,
-                "completeness": 0.07,
-                "quality_score": 0.1186
-            },
-            {
-                "question": "Como os clientes estão distribuídos?",
-                "answer_length": 24,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.125,
-                "completeness": 0.24,
-                "quality_score": 0.1217
-            },
-            {
-                "question": "Quantos clientes existem nos dados?",
-                "answer_length": 3,
+                "answer_length": 18,
                 "documents_used": 3,
                 "context_relevance": 0.0,
                 "faithfulness": 0.0,
-                "completeness": 0.03,
-                "quality_score": 0.01
+                "completeness": 0.18,
+                "quality_score": 0.06
             },
             {
-                "question": "Quais regiões possuem mais clientes?",
-                "answer_length": 24,
+                "question": "Quais produtos aparecem nos dados?",
+                "answer_length": 15,
                 "documents_used": 3,
                 "context_relevance": 0.0,
-                "faithfulness": 0.0417,
+                "faithfulness": 0.5333,
+                "completeness": 0.15,
+                "quality_score": 0.2278
+            },
+            {
+                "question": "Como os clientes avaliaram os produtos?",
+                "answer_length": 24,
+                "documents_used": 3,
+                "context_relevance": 0.25,
+                "faithfulness": 0.2083,
                 "completeness": 0.24,
-                "quality_score": 0.0939
+                "quality_score": 0.2328
             }
         ]
     },
     "results": [
         {
-            "question": "Quais categorias de produtos existem no catálogo?",
+            "question": "Quais categorias de produtos existem nos dados?",
             "expected_domain": "products",
             "predicted_domain": "products",
             "correct": true,
             "metrics": {
-                "question": "Quais categorias de produtos existem no catálogo?",
+                "question": "Quais categorias de produtos existem nos dados?",
                 "domain": "products",
-                "confidence": 5,
+                "confidence": 4,
                 "documents_found": 3,
-                "best_score": 0.656,
+                "best_score": 0.5444,
                 "sources": [
                     "products"
                 ],
                 "fallback_used": false
             },
             "answer_evaluation": {
-                "question": "Quais categorias de produtos existem no catálogo?",
+                "question": "Quais categorias de produtos existem nos dados?",
                 "answer_length": 6,
                 "documents_used": 3,
                 "context_relevance": 0.0,
                 "faithfulness": 0.1667,
                 "completeness": 0.06,
                 "quality_score": 0.0756
-            }
-        },
-        {
-            "question": "Qual categoria de produto aparece com maior frequência?",
-            "expected_domain": "products",
-            "predicted_domain": "products",
-            "correct": true,
-            "metrics": {
-                "question": "Qual categoria de produto aparece com maior frequência?",
-                "domain": "products",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.6259,
-                "sources": [
-                    "products"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Qual categoria de produto aparece com maior frequência?",
-                "answer_length": 11,
-                "documents_used": 3,
-                "context_relevance": 0.1667,
-                "faithfulness": 0.0909,
-                "completeness": 0.11,
-                "quality_score": 0.1225
-            }
-        },
-        {
-            "question": "Quantos produtos existem nos dados?",
-            "expected_domain": "products",
-            "predicted_domain": "products",
-            "correct": true,
-            "metrics": {
-                "question": "Quantos produtos existem nos dados?",
-                "domain": "products",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.4573,
-                "sources": [
-                    "products"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quantos produtos existem nos dados?",
-                "answer_length": 3,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.03,
-                "quality_score": 0.01
-            }
-        },
-        {
-            "question": "Quais informações existem sobre os produtos cadastrados?",
-            "expected_domain": "products",
-            "predicted_domain": "products",
-            "correct": true,
-            "metrics": {
-                "question": "Quais informações existem sobre os produtos cadastrados?",
-                "domain": "products",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.6201,
-                "sources": [
-                    "products"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quais informações existem sobre os produtos cadastrados?",
-                "answer_length": 20,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.45,
-                "completeness": 0.2,
-                "quality_score": 0.2167
-            }
-        },
-        {
-            "question": "Qual é o peso médio dos produtos?",
-            "expected_domain": "products",
-            "predicted_domain": "products",
-            "correct": true,
-            "metrics": {
-                "question": "Qual é o peso médio dos produtos?",
-                "domain": "products",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.6617,
-                "sources": [
-                    "products"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Qual é o peso médio dos produtos?",
-                "answer_length": 19,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.1579,
-                "completeness": 0.19,
-                "quality_score": 0.116
             }
         },
         {
@@ -364,116 +134,12 @@
             },
             "answer_evaluation": {
                 "question": "Qual a média das avaliações dos clientes?",
-                "answer_length": 17,
+                "answer_length": 16,
                 "documents_used": 3,
                 "context_relevance": 0.0,
-                "faithfulness": 0.0588,
-                "completeness": 0.17,
-                "quality_score": 0.0763
-            }
-        },
-        {
-            "question": "Como está a satisfação dos clientes?",
-            "expected_domain": "reviews",
-            "predicted_domain": "reviews",
-            "correct": true,
-            "metrics": {
-                "question": "Como está a satisfação dos clientes?",
-                "domain": "reviews",
-                "confidence": 1,
-                "documents_found": 3,
-                "best_score": 0.7064,
-                "sources": [
-                    "reviews"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Como está a satisfação dos clientes?",
-                "answer_length": 27,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.2963,
-                "completeness": 0.27,
-                "quality_score": 0.1888
-            }
-        },
-        {
-            "question": "Quantas avaliações negativas existem?",
-            "expected_domain": "reviews",
-            "predicted_domain": "reviews",
-            "correct": true,
-            "metrics": {
-                "question": "Quantas avaliações negativas existem?",
-                "domain": "reviews",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.437,
-                "sources": [
-                    "reviews"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quantas avaliações negativas existem?",
-                "answer_length": 15,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.15,
-                "quality_score": 0.05
-            }
-        },
-        {
-            "question": "Quais problemas aparecem nos comentários dos clientes?",
-            "expected_domain": "reviews",
-            "predicted_domain": "reviews",
-            "correct": true,
-            "metrics": {
-                "question": "Quais problemas aparecem nos comentários dos clientes?",
-                "domain": "reviews",
-                "confidence": 1,
-                "documents_found": 3,
-                "best_score": 0.6738,
-                "sources": [
-                    "reviews"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quais problemas aparecem nos comentários dos clientes?",
-                "answer_length": 14,
-                "documents_used": 3,
-                "context_relevance": 0.2,
-                "faithfulness": 0.5714,
-                "completeness": 0.14,
-                "quality_score": 0.3038
-            }
-        },
-        {
-            "question": "Como os clientes avaliaram os produtos?",
-            "expected_domain": "reviews",
-            "predicted_domain": "reviews",
-            "correct": true,
-            "metrics": {
-                "question": "Como os clientes avaliaram os produtos?",
-                "domain": "reviews",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.6175,
-                "sources": [
-                    "reviews"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Como os clientes avaliaram os produtos?",
-                "answer_length": 21,
-                "documents_used": 3,
-                "context_relevance": 0.25,
-                "faithfulness": 0.2381,
-                "completeness": 0.21,
-                "quality_score": 0.2327
+                "faithfulness": 0.0625,
+                "completeness": 0.16,
+                "quality_score": 0.0742
             }
         },
         {
@@ -494,117 +160,12 @@
             },
             "answer_evaluation": {
                 "question": "Qual foi o prazo de entrega dos pedidos?",
-                "answer_length": 14,
+                "answer_length": 9,
                 "documents_used": 3,
                 "context_relevance": 0.0,
                 "faithfulness": 0.0,
-                "completeness": 0.14,
-                "quality_score": 0.0467
-            }
-        },
-        {
-            "question": "Quais status de pedidos existem?",
-            "expected_domain": "orders",
-            "predicted_domain": "orders",
-            "correct": true,
-            "metrics": {
-                "question": "Quais status de pedidos existem?",
-                "domain": "orders",
-                "confidence": 3,
-                "documents_found": 3,
-                "best_score": 0.5145,
-                "sources": [
-                    "orders"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quais status de pedidos existem?",
-                "answer_length": 5,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.05,
-                "quality_score": 0.0167
-            }
-        },
-        {
-            "question": "Quantos pedidos foram realizados?",
-            "expected_domain": "orders",
-            "predicted_domain": "orders",
-            "correct": true,
-            "metrics": {
-                "question": "Quantos pedidos foram realizados?",
-                "domain": "orders",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.5099,
-                "sources": [
-                    "orders"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quantos pedidos foram realizados?",
-                "answer_length": 3,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.03,
-                "quality_score": 0.01
-            }
-        },
-        {
-            "question": "Como está o desempenho das entregas?",
-            "expected_domain": "orders",
-            "predicted_domain": "orders",
-            "correct": true,
-            "metrics": {
-                "question": "Como está o desempenho das entregas?",
-                "domain": "orders",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.5815,
-                "sources": [
-                    "reviews",
-                    "products"
-                ],
-                "fallback_used": true
-            },
-            "answer_evaluation": {
-                "question": "Como está o desempenho das entregas?",
-                "answer_length": 38,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.3684,
-                "completeness": 0.38,
-                "quality_score": 0.2495
-            }
-        },
-        {
-            "question": "Existem pedidos atrasados?",
-            "expected_domain": "orders",
-            "predicted_domain": "orders",
-            "correct": true,
-            "metrics": {
-                "question": "Existem pedidos atrasados?",
-                "domain": "orders",
-                "confidence": 3,
-                "documents_found": 3,
-                "best_score": 0.4585,
-                "sources": [
-                    "orders"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Existem pedidos atrasados?",
-                "answer_length": 10,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0,
-                "completeness": 0.1,
-                "quality_score": 0.0333
+                "completeness": 0.09,
+                "quality_score": 0.03
             }
         },
         {
@@ -625,116 +186,64 @@
             },
             "answer_evaluation": {
                 "question": "Quais estados possuem mais clientes?",
-                "answer_length": 13,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.0769,
-                "completeness": 0.13,
-                "quality_score": 0.069
-            }
-        },
-        {
-            "question": "Quais cidades possuem clientes cadastrados?",
-            "expected_domain": "customers",
-            "predicted_domain": "customers",
-            "correct": true,
-            "metrics": {
-                "question": "Quais cidades possuem clientes cadastrados?",
-                "domain": "customers",
-                "confidence": 3,
-                "documents_found": 3,
-                "best_score": 0.7627,
-                "sources": [
-                    "customers"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quais cidades possuem clientes cadastrados?",
-                "answer_length": 7,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.2857,
-                "completeness": 0.07,
-                "quality_score": 0.1186
-            }
-        },
-        {
-            "question": "Como os clientes estão distribuídos?",
-            "expected_domain": "customers",
-            "predicted_domain": "customers",
-            "correct": true,
-            "metrics": {
-                "question": "Como os clientes estão distribuídos?",
-                "domain": "customers",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.6805,
-                "sources": [
-                    "customers"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Como os clientes estão distribuídos?",
-                "answer_length": 24,
-                "documents_used": 3,
-                "context_relevance": 0.0,
-                "faithfulness": 0.125,
-                "completeness": 0.24,
-                "quality_score": 0.1217
-            }
-        },
-        {
-            "question": "Quantos clientes existem nos dados?",
-            "expected_domain": "customers",
-            "predicted_domain": "customers",
-            "correct": true,
-            "metrics": {
-                "question": "Quantos clientes existem nos dados?",
-                "domain": "customers",
-                "confidence": 2,
-                "documents_found": 3,
-                "best_score": 0.6312,
-                "sources": [
-                    "customers"
-                ],
-                "fallback_used": false
-            },
-            "answer_evaluation": {
-                "question": "Quantos clientes existem nos dados?",
-                "answer_length": 3,
+                "answer_length": 18,
                 "documents_used": 3,
                 "context_relevance": 0.0,
                 "faithfulness": 0.0,
-                "completeness": 0.03,
-                "quality_score": 0.01
+                "completeness": 0.18,
+                "quality_score": 0.06
             }
         },
         {
-            "question": "Quais regiões possuem mais clientes?",
-            "expected_domain": "customers",
-            "predicted_domain": "customers",
+            "question": "Quais produtos aparecem nos dados?",
+            "expected_domain": "products",
+            "predicted_domain": "products",
             "correct": true,
             "metrics": {
-                "question": "Quais regiões possuem mais clientes?",
-                "domain": "customers",
+                "question": "Quais produtos aparecem nos dados?",
+                "domain": "products",
                 "confidence": 2,
                 "documents_found": 3,
-                "best_score": 0.5849,
+                "best_score": 0.4561,
                 "sources": [
-                    "customers"
+                    "products"
                 ],
                 "fallback_used": false
             },
             "answer_evaluation": {
-                "question": "Quais regiões possuem mais clientes?",
-                "answer_length": 24,
+                "question": "Quais produtos aparecem nos dados?",
+                "answer_length": 15,
                 "documents_used": 3,
                 "context_relevance": 0.0,
-                "faithfulness": 0.0417,
+                "faithfulness": 0.5333,
+                "completeness": 0.15,
+                "quality_score": 0.2278
+            }
+        },
+        {
+            "question": "Como os clientes avaliaram os produtos?",
+            "expected_domain": "reviews",
+            "predicted_domain": "reviews",
+            "correct": true,
+            "metrics": {
+                "question": "Como os clientes avaliaram os produtos?",
+                "domain": "reviews",
+                "confidence": 2,
+                "documents_found": 3,
+                "best_score": 0.6175,
+                "sources": [
+                    "reviews"
+                ],
+                "fallback_used": false
+            },
+            "answer_evaluation": {
+                "question": "Como os clientes avaliaram os produtos?",
+                "answer_length": 24,
+                "documents_used": 3,
+                "context_relevance": 0.25,
+                "faithfulness": 0.2083,
                 "completeness": 0.24,
-                "quality_score": 0.0939
+                "quality_score": 0.2328
             }
         }
     ]

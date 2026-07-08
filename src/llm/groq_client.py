@@ -19,6 +19,7 @@ class GroqClient(LLMClient):
         self,
         model="llama-3.1-8b-instant"
     ):
+
         api_key = os.getenv(
             "GROQ_API_KEY"
         )
@@ -31,7 +32,8 @@ class GroqClient(LLMClient):
 
         self.llm = Groq(
             model=model,
-            api_key=api_key
+            api_key=api_key,
+            temperature=0
         )
 
 
@@ -46,5 +48,12 @@ class GroqClient(LLMClient):
         response = self.llm.complete(
             prompt
         )
+
+
+        if not response.text:
+            return (
+                "Não foi possível gerar uma resposta."
+            )
+
 
         return response.text

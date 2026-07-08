@@ -148,3 +148,29 @@ Structured Data    Knowledge Base
           |
           v
        Response
+
+
+       ## Current Architecture
+                User Question
+                       │
+                       ▼
+                 Query Router
+                       │
+        ┌──────────────┴───────────────┐
+        ▼                              ▼
+ Metadata Filter                 General Search
+        │
+        ▼
+ Vector Search
+        │
+        ▼
+ Retrieval Evaluation
+        │
+        ▼
+ Prompt Builder
+        │
+        ▼
+      Groq LLM
+        │
+        ▼
+ Generated Answer
