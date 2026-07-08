@@ -766,3 +766,29 @@ Future application modules must use:
 * `src.config.settings` for configuration access.
 * Centralized exception classes.
 * Standard API error responses.
+
+
+# Decision: Introduce Request Context Tracking
+
+## Context
+
+As the system grows with multiple intelligence layers,
+request traceability becomes necessary for debugging,
+monitoring and future production environments.
+
+## Decision
+
+Adopt a request context abstraction using ContextVar
+to maintain request identification during execution.
+
+## Benefits
+
+* Better request tracing.
+* Improved debugging.
+* Foundation for distributed observability.
+* Future compatibility with monitoring platforms.
+
+## Consequence
+
+Application flows can attach request identifiers
+to logs and metrics.

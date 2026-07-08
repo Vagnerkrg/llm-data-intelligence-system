@@ -777,3 +777,26 @@ The next development phase will focus on:
 2. Improving structured logging.
 3. Adding reliability tests.
 4. Preparing the system for real data and LLM integration.
+
+
+## V1.5.1 - Logging Observability Layer Completed
+
+Status: Completed
+
+Implementações:
+
+- Added structured logging foundation.
+- Created centralized AppLogger abstraction.
+- Added request context management.
+- Implemented request ID generation and tracking.
+- Added automated tests for request context behavior.
+
+Validation:
+
+- pytest --cache-clear
+- 39 tests passed
+
+Impact:
+
+The system now has a foundation for distributed request tracking,
+better debugging capability and future observability integrations.

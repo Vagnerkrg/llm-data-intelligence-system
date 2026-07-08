@@ -2,7 +2,7 @@
 FastAPI exception handlers.
 
 Converts application exceptions
-into standardized API responses.
+into standardized HTTP responses.
 """
 
 
@@ -10,7 +10,41 @@ from fastapi import Request
 
 from fastapi.responses import JSONResponse
 
-from src.api.exceptions import APIException
+
+from src.core.exceptions import (
+    ApplicationException
+)
+
+
+from src.api.exceptions import (
+    APIException
+)
+
+
+
+async def application_exception_handler(
+    request: Request,
+    exc: ApplicationException
+):
+
+    return JSONResponse(
+
+        status_code=500,
+
+        content={
+
+            "error":
+                "application_error",
+
+            "message":
+                exc.message,
+
+            "component":
+                exc.component
+
+        }
+
+    )
 
 
 
@@ -25,9 +59,11 @@ async def api_exception_handler(
 
         content={
 
-            "error": exc.error_code,
+            "error":
+                exc.error_code,
 
-            "message": exc.message
+            "message":
+                exc.message
 
         }
 
@@ -46,7 +82,8 @@ async def generic_exception_handler(
 
         content={
 
-            "error": "internal_error",
+            "error":
+                "internal_error",
 
             "message":
                 "Unable to process request"

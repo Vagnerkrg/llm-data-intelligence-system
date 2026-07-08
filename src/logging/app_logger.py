@@ -1,4 +1,15 @@
+"""
+Application logging interface.
+
+Provides a centralized logging abstraction
+with support for standard and structured logs.
+"""
+
+
 from src.logging import Logger
+
+from src.logging.structured_logger import StructuredLogger
+
 
 
 class AppLogger:
@@ -20,30 +31,80 @@ class AppLogger:
         )
 
 
+        self.structured_logger = StructuredLogger(
+            name
+        )
+
+
+
     def info(
         self,
-        message: str
+        message: str,
+        context: dict | None = None
     ):
+
+        if context:
+
+            self.structured_logger.info(
+
+                message,
+
+                context
+
+            )
+
+            return
+
 
         self.logger.info(
             message
         )
 
 
+
     def warning(
         self,
-        message: str
+        message: str,
+        context: dict | None = None
     ):
+
+        if context:
+
+            self.structured_logger.warning(
+
+                message,
+
+                context
+
+            )
+
+            return
+
 
         self.logger.warning(
             message
         )
 
 
+
     def error(
         self,
-        message: str
+        message: str,
+        context: dict | None = None
     ):
+
+        if context:
+
+            self.structured_logger.error(
+
+                message,
+
+                context
+
+            )
+
+            return
+
 
         self.logger.error(
             message
