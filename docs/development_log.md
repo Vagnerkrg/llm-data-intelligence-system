@@ -2,7 +2,7 @@
 
 ## Histórico de Desenvolvimento
 
-Este documento registra a evolução técnica do **LLM Data Intelligence System**, incluindo decisões arquiteturais, módulos implementados e principais marcos do projeto.
+Este documento registra a evolução técnica do **LLM Data Intelligence System**, incluindo decisões arquiteturais, módulos implementados, validações realizadas e principais marcos do projeto.
 
 ---
 
@@ -14,20 +14,28 @@ Criação da base inicial do sistema de inteligência de dados utilizando arquit
 
 ## Implementações
 
-* Estrutura inicial do projeto criada.
-* Organização das camadas:
+Estrutura inicial criada:
 
-  * data;
-  * preprocessing;
-  * embeddings;
-  * index;
-  * rag;
-  * llm;
-  * query.
+src/
+
+data/
+preprocessing/
+embeddings/
+index/
+rag/
+llm/
+query/
+agents/
+
 
 ## Decisão Arquitetural
 
-O projeto foi desenvolvido seguindo separação de responsabilidades, permitindo evolução independente dos componentes.
+O projeto foi desenvolvido seguindo:
+
+- separação de responsabilidades;
+- baixo acoplamento;
+- evolução incremental;
+- possibilidade de substituição de componentes.
 
 ---
 
@@ -39,19 +47,18 @@ Criada a primeira camada funcional de dados.
 
 Componentes:
 
-```
 src/data/
-```
+
 
 Implementado:
 
-* carregamento dos datasets;
-* validação inicial;
-* organização dos dados brutos.
+- carregamento dos datasets;
+- validação inicial;
+- organização dos dados brutos.
 
 ## Resultado
 
-O sistema passou a possuir uma base confiável para processamento e análise.
+O sistema passou a possuir uma base confiável para processamento.
 
 ---
 
@@ -63,18 +70,17 @@ Construção da primeira arquitetura Retrieval-Augmented Generation.
 
 Componentes:
 
-```
 src/rag/
 src/embeddings/
 src/index/
-```
+
 
 Implementado:
 
-* geração de embeddings;
-* criação de índice vetorial;
-* busca semântica;
-* recuperação de contexto.
+- geração de embeddings;
+- criação de índice vetorial;
+- busca semântica;
+- recuperação de contexto.
 
 ## Resultado
 
@@ -86,32 +92,33 @@ O sistema passou a responder perguntas utilizando conhecimento recuperado dos da
 
 ## Objetivo
 
-Adicionar capacidade de análise estruturada dos dados.
+Adicionar capacidade analítica sobre dados estruturados.
 
 ## Implementações
 
-Criados componentes:
+Criado:
 
-```
 src/analysis/
-```
 
-Incluindo:
 
-* DataFrame Repository;
-* Statistics Engine;
-* operações analíticas reutilizáveis.
+Componentes:
 
-Capacidades adicionadas:
+- DataFrame Repository;
+- Statistics Engine.
 
-* contagem de registros;
-* leitura de colunas;
-* resumo estatístico;
-* análise de frequência.
+Capacidades:
+
+- contagem de registros;
+- leitura de colunas;
+- análise estatística;
+- frequência de valores.
 
 ## Resultado
 
-O sistema passou a combinar busca semântica com análise direta dos dados.
+O sistema passou a combinar:
+
+- análise determinística;
+- recuperação semântica.
 
 ---
 
@@ -119,25 +126,24 @@ O sistema passou a combinar busca semântica com análise direta dos dados.
 
 ## Objetivo
 
-Criar uma camada capaz de decidir o melhor caminho para responder perguntas.
+Criar uma camada responsável por identificar o melhor caminho para cada pergunta.
 
-## Implementações
+## Implementação
 
 Criado:
 
-```
-analysis_router.py
-```
+src/analysis/analysis_router.py
 
-Responsável por classificar consultas em:
 
-* RAG;
-* análise;
-* híbrido.
+Responsável por classificar consultas:
+
+- RAG;
+- Analysis;
+- Hybrid.
 
 ## Resultado
 
-O sistema passou a direcionar perguntas automaticamente para o componente adequado.
+O sistema passou a direcionar perguntas automaticamente.
 
 ---
 
@@ -147,29 +153,28 @@ O sistema passou a direcionar perguntas automaticamente para o componente adequa
 
 Introduzir agentes especializados.
 
-## Implementações
+## Implementação
 
 Criado:
 
-```
 src/agents/data_analysis_agent.py
-```
+
 
 Responsabilidades:
 
-* interpretar perguntas analíticas;
-* executar operações;
-* retornar resultados estruturados.
+- interpretar perguntas analíticas;
+- executar operações;
+- retornar resultados estruturados.
 
-Operações suportadas:
+Operações:
 
-* count_rows;
-* columns;
-* value_counts.
+- count_rows;
+- columns;
+- value_counts.
 
 ## Resultado
 
-Primeira versão funcional de agente analítico.
+Primeiro agente analítico funcional.
 
 ---
 
@@ -177,28 +182,27 @@ Primeira versão funcional de agente analítico.
 
 ## Objetivo
 
-Unificar RAG e análise estruturada.
+Integrar diferentes fontes de inteligência.
 
-## Implementações
+## Implementação
 
 Criado:
 
-```
 src/services/hybrid_query_engine.py
-```
+
 
 Responsável por:
 
-* orquestrar múltiplos mecanismos;
-* executar consultas híbridas;
-* combinar diferentes fontes de informação.
+- orquestrar RAG;
+- executar análise;
+- combinar resultados.
 
 ## Resultado
 
-O sistema passou a possuir inteligência combinada entre:
+Primeira arquitetura híbrida:
 
-* conhecimento contextual;
-* análise quantitativa.
+RAG + Structured Analysis
+
 
 ---
 
@@ -206,24 +210,24 @@ O sistema passou a possuir inteligência combinada entre:
 
 ## Objetivo
 
-Criar uma camada de decisão sobre qual resposta utilizar.
+Criar uma camada responsável pela seleção da melhor resposta.
 
-## Implementações
+## Implementação
 
 Criado:
 
-```
 src/services/decision_engine.py
-```
 
-Responsabilidade:
 
-* comparar respostas RAG e análise;
-* selecionar a melhor fonte.
+Responsabilidades:
+
+- comparar resultados;
+- selecionar fonte adequada;
+- reduzir respostas inconsistentes.
 
 ## Resultado
 
-Maior controle sobre qualidade e confiabilidade das respostas.
+Maior controle sobre confiabilidade das respostas.
 
 ---
 
@@ -231,21 +235,20 @@ Maior controle sobre qualidade e confiabilidade das respostas.
 
 ## Objetivo
 
-Separar lógica interna da resposta apresentada ao usuário.
+Separar resultados internos da resposta apresentada ao usuário.
 
-## Implementações
+## Implementação
 
 Criado:
 
-```
 src/services/answer_generator.py
-```
+
 
 Responsável por:
 
-* transformar resultados técnicos;
-* gerar respostas amigáveis;
-* preparar saída final.
+- transformar dados técnicos;
+- gerar respostas naturais;
+- padronizar saída.
 
 ---
 
@@ -253,31 +256,89 @@ Responsável por:
 
 ## Objetivo
 
-Criar a camada principal de aplicação.
+Criar o ponto principal de entrada da aplicação.
 
 ## Implementação
 
 Criado:
 
-```
 src/application/intelligence_system.py
-```
 
-Responsável por:
 
-* receber perguntas;
-* executar o fluxo completo;
-* integrar:
+Integra:
 
-  * Hybrid Query Engine;
-  * Decision Engine;
-  * Answer Generator.
+- Hybrid Query Engine;
+- Decision Engine;
+- Answer Generator.
 
 ## Resultado
 
-Primeiro fluxo completo:
+Fluxo completo implementado:
 
-Usuário → Sistema → Roteamento → Análise/RAG → Decisão → Resposta.
+Usuário
+
+↓
+
+Intelligence System
+
+↓
+
+Hybrid Query Engine
+
+↓
+
+RAG / Analysis
+
+↓
+
+Decision Engine
+
+↓
+
+Answer Generator
+
+↓
+
+Resposta Final
+
+
+---
+
+# V1.0 Validation Milestone
+
+## Testes realizados
+
+Perguntas validadas:
+
+### Contagem de registros
+
+Pergunta:
+Quantos produtos existem?
+Resultado:
+O dataset products possui 32951 registros.
+
+
+---
+
+### Análise de categorias
+
+Pergunta:
+Qual categoria possui mais produtos?
+Resultado:
+A categoria com maior quantidade de produtos é
+'cama_mesa_banho', com 3029 registros.
+
+
+---
+
+### Busca semântica
+
+Pergunta:
+Quais produtos aparecem nos dados?
+
+Resultado:
+
+Resposta gerada através do pipeline RAG.
 
 ---
 
@@ -285,40 +346,45 @@ Usuário → Sistema → Roteamento → Análise/RAG → Decisão → Resposta.
 
 ## V1.1
 
-Melhorias previstas:
+Melhorias:
 
-* testes automatizados;
-* avaliação de respostas;
-* métricas de qualidade;
-* melhoria da camada RAG.
+- testes automatizados;
+- avaliação de respostas;
+- métricas de qualidade;
+- melhoria do RAG.
+
+---
 
 ## V1.2
 
-Possíveis evoluções:
+Evoluções:
 
-* memória de conversação;
-* histórico de perguntas;
-* observabilidade;
-* logs estruturados.
+- memória de conversação;
+- histórico de consultas;
+- observabilidade;
+- logs estruturados.
+
+---
 
 ## V2.0
 
 Visão futura:
 
-* interface web;
-* upload de arquivos;
-* dashboards;
-* integrações externas;
-* plataforma empresarial de inteligência de dados.
+- interface web;
+- upload de arquivos;
+- dashboards;
+- integrações externas;
+- plataforma empresarial de inteligência de dados.
 
 ---
 
 # Registro de Decisões
 
-O projeto seguirá os princípios:
+O projeto seguirá:
 
-* documentação contínua;
-* evolução incremental;
-* arquitetura modular;
-* separação entre núcleo técnico e produto final;
-* preparação para futura comercialização.
+- documentação contínua;
+- evolução incremental;
+- arquitetura modular;
+- separação entre núcleo técnico e produto final;
+- preparação para futura comercialização.
+
