@@ -1,0 +1,2 @@
+{"timestamp": "2026-07-07T21:23:29.644234", "question": "teste", "domain": "reviews", "best_score": 0.65}
+{"timestamp": "2026-07-07T21:26:53.617017", "question": "Qual a média das avaliações dos clientes?", "domain": "reviews", "confidence": 3, "documents_found": 3, "best_score": 0.6257, "sources": ["reviews"], "fallback_used": false}

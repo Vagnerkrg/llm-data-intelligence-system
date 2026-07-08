@@ -4,6 +4,7 @@ from src.llm.groq_client import GroqClient
 from src.rag.prompt_templates import RAGPromptTemplate
 from src.query.query_router import QueryRouter
 from src.evaluation.rag_metrics import RAGMetrics
+from src.evaluation.metrics_logger import MetricsLogger
 
 
 
@@ -29,6 +30,9 @@ class RAGQueryEngine:
         |
         v
     Metrics Evaluation
+        |
+        v
+    Metrics Logging
         |
         v
     Prompt Template
@@ -76,6 +80,11 @@ class RAGQueryEngine:
         )
 
 
+        self.metrics_logger = (
+            MetricsLogger()
+        )
+
+
 
     def retrieve(
         self,
@@ -83,10 +92,6 @@ class RAGQueryEngine:
         top_k=3,
         min_score=0.40
     ):
-        """
-        Retrieves documents with domain routing
-        and fallback search.
-        """
 
 
         route = self.router.route(
@@ -196,6 +201,11 @@ class RAGQueryEngine:
 
             fallback_used
 
+        )
+
+
+        self.metrics_logger.log(
+            metrics
         )
 
 
