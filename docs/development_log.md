@@ -1746,3 +1746,54 @@ Plataforma de agentes com ferramentas especializadas e arquitetura extensível
 * Search Tool
 * Tool Execution Layer
 * Agent Evaluation Layer
+
+
+# V1.9 — Agent Platform Evolution
+
+Data:
+Julho 2026
+
+Branch:
+feature/v1.9-agent-platform-evolution
+
+Objetivo:
+
+Criar a base de uma plataforma modular de agentes,
+introduzindo camadas de planejamento e runtime.
+
+
+Implementações:
+
+## Agent Planning Layer
+
+Criados:
+
+- PlanStep
+- ExecutionPlan
+
+
+## Agent Runtime Layer
+
+Criados:
+
+- ExecutionContext
+- AgentRuntime
+- PlanExecutor
+
+
+Validação:
+
+pytest tests/test_agents/runtime
+
+7 passed
+
+
+pytest
+
+118 passed
+
+
+Resultado:
+
+O sistema ganhou uma camada inicial de
+planejamento e execução estruturada de agentes.
