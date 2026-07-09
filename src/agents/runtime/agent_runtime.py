@@ -4,6 +4,7 @@ from src.agents.runtime.execution_context import ExecutionContext
 from src.agents.planning.execution_plan import ExecutionPlan
 from src.agents.planning.plan_step import PlanStep
 from src.agents.controller.agent_controller import AgentController
+from src.agents.execution.execution_engine import ExecutionEngine
 
 
 
@@ -15,24 +16,35 @@ class AgentRuntime:
 
     - execution context;
     - planning layer;
-    - agent controller;
-    - future execution strategies.
+    - execution engine;
+    - agent lifecycle.
 
-    This component represents the
-    agent execution lifecycle.
+    The runtime does not execute steps directly.
+    Execution responsibility is delegated to
+    the ExecutionEngine.
     """
 
 
 
     def __init__(
         self,
-        controller: Optional[AgentController] = None
+        controller: Optional[AgentController] = None,
+        execution_engine=None
     ):
 
         self.controller = (
             controller
             if controller
             else AgentController()
+        )
+
+
+        self.execution_engine = (
+            execution_engine
+            if execution_engine
+            else ExecutionEngine(
+                controller=self.controller
+            )
         )
 
 
@@ -58,11 +70,11 @@ class AgentRuntime:
         """
         Create an initial execution plan.
 
-        The first implementation uses
-        a deterministic planning strategy.
+        Current implementation uses
+        deterministic planning.
 
         Future versions may introduce
-        LLM-based planning.
+        LLM based planning.
         """
 
         plan = ExecutionPlan(
@@ -82,7 +94,7 @@ class AgentRuntime:
 
                 description=(
                     "Select the best agent tool "
-                    "for the user request."
+                    "for the request."
                 )
 
             )
@@ -99,8 +111,7 @@ class AgentRuntime:
                 action="execute_tool",
 
                 description=(
-                    "Execute selected tool "
-                    "and collect result."
+                    "Execute selected tool."
                 )
 
             )
@@ -135,9 +146,6 @@ class AgentRuntime:
     ) -> ExecutionContext:
         """
         Prepare execution lifecycle.
-
-        Creates context and attaches
-        an execution plan.
         """
 
         context = self.create_context(
@@ -159,3 +167,25 @@ class AgentRuntime:
 
 
         return context
+
+
+
+    def execute(
+        self,
+        question: str
+    ) -> ExecutionContext:
+        """
+        Execute an agent workflow.
+
+        Delegates execution to
+        the ExecutionEngine.
+        """
+
+        context = self.prepare(
+            question
+        )
+
+
+        return self.execution_engine.execute(
+            context
+        )

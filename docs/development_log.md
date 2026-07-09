@@ -1797,3 +1797,73 @@ Resultado:
 
 O sistema ganhou uma camada inicial de
 planejamento e execução estruturada de agentes.
+
+## V1.8 Agent Intelligence Architecture Expansion
+
+
+Implemented the first complete version of the agent intelligence foundation.
+
+
+### New Architecture Layers
+
+Added:
+
+- Runtime layer
+- Execution layer
+- Memory layer
+- Reasoning layer
+- Orchestration layer
+- Intelligence layer
+
+
+### Implemented Components
+
+Runtime:
+
+- AgentRuntime
+- ExecutionContext
+- ExecutionPlan
+- PlanStep
+
+
+Execution:
+
+- ExecutionEngine
+- StepExecutor
+
+
+Memory:
+
+- AgentMemory
+- MemoryEntry
+
+
+Reasoning:
+
+- ReasoningEngine
+- ReasoningResult
+
+
+Orchestration:
+
+- AgentOrchestrator
+- OrchestrationResult
+
+
+Intelligence:
+
+- AgentIntelligence
+- IntelligenceResult
+
+
+
+### Validation
+
+Full test suite:
+
+154 tests passed.
+
+
+Status:
+
+Completed.
