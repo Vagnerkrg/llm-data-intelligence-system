@@ -1875,275 +1875,597 @@ V1.8.1 completed
 - PR #15 merged
 - Tag v1.8.1 created
 
-Started V1.9 Agent Platform Expansion
+---
 
-## V1.9 - Agent Platform Expansion - Tool Registry Migration
+# V1.9 — Agent Platform Evolution
 
-### Implemented
+## Date
 
-- Created dedicated ToolRegistry architecture.
-- Separated tool management from AgentRegistry.
-- Updated AgentController to use ToolRegistry.
-- Updated AgentRouter integration with ToolRegistry.
-- Maintained backward compatibility with runtime execution flow.
+July 2026
 
-### Architecture Changes
 
-Before:
+## Branch
+
+feature/v1.9-agent-platform-expansion
+
+
+## Objective
+
+Evolve the agent architecture created in previous versions into a modular
+agent platform based on specialized tools, standardized execution,
+and extensible intelligence components.
+
+The V1.9 focuses on:
+
+- Agent Controller;
+- Tool Registry;
+- specialized tools;
+- modular execution;
+- standardized tool contracts;
+- future agent workflows.
+
+
+---
+
+# Phase 1 — Agent Platform Foundation
+
+
+## Agent Planning Layer
+
+Implemented:
+
+- PlanStep;
+- ExecutionPlan.
+
+
+## Agent Runtime Layer
+
+Implemented:
+
+- ExecutionContext;
+- AgentRuntime;
+- PlanExecutor.
+
+
+## Validation
+
+pytest tests/test_agents/runtime
+
+7 passed
+
+
+pytest
+
+118 passed
+
+
+## Result
+
+The system gained an initial structured execution foundation,
+preparing the platform for multi-step agent workflows.
+
+
+---
+
+# Phase 2 — Agent Intelligence Architecture
+
+
+## New Architecture Layers
+
+Implemented:
+
+- Runtime Layer;
+- Execution Layer;
+- Memory Layer;
+- Reasoning Layer;
+- Orchestration Layer;
+- Intelligence Layer.
+
+
+## Implemented Components
+
+
+### Runtime
+
+- AgentRuntime;
+- ExecutionContext;
+- ExecutionPlan;
+- PlanStep.
+
+
+### Execution
+
+- ExecutionEngine;
+- StepExecutor.
+
+
+### Memory
+
+- AgentMemory;
+- MemoryEntry.
+
+### Reasoning
+
+- ReasoningEngine;
+- ReasoningResult.
+
+
+### Orchestration
+
+- AgentOrchestrator;
+- OrchestrationResult.
+
+
+### Intelligence
+
+- AgentIntelligence;
+- IntelligenceResult.
+
+
+## Validation
+
+154 tests passed.
+
+
+## Result
+
+The project established the first complete foundation
+for intelligent agent execution.
+
+
+---
+
+# Phase 3 — Tool Registry Migration
+
+
+## Objective
+
+Separate agent management from tool management.
+
+Previously:
 
 AgentController
-    |
-    v
+
+↓
+
 AgentRegistry
-    |
-    v
+
+↓
+
 Tools
 
 
-After:
+New architecture:
 
 AgentController
-    |
-    +----------------+
-    |                |
-    v                v
-AgentRegistry   ToolRegistry
-                    |
-                    v
-                 Tools
+
+        |
+
++---------------+---------------+
+
+|                               |
+
+v                               v
+
+AgentRegistry             ToolRegistry
+
+                                |
+
+                                v
+
+                              Tools
 
 
-### Validation
+## Implemented
 
-Full test suite executed successfully.
+- Dedicated ToolRegistry;
+- separation between agents and tools;
+- AgentController integration;
+- AgentRouter integration;
+- backward compatibility with execution flow.
 
-Result:
+
+## Validation
 
 160 tests passed.
 
-Status:
 
-Stable checkpoint.
+## Result
 
----
+Tools became independent platform components,
+allowing future expansion without increasing agent complexity.
 
-# V1.9 - Agent Platform Expansion - Tool Execution Platform
-
-## Data
-
-Julho 2026
 
 ---
 
-## Objetivo
+# Phase 4 — Tool Execution Platform
 
-Evoluir a arquitetura de ferramentas criada anteriormente,
-adicionando uma camada padronizada de execução e contratos
-entre agentes, ferramentas e resultados.
 
-A V1.9 consolida a transição de ferramentas internas para uma
-plataforma extensível de agentes.
+## Objective
 
----
+Create a standardized execution layer between agents,
+tools and responses.
 
-# Implementações
 
 ## Tool Result Contract
 
-Criado:
+Created:
 
 src/agents/tools/tool_result.py
 
-Responsabilidade:
 
-- padronizar retorno das ferramentas;
-- encapsular sucesso ou falha;
-- transportar dados e metadata da execução.
+Responsibilities:
 
-Contrato:
+- standardize tool responses;
+- encapsulate execution success or failure;
+- transport execution metadata.
 
+
+Contract:
+
+ToolResult
+
+- tool;
+- success;
+- data;
+- metadata.
+
+---
+
+# V1.9 — Tool Execution Platform
+
+## Date
+
+July 2026
+
+## Objective
+
+Evolve the agent tool architecture by introducing a standardized execution layer between agents and specialized tools.
+
+The goal was to transform tools from simple callable components into independent execution capabilities with:
+
+* standardized contracts;
+* centralized execution;
+* error handling;
+* normalized results;
+* future support for advanced agent workflows.
+
+---
+
+# Tool Result Contract
+
+## Implemented
+
+Created:
+
+```
+src/agents/tools/tool_result.py
+```
+
+## Responsibility
+
+The ToolResult contract standardizes tool execution responses.
+
+Structure:
+
+```
 ToolResult
 
 - tool
 - success
 - data
 - metadata
+```
+
+Benefits:
+
+* consistent tool responses;
+* easier debugging;
+* improved observability;
+* preparation for multiple execution strategies.
 
 ---
 
-## Tool Execution Layer
+# Tool Execution Layer
 
-Criado:
+## Implemented
 
+Created:
+
+```
 src/agents/execution/tool_executor.py
+```
 
-Responsabilidade:
+## Responsibilities
 
-- executar ferramentas registradas;
-- normalizar respostas;
-- tratar exceções;
-- gerar ToolResult padronizado.
+The ToolExecutor became responsible for:
 
-Novo fluxo:
+* executing registered tools;
+* validating execution flow;
+* handling execution exceptions;
+* converting outputs into ToolResult;
+* centralizing execution behavior.
 
-Tool
+New execution flow:
 
-↓
+```
+Specialized Tool
+
+        ↓
 
 ToolExecutor
 
-↓
+        ↓
 
 ToolResult
+```
+
+This removed execution responsibilities from individual tools and created a centralized execution model.
 
 ---
 
-## Analytics Tool Integration
+# Analytics Tool Evolution
 
-Atualizado:
+## Updated
 
+```
 src/agents/tools/analytics_tool.py
+```
 
-Mudança arquitetural:
+Architectural change:
 
-Antes:
+Before:
 
+```
 AnalyticsTool
 
-↓
+        ↓
 
 ToolResult
+```
 
+After:
 
-Depois:
-
+```
 AnalyticsTool
 
-↓
+        ↓
 
-Raw Data Result
+Raw Result
 
+        ↓
 
 ToolExecutor
 
-↓
+        ↓
 
 ToolResult
+```
 
+The AnalyticsTool became a pure capability provider.
 
-A responsabilidade de normalização foi removida das ferramentas
-e centralizada na camada de execução.
+Result normalization moved to the execution layer.
 
 ---
 
-## Agent Controller Integration
+# Agent Controller Integration
 
-Atualizado:
+## Updated
 
+```
 src/agents/controller/agent_controller.py
+```
 
-Implementado:
+Implemented:
 
-- suporte à injeção de ToolExecutor;
-- execução desacoplada de ferramentas;
-- integração completa entre Controller, Registry e Executor.
+* ToolExecutor injection;
+* decoupled tool execution;
+* integration between Controller, Registry and Executor.
 
----
+Updated architecture:
 
-# Nova Arquitetura
-
-Fluxo atualizado:
-
+```
 User Request
 
-↓
+        ↓
 
 AgentController
 
-↓
+        ↓
 
 AgentRouter
 
-↓
+        ↓
 
 ToolRegistry
 
-↓
+        ↓
 
 ToolExecutor
 
-↓
+        ↓
 
 Specialized Tool
 
-↓
+        ↓
 
 ToolResult
 
-↓
+        ↓
 
 Response Layer
-
+```
 
 ---
 
-# Test Validation
+# Validation
 
-Testes específicos adicionados:
+Full automated test suite executed:
 
-- ToolResult validation;
-- ToolExecutor validation;
-- AgentController executor flow.
-
-Validação completa:
-
+```
 pytest
+```
 
-Resultado:
+Result:
 
+```
 165 tests passed
+```
 
-
----
-
-# Resultado
-
-A V1.9 consolidou a primeira versão da plataforma de execução de agentes.
-
-O sistema evoluiu de:
-
-Agentes com ferramentas internas
-
-para:
-
-Plataforma de agentes com ferramentas independentes,
-contratos padronizados e execução modular.
-
-Benefícios:
-
-- baixo acoplamento;
-- maior extensibilidade;
-- novas ferramentas podem ser adicionadas sem alterar o controlador;
-- preparação para múltiplos agentes especializados;
-- base para RAG Tool, Search Tool e Data Tool.
+The execution platform was validated successfully.
 
 ---
 
-# Próxima Evolução
+# V1.9 Result
 
-## V1.10 - Multi Tool Intelligence
+The V1.9 milestone consolidated the first version of the agent execution platform.
 
-Objetivo:
+The system evolved from:
 
-Expandir a plataforma adicionando múltiplas ferramentas especializadas:
+```
+Agents with internal tools
+```
 
-- RAG Tool;
-- Search Tool;
-- Data Tool;
-- Analytics Tool avançada.
+into:
 
-Preparar arquitetura para:
+```
+Agent platform with independent tools,
+standardized contracts and modular execution.
+```
 
-- planejamento automático;
-- execução multi-etapas;
-- agentes especializados por domínio.
+Main achievements:
+
+* dedicated ToolRegistry;
+* independent tool lifecycle;
+* standardized ToolResult contract;
+* centralized ToolExecutor;
+* modular tool execution;
+* stronger separation of responsibilities.
+
+---
+
+# V1.9.1 — RAG Tool Integration
+
+## Objective
+
+Expand the tool ecosystem by integrating RAG capabilities as an independent agent tool.
+
+---
+
+## Implemented
+
+Created:
+
+```
+src/agents/tools/rag_tool.py
+```
+
+Responsibilities:
+
+* expose RAG capabilities to agents;
+* hide internal RAG implementation details;
+* provide semantic retrieval and contextual answering capability.
+
+Architecture:
+
+```
+Agent Layer
+
+        ↓
+
+RAGTool
+
+        ↓
+
+RAGQueryEngine
+
+        ↓
+
+Vector Search
+
+        ↓
+
+LLM Response
+```
+
+---
+
+# RAG Tool Contract
+
+Implemented using:
+
+```
+BaseTool
+```
+
+Provides:
+
+* tool name;
+* description;
+* metadata;
+* execution interface.
+
+Capabilities:
+
+* semantic search;
+* knowledge retrieval;
+* context retrieval;
+* question answering.
+
+---
+
+# Validation
+
+Full test suite remains stable:
+
+```
+165 tests passed
+```
+
+The addition of RAGTool did not introduce regressions.
+
+---
+
+# Current V1.9 Status
+
+Completed components:
+
+✅ Agent Controller
+✅ Agent Registry
+✅ Tool Registry
+✅ Tool Metadata
+✅ Tool Result Contract
+✅ Tool Executor
+✅ Analytics Tool
+✅ RAG Tool
+✅ Runtime Layer
+✅ Execution Layer
+✅ Memory Layer
+✅ Reasoning Layer
+✅ Orchestration Layer
+✅ Intelligence Layer
+
+---
+
+# Next Evolution
+
+## V1.10 — Multi Tool Intelligence
+
+Objective:
+
+Expand the agent platform with multiple specialized tools working together.
+
+Planned capabilities:
+
+* Search Tool;
+* Data Tool;
+* advanced Analytics Tool;
+* automatic planning;
+* multi-step execution;
+* Function Calling integration;
+* ReAct-style agents.
+
+V1.10 represents the transition from a tool execution platform into a coordinated multi-tool intelligence system.
+
+---
+
