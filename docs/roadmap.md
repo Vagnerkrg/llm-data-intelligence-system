@@ -553,3 +553,30 @@ Possíveis evoluções:
 * agentes especializados;
 * otimização automática de estratégias;
 * comunicação entre agentes.
+
+## V1.8 - Agent Intelligence Architecture
+
+
+Status: Completed
+
+
+Implemented:
+
+[x] Agent Runtime architecture
+
+[x] Execution Engine
+
+[x] Step Executor
+
+[x] Agent Memory system
+
+[x] Reasoning Engine
+
+[x] Agent Orchestration
+
+[x] Agent Intelligence abstraction
+
+
+Validation:
+
+154 automated tests passing.
