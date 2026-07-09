@@ -1671,46 +1671,78 @@ Responsável por consolidar:
 
 Testes realizados:
 
-```
 pytest tests/test_agents
-```
 
 Resultado:
-
-```
 44 passed
-```
 
 Validação completa:
 
-```
 pytest
-```
 
 Resultado:
+111 passed~
 
-```
-111 passed
-```
 
 ---
 
 # Resultado da Versão
 
-A V1.8 transformou o sistema de agentes de um mecanismo de seleção de ferramentas para uma arquitetura observável e preparada para aprendizado baseado em histórico.
+A V1.8 transformou o sistema de agentes de um mecanismo de seleção de ferramentas para uma arquitetura inteligente, observável e preparada para evolução baseada em histórico e métricas.
 
-Próxima evolução:
+A versão estabeleceu a fundação necessária para evolução de agentes mais autônomos, avaliáveis e extensíveis.
 
-V1.9 - Agent Reasoning & Planning Layer
+---
+
+# Próxima Evolução
+
+## V1.9 — Agent Platform Evolution
+
+Data:
+
+Julho 2026
+
+Branch:
+
+feature/v1.9-agent-platform-evolution
 
 
+---
+
+# Objetivo
+
+Transformar a camada de inteligência criada na V1.8 em uma plataforma modular de agentes.
+
+A V1.9 terá como foco a criação de uma arquitetura extensível baseada em:
+
+* Agent Controller;
+* Tool Registry;
+* ferramentas especializadas;
+* execução modular de capacidades;
+* avaliação de ferramentas e agentes.
+
+---
+
+# Evolução Arquitetural
+
+A transição será:
+
+De:
+Agente com inteligência e decisão interna
+
+Para:
+Plataforma de agentes com ferramentas especializadas e arquitetura extensível
 
 
+---
 
+# Componentes planejados
 
-
-
-
-
-
-
+* Agent Controller
+* Tool Registry
+* RAG Tool
+* Analytics Tool
+* Data Tool
+* Search Tool
+* Tool Execution Layer
+* Agent Evaluation Layer
