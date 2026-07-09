@@ -57,7 +57,6 @@ src/
 ├── llm/
 └── application/
 
-
 ## Reason
 
 Clear module boundaries improve maintainability, testing, and future expansion.
@@ -165,7 +164,6 @@ requirements/
 The root:
 
 requirements.txt
-
 
 acts as an installation shortcut.
 
@@ -429,14 +427,17 @@ The API layer must not contain business logic.
 Responsibilities:
 
 API Layer:
+
 - validation;
 - contracts;
 - formatting.
 
 Application Layer:
+
 - orchestration.
 
 Services Layer:
+
 - intelligence execution.
 
 ---
@@ -502,9 +503,8 @@ Internal system outputs must be separated from user-facing responses.
 
 Implemented:
 
-answer_generator.py
-
-response_formatter.py
+- answer_generator.py;
+- response_formatter.py.
 
 ## Reason
 
@@ -543,7 +543,6 @@ DataIntelligenceService
 
 Agents
 
-
 ## Reason
 
 This improves:
@@ -576,22 +575,47 @@ Historical records preserve technical evolution and support future product devel
 
 ---
 
-# Decision 20 — Agent Intelligence Architecture Preparation
+# Decision 20 — Agent Intelligence Architecture Implementation
 
-## Status
+## Date
 
-Planning for V1.8
+2026-07-08
 
 ## Context
 
-The next evolution requires moving from response generation into intelligent task execution.
+The system evolved from a hybrid intelligence pipeline
+into an agent-based architecture capable of executing
+specialized capabilities.
+
+The previous architecture focused on:
+
+- RAG execution;
+- analytical services;
+- response generation.
+
+Future evolution required agents capable of:
+
+- selecting capabilities;
+- executing tools;
+- coordinating workflows;
+- improving decisions through feedback.
+
+---
 
 ## Decision
 
-Introduce an agent-based architecture with specialized tools.
+Introduce an Agent Intelligence Architecture based on:
 
-Future architecture:
+- Agent Controller;
+- Agent Registry;
+- Tool Registry;
+- Specialized Tools;
+- Execution Layers;
+- Intelligence Monitoring.
 
+Initial architecture:
+
+```text
 User
 
 ↓
@@ -605,42 +629,346 @@ Tool Registry
 ↓
 
 +----------------+
-|                |
-|  RAG Tool      |
-|                |
-|  Analytics Tool|
-|                |
-|  Search Tool   |
-|                |
-|  Data Tool     |
-|                |
+
+| RAG Tool       |
+
+| Analytics Tool |
+
+| Search Tool    |
+
+| Data Tool      |
+
 +----------------+
+
+↓
+
+Tool Execution
 
 ↓
 
 Response Generation
 
-## Planned Concepts
+Implemented Architecture Layers
 
-- Function Tools;
-- Function Calling;
-- Agent Layer;
-- Query Engine Tools;
-- ReAct Agents;
-- Tool Registry.
+The architecture introduced:
 
-## Reason
+Runtime Layer;
+Execution Layer;
+Memory Layer;
+Reasoning Layer;
+Orchestration Layer;
+Intelligence Layer.
 
-Agents allow the system to select capabilities dynamically and execute more complex workflows.
+Reason
+
+This architecture enables:
+
+dynamic capability selection;
+reusable tools;
+future Function Calling integration;
+ReAct-style execution;
+multi-step workflows;
+intelligent automation.
 
 ---
 
-# Current Documentation Structure
+# Decision 21 — Dedicated Tool Registry Architecture
+
+## Date
+
+2026-07-09
+
+## Context
+
+The agent platform required a clear separation between
+agent components and executable tools.
+
+Previously, AgentRegistry handled both responsibilities,
+creating unnecessary coupling.
+
+As the platform expanded, tools required their own lifecycle,
+metadata management, discovery mechanism, and execution control.
+
+---
+
+## Decision
+
+Introduce a dedicated ToolRegistry responsible exclusively
+for tool lifecycle management.
+
+AgentRegistry remains responsible for agent components.
+
+---
+
+## Responsibilities
+
+### AgentRegistry
+
+Responsible for:
+
+- registering agents;
+- managing agent components;
+- maintaining agent ecosystem.
+
+---
+
+### ToolRegistry
+
+Responsible for:
+
+- registering tools;
+- discovering available tools;
+- managing tool metadata;
+- searching tools by capability;
+- supporting future dynamic execution.
+
+---
+
+## Architectural Evolution
+
+Before:
+
+```text
+AgentController
+
+        |
+
+        v
+
+AgentRegistry
+
+        |
+
+        v
+
+      Tools
+
+After:
+
+             AgentController
+
+                    |
+
+        +-----------+-----------+
+
+        |                       |
+
+        v                       v
+
+ AgentRegistry          ToolRegistry
+
+                                |
+
+                                v
+
+                              Tools
+
+
+                              Reason
+
+
+
+The separation improves:
+
+modularity;
+scalability;
+maintainability;
+tool reuse;
+independent evolution of agents and tools.
+
+---
+
+# Decision 22 — Tool Execution Abstraction Layer
+
+## Date
+
+2026-07-09
+
+## Context
+
+After introducing ToolRegistry, tools became independent
+execution units.
+
+A standardized execution layer was required to avoid
+duplicating execution logic inside every tool.
+
+---
+
+## Decision
+
+Introduce a Tool Execution Layer responsible for:
+
+- executing registered tools;
+- validating execution flow;
+- normalizing results;
+- handling execution errors;
+- returning standardized outputs.
+
+---
+
+## Implemented Components
+
+Created:
+
+- ToolResult;
+- ToolExecutor.
+
+---
+
+## Architecture
+
+New execution flow:
+
+```text
+User Request
+
+↓
+
+AgentController
+
+↓
+
+ToolRegistry
+
+↓
+
+ToolExecutor
+
+↓
+
+Specialized Tool
+
+↓
+
+ToolResult
+
+↓
+
+Response Layer
+
+Reason
+
+Centralizing execution responsibilities improves:
+
+consistency;
+error handling;
+observability;
+extensibility;
+future support for multiple execution strategies.
+Future Capabilities Enabled
+
+This decision prepares the platform for:
+
+parallel tool execution;
+asynchronous workflows;
+execution monitoring;
+agent planning;
+multi-step reasoning.
+
+Decision 23 — Agent Platform Expansion Architecture
+Date
+
+2026-07-09
+
+Context
+
+The V1.9 evolution transformed the agent system
+from a tool selection mechanism into a modular
+agent execution platform.
+
+The introduction of:
+
+Runtime Layer;
+Execution Layer;
+Tool Registry;
+Tool Executor;
+Planning Layer;
+
+created the foundation required for scalable
+agent workflows.
+
+Decision
+
+Adopt a layered agent platform architecture.
+
+The system will organize responsibilities into:
+
+Planning;
+Runtime;
+Execution;
+Memory;
+Reasoning;
+Orchestration;
+Intelligence.
+Architecture Evolution
+
+Current architecture:
+
+User Request
+
+        |
+
+        v
+
+Agent Controller
+
+        |
+
+        v
+
+Agent Router
+
+        |
+
+        v
+
+Tool Registry
+
+        |
+
+        v
+
+Tool Executor
+
+        |
+
+        v
+
+Specialized Tools
+
+        |
+
+        v
+
+Tool Result
+
+        |
+
+        v
+
+Response Layer
+
+Reason
+
+A layered architecture allows the platform to evolve
+towards:
+
+autonomous task execution;
+multi-step planning;
+specialized agents;
+reusable intelligence components;
+enterprise AI workflows.
+
+Current Documentation Structure
 
 docs/
 
 ├── architecture.md
 │ System architecture
+
+├── architecture/
+│ └── agent_intelligence.md
+│ Agent architecture documentation
 
 ├── current_status.md
 │ Current implementation status
@@ -654,200 +982,17 @@ docs/
 └── project-decisions.md
 Reasons behind technical decisions
 
----
-
-# Update Policy
+Update Policy
 
 This document should be updated whenever a significant:
 
-- architectural;
-- technical;
-- strategic;
+architectural;
+technical;
+strategic;
 
 decision is made.
 
-The objective is preserving the reasoning behind the evolution of the LLM Data Intelligence System.
-
----
-
-# Decision: Introduce Agent Controller and Tool Registry Architecture
-
-## Date
-
-2026-07-08
-
-## Context
-
-O sistema evoluiu de uma arquitetura baseada em pipeline híbrido,
-com componentes especializados de RAG e análise de dados,
-para uma plataforma com necessidade de execução dinâmica de capacidades.
-
-A arquitetura existente possuía agentes especializados,
-porém a coordenação ainda dependia de fluxos previamente definidos.
-
-Para suportar futuras capacidades agentic,
-foi necessário criar uma camada responsável por controlar agentes
-e disponibilizar ferramentas de forma organizada.
-
----
-
-## Decision
-
-Introduzir uma arquitetura baseada em:
-
-- Agent Controller;
-- Agent Registry;
-- Tool Registry;
-- Specialized Tools.
-
-Fluxo definido:
-
-User
-
-↓
-
-Agent Controller
-
-↓
-
-Tool Registry
-
-↓
-
-+----------------+
-| |
-| RAG Tool |
-| |
-| Analytics Tool|
-| |
-| Search Tool |
-| |
-| Data Tool |
-| |
-+----------------+
-
-↓
-
-Response Generation
-
-
-
----
-
-## Initial Implementation
-
-Criados:
-
-src/agents/agent_controller.py
-
-src/agents/agent_registry.py
-
-src/agents/tools/
-
-
-Primeira ferramenta:
-
-src/agents/tools/analytics_tool.py
-
-
----
-
-## Reason
-
-A separação entre agentes e ferramentas permite:
-
-- maior modularidade;
-- reutilização de capacidades;
-- evolução para Function Calling;
-- suporte a múltiplos agentes especializados;
-- criação de workflows inteligentes.
-
----
-
-## Architectural Impact
-
-A responsabilidade das camadas passa a ser:
-
-### Agent Controller
-
-Responsável por:
-
-- coordenar execução;
-- decidir próximos passos;
-- controlar interação com ferramentas.
-
----
-
-### Tool Registry
-
-Responsável por:
-
-- registrar ferramentas disponíveis;
-- permitir descoberta dinâmica;
-- fornecer capacidades aos agentes.
-
----
-
-### Tools
-
-Responsáveis por:
-
-- executar ações específicas;
-- encapsular lógica operacional;
-- manter interfaces independentes.
-
----
-
-## Consequence
-
-Novas capacidades inteligentes devem preferencialmente ser adicionadas
-como ferramentas especializadas, evitando aumento de complexidade
-nos agentes principais.
-
-A arquitetura fica preparada para futuras implementações:
-
-- Function Calling;
-- ReAct Agents;
-- Planning;
-- Multi-Agent Workflows;
-- Autonomous Task Execution.
-
-
-## Decision 21 - Dedicated Tool Registry Architecture
-
-### Context
-
-The agent platform required a clear separation between
-agent components and executable tools.
-
-Previously, AgentRegistry handled both responsibilities,
-creating unnecessary coupling.
-
-### Decision
-
-Introduce a dedicated ToolRegistry responsible only
-for tool lifecycle management.
-
-AgentRegistry remains responsible for agent components.
-
-### Consequences
-
-Positive:
-
-- better separation of responsibilities;
-- easier tool expansion;
-- simpler discovery mechanism;
-- preparation for multiple specialized tools.
-
-Future capabilities enabled:
-
-- RAG Tool;
-- Search Tool;
-- Data Tool;
-- External API Tools.
-
-
-
-
+The objective is preserving the reasoning behind the evolution
+of the LLM Data Intelligence System.
 
 
