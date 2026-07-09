@@ -1,6 +1,6 @@
 from typing import List
 
-from src.agents.agent_registry import AgentRegistry
+from src.agents.tools.registry import ToolRegistry
 from src.agents.tools.base_tool import BaseTool
 from src.agents.tools.analytics_tool import AnalyticsTool
 
@@ -21,11 +21,11 @@ def get_default_tools() -> List[BaseTool]:
 
 
 def register_default_tools(
-    registry: AgentRegistry
+    registry: ToolRegistry
 ):
     """
     Register default available tools
-    into the agent registry.
+    into the tool registry.
     """
 
 

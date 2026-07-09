@@ -3,20 +3,30 @@ from typing import Dict
 from src.agents.agent_registry import AgentRegistry
 from src.agents.router.agent_router import AgentRouter
 from src.agents.tools.bootstrap import register_default_tools
+from src.agents.tools.registry import ToolRegistry
+from src.agents.execution.tool_executor import ToolExecutor
 
 
 class AgentController:
     """
     Central controller responsible for coordinating
     routing and execution of AI tools.
-    """
 
+    The controller coordinates:
+
+    - AgentRegistry for agent components;
+    - ToolRegistry for available tools;
+    - AgentRouter for tool selection;
+    - ToolExecutor for execution lifecycle.
+    """
 
 
     def __init__(
         self,
         registry=None,
-        router=None
+        tool_registry=None,
+        router=None,
+        execution_executor=None
     ):
 
         self.registry = (
@@ -26,17 +36,31 @@ class AgentController:
         )
 
 
-        self.router = (
-            router
-            if router
-            else AgentRouter(
-                self.registry
-            )
+        self.tool_registry = (
+            tool_registry
+            if tool_registry
+            else ToolRegistry()
         )
 
 
         register_default_tools(
-            self.registry
+            self.tool_registry
+        )
+
+
+        self.router = (
+            router
+            if router
+            else AgentRouter(
+                self.tool_registry
+            )
+        )
+
+
+        self.execution_executor = (
+            execution_executor
+            if execution_executor
+            else ToolExecutor()
         )
 
 
@@ -47,7 +71,7 @@ class AgentController:
     ) -> Dict:
         """
         Execute a user request through
-        the routing layer.
+        the routing and execution layers.
         """
 
 
@@ -72,7 +96,7 @@ class AgentController:
 
 
 
-        tool = self.registry.get_tool(
+        tool = self.tool_registry.get_tool(
             routing_result.tool
         )
 
@@ -91,16 +115,23 @@ class AgentController:
 
 
 
-        result = tool.execute(
-            question
+        execution_result = (
+            self.execution_executor.execute(
+                tool,
+                question
+            )
         )
 
 
         return {
 
-            "status": "success",
+            "status": (
+                "success"
+                if execution_result.success
+                else "error"
+            ),
 
-            "tool": tool.name,
+            "tool": execution_result.tool,
 
             "confidence": (
                 routing_result.confidence
@@ -110,6 +141,6 @@ class AgentController:
                 routing_result.reason
             ),
 
-            "result": result
+            "result": execution_result.data
 
         }

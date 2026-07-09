@@ -1,33 +1,41 @@
 # 🚀 LLM Data Intelligence System
 
-## RAG + Data Analysis + Intelligent Decision Layer
-
-## Overview
-
-The **LLM Data Intelligence System** is a modular AI platform designed to transform structured and unstructured data into actionable intelligence through natural language interaction.
-
-The project combines:
-
-- Large Language Models (LLMs)
-- Retrieval-Augmented Generation (RAG)
-- Semantic Search
-- Vector Databases
-- Data Analysis Agents
-- Hybrid Intelligence Routing
-- Decision-based Answer Generation
-
-The objective is to build a production-oriented AI foundation capable of evolving into enterprise intelligence applications.
+## Agentic AI Platform for Data Intelligence, RAG and Intelligent Decision Systems
 
 ---
 
-# 🎯 Project Objective
+# 🌎 Overview
 
-The system aims to allow users to ask questions in natural language and receive answers based on:
+The **LLM Data Intelligence System** is a modular AI engineering platform designed to transform structured and unstructured data into actionable intelligence through natural language interaction.
 
-- structured datasets;
-- semantic knowledge retrieval;
-- analytical operations;
-- contextual AI generation.
+The project combines:
+
+* Large Language Models (LLMs)
+* Retrieval-Augmented Generation (RAG)
+* Semantic Search
+* Vector-based Knowledge Retrieval
+* Data Analysis Agents
+* Agent Runtime Architecture
+* Tool-based Intelligence Routing
+* Decision Systems
+* Automated Answer Generation
+
+The objective is to build a production-oriented AI foundation capable of evolving into enterprise-grade intelligent systems.
+
+---
+
+# 🎯 Project Vision
+
+The system is designed around a simple principle:
+
+> Users should interact with data and knowledge using natural language while the platform automatically decides the best intelligence source to answer each request.
+
+A question can be solved through:
+
+* structured data analysis;
+* semantic knowledge retrieval;
+* specialized AI tools;
+* future autonomous agents.
 
 Example:
 
@@ -45,123 +53,273 @@ The products dataset contains 32951 records.
 
 ---
 
-# 🧠 Current Capabilities
+# 🧠 Current Platform Capabilities
 
-The platform currently supports:
+## Data Intelligence Layer
 
-## Data Intelligence
+The system supports:
 
-- Dataset loading
-- Data repository abstraction
-- Structured data analysis
-- Statistical operations
-- Column inspection
-- Category analysis
-
----
-
-## RAG Pipeline
-
-- Document processing
-- Embedding generation
-- Vector indexing
-- Semantic retrieval
-- Context-based answers
-- Retrieval evaluation metrics
+* dataset loading;
+* data repository abstraction;
+* structured data analysis;
+* statistical operations;
+* column inspection;
+* category analysis;
+* analytical reasoning.
 
 ---
 
-## Hybrid Intelligence
+# 📚 Knowledge Intelligence Layer
 
-The system combines two intelligence sources:
+The RAG architecture provides:
 
-### RAG Layer
+* document processing;
+* embedding generation;
+* vector indexing;
+* semantic retrieval;
+* contextual answers;
+* retrieval evaluation.
+
+Architecture:
+
+```
+Documents
+
+    |
+    v
+
+Embedding Pipeline
+
+    |
+    v
+
+Vector Index
+
+    |
+    v
+
+Semantic Retrieval
+
+    |
+    v
+
+Context Generation
+```
+
+---
+
+# 🤖 Agent Intelligence Architecture
+
+The project evolved from a service-oriented AI system into an agent-based platform.
+
+Current architecture:
+
+```
+User Request
+
+      |
+      v
+
+Agent Runtime
+
+      |
+      v
+
+Planning Layer
+
+      |
+      v
+
+Execution Engine
+
+      |
+      v
+
+Agent Controller
+
+      |
+      v
+
+Agent Router
+
+      |
+      v
+
+Tool Registry
+
+      |
+      v
+
+Specialized Tools
+
+      |
+      v
+
+Final Response
+```
+
+---
+
+# 🧩 Agent Components
+
+## Agent Runtime
 
 Responsible for:
 
-- semantic search;
-- contextual retrieval;
-- knowledge-based answers.
-
-### Analysis Layer
-
-Responsible for:
-
-- deterministic calculations;
-- statistics;
-- structured dataset operations.
+* execution lifecycle;
+* context management;
+* planning coordination;
+* workflow execution.
 
 ---
 
-## Decision Layer
+## Agent Controller
 
-The Decision Engine selects the most appropriate answer source:
+Central orchestration layer responsible for:
+
+* coordinating tools;
+* routing requests;
+* executing selected capabilities;
+* returning structured results.
+
+---
+
+## Agent Router
+
+Responsible for deciding:
 
 ```
-                 User Question
-                       |
-                       v
-              Hybrid Query Engine
-                       |
-          +------------+-------------+
-          |                          |
-          v                          v
-        RAG                    Data Analysis
-          |                          |
-          +------------+-------------+
-                       |
-                       v
-              Decision Engine
-                       |
-                       v
-             Answer Generation
-                       |
-                       v
-                Final Response
+Which tool should answer this request?
+```
+
+Capabilities:
+
+* tool scoring;
+* capability matching;
+* routing confidence;
+* future adaptive routing.
+
+---
+
+## Tool Registry
+
+The Tool Registry provides dynamic management of agent capabilities.
+
+Current responsibilities:
+
+* tool registration;
+* tool discovery;
+* metadata management;
+* capability search;
+* active tool management.
+
+Architecture:
+
+```
+ToolRegistry
+
+      |
+
+      +----------------+
+
+      |                |
+
+AnalyticsTool     Future Tools
+
+
+                    |
+
+        +-----------+-----------+
+
+        |                       |
+
+     RAGTool              SearchTool
+
+                        
+
+        |
+
+     DataTool
 ```
 
 ---
 
-# 🏗️ Current Architecture
+# 🔧 Tool Architecture
+
+Every AI capability follows a common contract:
 
 ```
-User Question
+BaseTool
 
-        |
-        v
+    |
+    +-- name
 
-IntelligenceSystem
+    +-- description
 
-        |
-        v
+    +-- metadata
 
-HybridQueryEngine
+    +-- execute()
+```
 
-        |
-        +----------------------+
-        |                      |
-        v                      v
+Example:
 
-   RAG Engine          Data Analysis Agent
+```
+AnalyticsTool
 
-        |                      |
-        |                      |
-        +----------+-----------+
+Capabilities:
 
-                   |
-                   v
+- aggregation
+- statistics
+- dataset analysis
+```
 
-            Decision Engine
+This architecture allows new intelligence modules to be added without changing the core platform.
 
-                   |
-                   v
+---
 
-           Answer Generator
+# 🏗️ Current System Architecture
 
-                   |
-                   v
+```
+                    User Question
 
-             Final Response
+                          |
+
+                          v
+
+                 Intelligence System
+
+                          |
+
+                          v
+
+                 Agent Runtime
+
+                          |
+
+             +------------+------------+
+
+             |                         |
+
+             v                         v
+
+       Agent Planning           Intelligence Tools
+
+
+             |                         |
+
+             +------------+------------+
+
+                          |
+
+                          v
+
+                  Answer Generation
+
+                          |
+
+                          v
+
+                   Final Response
 ```
 
 ---
@@ -174,15 +332,28 @@ llm-data-intelligence-system/
 ├── src/
 │
 ├── agents/
-│   └── data_analysis_agent.py
+│
+│   ├── controller/
+│   │   └── agent_controller.py
+│   │
+│   ├── runtime/
+│   │   ├── agent_runtime.py
+│   │   └── execution_context.py
+│   │
+│   ├── router/
+│   │   ├── agent_router.py
+│   │   └── tool_scorer.py
+│   │
+│   └── tools/
+│       ├── base_tool.py
+│       ├── tool_metadata.py
+│       ├── registry.py
+│       ├── bootstrap.py
+│       └── analytics_tool.py
 │
 ├── analysis/
-│   ├── dataframe_repository.py
-│   ├── statistics_engine.py
-│   └── analysis_router.py
 │
 ├── application/
-│   └── intelligence_system.py
 │
 ├── embeddings/
 │
@@ -191,98 +362,125 @@ llm-data-intelligence-system/
 ├── llm/
 │
 ├── rag/
-│   └── query_engine.py
 │
 ├── services/
-│   ├── hybrid_query_engine.py
-│   ├── decision_engine.py
-│   ├── answer_generator.py
-│   └── response_formatter.py
 │
-├── data/
+├── tests/
 │
-└── pipeline.py
+└── docs/
 ```
 
 ---
 
 # 🔬 Example Interactions
 
-## Data Analysis
+## Analytical Question
 
-Question:
+Input:
 
 ```
 How many products exist?
 ```
 
-Response:
+Flow:
 
 ```
-The products dataset contains 32951 records.
+Agent Router
+
+      |
+
+AnalyticsTool
+
+      |
+
+Data Analysis Agent
+
+      |
+
+Result
 ```
 
 ---
 
-## Hybrid Intelligence
+## Hybrid Intelligence Question
 
-Question:
+Input:
 
 ```
 Which category has the most products?
 ```
 
-Response:
+The system decides between:
+
+* analytical computation;
+* knowledge retrieval;
+* future specialized tools.
+
+---
+
+# 🧪 Engineering Quality
+
+The project includes:
+
+* automated test suite;
+* unit tests;
+* integration tests;
+* agent architecture tests;
+* tool contract tests;
+* routing tests;
+* runtime validation.
+
+Current validation includes:
 
 ```
-The category with the highest number of products is
-'cama_mesa_banho', with 3029 records.
+Tool Registry
+
+        +
+
+Agent Controller
+
+        +
+
+Agent Runtime
+
+        +
+
+Complete Test Suite
 ```
 
 ---
 
-## RAG Search
-
-Question:
-
-```
-Which products appear in the data?
-```
-
-Response:
-
-The system retrieves relevant product documents and generates a contextual answer.
-
----
-
-# 🧩 Technology Stack
+# 🛠️ Technology Stack
 
 ## Programming
 
-- Python
+* Python
 
-## Data Processing
+## Data
 
-- Pandas
-- CSV datasets
-- Parquet processing
+* Pandas
+* CSV datasets
+* Parquet processing
 
-## AI Components
+## AI
 
-- LLM APIs
-- Embedding Models
-- Retrieval-Augmented Generation
+* LLM APIs
+* Embedding Models
+* Retrieval-Augmented Generation
 
-## Vector Search
+## Architecture
 
-- Vector indexes
-- Semantic similarity search
+* Modular components
+* Agent-based design
+* Tool-based execution
+* Registry patterns
 
 ## Development
 
-- Git
-- Virtual environments
-- Modular architecture
+* Git
+* Virtual environments
+* Automated testing
+* Documentation-driven development
 
 ---
 
@@ -292,51 +490,73 @@ The system retrieves relevant product documents and generates a contextual answe
 
 Completed:
 
-- Project structure
-- Environment setup
-- Documentation foundation
+✅ Project structure
+✅ Environment setup
+✅ Documentation foundation
 
 ---
 
-## Phase 1 — Knowledge Pipeline
+# Phase 1 — Knowledge Intelligence
 
 Completed:
 
-- Data loading
-- Preprocessing
-- Embeddings
-- Vector indexing
-- RAG pipeline
+✅ Data pipeline
+✅ Preprocessing
+✅ Embeddings
+✅ Vector indexing
+✅ RAG pipeline
 
 ---
 
-## Phase 2 — Hybrid Intelligence Platform
+# Phase 2 — Hybrid Intelligence Platform
+
+Completed:
+
+✅ Data Analysis Agent
+✅ Statistics Engine
+✅ Hybrid Query Engine
+✅ Decision Engine
+✅ Answer Generation Layer
+✅ Application orchestration
+
+---
+
+# Phase 3 — Agent Intelligence Platform
 
 Current:
 
 Completed:
 
-- Data Analysis Agent
-- Statistics Engine
-- Hybrid Query Engine
-- Decision Engine
-- Answer Generation Layer
-- Application orchestration layer
+✅ Agent Runtime
+✅ Execution Context
+✅ Planning Layer
+✅ Execution Engine
+✅ Agent Controller
+✅ Agent Router
+✅ Base Tool Contract
+✅ Tool Metadata
+✅ Tool Registry
+✅ Analytics Tool Integration
 
 ---
 
-## Future Evolution
+# 🚀 Future Evolution
 
 Planned:
 
-- Advanced retrieval strategies
-- Evaluation framework expansion
-- AI agents with tools
-- APIs
-- Web interface
-- Authentication
-- Enterprise integrations
-- Production deployment
+## V2 — Multi-Agent Intelligence Platform
+
+Future capabilities:
+
+* multiple specialized agents;
+* autonomous task planning;
+* advanced tool selection;
+* RAG Agent;
+* Search Agent;
+* Data Agent;
+* External API tools;
+* agent collaboration;
+* production deployment.
 
 ---
 
@@ -344,63 +564,71 @@ Planned:
 
 The project follows:
 
-- modular architecture;
-- separation of responsibilities;
-- reproducible processing;
-- documented decisions;
-- scalable components;
-- provider independence.
+* modular architecture;
+* separation of responsibilities;
+* scalable components;
+* documented architectural decisions;
+* reproducible execution;
+* provider independence;
+* test-driven evolution.
 
 ---
 
 # 🌎 Long-Term Vision
 
-The goal is not only to create a single AI application.
+The goal is not only to create an AI application.
 
 The objective is to build a reusable AI engineering ecosystem capable of supporting:
 
-- business intelligence solutions;
-- enterprise knowledge systems;
-- intelligent assistants;
-- automated analysis platforms;
-- future AI products.
+* enterprise intelligence platforms;
+* business analytics assistants;
+* knowledge management systems;
+* autonomous AI workflows;
+* future AI products.
 
 ---
 
 # 📌 Current Status
 
-Version:
+Current Version:
 
 ```
-v0.7
+v1.9 - Agent Platform Expansion
 ```
 
 Current milestone:
 
 ```
-Hybrid Data Intelligence Foundation Completed
+Tool Registry Architecture Completed
 ```
 
 Implemented:
 
-✅ Data pipeline  
-✅ RAG system  
-✅ Semantic retrieval  
-✅ Data analysis layer  
-✅ Hybrid orchestration  
-✅ Decision layer  
-✅ Answer generation  
-✅ Application interface  
+✅ RAG foundation
+✅ Data Intelligence Layer
+✅ Hybrid Intelligence
+✅ Decision Layer
+✅ Agent Runtime
+✅ Agent Orchestration
+✅ Tool Architecture
+✅ Tool Registry
+✅ Automated Validation
 
 Next milestone:
 
 ```
-Documentation consolidation
+Multi-Agent Intelligence Evolution
+
 +
-Architecture stabilization
+
+Advanced Tool Ecosystem
+
 +
-Evaluation improvements
+
+Production Architecture
 ```
+
+
 
 
 

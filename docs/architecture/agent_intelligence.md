@@ -1,26 +1,38 @@
-# Agent Intelligence Layer
+# Agent Intelligence Architecture
 
-## V1.8 - Agent Intelligence Expansion
+## Overview
 
-## Visão Geral
+A Agent Intelligence Architecture introduces a modular framework for intelligent agents.
 
-A V1.8 adiciona uma nova camada de inteligência ao sistema de agentes.
+The evolution transforms the agent layer from a simple tool selection mechanism into an observable, extensible and execution-oriented intelligence platform.
 
-Antes desta evolução, o AgentRouter era responsável principalmente por selecionar ferramentas utilizando regras e pontuação.
+The architecture evolution was divided into three major stages:
 
-Com a Agent Intelligence Layer, o sistema passa a:
-
-* registrar decisões;
-* analisar resultados;
-* medir desempenho;
-* utilizar histórico como sinal de melhoria;
-* gerar indicadores de inteligência operacional.
+* V1.8 - Decision Intelligence Foundation
+* V1.8.1 - Agent Intelligence Architecture Expansion
+* V1.9 - Tool Platform Architecture
 
 ---
 
-# Arquitetura
+# V1.8 - Decision Intelligence Foundation
 
-Fluxo da decisão:
+## Overview
+
+The V1.8 introduces a new intelligence layer responsible for observing and improving agent decisions.
+
+Before this evolution, the AgentRouter was mainly responsible for selecting tools using rules and scoring.
+
+With the Agent Intelligence Layer, the system becomes capable of:
+
+* registering decisions;
+* analyzing execution results;
+* measuring performance;
+* using historical information as improvement signals;
+* generating intelligence metrics.
+
+---
+
+# Decision Intelligence Architecture
 
 ```text
 User Request
@@ -56,116 +68,114 @@ Tool Scoring        Performance Signal
 
 ---
 
-# Componentes Implementados
+# Routing Intelligence
 
-## Routing Intelligence
+## RoutingHistory
 
-### RoutingHistory
+Responsible for storing routing decisions.
 
-Responsável por armazenar decisões de roteamento.
+Responsibilities:
 
-Funções:
-
-* registrar decisões;
-* recuperar histórico;
-* fornecer dados para métricas.
+* register decisions;
+* recover historical decisions;
+* provide information for metrics.
 
 ---
 
-### RoutingMetrics
+## RoutingMetrics
 
-Calcula indicadores do roteamento.
+Calculates routing indicators.
 
-Métricas:
+Metrics:
 
-* total de decisões;
-* confiança média;
-* taxa de sucesso;
-* utilização das ferramentas.
-
----
-
-### RoutingFeedback
-
-Representa a avaliação posterior de uma decisão.
-
-Permite comparar:
-
-* ferramenta escolhida;
-* confiança utilizada;
-* resultado obtido.
+* total decisions;
+* average confidence;
+* success rate;
+* tool utilization.
 
 ---
 
-### RouterPerformanceAnalyzer
+## RoutingFeedback
 
-Analisa desempenho histórico das ferramentas.
+Represents the evaluation after a decision execution.
 
-Fornece:
+Allows comparison between:
 
-* taxa de sucesso por ferramenta;
-* confiança média por ferramenta;
-* melhor ferramenta identificada.
+* selected tool;
+* confidence level;
+* obtained result.
 
 ---
 
-# Decision Intelligence
+## RouterPerformanceAnalyzer
+
+Analyzes historical tool performance.
+
+Provides:
+
+* success rate by tool;
+* average confidence by tool;
+* best performing tool identification.
+
+---
+
+# Decision Observability
 
 ## AgentDecisionTrace
 
-Modelo de observabilidade das decisões do agente.
+Represents the complete trace of an agent decision.
 
-Armazena:
+Stores:
 
-* pergunta;
-* ferramenta selecionada;
-* confiança;
-* motivo;
-* tempo de execução;
-* resultado;
-* sucesso.
+* user question;
+* selected tool;
+* confidence;
+* decision reason;
+* execution time;
+* result;
+* success status.
 
 ---
 
 ## DecisionTraceStore
 
-Armazena os rastros das decisões.
+Responsible for storing decision traces.
 
-Responsabilidades:
+Responsibilities:
 
-* adicionar registros;
-* consultar histórico;
-* alimentar análises.
+* add records;
+* query history;
+* provide data for analytics.
 
 ---
 
 ## DecisionAnalytics
 
-Transforma os rastros em indicadores.
+Transforms decision traces into intelligence indicators.
 
-Analisa:
+Analyzes:
 
-* quantidade de decisões;
-* taxa de sucesso;
-* confiança média;
-* frequência das ferramentas;
-* ferramenta com melhor desempenho.
+* number of decisions;
+* success rate;
+* average confidence;
+* tool frequency;
+* best performing tools.
 
 ---
 
 # Agent Intelligence Monitor
 
-Camada de consolidação da inteligência do agente.
+Central intelligence monitoring layer.
 
-Integra:
+Integrates:
 
 * DecisionAnalytics;
 * RoutingMetrics;
 * RouterPerformanceAnalyzer.
 
-Gera uma visão única da performance do sistema.
+Generates a unified view of agent performance.
 
-Exemplo:
+Example:
 
 ```text
 Decision Intelligence
@@ -181,88 +191,76 @@ Agent Intelligence Report
 
 ---
 
-# Evolução do Sistema
+# Evolution After V1.8
 
-## Antes da V1.8
+Before:
 
 ```text
-Pergunta
+Question
    |
    v
 AgentRouter
    |
    v
-Ferramenta
+Tool
 ```
 
----
-
-## Depois da V1.8
+After:
 
 ```text
-Pergunta
+Question
    |
    v
 AgentRouter
    |
    v
-Decisão
+Decision
    |
    v
-Registro
+Trace Storage
    |
    v
-Análise
+Analysis
    |
    v
 Feedback
    |
    v
-Melhoria futura
+Future Improvement
 ```
 
 ---
 
-# Impacto Arquitetural
-
-A V1.8 estabelece a base para futuras evoluções:
-
-* agentes adaptativos;
-* planejamento de tarefas;
-* colaboração entre agentes;
-* memória persistente;
-* otimização automática de decisões.
-
-A camada de inteligência transforma o agente em um componente observável e evolutivo.
-
-# Agent Intelligence Architecture
+# V1.8.1 - Agent Intelligence Architecture Expansion
 
 ## Overview
 
-The Agent Intelligence Architecture introduces a modular execution framework
-for intelligent agents.
+The second stage of V1.8 introduced the internal architecture required to support intelligent agent execution.
 
-The architecture separates responsibilities into specialized layers:
+The architecture was divided into specialized layers:
 
-- Runtime
-- Execution
-- Memory
-- Reasoning
-- Orchestration
-- Intelligence
+* Runtime Layer
+* Execution Layer
+* Memory Layer
+* Reasoning Layer
+* Orchestration Layer
+* Intelligence Layer
 
+---
 
-## Architecture Flow
+# Architecture Flow
 
-
+```text
 User Request
 
         |
+
         v
 
 Agent Intelligence Layer
 
         |
+
         v
 
 Agent Orchestration Layer
@@ -280,82 +278,452 @@ Reasoning Layer        Execution Layer
 Memory Layer <-------- Execution Result
 
         |
+
         v
 
 Final Response
+```
 
+---
 
-
-## Components
-
-
-### Runtime Layer
+# Runtime Layer
 
 Responsible for:
 
-- creating execution context;
-- managing execution plans;
-- controlling agent lifecycle execution.
-
+* creating execution context;
+* managing execution plans;
+* controlling agent lifecycle execution.
 
 Components:
 
-- AgentRuntime
-- ExecutionContext
-- ExecutionPlan
-- PlanStep
+* AgentRuntime
+* ExecutionContext
+* ExecutionPlan
+* PlanStep
 
+---
 
-
-### Execution Layer
+# Execution Layer
 
 Responsible for executing planned actions.
 
 Components:
 
-- ExecutionEngine
-- StepExecutor
+* ExecutionEngine
+* StepExecutor
 
+---
 
+# Memory Layer
 
-### Memory Layer
-
-Responsible for storing information generated during agent execution.
+Responsible for storing information generated during execution.
 
 Components:
 
-- AgentMemory
-- MemoryEntry
+* AgentMemory
+* MemoryEntry
 
+---
 
-
-### Reasoning Layer
+# Reasoning Layer
 
 Responsible for reasoning abstraction.
 
 Components:
 
-- ReasoningEngine
-- ReasoningResult
+* ReasoningEngine
+* ReasoningResult
 
+---
 
+# Orchestration Layer
 
-### Orchestration Layer
-
-Responsible for coordinating multiple agent capabilities.
-
-Components:
-
-- AgentOrchestrator
-- OrchestrationResult
-
-
-
-### Intelligence Layer
-
-Responsible for higher-level agent intelligence abstraction.
+Responsible for coordinating agent capabilities.
 
 Components:
 
-- AgentIntelligence
-- IntelligenceResult
+* AgentOrchestrator
+* OrchestrationResult
+
+---
+
+# Intelligence Layer
+
+Responsible for high-level agent intelligence abstraction.
+
+Components:
+
+* AgentIntelligence
+* IntelligenceResult
+
+---
+
+# V1.9 - Tool Platform Architecture
+
+## Overview
+
+V1.9 evolves the agent architecture into a modular tool execution platform.
+
+The system separates responsibilities between:
+
+* agent management;
+* tool management;
+* tool execution;
+* result normalization.
+
+---
+
+# Registry Architecture
+
+The platform now uses two independent registries:
+
+## AgentRegistry
+
+Responsible for managing agent components.
+
+Responsibilities:
+
+* register agents;
+* discover agent capabilities;
+* manage the agent ecosystem.
+
+---
+
+## ToolRegistry
+
+Responsible exclusively for managing executable tools.
+
+Responsibilities:
+
+* register tools;
+* discover available tools;
+* provide metadata;
+* search tools by capability.
+
+---
+
+# Tool Execution Architecture
+
+The execution platform introduces standardized contracts between agents and tools.
+
+Components:
+
+## ToolResult
+
+Responsible for:
+
+* standardizing tool responses;
+* encapsulating success or failure;
+* transporting execution data and metadata.
+
+---
+
+## ToolExecutor
+
+Responsible for:
+
+* executing registered tools;
+* normalizing responses;
+* handling execution errors;
+* generating ToolResult objects.
+
+Flow:
+
+```text
+Tool
+
+ |
+
+ v
+
+ToolExecutor
+
+ |
+
+ v
+
+ToolResult
+```
+
+---
+
+# Updated Agent Platform Flow
+
+```text
+User Request
+
+        |
+
+        v
+
+AgentController
+
+        |
+
+        +----------------+
+        |                |
+        v                v
+
+AgentRegistry    ToolRegistry
+
+                      |
+
+                      v
+
+                AgentRouter
+
+                      |
+
+                      v
+
+              Selected Tool
+
+                      |
+
+                      v
+
+                ToolExecutor
+
+                      |
+
+                      v
+
+                 ToolResult
+
+                      |
+
+                      v
+
+          Agent Intelligence Layer
+```
+
+---
+
+# AgentRouter
+
+The AgentRouter selects the appropriate tool for a request.
+
+Decision process uses:
+
+* ToolRegistry;
+* ToolMetadata;
+* ToolScorer;
+* historical performance signals.
+
+Flow:
+
+```text
+Question
+
+   |
+
+   v
+
+AgentRouter
+
+   |
+
+   v
+
+ToolRegistry
+
+   |
+
+   v
+
+ToolMetadata
+
+   |
+
+   v
+
+Tool Selection
+```
+
+---
+
+# Current Architecture State
+
+```text
+User
+
+ |
+
+ v
+
+AgentController
+
+ |
+
+ v
+
+AgentRouter
+
+ |
+
+ +----------------------+
+
+ |                      |
+
+ v                      v
+
+ToolRegistry      AgentRegistry
+
+ |
+
+ v
+
+ToolExecutor
+
+ |
+
+ v
+
+Specialized Tools
+
+ |
+
+ v
+
+ToolResult
+
+ |
+
+ v
+
+Decision Intelligence
+
+ |
+
+ v
+
+Agent Intelligence Monitor
+```
+
+---
+
+# Future Evolution - V1.10 Multi Tool Intelligence
+
+The current V1.9 architecture established the foundation for an extensible agent platform.
+
+The next evolution will focus on coordinated intelligence between multiple specialized tools.
+
+Planned capabilities:
+
+* Search Tool;
+* Data Tool;
+* Analytics Tool expansion;
+* multi-step execution;
+* automatic planning;
+* specialized agents by domain;
+* Function Calling integration;
+* ReAct-style execution.
+
+The objective is to evolve the current tool execution platform into a coordinated multi-tool intelligence ecosystem.
+
+---
+
+# Current Implemented Tools
+
+## AnalyticsTool
+
+Implemented:
+
+```text
+src/agents/tools/analytics_tool.py
+```
+
+Responsibilities:
+
+* expose analytical capabilities to agents;
+* provide structured data analysis;
+* integrate with the Data Intelligence Layer.
+
+Capabilities:
+
+* aggregation;
+* statistics;
+* dataset analysis.
+
+---
+
+## RAGTool
+
+Implemented:
+
+```text
+src/agents/tools/rag_tool.py
+```
+
+Responsibilities:
+
+* expose RAG capabilities to agents;
+* provide semantic retrieval;
+* provide contextual question answering;
+* hide internal RAG implementation details.
+
+Capabilities:
+
+* semantic search;
+* knowledge retrieval;
+* context retrieval;
+* question answering.
+
+Architecture:
+
+```text
+Agent Layer
+
+        |
+
+        v
+
+RAGTool
+
+        |
+
+        v
+
+RAGQueryEngine
+
+        |
+
+        v
+
+Vector Search
+
+        |
+
+        v
+
+LLM Response
+```
+
+---
+
+# V1.9 Architecture Status
+
+The Agent Intelligence Architecture currently provides:
+
+Implemented Layers:
+
+* Runtime Layer;
+* Execution Layer;
+* Memory Layer;
+* Reasoning Layer;
+* Orchestration Layer;
+* Intelligence Layer.
+
+Implemented Platform Components:
+
+* AgentController;
+* AgentRegistry;
+* ToolRegistry;
+* ToolMetadata;
+* ToolResult;
+* ToolExecutor;
+* AgentRouter;
+* AnalyticsTool;
+* RAGTool.
+
+The platform is prepared for future expansion with additional tools, planning capabilities and autonomous workflows.

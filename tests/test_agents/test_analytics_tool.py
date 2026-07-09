@@ -1,6 +1,7 @@
 from src.agents.tools.analytics_tool import AnalyticsTool
 
 
+
 def test_analytics_tool_execution():
 
     tool = AnalyticsTool()

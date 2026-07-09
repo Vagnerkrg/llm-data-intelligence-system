@@ -12,6 +12,9 @@ class AnalyticsTool(BaseTool):
 
     This adapter hides internal analytical implementation
     details from higher-level agents.
+
+    The tool returns raw analytical data.
+    Result normalization is handled by ToolExecutor.
     """
 
 
@@ -75,7 +78,13 @@ class AnalyticsTool(BaseTool):
     ) -> Dict:
         """
         Execute analytical requests.
+
+        Returns raw analytical data.
+
+        ToolResult creation is responsibility
+        of ToolExecutor.
         """
+
 
         return self.agent.run(
             question

@@ -1,11 +1,13 @@
 from src.agents.controller.agent_controller import AgentController
 from src.agents.execution.tool_executor import ToolExecutor
+from src.agents.tools.registry import ToolRegistry
 
 
-class FakeExecutor(ToolExecutor):
+class FakeExecutor:
 
     def __init__(self):
-        self.executed = False
+
+        self.called = False
 
 
     def execute(
@@ -14,24 +16,23 @@ class FakeExecutor(ToolExecutor):
         question
     ):
 
-        self.executed = True
-
+        self.called = True
 
         return type(
-            "FakeResult",
+            "Result",
             (),
             {
                 "success": True,
                 "tool": tool.name,
                 "data": {
-                    "type": "analysis"
+                    "executed_by": "executor"
                 }
             }
         )()
 
 
 
-def test_agent_controller_uses_executor():
+def test_agent_controller_uses_tool_executor():
 
     executor = FakeExecutor()
 
@@ -42,12 +43,16 @@ def test_agent_controller_uses_executor():
 
 
     response = controller.run(
-        "quantos produtos existem?"
+        "Quantos produtos existem?"
     )
 
 
+    assert executor.called is True
+
     assert response["status"] == "success"
 
-    assert response["tool"] == "analytics"
-
-    assert executor.executed is True
+    assert (
+        response["result"]["executed_by"]
+        ==
+        "executor"
+    )
