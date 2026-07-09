@@ -68,7 +68,10 @@ class AgentRegistry:
         component = self._registry.get(name)
 
 
-        if isinstance(component, BaseTool):
+        if isinstance(
+            component,
+            BaseTool
+        ):
 
             return component
 
@@ -82,7 +85,9 @@ class AgentRegistry:
         Return all registered components.
         """
 
-        return list(self._registry.keys())
+        return list(
+            self._registry.keys()
+        )
 
 
 
@@ -92,9 +97,16 @@ class AgentRegistry:
         """
 
         return [
+
             name
+
             for name, component in self._registry.items()
-            if isinstance(component, BaseTool)
+
+            if isinstance(
+                component,
+                BaseTool
+            )
+
         ]
 
 
@@ -112,6 +124,35 @@ class AgentRegistry:
 
             for tool in self._registry.values()
 
-            if isinstance(tool, BaseTool)
+            if isinstance(
+                tool,
+                BaseTool
+            )
+
+        ]
+
+
+
+    def find_tools_by_capability(
+        self,
+        capability: str
+    ) -> List[BaseTool]:
+        """
+        Find registered tools that support
+        a specific capability.
+        """
+
+        return [
+
+            tool
+
+            for tool in self._registry.values()
+
+            if isinstance(
+                tool,
+                BaseTool
+            )
+
+            and capability in tool.metadata.capabilities
 
         ]
