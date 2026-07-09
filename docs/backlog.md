@@ -226,4 +226,75 @@ Full test suite:
 - Improve metadata propagation through the intelligence pipeline
 - Expand analytics capabilities over processed datasets
 
+## V1.7 - Data Intelligence Expansion
 
+Planned improvements:
+
+- expand analytical capabilities;
+- improve natural language to analytics mapping;
+- introduce richer data queries;
+- improve agent reasoning over datasets.
+
+
+---
+
+# V1.7 - Data Intelligence Expansion
+
+## Objetivo
+
+Expandir as capacidades analíticas do sistema
+sobre dados reais.
+
+
+## Planejado
+
+### Analytics Layer
+
+- novas operações analíticas;
+- suporte a consultas mais complexas;
+- métricas derivadas.
+
+
+### Data Intelligence Service
+
+- ampliar camada de serviços;
+- criar contratos analíticos reutilizáveis.
+
+
+### Analysis Agent
+
+- melhorar interpretação de perguntas;
+- combinar múltiplas operações.
+
+
+### Testing
+
+- adicionar novos cenários;
+- manter regressão completa.
+
+
+## Status
+
+Em desenvolvimento.
+
+# V1.7 - Data Intelligence Expansion
+
+Status:
+
+In Progress
+
+
+Completed:
+
+- AnalyticsEngine expansion
+- DataIntelligenceService creation
+- Agent/service separation
+- Extended analytics validation
+
+
+Planned:
+
+- Advanced statistical operations
+- Business metrics layer
+- Natural language analytical interpretation
+- Automated insight generation
