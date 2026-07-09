@@ -2,7 +2,7 @@ from typing import Dict
 
 from src.agents.agent_registry import AgentRegistry
 from src.agents.router.agent_router import AgentRouter
-from src.agents.tools.analytics_tool import AnalyticsTool
+from src.agents.tools.bootstrap import register_default_tools
 
 
 class AgentController:
@@ -10,6 +10,7 @@ class AgentController:
     Central controller responsible for coordinating
     routing and execution of AI tools.
     """
+
 
 
     def __init__(
@@ -28,24 +29,14 @@ class AgentController:
         self.router = (
             router
             if router
-            else AgentRouter()
+            else AgentRouter(
+                self.registry
+            )
         )
 
 
-        self._register_default_tools()
-
-
-
-    def _register_default_tools(self):
-        """
-        Register default system tools.
-        """
-
-        analytics_tool = AnalyticsTool()
-
-
-        self.registry.register_tool(
-            analytics_tool
+        register_default_tools(
+            self.registry
         )
 
 
