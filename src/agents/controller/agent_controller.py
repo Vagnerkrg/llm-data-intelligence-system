@@ -4,6 +4,7 @@ from src.agents.agent_registry import AgentRegistry
 from src.agents.router.agent_router import AgentRouter
 from src.agents.tools.bootstrap import register_default_tools
 from src.agents.tools.registry import ToolRegistry
+from src.agents.execution.tool_executor import ToolExecutor
 
 
 class AgentController:
@@ -16,7 +17,7 @@ class AgentController:
     - AgentRegistry for agent components;
     - ToolRegistry for available tools;
     - AgentRouter for tool selection;
-    - Tool execution lifecycle.
+    - ToolExecutor for execution lifecycle.
     """
 
 
@@ -24,7 +25,8 @@ class AgentController:
         self,
         registry=None,
         tool_registry=None,
-        router=None
+        router=None,
+        execution_executor=None
     ):
 
         self.registry = (
@@ -55,6 +57,13 @@ class AgentController:
         )
 
 
+        self.execution_executor = (
+            execution_executor
+            if execution_executor
+            else ToolExecutor()
+        )
+
+
 
     def run(
         self,
@@ -62,7 +71,7 @@ class AgentController:
     ) -> Dict:
         """
         Execute a user request through
-        the routing layer.
+        the routing and execution layers.
         """
 
 
@@ -106,16 +115,23 @@ class AgentController:
 
 
 
-        result = tool.execute(
-            question
+        execution_result = (
+            self.execution_executor.execute(
+                tool,
+                question
+            )
         )
 
 
         return {
 
-            "status": "success",
+            "status": (
+                "success"
+                if execution_result.success
+                else "error"
+            ),
 
-            "tool": tool.name,
+            "tool": execution_result.tool,
 
             "confidence": (
                 routing_result.confidence
@@ -125,6 +141,6 @@ class AgentController:
                 routing_result.reason
             ),
 
-            "result": result
+            "result": execution_result.data
 
         }
