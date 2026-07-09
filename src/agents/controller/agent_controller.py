@@ -1,25 +1,34 @@
 from typing import Dict
 
 from src.agents.agent_registry import AgentRegistry
+from src.agents.router.agent_router import AgentRouter
 from src.agents.tools.analytics_tool import AnalyticsTool
 
 
 class AgentController:
     """
     Central controller responsible for coordinating
-    available AI tools and agents.
+    routing and execution of AI tools.
     """
 
 
     def __init__(
         self,
-        registry=None
+        registry=None,
+        router=None
     ):
 
         self.registry = (
             registry
             if registry
             else AgentRegistry()
+        )
+
+
+        self.router = (
+            router
+            if router
+            else AgentRouter()
         )
 
 
@@ -34,6 +43,7 @@ class AgentController:
 
         analytics_tool = AnalyticsTool()
 
+
         self.registry.register_tool(
             analytics_tool
         )
@@ -45,13 +55,32 @@ class AgentController:
         question: str
     ) -> Dict:
         """
-        Execute a user request using
-        the appropriate registered tool.
+        Execute a user request through
+        the routing layer.
         """
 
 
-        tool = self._select_tool(
+        tool_name = self.router.route(
             question
+        )
+
+
+        if not tool_name:
+
+            return {
+
+                "status": "error",
+
+                "message": (
+                    "No suitable tool found."
+                )
+
+            }
+
+
+
+        tool = self.registry.get_tool(
+            tool_name
         )
 
 
@@ -62,7 +91,7 @@ class AgentController:
                 "status": "error",
 
                 "message": (
-                    "No suitable tool found."
+                    "Tool not available."
                 )
 
             }
@@ -83,42 +112,3 @@ class AgentController:
             "result": result
 
         }
-
-
-
-    def _select_tool(
-        self,
-        question: str
-    ):
-
-        text = question.lower()
-
-
-        analytical_keywords = [
-
-            "quantos",
-
-            "categoria",
-
-            "colunas",
-
-            "dados",
-
-            "produtos",
-
-            "clientes"
-
-        ]
-
-
-        if any(
-            keyword in text
-            for keyword in analytical_keywords
-        ):
-
-            return self.registry.get_tool(
-                "analytics"
-            )
-
-
-        return None
