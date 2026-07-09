@@ -12,15 +12,22 @@ class AgentRouter:
     def __init__(
         self,
         registry=None,
-        scorer=None
+        scorer=None,
+        performance_analyzer=None
     ):
 
         self.registry = registry
+
 
         self.scorer = (
             scorer
             if scorer
             else ToolScorer()
+        )
+
+
+        self.performance_analyzer = (
+            performance_analyzer
         )
 
 
@@ -31,7 +38,7 @@ class AgentRouter:
     ) -> RoutingResult:
         """
         Route a question using available
-        tools and scoring strategy.
+        tools, scoring and historical performance.
         """
 
 
@@ -45,6 +52,17 @@ class AgentRouter:
             if result.tool:
 
                 return result
+
+
+
+        performance_result = (
+            self._route_using_performance()
+        )
+
+
+        if performance_result.tool:
+
+            return performance_result
 
 
 
@@ -107,6 +125,73 @@ class AgentRouter:
 
 
 
+    def _route_using_performance(
+        self
+    ) -> RoutingResult:
+        """
+        Route using historical routing performance.
+        """
+
+
+        if not self.performance_analyzer:
+
+            return RoutingResult(
+
+                tool=None,
+
+                confidence=0.0,
+
+                reason=(
+
+                    "Performance analyzer unavailable."
+
+                )
+
+            )
+
+
+
+        best_tool = (
+            self.performance_analyzer.best_tool()
+        )
+
+
+
+        if best_tool:
+
+            return RoutingResult(
+
+                tool=best_tool,
+
+                confidence=0.70,
+
+                reason=(
+
+                    "Selected using routing "
+                    "performance history."
+
+                )
+
+            )
+
+
+
+        return RoutingResult(
+
+            tool=None,
+
+            confidence=0.0,
+
+            reason=(
+
+                "No performance signal found."
+
+            )
+
+        )
+
+
+
     def _route_using_keywords(
         self,
         question: str
@@ -134,6 +219,7 @@ class AgentRouter:
             "clientes"
 
         ]
+
 
 
         if any(
