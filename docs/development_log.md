@@ -1591,6 +1591,117 @@ A plataforma agora possui uma fundação preparada para:
 - evoluir Agent Controller;
 - integrar decisão baseada em capacidades disponíveis.
 
+# V1.8 - Agent Intelligence Expansion
+
+## Data
+
+Julho 2026
+
+---
+
+# Objetivo
+
+Evoluir o sistema de agentes para uma arquitetura capaz de observar suas próprias decisões e gerar inteligência baseada em histórico.
+
+---
+
+# Implementações realizadas
+
+## Routing Intelligence
+
+Criados:
+
+* RoutingHistory
+* RoutingMetrics
+* RoutingFeedback
+* RouterPerformanceAnalyzer
+
+O sistema passou a registrar e analisar decisões de roteamento.
+
+---
+
+## Adaptive Decision Layer
+
+Criado:
+
+* AdaptivePolicy
+
+Objetivo:
+
+Permitir que decisões futuras utilizem sinais históricos de desempenho.
+
+---
+
+## Decision Observability
+
+Criados:
+
+* AgentDecisionTrace
+* DecisionTraceStore
+
+O agente passou a registrar informações completas sobre suas decisões.
+
+---
+
+## Decision Analytics
+
+Criado:
+
+* DecisionAnalytics
+
+Responsável pela análise dos rastros armazenados.
+
+---
+
+## Intelligence Monitoring
+
+Criado:
+
+* AgentIntelligenceMonitor
+
+Responsável por consolidar:
+
+* métricas de decisão;
+* métricas de roteamento;
+* performance das ferramentas.
+
+---
+
+# Validação
+
+Testes realizados:
+
+```
+pytest tests/test_agents
+```
+
+Resultado:
+
+```
+44 passed
+```
+
+Validação completa:
+
+```
+pytest
+```
+
+Resultado:
+
+```
+111 passed
+```
+
+---
+
+# Resultado da Versão
+
+A V1.8 transformou o sistema de agentes de um mecanismo de seleção de ferramentas para uma arquitetura observável e preparada para aprendizado baseado em histórico.
+
+Próxima evolução:
+
+V1.9 - Agent Reasoning & Planning Layer
 
 
 
