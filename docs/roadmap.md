@@ -437,3 +437,77 @@ The objective is to create a reusable AI engineering ecosystem capable of suppor
 * AI agents;
 * automation;
 * business applications.
+
+
+# Roadmap
+
+## V1.8 - Agent Intelligence Expansion ✅
+
+Status: Concluído
+
+Objetivo:
+
+Adicionar inteligência operacional aos agentes através de histórico, métricas e observabilidade.
+
+Entregas:
+
+* [x] Routing History
+* [x] Routing Metrics
+* [x] Routing Feedback
+* [x] Router Performance Analyzer
+* [x] Adaptive Policy
+* [x] Agent Decision Trace
+* [x] Decision Trace Store
+* [x] Decision Analytics
+* [x] Agent Intelligence Monitor
+
+Validação:
+
+* [x] Testes unitários
+* [x] Testes de integração
+* [x] Suite completa aprovada
+
+Resultado:
+
+111 testes passando.
+
+---
+
+# V1.9 - Agent Reasoning & Planning Layer
+
+Status: Planejado
+
+Objetivo:
+
+Evoluir os agentes para criação de estratégias de resolução.
+
+Possíveis componentes:
+
+* Task Planner
+* Reasoning Strategy
+* Execution Plan
+* Plan Validator
+
+Objetivo arquitetural:
+
+Sair de:
+
+"agente que escolhe uma ferramenta"
+
+para:
+
+"agente que planeja uma solução utilizando múltiplas etapas".
+
+---
+
+# V2.0 - Multi-Agent Intelligence
+
+Status: Futuro
+
+Possíveis evoluções:
+
+* colaboração entre agentes;
+* memória persistente;
+* delegação de tarefas;
+* agentes especializados;
+* otimização automática de estratégias.

@@ -565,4 +565,209 @@ The API layer is responsible for:
 * formatting responses
 * exposing intelligence capabilities externally
 
+---
+
+# Agent Intelligence Architecture Evolution - V1.8
+
+## Overview
+
+A V1.8 introduces the first foundation of an agent-based architecture.
+
+The system evolves from a predefined intelligence pipeline into a modular architecture where agents can coordinate specialized tools.
+
+The objective is to allow future intelligent workflows based on:
+
+- reasoning;
+- tool selection;
+- task execution;
+- specialized capabilities.
+
+---
+
+# Previous Architecture
+
+Before V1.8, the main execution flow was:
+
+User
+
+↓
+
+Intelligence System
+
+↓
+
+Hybrid Query Engine
+
+↓
+
++----------------+
+| |
+| RAG Processing |
+| |
+| Analysis |
+| |
++----------------+
+
+↓
+
+Decision Engine
+
+↓
+
+Answer Generation
+
+
+This architecture successfully combined:
+
+- semantic retrieval;
+- structured data analysis;
+- response evaluation.
+
+However, execution paths were predefined.
+
+---
+
+# Agent-Based Architecture
+
+V1.8 introduces an agent coordination layer.
+
+New architecture:
+
+User
+
+↓
+
+Agent Controller
+
+↓
+
+Tool Registry
+
+↓
+
++----------------+
+| |
+| RAG Tool |
+| |
+| Analytics Tool|
+| |
+| Search Tool |
+| |
+| Data Tool |
+| |
++----------------+
+
+↓
+
+Response Generation
+
+---
+
+# Component Responsibilities
+
+## Agent Controller
+
+Responsible for:
+
+- coordinating agent execution;
+- managing workflow decisions;
+- interacting with available tools;
+- preparing future reasoning capabilities.
+
+---
+
+## Agent Registry
+
+Responsible for:
+
+- maintaining available agents;
+- supporting agent discovery;
+- enabling future specialized agents.
+
+---
+
+## Tool Registry
+
+Responsible for:
+
+- registering available tools;
+- exposing capabilities to agents;
+- allowing dynamic tool selection.
+
+---
+
+## Tools Layer
+
+Tools represent independent system capabilities.
+
+Examples:
+
+RAG Tool
+
+Analytics Tool
+
+Search Tool
+
+Data Tool
+
+
+Each tool should:
+
+- have a clear responsibility;
+- expose a standardized interface;
+- avoid duplicated business logic.
+
+---
+
+# Architectural Evolution
+
+The platform evolution:
+
+RAG Pipeline
+
+↓
+
+Hybrid Intelligence System
+
+↓
+
+Agent-Based Intelligence Platform
+
+↓
+
+Multi-Agent AI Ecosystem
+
+
+---
+
+# Future Extensions
+
+The architecture prepares the system for:
+
+- Function Calling;
+- ReAct Agents;
+- Planning systems;
+- Multi-agent workflows;
+- Autonomous task execution;
+- External tool integrations.
+
+---
+
+# V1.8 Current Status
+
+Implemented:
+
+- Agent Controller foundation;
+- Agent Registry foundation;
+- Tool architecture foundation;
+- Analytics Tool integration.
+
+Validation:
+
+71 automated tests passing
+
+
+The architecture is now prepared for the next evolution phase:
+dynamic tool execution and intelligent agent workflows.
+
 

@@ -1419,6 +1419,294 @@ Status:
 
 Planning
 
+---
+
+# V1.8 - Agent Intelligence Expansion
+
+## Objetivo
+
+Evoluir a arquitetura do sistema para uma abordagem baseada em agentes,
+permitindo que o LLM deixe de atuar apenas como gerador de respostas e passe
+a coordenar ferramentas especializadas.
+
+A V1.8 inicia a transição do sistema de uma arquitetura híbrida de inteligência
+para uma arquitetura agentic.
+
+---
+
+## Implementação Inicial
+
+### Agent Controller Foundation
+
+Criado:
+
+src/agents/agent_controller.py
+
+Responsabilidade inicial:
+
+- centralizar o controle de execução dos agentes;
+- preparar o fluxo de decisão agentic;
+- criar o ponto de entrada para futuras execuções baseadas em ferramentas.
+
+---
+
+### Agent Registry Foundation
+
+Criado:
+
+src/agents/agent_registry.py
+
+Responsabilidades:
+
+- registrar agentes disponíveis;
+- permitir descoberta dinâmica de capacidades;
+- preparar suporte para múltiplos agentes especializados.
+
+---
+
+### Tool Architecture Foundation
+
+Criada estrutura:
+
+src/agents/tools/
+
+Objetivo:
+
+Criar uma camada de ferramentas independentes que possam ser utilizadas pelos agentes.
+
+Primeira ferramenta implementada:
+
+analytics_tool.py
+
+Responsabilidade:
+
+- disponibilizar operações analíticas através de uma interface de ferramenta;
+- integrar capacidades existentes do Analytics Engine;
+- preparar separação entre agente e execução de ações.
+
+---
+
+## Nova Direção Arquitetural
+
+Antes:
+
+User
+
+↓
+
+Intelligence System
+
+↓
+
+Hybrid Query Engine
+
+↓
+
+RAG / Analysis
+
+↓
+
+Response
+
+
+Depois da evolução agentic:
+
+User
+
+↓
+
+Agent Controller
+
+↓
+
+Tool Registry
+
+↓
+
++----------------+
+| |
+| RAG Tool |
+| |
+| Analytics Tool|
+| |
+| Search Tool |
+| |
+| Data Tool |
+| |
++----------------+
+
+↓
+
+Response Generation
+
+
+---
+
+## Test Validation
+
+Automated test suite:
+
+71 passed
+
+
+Novos testes adicionados:
+
+- Agent Registry validation;
+- Analytics Tool validation.
+
+Componentes validados:
+
+- Data Layer;
+- Preprocessing Layer;
+- Analytics Layer;
+- Analysis Agents;
+- Services;
+- API Layer;
+- Monitoring Layer;
+- Evaluation Layer;
+- Agent Foundation.
+
+---
+
+## Resultado
+
+A V1.8 inicia a evolução do sistema para uma arquitetura baseada em agentes.
+
+A plataforma agora possui uma fundação preparada para:
+
+- execução de ferramentas;
+- agentes especializados;
+- workflows inteligentes;
+- integração futura com Function Calling;
+- arquitetura ReAct;
+- automações orientadas por objetivos.
+
+---
+
+## Próximos Passos
+
+- expandir Tool Registry;
+- implementar execução dinâmica de ferramentas;
+- criar contratos de ferramentas;
+- evoluir Agent Controller;
+- integrar decisão baseada em capacidades disponíveis.
+
+# V1.8 - Agent Intelligence Expansion
+
+## Data
+
+Julho 2026
+
+---
+
+# Objetivo
+
+Evoluir o sistema de agentes para uma arquitetura capaz de observar suas próprias decisões e gerar inteligência baseada em histórico.
+
+---
+
+# Implementações realizadas
+
+## Routing Intelligence
+
+Criados:
+
+* RoutingHistory
+* RoutingMetrics
+* RoutingFeedback
+* RouterPerformanceAnalyzer
+
+O sistema passou a registrar e analisar decisões de roteamento.
+
+---
+
+## Adaptive Decision Layer
+
+Criado:
+
+* AdaptivePolicy
+
+Objetivo:
+
+Permitir que decisões futuras utilizem sinais históricos de desempenho.
+
+---
+
+## Decision Observability
+
+Criados:
+
+* AgentDecisionTrace
+* DecisionTraceStore
+
+O agente passou a registrar informações completas sobre suas decisões.
+
+---
+
+## Decision Analytics
+
+Criado:
+
+* DecisionAnalytics
+
+Responsável pela análise dos rastros armazenados.
+
+---
+
+## Intelligence Monitoring
+
+Criado:
+
+* AgentIntelligenceMonitor
+
+Responsável por consolidar:
+
+* métricas de decisão;
+* métricas de roteamento;
+* performance das ferramentas.
+
+---
+
+# Validação
+
+Testes realizados:
+
+```
+pytest tests/test_agents
+```
+
+Resultado:
+
+```
+44 passed
+```
+
+Validação completa:
+
+```
+pytest
+```
+
+Resultado:
+
+```
+111 passed
+```
+
+---
+
+# Resultado da Versão
+
+A V1.8 transformou o sistema de agentes de um mecanismo de seleção de ferramentas para uma arquitetura observável e preparada para aprendizado baseado em histórico.
+
+Próxima evolução:
+
+V1.9 - Agent Reasoning & Planning Layer
+
+
+
+
+
 
 
 
