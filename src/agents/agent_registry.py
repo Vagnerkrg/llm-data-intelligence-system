@@ -1,6 +1,7 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 from src.agents.tools.base_tool import BaseTool
+from src.agents.tools.tool_metadata import ToolMetadata
 
 
 class AgentRegistry:
@@ -94,4 +95,23 @@ class AgentRegistry:
             name
             for name, component in self._registry.items()
             if isinstance(component, BaseTool)
+        ]
+
+
+
+    def list_tool_metadata(
+        self
+    ) -> List[ToolMetadata]:
+        """
+        Return metadata from all registered tools.
+        """
+
+        return [
+
+            tool.metadata
+
+            for tool in self._registry.values()
+
+            if isinstance(tool, BaseTool)
+
         ]

@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from src.agents.tools.tool_metadata import ToolMetadata
+
 
 class BaseTool(ABC):
     """
@@ -8,6 +10,7 @@ class BaseTool(ABC):
     Every tool integrated with the Agent System
     must implement this contract.
     """
+
 
     @property
     @abstractmethod
@@ -18,6 +21,7 @@ class BaseTool(ABC):
         pass
 
 
+
     @property
     @abstractmethod
     def description(self) -> str:
@@ -25,6 +29,17 @@ class BaseTool(ABC):
         Human-readable tool description.
         """
         pass
+
+
+
+    @property
+    @abstractmethod
+    def metadata(self) -> ToolMetadata:
+        """
+        Tool metadata information.
+        """
+        pass
+
 
 
     @abstractmethod

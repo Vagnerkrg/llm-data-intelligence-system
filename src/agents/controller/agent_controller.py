@@ -60,12 +60,12 @@ class AgentController:
         """
 
 
-        tool_name = self.router.route(
+        routing_result = self.router.route(
             question
         )
 
 
-        if not tool_name:
+        if not routing_result.tool:
 
             return {
 
@@ -73,14 +73,16 @@ class AgentController:
 
                 "message": (
                     "No suitable tool found."
-                )
+                ),
+
+                "reason": routing_result.reason
 
             }
 
 
 
         tool = self.registry.get_tool(
-            tool_name
+            routing_result.tool
         )
 
 
@@ -108,6 +110,14 @@ class AgentController:
             "status": "success",
 
             "tool": tool.name,
+
+            "confidence": (
+                routing_result.confidence
+            ),
+
+            "reason": (
+                routing_result.reason
+            ),
 
             "result": result
 

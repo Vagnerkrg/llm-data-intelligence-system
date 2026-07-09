@@ -2,6 +2,7 @@ from typing import Dict
 
 from src.agents.data_analysis_agent import DataAnalysisAgent
 from src.agents.tools.base_tool import BaseTool
+from src.agents.tools.tool_metadata import ToolMetadata
 
 
 class AnalyticsTool(BaseTool):
@@ -19,12 +20,40 @@ class AnalyticsTool(BaseTool):
         return "analytics"
 
 
+
     @property
     def description(self) -> str:
         return (
             "Executes structured data analysis "
             "using available datasets."
         )
+
+
+
+    @property
+    def metadata(self) -> ToolMetadata:
+        """
+        Return tool metadata information.
+        """
+
+        return ToolMetadata(
+
+            name=self.name,
+
+            description=self.description,
+
+            capabilities=[
+
+                "aggregation",
+
+                "statistics",
+
+                "dataset analysis"
+
+            ]
+
+        )
+
 
 
     def __init__(
@@ -37,6 +66,7 @@ class AnalyticsTool(BaseTool):
             if analysis_agent
             else DataAnalysisAgent()
         )
+
 
 
     def execute(

@@ -7,12 +7,19 @@ def test_router_selects_analytics_tool():
     router = AgentRouter()
 
 
-    tool = router.route(
+    result = router.route(
         "Quantos produtos existem?"
     )
 
 
-    assert tool == "analytics"
+    assert result.tool == "analytics"
+
+    assert result.confidence > 0
+
+    assert (
+        "Analytical"
+        in result.reason
+    )
 
 
 
@@ -21,23 +28,25 @@ def test_router_selects_analytics_for_customer_query():
     router = AgentRouter()
 
 
-    tool = router.route(
+    result = router.route(
         "Quantos clientes temos?"
     )
 
 
-    assert tool == "analytics"
+    assert result.tool == "analytics"
 
 
 
-def test_router_returns_none_for_unknown_query():
+def test_router_returns_no_tool_for_unknown_query():
 
     router = AgentRouter()
 
 
-    tool = router.route(
+    result = router.route(
         "Explique uma teoria qualquer"
     )
 
 
-    assert tool is None
+    assert result.tool is None
+
+    assert result.confidence == 0.0
