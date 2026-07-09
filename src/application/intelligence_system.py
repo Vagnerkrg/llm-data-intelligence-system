@@ -5,7 +5,7 @@ from src.logging import AppLogger
 from src.monitoring.metrics_tracker import MetricsTracker
 from src.core.interfaces.response import IntelligenceResponse
 from src.core.request_context import set_request_id
-
+from src.agents.runtime.agent_runtime import AgentRuntime
 
 
 class IntelligenceSystem:
@@ -41,6 +41,10 @@ class IntelligenceSystem:
 
 
         self.metrics = MetricsTracker()
+
+
+        # V1.9 Agent Runtime Foundation
+        self.agent_runtime = AgentRuntime()
 
 
 

@@ -441,13 +441,15 @@ The objective is to create a reusable AI engineering ecosystem capable of suppor
 
 # Roadmap
 
+# Roadmap
+
 ## V1.8 - Agent Intelligence Expansion ✅
 
 Status: Concluído
 
 Objetivo:
 
-Adicionar inteligência operacional aos agentes através de histórico, métricas e observabilidade.
+Adicionar inteligência operacional aos agentes através de histórico, métricas, avaliação e observabilidade.
 
 Entregas:
 
@@ -473,13 +475,51 @@ Resultado:
 
 ---
 
-# V1.9 - Agent Reasoning & Planning Layer
+# V1.9 - Agent Platform Evolution 🚀
+
+Status: Em Desenvolvimento
+
+Objetivo:
+
+Transformar a arquitetura atual em uma plataforma modular de agentes, permitindo integração de ferramentas especializadas e evolução escalável da inteligência.
+
+Principais objetivos:
+
+* Criar camada de controle de agentes;
+* Separar capacidades inteligentes em ferramentas independentes;
+* Criar registro dinâmico de ferramentas;
+* Melhorar extensibilidade da arquitetura.
+
+Componentes planejados:
+
+* Agent Controller
+* Tool Registry
+* RAG Tool
+* Analytics Tool
+* Data Tool
+* Search Tool
+* Tool Execution Layer
+* Agent Evaluation Metrics
+
+Objetivo arquitetural:
+
+Evoluir de:
+
+"um sistema inteligente com componentes internos"
+
+para:
+
+"uma plataforma de agentes com ferramentas especializadas e arquitetura extensível".
+
+---
+
+# V1.10 - Agent Reasoning & Planning Layer
 
 Status: Planejado
 
 Objetivo:
 
-Evoluir os agentes para criação de estratégias de resolução.
+Adicionar capacidade de planejamento e criação de estratégias de resolução.
 
 Possíveis componentes:
 
@@ -487,6 +527,7 @@ Possíveis componentes:
 * Reasoning Strategy
 * Execution Plan
 * Plan Validator
+* Multi-step Execution
 
 Objetivo arquitetural:
 
@@ -510,4 +551,32 @@ Possíveis evoluções:
 * memória persistente;
 * delegação de tarefas;
 * agentes especializados;
-* otimização automática de estratégias.
+* otimização automática de estratégias;
+* comunicação entre agentes.
+
+## V1.8 - Agent Intelligence Architecture
+
+
+Status: Completed
+
+
+Implemented:
+
+[x] Agent Runtime architecture
+
+[x] Execution Engine
+
+[x] Step Executor
+
+[x] Agent Memory system
+
+[x] Reasoning Engine
+
+[x] Agent Orchestration
+
+[x] Agent Intelligence abstraction
+
+
+Validation:
+
+154 automated tests passing.

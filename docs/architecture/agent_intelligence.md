@@ -234,3 +234,128 @@ A V1.8 estabelece a base para futuras evoluções:
 * otimização automática de decisões.
 
 A camada de inteligência transforma o agente em um componente observável e evolutivo.
+
+# Agent Intelligence Architecture
+
+## Overview
+
+The Agent Intelligence Architecture introduces a modular execution framework
+for intelligent agents.
+
+The architecture separates responsibilities into specialized layers:
+
+- Runtime
+- Execution
+- Memory
+- Reasoning
+- Orchestration
+- Intelligence
+
+
+## Architecture Flow
+
+
+User Request
+
+        |
+        v
+
+Agent Intelligence Layer
+
+        |
+        v
+
+Agent Orchestration Layer
+
+        |
+        +--------------------+
+        |                    |
+        v                    v
+
+Reasoning Layer        Execution Layer
+
+        |                    |
+        v                    v
+
+Memory Layer <-------- Execution Result
+
+        |
+        v
+
+Final Response
+
+
+
+## Components
+
+
+### Runtime Layer
+
+Responsible for:
+
+- creating execution context;
+- managing execution plans;
+- controlling agent lifecycle execution.
+
+
+Components:
+
+- AgentRuntime
+- ExecutionContext
+- ExecutionPlan
+- PlanStep
+
+
+
+### Execution Layer
+
+Responsible for executing planned actions.
+
+Components:
+
+- ExecutionEngine
+- StepExecutor
+
+
+
+### Memory Layer
+
+Responsible for storing information generated during agent execution.
+
+Components:
+
+- AgentMemory
+- MemoryEntry
+
+
+
+### Reasoning Layer
+
+Responsible for reasoning abstraction.
+
+Components:
+
+- ReasoningEngine
+- ReasoningResult
+
+
+
+### Orchestration Layer
+
+Responsible for coordinating multiple agent capabilities.
+
+Components:
+
+- AgentOrchestrator
+- OrchestrationResult
+
+
+
+### Intelligence Layer
+
+Responsible for higher-level agent intelligence abstraction.
+
+Components:
+
+- AgentIntelligence
+- IntelligenceResult
