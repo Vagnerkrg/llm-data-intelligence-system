@@ -813,6 +813,39 @@ A arquitetura fica preparada para futuras implementações:
 - Autonomous Task Execution.
 
 
+## Decision 21 - Dedicated Tool Registry Architecture
+
+### Context
+
+The agent platform required a clear separation between
+agent components and executable tools.
+
+Previously, AgentRegistry handled both responsibilities,
+creating unnecessary coupling.
+
+### Decision
+
+Introduce a dedicated ToolRegistry responsible only
+for tool lifecycle management.
+
+AgentRegistry remains responsible for agent components.
+
+### Consequences
+
+Positive:
+
+- better separation of responsibilities;
+- easier tool expansion;
+- simpler discovery mechanism;
+- preparation for multiple specialized tools.
+
+Future capabilities enabled:
+
+- RAG Tool;
+- Search Tool;
+- Data Tool;
+- External API Tools.
+
 
 
 

@@ -359,3 +359,94 @@ Components:
 
 - AgentIntelligence
 - IntelligenceResult
+
+## Tool Registry Architecture
+
+A partir da evolução V1.9, o sistema passou a separar
+responsabilidades entre componentes de agentes e ferramentas.
+
+A arquitetura agora utiliza dois registries independentes:
+
+- AgentRegistry
+- ToolRegistry
+
+
+### AgentRegistry
+
+Responsável pelo gerenciamento de componentes
+relacionados aos agentes.
+
+
+Responsabilidades:
+
+- registro de agentes;
+- descoberta de componentes de agente;
+- gerenciamento do ecossistema de agentes.
+
+
+
+### ToolRegistry
+
+Responsável exclusivamente pelo gerenciamento
+das ferramentas disponíveis para execução.
+
+
+Responsabilidades:
+
+- registrar ferramentas;
+- descobrir ferramentas disponíveis;
+- consultar metadata;
+- buscar ferramentas por capability.
+
+
+Fluxo atualizado:
+
+
+User Request
+      |
+      v
+AgentController
+      |
+      +----------------+
+      |                |
+      v                v
+AgentRegistry    ToolRegistry
+                      |
+                      v
+                AgentRouter
+                      |
+                      v
+                Selected Tool
+                      |
+                      v
+                Tool Execution
+
+
+## AgentRouter
+
+O AgentRouter é responsável por selecionar
+a ferramenta adequada para uma solicitação.
+
+O processo de decisão utiliza:
+
+- ToolRegistry;
+- ToolMetadata;
+- ToolScorer;
+- histórico de performance quando disponível.
+
+
+Fluxo:
+
+Question
+   |
+   v
+AgentRouter
+   |
+   v
+ToolRegistry
+   |
+   v
+ToolMetadata
+   |
+   v
+Tool Selection

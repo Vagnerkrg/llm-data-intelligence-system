@@ -3,19 +3,27 @@ from typing import Dict
 from src.agents.agent_registry import AgentRegistry
 from src.agents.router.agent_router import AgentRouter
 from src.agents.tools.bootstrap import register_default_tools
+from src.agents.tools.registry import ToolRegistry
 
 
 class AgentController:
     """
     Central controller responsible for coordinating
     routing and execution of AI tools.
-    """
 
+    The controller coordinates:
+
+    - AgentRegistry for agent components;
+    - ToolRegistry for available tools;
+    - AgentRouter for tool selection;
+    - Tool execution lifecycle.
+    """
 
 
     def __init__(
         self,
         registry=None,
+        tool_registry=None,
         router=None
     ):
 
@@ -26,17 +34,24 @@ class AgentController:
         )
 
 
-        self.router = (
-            router
-            if router
-            else AgentRouter(
-                self.registry
-            )
+        self.tool_registry = (
+            tool_registry
+            if tool_registry
+            else ToolRegistry()
         )
 
 
         register_default_tools(
-            self.registry
+            self.tool_registry
+        )
+
+
+        self.router = (
+            router
+            if router
+            else AgentRouter(
+                self.tool_registry
+            )
         )
 
 
@@ -72,7 +87,7 @@ class AgentController:
 
 
 
-        tool = self.registry.get_tool(
+        tool = self.tool_registry.get_tool(
             routing_result.tool
         )
 
