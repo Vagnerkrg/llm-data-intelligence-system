@@ -1,4 +1,5 @@
 from src.agents.router.routing_result import RoutingResult
+from src.agents.router.tool_scorer import ToolScorer
 
 
 class AgentRouter:
@@ -10,10 +11,17 @@ class AgentRouter:
 
     def __init__(
         self,
-        registry=None
+        registry=None,
+        scorer=None
     ):
 
         self.registry = registry
+
+        self.scorer = (
+            scorer
+            if scorer
+            else ToolScorer()
+        )
 
 
 
@@ -22,16 +30,17 @@ class AgentRouter:
         question: str
     ) -> RoutingResult:
         """
-        Route a question and return
-        a structured decision result.
+        Route a question using available
+        tools and scoring strategy.
         """
 
 
         if self.registry:
 
-            result = self._route_using_metadata(
+            result = self._route_using_scorer(
                 question
             )
+
 
             if result.tool:
 
@@ -45,44 +54,40 @@ class AgentRouter:
 
 
 
-    def _route_using_metadata(
+    def _route_using_scorer(
         self,
         question: str
     ) -> RoutingResult:
         """
-        Try routing using registered tool metadata.
+        Route using tool scoring.
         """
 
 
-        text = question.lower()
-
-
-        metadata_list = (
+        tools = (
             self.registry.list_tool_metadata()
         )
 
 
-        for metadata in metadata_list:
+        ranked_tools = self.scorer.score(
+            question,
+            tools
+        )
 
-            for capability in metadata.capabilities:
 
-                if capability.lower() in text:
+        if ranked_tools:
 
-                    return RoutingResult(
+            tool, score, reason = ranked_tools[0]
 
-                        tool=metadata.name,
 
-                        confidence=0.85,
+            return RoutingResult(
 
-                        reason=(
+                tool=tool.name,
 
-                            "Matched tool capability: "
+                confidence=score,
 
-                            + capability
+                reason=reason
 
-                        )
-
-                    )
+            )
 
 
 
@@ -94,7 +99,7 @@ class AgentRouter:
 
             reason=(
 
-                "No metadata match found."
+                "No scored tool match found."
 
             )
 
@@ -107,7 +112,7 @@ class AgentRouter:
         question: str
     ) -> RoutingResult:
         """
-        Legacy keyword based routing fallback.
+        Legacy keyword based fallback.
         """
 
 
@@ -129,7 +134,6 @@ class AgentRouter:
             "clientes"
 
         ]
-
 
 
         if any(
