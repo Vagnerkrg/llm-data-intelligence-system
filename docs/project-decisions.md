@@ -668,6 +668,149 @@ decision is made.
 
 The objective is preserving the reasoning behind the evolution of the LLM Data Intelligence System.
 
+---
+
+# Decision: Introduce Agent Controller and Tool Registry Architecture
+
+## Date
+
+2026-07-08
+
+## Context
+
+O sistema evoluiu de uma arquitetura baseada em pipeline híbrido,
+com componentes especializados de RAG e análise de dados,
+para uma plataforma com necessidade de execução dinâmica de capacidades.
+
+A arquitetura existente possuía agentes especializados,
+porém a coordenação ainda dependia de fluxos previamente definidos.
+
+Para suportar futuras capacidades agentic,
+foi necessário criar uma camada responsável por controlar agentes
+e disponibilizar ferramentas de forma organizada.
+
+---
+
+## Decision
+
+Introduzir uma arquitetura baseada em:
+
+- Agent Controller;
+- Agent Registry;
+- Tool Registry;
+- Specialized Tools.
+
+Fluxo definido:
+
+User
+
+↓
+
+Agent Controller
+
+↓
+
+Tool Registry
+
+↓
+
++----------------+
+| |
+| RAG Tool |
+| |
+| Analytics Tool|
+| |
+| Search Tool |
+| |
+| Data Tool |
+| |
++----------------+
+
+↓
+
+Response Generation
+
+
+
+---
+
+## Initial Implementation
+
+Criados:
+
+src/agents/agent_controller.py
+
+src/agents/agent_registry.py
+
+src/agents/tools/
+
+
+Primeira ferramenta:
+
+src/agents/tools/analytics_tool.py
+
+
+---
+
+## Reason
+
+A separação entre agentes e ferramentas permite:
+
+- maior modularidade;
+- reutilização de capacidades;
+- evolução para Function Calling;
+- suporte a múltiplos agentes especializados;
+- criação de workflows inteligentes.
+
+---
+
+## Architectural Impact
+
+A responsabilidade das camadas passa a ser:
+
+### Agent Controller
+
+Responsável por:
+
+- coordenar execução;
+- decidir próximos passos;
+- controlar interação com ferramentas.
+
+---
+
+### Tool Registry
+
+Responsável por:
+
+- registrar ferramentas disponíveis;
+- permitir descoberta dinâmica;
+- fornecer capacidades aos agentes.
+
+---
+
+### Tools
+
+Responsáveis por:
+
+- executar ações específicas;
+- encapsular lógica operacional;
+- manter interfaces independentes.
+
+---
+
+## Consequence
+
+Novas capacidades inteligentes devem preferencialmente ser adicionadas
+como ferramentas especializadas, evitando aumento de complexidade
+nos agentes principais.
+
+A arquitetura fica preparada para futuras implementações:
+
+- Function Calling;
+- ReAct Agents;
+- Planning;
+- Multi-Agent Workflows;
+- Autonomous Task Execution.
 
 
 

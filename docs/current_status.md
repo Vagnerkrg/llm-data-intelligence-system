@@ -780,3 +780,209 @@ Principais conceitos:
 
 A V1.8 representa a evolução do sistema de uma arquitetura orientada a respostas para uma arquitetura orientada a execução inteligente.
 
+---
+
+# V1.8 - Agent Intelligence Expansion
+
+**Status:**
+🚧 In Development
+
+**Branch:**
+
+feature/v1.8-agent-intelligence-expansion
+
+---
+
+## Objective
+
+Evoluir o sistema para uma arquitetura baseada em agentes,
+permitindo que componentes inteligentes possam selecionar e executar
+ferramentas especializadas.
+
+A V1.8 representa a transição entre uma arquitetura de inteligência híbrida
+e uma arquitetura agentic.
+
+---
+
+# Agent Architecture Foundation
+
+## Implemented Components
+
+### Agent Controller
+
+Created:
+
+src/agents/agent_controller.py
+
+Responsabilidades iniciais:
+
+- centralizar o fluxo de execução dos agentes;
+- preparar coordenação entre agentes e ferramentas;
+- estabelecer o ponto principal da arquitetura agentic.
+
+---
+
+### Agent Registry
+
+Created:
+
+src/agents/agent_registry.py
+
+
+Responsabilidades:
+
+- registrar capacidades disponíveis;
+- permitir descoberta de agentes e ferramentas;
+- preparar expansão para múltiplos agentes especializados.
+
+---
+
+### Tool Layer Foundation
+
+Created:
+
+src/agents/tools/
+
+Primeira ferramenta:
+
+analytics_tool.py
+
+
+Responsabilidades:
+
+- expor capacidades analíticas como ferramentas;
+- desacoplar execução analítica dos agentes;
+- preparar integração futura com Function Calling.
+
+---
+
+# Current Architecture Evolution
+
+Arquitetura anterior:
+
+User
+
+↓
+
+Intelligence System
+
+↓
+
+Hybrid Query Engine
+
+↓
+
+RAG / Analysis
+
+↓
+
+Response
+
+Nova arquitetura em evolução:
+
+
+User
+
+↓
+
+Agent Controller
+
+↓
+
+Tool Registry
+
+↓
+
++----------------+
+| |
+| RAG Tool |
+| |
+| Analytics Tool|
+| |
+| Search Tool |
+| |
+| Data Tool |
+| |
++----------------+
+
+↓
+
+Response Generation
+
+
+---
+
+# Validation Status
+
+Current automated test suite:
+
+71 passed
+
+Additional validations:
+
+- Agent Registry tests;
+- Analytics Tool tests;
+- Agent architecture integration.
+
+---
+
+# Current Capabilities
+
+The platform currently contains:
+
+✅ Data Intelligence Layer  
+✅ Hybrid Intelligence Engine  
+✅ RAG Pipeline  
+✅ Analytics Engine  
+✅ Specialized Analysis Agent  
+✅ API Layer  
+✅ Logging and Monitoring Foundation  
+✅ Evaluation Layer  
+✅ Agent Architecture Foundation  
+
+---
+
+# Current V1.8 Focus
+
+The current development priority is:
+
+1. Expand Tool Registry.
+2. Create standardized tool contracts.
+3. Implement dynamic tool execution.
+4. Improve Agent Controller intelligence.
+5. Prepare foundation for ReAct and Function Calling workflows.
+
+---
+
+# V1.8 Development Direction
+
+The long-term target architecture:
+
+User
+
+↓
+
+Agent Controller
+
+↓
+
+Reasoning Layer
+
+↓
+
+Tool Registry
+
+↓
+
+Specialized Tools
+
+↓
+
+Execution
+
+↓
+
+Response Generation
+
+The objective is transforming the system from a fixed intelligence pipeline into an extensible AI agent platform.
+

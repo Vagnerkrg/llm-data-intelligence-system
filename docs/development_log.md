@@ -1419,6 +1419,183 @@ Status:
 
 Planning
 
+---
+
+# V1.8 - Agent Intelligence Expansion
+
+## Objetivo
+
+Evoluir a arquitetura do sistema para uma abordagem baseada em agentes,
+permitindo que o LLM deixe de atuar apenas como gerador de respostas e passe
+a coordenar ferramentas especializadas.
+
+A V1.8 inicia a transição do sistema de uma arquitetura híbrida de inteligência
+para uma arquitetura agentic.
+
+---
+
+## Implementação Inicial
+
+### Agent Controller Foundation
+
+Criado:
+
+src/agents/agent_controller.py
+
+Responsabilidade inicial:
+
+- centralizar o controle de execução dos agentes;
+- preparar o fluxo de decisão agentic;
+- criar o ponto de entrada para futuras execuções baseadas em ferramentas.
+
+---
+
+### Agent Registry Foundation
+
+Criado:
+
+src/agents/agent_registry.py
+
+Responsabilidades:
+
+- registrar agentes disponíveis;
+- permitir descoberta dinâmica de capacidades;
+- preparar suporte para múltiplos agentes especializados.
+
+---
+
+### Tool Architecture Foundation
+
+Criada estrutura:
+
+src/agents/tools/
+
+Objetivo:
+
+Criar uma camada de ferramentas independentes que possam ser utilizadas pelos agentes.
+
+Primeira ferramenta implementada:
+
+analytics_tool.py
+
+Responsabilidade:
+
+- disponibilizar operações analíticas através de uma interface de ferramenta;
+- integrar capacidades existentes do Analytics Engine;
+- preparar separação entre agente e execução de ações.
+
+---
+
+## Nova Direção Arquitetural
+
+Antes:
+
+User
+
+↓
+
+Intelligence System
+
+↓
+
+Hybrid Query Engine
+
+↓
+
+RAG / Analysis
+
+↓
+
+Response
+
+
+Depois da evolução agentic:
+
+User
+
+↓
+
+Agent Controller
+
+↓
+
+Tool Registry
+
+↓
+
++----------------+
+| |
+| RAG Tool |
+| |
+| Analytics Tool|
+| |
+| Search Tool |
+| |
+| Data Tool |
+| |
++----------------+
+
+↓
+
+Response Generation
+
+
+---
+
+## Test Validation
+
+Automated test suite:
+
+71 passed
+
+
+Novos testes adicionados:
+
+- Agent Registry validation;
+- Analytics Tool validation.
+
+Componentes validados:
+
+- Data Layer;
+- Preprocessing Layer;
+- Analytics Layer;
+- Analysis Agents;
+- Services;
+- API Layer;
+- Monitoring Layer;
+- Evaluation Layer;
+- Agent Foundation.
+
+---
+
+## Resultado
+
+A V1.8 inicia a evolução do sistema para uma arquitetura baseada em agentes.
+
+A plataforma agora possui uma fundação preparada para:
+
+- execução de ferramentas;
+- agentes especializados;
+- workflows inteligentes;
+- integração futura com Function Calling;
+- arquitetura ReAct;
+- automações orientadas por objetivos.
+
+---
+
+## Próximos Passos
+
+- expandir Tool Registry;
+- implementar execução dinâmica de ferramentas;
+- criar contratos de ferramentas;
+- evoluir Agent Controller;
+- integrar decisão baseada em capacidades disponíveis.
+
+
+
+
+
+
 
 
 
