@@ -996,3 +996,23 @@ The objective is preserving the reasoning behind the evolution
 of the LLM Data Intelligence System.
 
 
+Decision XX — Introdução da camada de planejamento de execução
+
+Contexto:
+
+A arquitetura V1.9 possuía seleção e execução de ferramentas,
+porém não possuía uma camada explícita responsável por definir
+estratégias de execução.
+
+Decisão:
+
+Criar uma camada Planning responsável por transformar uma
+solicitação em um ExecutionPlan composto por etapas executáveis.
+
+Benefícios:
+
+- separação entre planejamento e execução;
+- suporte a workflows complexos;
+- preparação para agentes adaptativos;
+- evolução futura para reasoning-driven planning.
+

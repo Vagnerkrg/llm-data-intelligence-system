@@ -3,7 +3,6 @@ from typing import Optional, Dict, Any
 from src.agents.planning.execution_plan import ExecutionPlan
 
 
-
 class ExecutionContext:
     """
     Stores runtime information during
@@ -12,7 +11,6 @@ class ExecutionContext:
     The context keeps the current state
     shared between planning and execution layers.
     """
-
 
 
     def __init__(
@@ -44,10 +42,6 @@ class ExecutionContext:
         self,
         plan: ExecutionPlan
     ):
-        """
-        Attach an execution plan
-        to the current context.
-        """
 
         self.plan = plan
 
@@ -61,6 +55,8 @@ class ExecutionContext:
         """
         Update current step from
         the execution plan.
+
+        Always retrieves the next pending step.
         """
 
         if not self.plan:
@@ -76,13 +72,22 @@ class ExecutionContext:
 
 
 
+    def clear_current_step(
+        self
+    ):
+        """
+        Clear current runtime step
+        after execution.
+        """
+
+        self.current_step = None
+
+
+
     def add_result(
         self,
         result: Any
     ):
-        """
-        Store an execution result.
-        """
 
         self.results.append(
             result
@@ -93,9 +98,6 @@ class ExecutionContext:
     def complete(
         self
     ):
-        """
-        Mark execution as completed.
-        """
 
         self.status = "completed"
 
@@ -105,9 +107,6 @@ class ExecutionContext:
         self,
         error: str
     ):
-        """
-        Mark execution as failed.
-        """
 
         self.status = "failed"
 
@@ -118,9 +117,6 @@ class ExecutionContext:
     def summary(
         self
     ) -> Dict[str, Any]:
-        """
-        Return current execution state.
-        """
 
         return {
 

@@ -581,9 +581,284 @@ Validation:
 
 154 automated tests passing.
 
-## V1.9 Agent Platform Expansion
 
-Status: In Progress
+V1.10 — Multi Tool Intelligence
+
+Status:
+Planning / In Development
 
 Objetivo:
-Transformar a arquitetura de agentes em uma plataforma extensível.
+Expandir a plataforma de agentes para execução coordenada
+de múltiplas ferramentas especializadas.
+
+Principais entregas:
+
+- Search Tool
+- Data Tool
+- Analytics Tool evolution
+- Multi-tool routing
+- Planning Layer
+- Multi-step execution
+- Function Calling preparation
+- ReAct-style workflows
+
+---
+
+# V1.10 — Multi Tool Intelligence
+
+Status:
+
+🚧 In Development
+
+
+Branch:
+
+feature/v1.10-multi-tool-intelligence
+
+
+## Objective
+
+Transform the agent platform created in V1.9 into a coordinated
+multi-tool intelligence system.
+
+The focus is evolving from isolated tool execution into
+intelligent selection, coordination and execution of multiple
+specialized capabilities.
+
+
+---
+
+
+# V1.10.1 — Intelligent Tool Selection Foundation
+
+
+Status:
+
+🚧 Planned
+
+
+## Goals
+
+Establish the foundation for intelligent tool selection.
+
+
+## Planned Features
+
+
+### Tool Capability Model
+
+Create a standardized capability description system for tools.
+
+
+Capabilities:
+
+- supported tasks;
+- semantic purpose;
+- execution requirements;
+- selection metadata.
+
+
+
+### Intelligent Tool Selector
+
+Improve decision making by allowing the system to evaluate:
+
+- user intent;
+- available capabilities;
+- execution context;
+- historical performance.
+
+
+
+### Multi Tool Routing
+
+Enable routing decisions across multiple specialized tools.
+
+
+Target tools:
+
+RAGTool
+
+AnalyticsTool
+
+SearchTool
+
+DataTool
+
+
+---
+
+
+# V1.10 Architecture Direction
+
+
+Current:
+
+User
+
+↓
+
+AgentController
+
+↓
+
+AgentRouter
+
+↓
+
+ToolRegistry
+
+↓
+
+ToolExecutor
+
+↓
+
+ToolResult
+
+
+
+Future:
+
+
+
+User
+
+↓
+
+AgentController
+
+↓
+
+Reasoning Layer
+
+↓
+
+Tool Selection Strategy
+
+↓
+
+Multiple Tools
+
+↓
+
+Execution Planning
+
+↓
+
+ToolExecutor
+
+↓
+
+Response Intelligence
+
+
+
+---
+
+
+# Future V1.10 Capabilities
+
+
+The completed version aims to support:
+
+
+- dynamic tool selection;
+- multi-tool workflows;
+- coordinated execution;
+- planning capabilities;
+- preparation for ReAct agents;
+- preparation for Function Calling.
+
+
+---
+
+
+# V1.10 Future Milestones
+
+
+## V1.10.1
+
+Intelligent Tool Selection Foundation
+
+
+## V1.10.2
+
+Multi Tool Router
+
+
+## V1.10.3
+
+Execution Planning Layer
+
+
+## V1.10.4
+
+Tool Coordination and Workflow Intelligence
+
+
+# V1.10 - Multi-Tool Intelligence Expansion
+
+Status: IN PROGRESS
+
+The V1.10 milestone focuses on transforming the current agent architecture into a scalable multi-tool intelligence platform.
+
+---
+
+## Completed
+
+### Tool Infrastructure
+
+- [x] Tool Registry implementation
+- [x] Tool metadata support
+- [x] Tool execution abstraction
+- [x] Standardized tool results
+
+---
+
+### Multi-Tool Pipeline
+
+- [x] ToolExecutor integration
+- [x] Tool pipeline validation
+- [x] ToolOrchestrator implementation
+- [x] AgentController integration
+
+---
+
+### Validation
+
+Current automated validation:
+170 tests passing
+
+Completed validations:
+
+- routing execution;
+- tool discovery;
+- tool execution;
+- orchestration flow;
+- controller integration.
+
+---
+
+# Next Steps
+
+## Intelligent Tool Selection
+
+Planned improvements:
+
+- dynamic tool ranking;
+- multi-tool planning;
+- tool confidence scoring;
+- context propagation between tools;
+- response aggregation strategies.
+
+---
+
+## Advanced Agent Reasoning
+
+Future evolution:
+
+- autonomous execution planning;
+- adaptive tool selection;
+- reasoning-driven workflows;
+- intelligent task decomposition.

@@ -4,10 +4,11 @@ from src.agents.router.tool_scorer import ToolScorer
 
 class AgentRouter:
     """
-    Responsible for deciding which tool
+    Responsible for deciding which tools
     should handle a user request.
-    """
 
+    Supports single and multi-tool routing.
+    """
 
     def __init__(
         self,
@@ -18,18 +19,15 @@ class AgentRouter:
 
         self.registry = registry
 
-
         self.scorer = (
             scorer
             if scorer
             else ToolScorer()
         )
 
-
         self.performance_analyzer = (
             performance_analyzer
         )
-
 
 
     def route(
@@ -41,29 +39,24 @@ class AgentRouter:
         tools, scoring and historical performance.
         """
 
-
         if self.registry:
 
             result = self._route_using_scorer(
                 question
             )
 
-
-            if result.tool:
+            if result.tools:
 
                 return result
-
 
 
         performance_result = (
             self._route_using_performance()
         )
 
-
-        if performance_result.tool:
+        if performance_result.tools:
 
             return performance_result
-
 
 
         return self._route_using_keywords(
@@ -76,10 +69,6 @@ class AgentRouter:
         self,
         question: str
     ) -> RoutingResult:
-        """
-        Route using tool scoring.
-        """
-
 
         tools = (
             self.registry.list_tool_metadata()
@@ -99,7 +88,9 @@ class AgentRouter:
 
             return RoutingResult(
 
-                tool=tool.name,
+                tools=[
+                    tool.name
+                ],
 
                 confidence=score,
 
@@ -108,18 +99,13 @@ class AgentRouter:
             )
 
 
-
         return RoutingResult(
 
-            tool=None,
+            tools=[],
 
             confidence=0.0,
 
-            reason=(
-
-                "No scored tool match found."
-
-            )
+            reason="No scored tool match found."
 
         )
 
@@ -128,27 +114,20 @@ class AgentRouter:
     def _route_using_performance(
         self
     ) -> RoutingResult:
-        """
-        Route using historical routing performance.
-        """
-
 
         if not self.performance_analyzer:
 
             return RoutingResult(
 
-                tool=None,
+                tools=[],
 
                 confidence=0.0,
 
                 reason=(
-
                     "Performance analyzer unavailable."
-
                 )
 
             )
-
 
 
         best_tool = (
@@ -156,37 +135,31 @@ class AgentRouter:
         )
 
 
-
         if best_tool:
 
             return RoutingResult(
 
-                tool=best_tool,
+                tools=[
+                    best_tool
+                ],
 
                 confidence=0.70,
 
                 reason=(
-
                     "Selected using routing "
                     "performance history."
-
                 )
 
             )
 
 
-
         return RoutingResult(
 
-            tool=None,
+            tools=[],
 
             confidence=0.0,
 
-            reason=(
-
-                "No performance signal found."
-
-            )
+            reason="No performance signal found."
 
         )
 
@@ -197,18 +170,22 @@ class AgentRouter:
         question: str
     ) -> RoutingResult:
         """
-        Legacy keyword based fallback.
+        Keyword routing with multi-tool detection.
         """
-
 
         text = question.lower()
 
 
-        analytical_keywords = [
+        tools = []
+
+
+        analytics_keywords = [
 
             "quantos",
 
             "categoria",
+
+            "categorias",
 
             "colunas",
 
@@ -216,7 +193,28 @@ class AgentRouter:
 
             "produtos",
 
-            "clientes"
+            "clientes",
+
+            "analise",
+
+            "análise"
+
+        ]
+
+
+        rag_keywords = [
+
+            "documentação",
+
+            "documentacao",
+
+            "explica",
+
+            "manual",
+
+            "informação",
+
+            "informacao"
 
         ]
 
@@ -224,19 +222,37 @@ class AgentRouter:
 
         if any(
             keyword in text
-            for keyword in analytical_keywords
+            for keyword in analytics_keywords
         ):
+
+            tools.append(
+                "analytics"
+            )
+
+
+
+        if any(
+            keyword in text
+            for keyword in rag_keywords
+        ):
+
+            tools.append(
+                "rag"
+            )
+
+
+
+        if tools:
 
             return RoutingResult(
 
-                tool="analytics",
+                tools=tools,
 
                 confidence=0.90,
 
                 reason=(
-
-                    "Analytical keywords detected."
-
+                    "Analytical keyword based "
+                    "multi-tool routing."
                 )
 
             )
@@ -245,14 +261,12 @@ class AgentRouter:
 
         return RoutingResult(
 
-            tool=None,
+            tools=[],
 
             confidence=0.0,
 
             reason=(
-
                 "No matching tool found."
-
             )
 
         )

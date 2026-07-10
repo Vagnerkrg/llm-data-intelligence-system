@@ -4,7 +4,6 @@ from src.agents.runtime.execution_context import ExecutionContext
 from src.agents.controller.agent_controller import AgentController
 
 
-
 class PlanExecutor:
     """
     Executes agent execution plans.
@@ -13,7 +12,6 @@ class PlanExecutor:
     coordinating execution and updating
     runtime context.
     """
-
 
 
     def __init__(
@@ -26,7 +24,6 @@ class PlanExecutor:
             if controller
             else AgentController()
         )
-
 
 
     def execute(
@@ -83,6 +80,10 @@ class PlanExecutor:
                 context.add_result(
                     result
                 )
+
+
+                context.clear_current_step()
+
 
 
             except Exception as error:
