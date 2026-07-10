@@ -1881,3 +1881,216 @@ Initial focus:
 - planning;
 - tool coordination;
 - multi-step workflows.
+
+---
+
+# V1.10 — Multi Tool Intelligence
+
+## Status
+
+🚧 In Development
+
+
+## Branch
+
+feature/v1.10-multi-tool-intelligence
+
+
+## Objective
+
+The V1.10 evolution expands the agent platform created during
+V1.9 by introducing intelligence for coordinating multiple tools.
+
+The system moves from:
+
+Agent platform with independent tools
+
+to:
+
+Coordinated multi-tool intelligence system
+
+
+
+## Architectural Direction
+
+The current V1.9 foundation provides:
+
+- AgentController;
+- ToolRegistry;
+- ToolExecutor;
+- ToolResult contract;
+- specialized tools.
+
+
+The V1.10 evolution introduces:
+
+- intelligent tool selection;
+- capability-based routing;
+- multi-tool workflows;
+- execution planning foundation.
+
+
+---
+
+
+# V1.10.1 — Intelligent Tool Selection Foundation
+
+
+## Objective
+
+Improve the agent decision layer by enabling more intelligent
+selection of available tools.
+
+
+## Planned Implementation
+
+
+### Tool Capability Model
+
+Introduce richer tool descriptions containing:
+
+- capabilities;
+- supported tasks;
+- execution context;
+- selection metadata.
+
+
+Example:
+
+AnalyticsTool
+
+Capabilities:
+
+dataframe_analysis
+statistics
+aggregation
+business_metrics
+
+RAGTool
+
+Capabilities:
+
+semantic_search
+knowledge_retrieval
+context_generation
+
+
+---
+
+
+### Intelligent Tool Selection
+
+Improve routing decisions using:
+
+- user intent;
+- tool capabilities;
+- execution context;
+- historical signals.
+
+
+Expected flow:
+
+User Request
+    |
+
+    v
+
+AgentController
+
+    |
+
+    v
+
+Tool Selection Strategy
+
+    |
+
+    v
+
+ToolRegistry
+
+    |
+
+    v
+
+Selected Tool
+
+    |
+
+    v
+
+ToolExecutor
+
+    |
+
+    v
+
+ToolResult
+
+
+
+---
+
+
+### Multi Tool Coordination Foundation
+
+Prepare architecture for workflows requiring multiple tools.
+
+
+Example:
+
+User Question
+   |
+
+    v
+
+AnalyticsTool
+
+    |
+
+    v
+
+Quantitative Result
+    |
+
+    v
+RAGTool
+
+    |
+
+    v
+
+Semantic Context
+
+    |
+
+    v
+
+Combined Response
+
+
+
+---
+
+
+## Expected Outcome
+
+After V1.10.1 completion:
+
+- agents can evaluate multiple capabilities;
+- tools become discoverable by purpose;
+- routing becomes more intelligent;
+- architecture becomes ready for multi-step workflows.
+
+
+---
+
+# Next Milestones
+
+Future V1.10 milestones:
+
+- Multi Tool Router;
+- Execution Planning;
+- Tool Coordination Layer;
+- ReAct workflow preparation;
+- Function Calling integration.

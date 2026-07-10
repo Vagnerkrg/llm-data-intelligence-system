@@ -1218,3 +1218,127 @@ Planned:
 * ReAct-style agents.
 
 The V1.10 evolution will transform the current tool execution platform into a coordinated intelligent execution system.
+
+
+---
+
+# V1.10 — Multi Tool Intelligence
+
+Status:
+
+🚧 In Development
+
+
+Branch:
+
+feature/v1.10-multi-tool-intelligence
+
+
+## Objective
+
+Expand the agent platform created in V1.9 by introducing
+multi-tool intelligence capabilities.
+
+The goal is evolving from a tool execution platform
+into a coordinated intelligent agent system.
+
+
+## Current Focus
+
+- intelligent tool selection;
+- multi-tool coordination;
+- capability-based routing;
+- execution planning foundation;
+- preparation for ReAct workflows.
+
+
+## Architecture Evolution
+
+
+Current:
+
+User Request
+
+↓
+
+AgentController
+
+↓
+
+AgentRouter
+
+↓
+
+ToolRegistry
+
+↓
+
+ToolExecutor
+
+↓
+
+ToolResult
+
+
+
+Target:
+
+User Request
+
+↓
+
+AgentController
+
+↓
+
+Reasoning Layer
+
+↓
+
+Tool Selection Strategy
+
+↓
+
+Multiple Specialized Tools
+
+↓
+
+Execution Plan
+
+↓
+
+ToolExecutor
+
+↓
+
+Response Intelligence
+
+
+
+## Planned Components
+
+- Tool Capability Model;
+- Intelligent Tool Selector;
+- Multi Tool Router;
+- Execution Planning;
+- Tool Coordination Layer.
+
+
+## Expected Capabilities
+
+The platform will evolve to support:
+
+- combining multiple tools in a single workflow;
+- selecting tools dynamically;
+- executing multi-step tasks;
+- generating richer intelligent responses.
+
+
+---
+
+# Next Evolution
+
+## V1.10.1 — Intelligent Tool Selection Foundation
+
+Initial milestone focused on improving
+tool selection and coordination architecture.

@@ -601,3 +601,197 @@ Principais entregas:
 - Multi-step execution
 - Function Calling preparation
 - ReAct-style workflows
+
+---
+
+# V1.10 — Multi Tool Intelligence
+
+Status:
+
+🚧 In Development
+
+
+Branch:
+
+feature/v1.10-multi-tool-intelligence
+
+
+## Objective
+
+Transform the agent platform created in V1.9 into a coordinated
+multi-tool intelligence system.
+
+The focus is evolving from isolated tool execution into
+intelligent selection, coordination and execution of multiple
+specialized capabilities.
+
+
+---
+
+
+# V1.10.1 — Intelligent Tool Selection Foundation
+
+
+Status:
+
+🚧 Planned
+
+
+## Goals
+
+Establish the foundation for intelligent tool selection.
+
+
+## Planned Features
+
+
+### Tool Capability Model
+
+Create a standardized capability description system for tools.
+
+
+Capabilities:
+
+- supported tasks;
+- semantic purpose;
+- execution requirements;
+- selection metadata.
+
+
+
+### Intelligent Tool Selector
+
+Improve decision making by allowing the system to evaluate:
+
+- user intent;
+- available capabilities;
+- execution context;
+- historical performance.
+
+
+
+### Multi Tool Routing
+
+Enable routing decisions across multiple specialized tools.
+
+
+Target tools:
+
+RAGTool
+
+AnalyticsTool
+
+SearchTool
+
+DataTool
+
+
+---
+
+
+# V1.10 Architecture Direction
+
+
+Current:
+
+User
+
+↓
+
+AgentController
+
+↓
+
+AgentRouter
+
+↓
+
+ToolRegistry
+
+↓
+
+ToolExecutor
+
+↓
+
+ToolResult
+
+
+
+Future:
+
+
+
+User
+
+↓
+
+AgentController
+
+↓
+
+Reasoning Layer
+
+↓
+
+Tool Selection Strategy
+
+↓
+
+Multiple Tools
+
+↓
+
+Execution Planning
+
+↓
+
+ToolExecutor
+
+↓
+
+Response Intelligence
+
+
+
+---
+
+
+# Future V1.10 Capabilities
+
+
+The completed version aims to support:
+
+
+- dynamic tool selection;
+- multi-tool workflows;
+- coordinated execution;
+- planning capabilities;
+- preparation for ReAct agents;
+- preparation for Function Calling.
+
+
+---
+
+
+# V1.10 Future Milestones
+
+
+## V1.10.1
+
+Intelligent Tool Selection Foundation
+
+
+## V1.10.2
+
+Multi Tool Router
+
+
+## V1.10.3
+
+Execution Planning Layer
+
+
+## V1.10.4
+
+Tool Coordination and Workflow Intelligence
