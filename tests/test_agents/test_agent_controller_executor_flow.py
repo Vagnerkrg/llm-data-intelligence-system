@@ -26,7 +26,8 @@ class FakeExecutor:
                 "tool": tool.name,
                 "data": {
                     "executed_by": "executor"
-                }
+                },
+                "metadata": {}
             }
         )()
 

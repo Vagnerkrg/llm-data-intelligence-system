@@ -5,7 +5,6 @@ from src.agents.execution.step_executor import StepExecutor
 from src.agents.controller.agent_controller import AgentController
 
 
-
 class ExecutionEngine:
     """
     Execution engine responsible for
@@ -18,7 +17,6 @@ class ExecutionEngine:
     - step executor;
     - execution lifecycle.
     """
-
 
 
     def __init__(
@@ -43,15 +41,45 @@ class ExecutionEngine:
     ) -> ExecutionContext:
         """
         Execute all pending steps
-        from the current execution plan.
+        from the execution plan.
         """
+
 
         try:
 
-            while context.current_step:
+            if not context.plan:
+
+                context.fail(
+                    "No execution plan available."
+                )
+
+                return context
+
+
+
+            context.status = "executing"
+
+
+            last_step = None
+
+
+
+            while True:
+
+                context.update_current_step()
 
 
                 step = context.current_step
+
+
+                if not step:
+
+                    break
+
+
+
+                last_step = step
+
 
 
                 result = self.step_executor.execute(
@@ -60,12 +88,17 @@ class ExecutionEngine:
                 )
 
 
+
                 context.add_result(
                     result
                 )
 
 
-                context.update_current_step()
+
+            # Preserve execution state
+            # after finishing workflow
+
+            context.current_step = last_step
 
 
 

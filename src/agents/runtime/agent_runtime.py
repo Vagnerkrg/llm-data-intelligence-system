@@ -2,7 +2,7 @@ from typing import Optional
 
 from src.agents.runtime.execution_context import ExecutionContext
 from src.agents.planning.execution_plan import ExecutionPlan
-from src.agents.planning.plan_step import PlanStep
+from src.agents.planning.execution_planner import ExecutionPlanner
 from src.agents.controller.agent_controller import AgentController
 from src.agents.execution.execution_engine import ExecutionEngine
 
@@ -29,13 +29,21 @@ class AgentRuntime:
     def __init__(
         self,
         controller: Optional[AgentController] = None,
-        execution_engine=None
+        execution_engine=None,
+        planner=None
     ):
 
         self.controller = (
             controller
             if controller
             else AgentController()
+        )
+
+
+        self.execution_planner = (
+            planner
+            if planner
+            else ExecutionPlanner()
         )
 
 
@@ -68,75 +76,13 @@ class AgentRuntime:
         question: str
     ) -> ExecutionPlan:
         """
-        Create an initial execution plan.
-
-        Current implementation uses
-        deterministic planning.
-
-        Future versions may introduce
-        LLM based planning.
+        Create an execution plan
+        using the execution planner.
         """
 
-        plan = ExecutionPlan(
-
-            objective=question
-
+        return self.execution_planner.create_plan(
+            question
         )
-
-
-        plan.add_step(
-
-            PlanStep(
-
-                step_id=1,
-
-                action="route_request",
-
-                description=(
-                    "Select the best agent tool "
-                    "for the request."
-                )
-
-            )
-
-        )
-
-
-        plan.add_step(
-
-            PlanStep(
-
-                step_id=2,
-
-                action="execute_tool",
-
-                description=(
-                    "Execute selected tool."
-                )
-
-            )
-
-        )
-
-
-        plan.add_step(
-
-            PlanStep(
-
-                step_id=3,
-
-                action="generate_response",
-
-                description=(
-                    "Prepare final response."
-                )
-
-            )
-
-        )
-
-
-        return plan
 
 
 

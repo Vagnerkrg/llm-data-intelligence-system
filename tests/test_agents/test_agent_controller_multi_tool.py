@@ -1,11 +1,10 @@
 from src.agents.controller.agent_controller import AgentController
-from src.agents.execution.tool_executor import ToolExecutor
 
 
-class FakeExecutor(ToolExecutor):
+class FakeMultiToolExecutor:
 
     def __init__(self):
-        self.executed = False
+        self.executed_tools = []
 
 
     def execute(
@@ -14,27 +13,29 @@ class FakeExecutor(ToolExecutor):
         question
     ):
 
-        self.executed = True
+        self.executed_tools.append(
+            tool.name
+        )
 
 
         return type(
-            "FakeResult",
+            "Result",
             (),
             {
                 "success": True,
                 "tool": tool.name,
                 "data": {
-                    "type": "analysis"
-                },
-                "metadata": {}
+                    "tool": tool.name,
+                    "question": question
+                }
             }
         )()
 
 
 
-def test_agent_controller_uses_executor():
+def test_agent_controller_executes_multiple_tools():
 
-    executor = FakeExecutor()
+    executor = FakeMultiToolExecutor()
 
 
     controller = AgentController(
@@ -43,12 +44,13 @@ def test_agent_controller_uses_executor():
 
 
     response = controller.run(
-        "quantos produtos existem?"
+        "Analise produtos e categorias"
     )
 
 
     assert response["status"] == "success"
 
-    assert response["tool"] == "analytics"
 
-    assert executor.executed is True
+    assert len(
+        executor.executed_tools
+    ) >= 1

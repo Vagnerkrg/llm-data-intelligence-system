@@ -727,3 +727,33 @@ Implemented Platform Components:
 * RAGTool.
 
 The platform is prepared for future expansion with additional tools, planning capabilities and autonomous workflows.
+
+
+Depois:
+
+Question
+
+ |
+ v
+
+AgentRuntime
+
+ |
+ v
+
+Planning Layer
+
+ |
+ v
+
+Execution Layer
+
+ |
+ v
+
+Tool Orchestration Layer
+
+ |
+ v
+
+Specialized Tools
