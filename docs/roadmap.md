@@ -862,3 +862,141 @@ Future evolution:
 - adaptive tool selection;
 - reasoning-driven workflows;
 - intelligent task decomposition.
+
+---
+
+# V1.12 — Goal Driven Planning
+
+## Objetivo
+
+Evoluir o sistema de planejamento de agentes para permitir criação de planos baseados em objetivos e capacidades necessárias.
+
+## Status
+
+Em desenvolvimento
+
+## Concluído
+
+- Integração inicial entre Reasoning Layer e Planning Layer
+- DynamicExecutionPlanner consumindo PlannerStrategy
+- Metadata de reasoning adicionada aos planos
+- Compatibilidade mantida com execução baseada em ferramentas
+
+## Próximas etapas
+
+### Goal Based Plan Generation
+
+Implementar criação de planos considerando:
+
+- objetivo da solicitação
+- intenção identificada
+- capacidades necessárias
+- estratégia recomendada
+
+### Adaptive Planning
+
+Permitir que o planner:
+
+- escolha diferentes caminhos de execução
+- combine ferramentas
+- altere estratégias conforme contexto
+
+### Future Evolution
+
+Preparação para:
+
+V1.12 Goal Driven Planning
+↓
+V1.13 Reflection & Self Evaluation
+↓
+V1.14 Memory Aware Reasoning
+↓
+V1.15 Autonomous Multi Agent Intelligence
+
+---
+
+# V1.12 - Goal Driven Planning Foundation
+
+Status:
+Completed
+
+
+## Objectives
+
+Transform execution planning from static workflows into dynamic goal-oriented planning.
+
+
+## Completed
+
+- DynamicExecutionPlanner enhancement
+- PlannerStrategy integration
+- intent-based execution plans
+- reasoning metadata support
+- dynamic plan generation
+- planning architecture foundation
+
+
+## Validation
+
+Tests:
+
+239 passed
+
+
+## Next
+
+V1.13 - Advanced Goal Reasoning
+
+Planned:
+
+- goal decomposition
+- autonomous planning
+- adaptive replanning
+- execution optimization
+
+## V1.11 - Goal Driven Agent Reasoning Planning ✅
+
+Status: Completed
+
+Implemented:
+
+- Goal abstraction
+- GoalBuilder
+- Goal driven execution planning
+- Dynamic planner improvements
+- Agent Controller integration
+- Complete execution flow validation
+
+Tests:
+
+
+248 passed
+
+
+
+Architecture milestone:
+
+The agent platform now supports explicit goals before execution, moving from tool orchestration toward reasoning-oriented agent planning.
+
+
+## V1.12 - Goal Driven Planning ✅
+
+Status: Completed
+
+Implemented:
+
+- Goal model
+- Goal builder
+- Goal planner
+- Goal-aware execution planning
+- Dynamic execution flow
+- Runtime goal integration
+- Goal driven tests
+
+Validation:
+248 tests passed
+
+
+Architecture impact:
+
+The agent platform now supports explicit goal representation and goal-oriented execution planning.

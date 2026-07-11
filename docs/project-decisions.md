@@ -1087,3 +1087,121 @@ Future versions may integrate:
 - Self-improving reasoning strategies.
 
 ---
+
+---
+
+# Decision 22 — Goal Driven Planning Foundation
+
+## Contexto
+
+A camada de reasoning introduzida na V1.11 permitiu transformar solicitações do usuário em informações estruturadas contendo intenção, objetivo, capacidades necessárias e estratégia.
+
+O próximo passo natural é permitir que o planejamento utilize essas informações para criar planos de execução mais adaptativos.
+
+## Decisão
+
+A arquitetura adotará uma camada de planejamento orientada por objetivo.
+
+O `ExecutionPlanner` continuará responsável pela criação dos planos, porém utilizará informações provenientes do `ReasoningEngine` para enriquecer decisões futuras.
+
+## Princípios definidos
+
+- Reasoning deve orientar planejamento
+- Planos devem ser baseados em objetivo, não apenas em tipo de requisição
+- Compatibilidade dos fluxos existentes deve ser preservada
+- Evoluções devem ocorrer incrementalmente através de novas capacidades
+
+## Estado atual
+
+Implementado:
+
+- ReasoningResult integrado ao planejamento
+- PlannerStrategy integrada ao DynamicExecutionPlanner
+- Metadata de reasoning adicionada aos ExecutionPlans
+
+Próxima evolução:
+
+Criar geração de planos baseada em:
+
+- intent
+- goal
+- required_capabilities
+- strategy
+
+
+---
+
+# Decision 24 - Goal Driven Planning Architecture
+
+Date:
+2026-07-11
+
+
+## Context
+
+Previous versions introduced:
+
+- Agent Controller
+- Tool Registry
+- Multi Tool Execution
+- Execution Planner
+- Reasoning Engine
+
+
+However, execution planning was still mainly based on predefined workflows.
+
+
+## Decision
+
+Introduce a goal-driven planning architecture.
+
+The planner will evolve from static step generation into a reasoning-aware component capable of:
+
+- understanding user objectives
+- selecting execution strategies
+- generating dynamic plans
+- adapting execution flows
+
+
+## Architecture
+
+The new planning flow:
+
+User Goal
+
+↓
+
+Planner Strategy
+
+↓
+
+Dynamic Execution Planner
+
+↓
+
+Execution Plan
+
+↓
+
+Execution Engine
+
+
+## Benefits
+
+This enables:
+
+- more autonomous agents
+- flexible workflows
+- better tool selection
+- future self-replanning capabilities
+
+
+## Future Extensions
+
+Planned improvements:
+
+- goal decomposition
+- planning evaluation
+- plan optimization
+- autonomous replanning
+- multi-agent collaboration
