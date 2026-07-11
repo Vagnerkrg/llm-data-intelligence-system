@@ -2585,3 +2585,104 @@ Resultado:
 - Criar estratégias específicas de planejamento
 - Implementar geração dinâmica de etapas baseada em capacidades necessárias
 - Evoluir para planejamento orientado por objetivo
+
+
+---
+
+# V1.12 - Goal Driven Planning Foundation
+
+## Release
+
+Version:
+v1.12.0
+
+Branch:
+feature/v1.12-goal-driven-planning
+
+
+## Overview
+
+V1.12 introduces the foundation for goal-driven execution planning.
+
+The planning layer evolved from static execution flows into a more adaptive planning architecture capable of generating execution strategies based on user intent analysis.
+
+
+## Implemented Features
+
+### Dynamic Execution Planning
+
+Implemented DynamicExecutionPlanner improvements:
+
+- intent-based planning decisions
+- strategy-driven execution flow
+- dynamic plan generation
+- integration with PlannerStrategy
+
+
+### Planner Strategy Layer
+
+Added planning intelligence responsible for:
+
+- request classification
+- analytics intent detection
+- document intent detection
+- unknown request handling
+
+
+### Execution Plan Evolution
+
+Execution plans now support:
+
+- dynamic step generation
+- metadata enrichment
+- reasoning context integration
+- future goal-oriented execution
+
+
+## Architecture Impact
+
+The planning architecture now contains:
+
+User Request
+
+↓
+
+PlannerStrategy
+
+↓
+
+DynamicExecutionPlanner
+
+↓
+
+ExecutionPlan
+
+↓
+
+Plan Execution
+
+
+This establishes the foundation for future versions focused on:
+
+- autonomous goal decomposition
+- adaptive planning
+- multi-agent coordination
+- self-improving execution strategies
+
+
+## Validation
+
+Test suite:
+
+239 passed
+
+No regressions detected.
+
+
+## Status
+
+Completed.
+
+Next milestone:
+V1.13 - Advanced Goal Reasoning and Autonomous Planning
+
