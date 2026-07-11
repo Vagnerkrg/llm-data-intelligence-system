@@ -862,3 +862,54 @@ Future evolution:
 - adaptive tool selection;
 - reasoning-driven workflows;
 - intelligent task decomposition.
+
+---
+
+# V1.12 — Goal Driven Planning
+
+## Objetivo
+
+Evoluir o sistema de planejamento de agentes para permitir criação de planos baseados em objetivos e capacidades necessárias.
+
+## Status
+
+Em desenvolvimento
+
+## Concluído
+
+- Integração inicial entre Reasoning Layer e Planning Layer
+- DynamicExecutionPlanner consumindo PlannerStrategy
+- Metadata de reasoning adicionada aos planos
+- Compatibilidade mantida com execução baseada em ferramentas
+
+## Próximas etapas
+
+### Goal Based Plan Generation
+
+Implementar criação de planos considerando:
+
+- objetivo da solicitação
+- intenção identificada
+- capacidades necessárias
+- estratégia recomendada
+
+### Adaptive Planning
+
+Permitir que o planner:
+
+- escolha diferentes caminhos de execução
+- combine ferramentas
+- altere estratégias conforme contexto
+
+### Future Evolution
+
+Preparação para:
+
+V1.12 Goal Driven Planning
+↓
+V1.13 Reflection & Self Evaluation
+↓
+V1.14 Memory Aware Reasoning
+↓
+V1.15 Autonomous Multi Agent Intelligence
+

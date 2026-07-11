@@ -2492,3 +2492,96 @@ Future milestones will focus on:
 
 ---
 
+
+---
+
+# V1.12 — Goal Driven Planning Foundation
+
+## Status
+
+Em desenvolvimento
+
+## Objetivo
+
+Evoluir o sistema de planejamento de agentes para utilizar informações produzidas pela camada de reasoning como base para criação de planos de execução mais inteligentes.
+
+## Implementações realizadas
+
+### Dynamic Execution Planner Evolution
+
+O `DynamicExecutionPlanner` foi evoluído para consumir informações de estratégia e reasoning mantendo compatibilidade com o fluxo existente de execução.
+
+Capacidades adicionadas:
+
+- Integração com `PlannerStrategy`
+- Classificação inicial de intenção da solicitação
+- Seleção de capacidade baseada no tipo de requisição
+- Propagação de metadata de reasoning para o `ExecutionPlan`
+
+## Fluxo atualizado
+
+User Question
+
+↓
+
+Reasoning Engine
+
+↓
+
+Reasoning Result
+
+↓
+
+Planner Strategy
+
+↓
+
+Dynamic Execution Planner
+
+↓
+
+Execution Plan
+
+↓
+
+Agent Runtime
+
+↓
+
+Tool Execution
+
+
+## Compatibilidade preservada
+
+O contrato de execução existente foi mantido:
+
+
+route_request
+↓
+execute_tool
+↓
+generate_response
+
+
+A evolução acontece através de enriquecimento do plano com contexto inteligente, sem quebrar componentes existentes.
+
+## Validação
+
+Testes executados:
+
+
+pytest
+
+
+Resultado:
+
+
+239 passed
+
+
+## Próximos passos
+
+- Utilizar `goal` como critério de criação de planos
+- Criar estratégias específicas de planejamento
+- Implementar geração dinâmica de etapas baseada em capacidades necessárias
+- Evoluir para planejamento orientado por objetivo
