@@ -2380,3 +2380,115 @@ Tool Layer
       v
 
 ToolResult
+
+
+---
+
+# V1.11 - Agent Reasoning Layer Expansion
+
+## Structured Reasoning Foundation
+
+The V1.11 milestone introduces the first structured reasoning layer of the agent architecture.
+
+Implemented capabilities:
+
+- Expanded `ReasoningEngine` from a basic reasoning placeholder into a structured reasoning component.
+- Added intent detection based on user requests.
+- Added execution goal definition.
+- Added required capability mapping.
+- Added initial execution strategy generation.
+- Expanded `ReasoningResult` to transport structured reasoning information between layers.
+
+## Architecture Evolution
+
+The reasoning layer now acts as an intermediate intelligence layer between user requests and execution planning.
+
+Current flow:
+
+User Request  
+↓  
+Reasoning Engine  
+↓  
+Execution Planning  
+↓  
+Dynamic Planner  
+↓  
+Agent Runtime  
+↓  
+Tool Execution
+
+
+## Integration Impact
+
+The new reasoning output enables planning components to make better execution decisions by consuming:
+
+- user intent
+- execution goals
+- required capabilities
+- selected strategy
+
+This creates the foundation for future LLM-based reasoning strategies while maintaining deterministic and testable behavior.
+
+## Validation
+
+Current test suite status:
+
+- 239 tests passing
+- Agent reasoning flow validated
+- Planning integration validated
+- Runtime execution flow validated
+
+---
+
+---
+
+# V1.11 - Agent Reasoning Layer Expansion
+
+## Status: Completed
+
+The V1.11 milestone introduces the first structured reasoning capability inside the agent architecture.
+
+Completed improvements:
+
+- Implemented structured reasoning outputs.
+- Expanded `ReasoningEngine` with request intent detection.
+- Added execution goal generation.
+- Added capability requirement mapping.
+- Added execution strategy definition.
+- Extended `ReasoningResult` as a communication contract between reasoning and planning layers.
+
+## Architecture Progress
+
+The agent architecture now contains a dedicated reasoning stage:
+
+User Request
+
+↓
+
+Reasoning Layer
+
+↓
+
+Planning Layer
+
+↓
+
+Execution Layer
+
+↓
+
+Tool Layer
+
+
+## Next Evolution Steps
+
+Future milestones will focus on:
+
+- LLM-powered reasoning strategies.
+- More advanced intent classification.
+- Context-aware reasoning.
+- Autonomous planning improvements.
+- Adaptive reasoning and execution optimization.
+
+---
+
