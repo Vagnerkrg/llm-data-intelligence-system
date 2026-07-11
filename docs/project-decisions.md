@@ -1016,3 +1016,74 @@ Benefícios:
 - preparação para agentes adaptativos;
 - evolução futura para reasoning-driven planning.
 
+---
+
+# Decision 21 - Structured Reasoning Layer Architecture
+
+## Context
+
+With the evolution of the Agent Platform, the architecture required a dedicated reasoning stage responsible for transforming user requests into structured intelligence information before execution planning.
+
+Previous versions focused mainly on routing and planning capabilities. V1.11 introduces a separated reasoning layer.
+
+## Decision
+
+The system will maintain a dedicated `ReasoningEngine` responsible for:
+
+- Understanding user request intent.
+- Defining execution goals.
+- Identifying required capabilities.
+- Providing execution strategies.
+- Producing structured reasoning information consumed by planning components.
+
+The reasoning layer will not directly execute tools or perform actions.
+
+Its responsibility is to generate structured context for downstream execution layers.
+
+## Architectural Impact
+
+The agent execution flow becomes:
+
+User Request
+
+↓
+
+Reasoning Engine
+
+↓
+
+Execution Planner
+
+↓
+
+Dynamic Planner
+
+↓
+
+Agent Runtime
+
+↓
+
+Tool Execution
+
+
+## Benefits
+
+This decision provides:
+
+- Separation between reasoning and execution.
+- Better testability of agent intelligence components.
+- Clear contracts between architecture layers.
+- Preparation for future LLM-based reasoning strategies.
+- More adaptive planning capabilities.
+
+## Future Considerations
+
+Future versions may integrate:
+
+- LLM-powered reasoning.
+- Advanced semantic intent classification.
+- Contextual memory reasoning.
+- Self-improving reasoning strategies.
+
+---

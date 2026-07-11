@@ -1,6 +1,7 @@
 from typing import Optional, Dict, Any
 
 from src.agents.planning.execution_plan import ExecutionPlan
+from src.agents.reasoning.reasoning_result import ReasoningResult
 
 
 class ExecutionContext:
@@ -9,9 +10,9 @@ class ExecutionContext:
     an agent execution.
 
     The context keeps the current state
-    shared between planning and execution layers.
+    shared between reasoning, planning
+    and execution layers.
     """
-
 
     def __init__(
         self,
@@ -24,6 +25,12 @@ class ExecutionContext:
 
         self.plan = plan
 
+        # V1.10 compatibility
+        self.reasoning_result = None
+
+        # V1.11 reasoning flow
+        self.reasoning = None
+
         self.current_step = None
 
         self.results = []
@@ -35,6 +42,21 @@ class ExecutionContext:
         )
 
         self.status = "initialized"
+
+
+
+    def set_reasoning(
+        self,
+        reasoning_result: ReasoningResult
+    ):
+        """
+        Store reasoning output
+        generated before planning.
+        """
+
+        self.reasoning_result = reasoning_result
+
+        self.reasoning = reasoning_result
 
 
 
@@ -53,10 +75,8 @@ class ExecutionContext:
         self
     ):
         """
-        Update current step from
-        the execution plan.
-
-        Always retrieves the next pending step.
+        Update current runtime step
+        from execution plan.
         """
 
         if not self.plan:
@@ -76,8 +96,7 @@ class ExecutionContext:
         self
     ):
         """
-        Clear current runtime step
-        after execution.
+        Clear current runtime step.
         """
 
         self.current_step = None
@@ -124,6 +143,10 @@ class ExecutionContext:
 
             "status": self.status,
 
+            "has_reasoning": (
+                self.reasoning is not None
+            ),
+
             "current_step": (
                 self.current_step.action
                 if self.current_step
@@ -134,6 +157,8 @@ class ExecutionContext:
                 self.results
             ),
 
-            "has_plan": self.plan is not None
+            "has_plan": (
+                self.plan is not None
+            )
 
         }

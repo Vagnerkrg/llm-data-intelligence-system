@@ -5,7 +5,8 @@ from src.agents.planning.execution_plan import ExecutionPlan
 from src.agents.planning.execution_planner import ExecutionPlanner
 from src.agents.controller.agent_controller import AgentController
 from src.agents.execution.execution_engine import ExecutionEngine
-
+from src.agents.reasoning.reasoning_engine import ReasoningEngine
+from src.agents.reasoning.reasoning_result import ReasoningResult
 
 
 class AgentRuntime:
@@ -15,6 +16,7 @@ class AgentRuntime:
     Responsible for coordinating:
 
     - execution context;
+    - reasoning layer;
     - planning layer;
     - execution engine;
     - agent lifecycle.
@@ -24,13 +26,12 @@ class AgentRuntime:
     the ExecutionEngine.
     """
 
-
-
     def __init__(
         self,
         controller: Optional[AgentController] = None,
         execution_engine=None,
-        planner=None
+        planner=None,
+        reasoning_engine=None
     ):
 
         self.controller = (
@@ -39,13 +40,17 @@ class AgentRuntime:
             else AgentController()
         )
 
-
         self.execution_planner = (
             planner
             if planner
             else ExecutionPlanner()
         )
 
+        self.reasoning_engine = (
+            reasoning_engine
+            if reasoning_engine
+            else ReasoningEngine()
+        )
 
         self.execution_engine = (
             execution_engine
@@ -71,18 +76,50 @@ class AgentRuntime:
 
 
 
-    def create_initial_plan(
+    def create_reasoning(
         self,
         question: str
-    ) -> ExecutionPlan:
+    ) -> ReasoningResult:
         """
-        Create an execution plan
-        using the execution planner.
+        Generate reasoning result
+        before planning.
         """
 
-        return self.execution_planner.create_plan(
+        return self.reasoning_engine.reason(
             question
         )
+
+
+
+    def create_initial_plan(
+        self,
+        question: str,
+        reasoning_result: Optional[ReasoningResult] = None
+    ) -> ExecutionPlan:
+        """
+        Create an execution plan.
+
+        Supports planners with and without
+        reasoning awareness.
+
+        V1.11 planners can consume
+        reasoning_result.
+
+        Legacy planners remain compatible.
+        """
+
+        try:
+
+            return self.execution_planner.create_plan(
+                question,
+                reasoning_result
+            )
+
+        except TypeError:
+
+            return self.execution_planner.create_plan(
+                question
+            )
 
 
 
@@ -92,6 +129,16 @@ class AgentRuntime:
     ) -> ExecutionContext:
         """
         Prepare execution lifecycle.
+
+        The runtime flow is:
+
+        Question
+            |
+        Reasoning
+            |
+        Planning
+            |
+        Execution Context
         """
 
         context = self.create_context(
@@ -99,8 +146,19 @@ class AgentRuntime:
         )
 
 
-        plan = self.create_initial_plan(
+        reasoning_result = self.create_reasoning(
             question
+        )
+
+
+        context.set_reasoning(
+            reasoning_result
+        )
+
+
+        plan = self.create_initial_plan(
+            question,
+            reasoning_result
         )
 
 

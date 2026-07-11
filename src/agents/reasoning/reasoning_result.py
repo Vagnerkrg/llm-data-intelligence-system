@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
-from typing import Any, Dict
+from typing import Any, Dict, List
+
 
 
 @dataclass
@@ -9,7 +10,9 @@ class ReasoningResult:
     by the reasoning engine.
 
     Stores the reasoning process,
-    final conclusion and confidence.
+    final conclusion, confidence,
+    and structured reasoning information
+    used by planning layers.
     """
 
 
@@ -18,6 +21,20 @@ class ReasoningResult:
     conclusion: str
 
     confidence: float = 0.0
+
+
+    goal: str = ""
+
+    intent: str = ""
+
+
+    required_capabilities: List[str] = field(
+        default_factory=list
+    )
+
+
+    strategy: str = ""
+
 
     metadata: Dict[str, Any] = field(
         default_factory=dict
@@ -41,6 +58,18 @@ class ReasoningResult:
 
             "confidence": self.confidence,
 
+            "goal": self.goal,
+
+            "intent": self.intent,
+
+            "required_capabilities": (
+                self.required_capabilities
+            ),
+
+            "strategy": self.strategy,
+
             "metadata": self.metadata
 
         }
+   
+    
