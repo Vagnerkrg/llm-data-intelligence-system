@@ -1,7 +1,6 @@
 from src.agents.reasoning.reasoning_result import ReasoningResult
 
 
-
 class ReasoningEngine:
     """
     Responsible for generating
@@ -80,7 +79,13 @@ class ReasoningEngine:
 
             metadata={
 
-                "source": "reasoning_engine"
+                "source": "reasoning_engine",
+
+                # V1.12
+                # Preserve original user request
+                # for GoalBuilder
+
+                "question": question
 
             }
 
@@ -99,6 +104,7 @@ class ReasoningEngine:
         this logic with LLM reasoning.
         """
 
+
         text = question.lower()
 
 
@@ -108,13 +114,17 @@ class ReasoningEngine:
                 "analisar",
                 "análise",
                 "analise",
+                "analyze",
                 "venda",
                 "produto",
-                "dados"
+                "dados",
+                "sales",
+                "performance"
             ]
         ):
 
             return "analytics"
+
 
 
         if any(
@@ -122,11 +132,14 @@ class ReasoningEngine:
             for keyword in [
                 "buscar",
                 "encontrar",
-                "pesquisar"
+                "pesquisar",
+                "search",
+                "find"
             ]
         ):
 
             return "search"
+
 
 
         return "general"
@@ -140,7 +153,11 @@ class ReasoningEngine:
     ) -> str:
         """
         Define the execution goal.
+
+        The reasoning goal describes
+        the expected execution direction.
         """
+
 
         return (
             f"Resolve user request with intent: {intent}"
@@ -157,18 +174,27 @@ class ReasoningEngine:
         for execution.
         """
 
+
         mapping = {
 
             "analytics": [
+
                 "data_analysis"
+
             ],
+
 
             "search": [
+
                 "information_retrieval"
+
             ],
 
+
             "general": [
+
                 "general_reasoning"
+
             ]
 
         }
@@ -189,13 +215,16 @@ class ReasoningEngine:
         Define initial execution strategy.
         """
 
+
         strategies = {
 
             "analytics":
                 "Use analytics tools",
 
+
             "search":
                 "Use retrieval tools",
+
 
             "general":
                 "Use general reasoning"
@@ -207,4 +236,3 @@ class ReasoningEngine:
             intent,
             "Use default strategy"
         )
-   

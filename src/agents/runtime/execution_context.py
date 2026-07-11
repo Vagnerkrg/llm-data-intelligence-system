@@ -1,6 +1,8 @@
 from typing import Optional, Dict, Any
 
 from src.agents.planning.execution_plan import ExecutionPlan
+from src.agents.planning.goal import Goal
+
 from src.agents.reasoning.reasoning_result import ReasoningResult
 
 
@@ -10,8 +12,15 @@ class ExecutionContext:
     an agent execution.
 
     The context keeps the current state
-    shared between reasoning, planning
-    and execution layers.
+    shared between:
+
+    - reasoning layer;
+    - goal layer;
+    - planning layer;
+    - execution layer.
+
+    V1.12 introduces goal driven
+    execution context support.
     """
 
     def __init__(
@@ -25,21 +34,30 @@ class ExecutionContext:
 
         self.plan = plan
 
+
         # V1.10 compatibility
         self.reasoning_result = None
+
 
         # V1.11 reasoning flow
         self.reasoning = None
 
+
+        # V1.12 goal driven planning
+        self.goal = None
+
+
         self.current_step = None
 
         self.results = []
+
 
         self.metadata = (
             metadata
             if metadata
             else {}
         )
+
 
         self.status = "initialized"
 
@@ -57,6 +75,23 @@ class ExecutionContext:
         self.reasoning_result = reasoning_result
 
         self.reasoning = reasoning_result
+
+
+
+    def set_goal(
+        self,
+        goal: Goal
+    ):
+        """
+        Store execution goal
+        generated from reasoning.
+
+        V1.12:
+        Goal becomes an explicit
+        runtime state.
+        """
+
+        self.goal = goal
 
 
 
@@ -141,11 +176,26 @@ class ExecutionContext:
 
             "question": self.question,
 
+
             "status": self.status,
+
 
             "has_reasoning": (
                 self.reasoning is not None
             ),
+
+
+            "has_goal": (
+                self.goal is not None
+            ),
+
+
+            "goal_type": (
+                self.goal.goal_type
+                if self.goal
+                else None
+            ),
+
 
             "current_step": (
                 self.current_step.action
@@ -153,9 +203,11 @@ class ExecutionContext:
                 else None
             ),
 
+
             "results_count": len(
                 self.results
             ),
+
 
             "has_plan": (
                 self.plan is not None

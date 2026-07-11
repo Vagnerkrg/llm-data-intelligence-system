@@ -1,25 +1,35 @@
 from typing import Optional, List
 
+
 from src.agents.planning.execution_plan import ExecutionPlan
 from src.agents.planning.plan_step import PlanStep
-from src.agents.planning.planner_strategy import PlannerStrategy
-from src.agents.reasoning.reasoning_result import ReasoningResult
+from src.agents.planning.goal import Goal
+
+
+from src.agents.reasoning.reasoning_result import (
+    ReasoningResult
+)
+
+
+from src.agents.planning.planner_strategy import (
+    PlannerStrategy
+)
 
 
 class DynamicExecutionPlanner:
     """
-    Creates dynamic execution plans
-    based on intent analysis and reasoning.
-
-    V1.12:
-    Adds goal-driven planning while
-    preserving execution workflow compatibility.
+    Creates execution plans dynamically
+    based on user goals and detected strategy.
     """
+
 
     def __init__(
         self,
         strategy=None
     ):
+        """
+        Initialize planner.
+        """
 
         self.strategy = (
             strategy
@@ -34,11 +44,8 @@ class DynamicExecutionPlanner:
         reasoning_result: Optional[ReasoningResult] = None
     ) -> ExecutionPlan:
         """
-        Create execution plan using:
-
-        - question intent
-        - planner strategy
-        - reasoning information
+        Create execution plan based
+        on goal and strategy analysis.
         """
 
 
@@ -50,177 +57,224 @@ class DynamicExecutionPlanner:
         request_type = (
             analysis.get(
                 "type",
-                "unknown"
+                "general"
             )
         )
 
 
-        steps = [
+        goal = Goal(
+
+            objective=question,
+
+            intent=request_type,
+
+            required_capabilities=(
+
+                reasoning_result.required_capabilities
+
+                if reasoning_result
+
+                else analysis.get(
+                    "required_capabilities",
+                    []
+                )
+
+            ),
+
+            metadata={
+
+                "strategy": analysis.get(
+                    "strategy",
+                    "default"
+                )
+
+            }
+
+        )
+
+
+        steps = self.generate_steps(
+            analysis
+        )
+
+
+        return ExecutionPlan(
+
+            goal=goal,
+
+            steps=steps
+
+        )
+
+
+    def generate_steps(
+        self,
+        analysis: dict
+    ) -> List[PlanStep]:
+        """
+        Generate execution steps
+        according to detected strategy.
+        """
+
+
+        plan_type = analysis.get(
+            "type",
+            "general"
+        )
+
+
+        steps = []
+
+
+        #
+        # Step 1
+        # Routing
+        #
+
+        steps.append(
 
             PlanStep(
+
                 step_id=1,
+
                 action="route_request",
+
                 description=(
                     "Route user request "
-                    "to appropriate capability."
-                )
-            ),
-
-            PlanStep(
-                step_id=2,
-                action="execute_tool",
-                description=(
-                    self._execution_description(
-                        request_type
-                    )
+                    "according to detected intent"
                 ),
-                tool=(
-                    self._select_tool(
-                        request_type
-                    )
-                )
-            ),
+
+                tool="router_tool"
+
+            )
+
+        )
+
+
+        #
+        # Step 2
+        # Tool execution
+        #
+
+        steps.append(
 
             PlanStep(
-                step_id=3,
-                action="generate_response",
+
+                step_id=2,
+
+                action="execute_tool",
+
                 description=(
-                    "Generate final response."
+                    "Execute selected capability "
+                    "for user request"
+                ),
+
+                tool=(
+                    "analytics_tool"
+                    if plan_type == "analytics"
+                    else
+                    "retrieval_tool"
+                    if plan_type == "document"
+                    else
+                    "reasoning_tool"
                 )
+
             )
 
-        ]
-
-
-        plan = ExecutionPlan(
-            objective=question,
-            steps=steps
         )
 
 
-        plan.metadata = {
+        #
+        # Intermediate reasoning
+        #
 
-            "request_type": request_type
+        if plan_type == "analytics":
 
-        }
+            steps.append(
 
+                PlanStep(
 
-        if reasoning_result:
+                    step_id=3,
 
-            plan.metadata.update(
+                    action="generate_insights",
 
-                {
-
-                    "reasoning": (
-                        reasoning_result.reasoning
+                    description=(
+                        "Generate analytical insights "
+                        "from processed data"
                     ),
 
-                    "conclusion": (
-                        reasoning_result.conclusion
-                    ),
+                    tool="reasoning_tool"
 
-                    "confidence": (
-                        reasoning_result.confidence
-                    ),
-
-                    "intent": (
-                        reasoning_result.intent
-                        if hasattr(
-                            reasoning_result,
-                            "intent"
-                        )
-                        else None
-                    ),
-
-                    "goal": (
-                        reasoning_result.goal
-                        if hasattr(
-                            reasoning_result,
-                            "goal"
-                        )
-                        else None
-                    ),
-
-                    "strategy": (
-                        reasoning_result.strategy
-                        if hasattr(
-                            reasoning_result,
-                            "strategy"
-                        )
-                        else "default"
-                    ),
-
-                    "required_capabilities": (
-                        reasoning_result.required_capabilities
-                        if hasattr(
-                            reasoning_result,
-                            "required_capabilities"
-                        )
-                        else []
-                    )
-
-                }
+                )
 
             )
 
 
-        return plan
+        elif plan_type == "document":
+
+            steps.append(
+
+                PlanStep(
+
+                    step_id=3,
+
+                    action="summarize_content",
+
+                    description=(
+                        "Summarize document content"
+                    ),
+
+                    tool="reasoning_tool"
+
+                )
+
+            )
 
 
+        else:
 
-    def _select_tool(
-        self,
-        request_type: str
-    ) -> str:
-        """
-        Select preferred tool based
-        on reasoning strategy.
-        """
+            steps.append(
+
+                PlanStep(
+
+                    step_id=3,
+
+                    action="general_reasoning",
+
+                    description=(
+                        "Perform general reasoning "
+                        "for user request"
+                    ),
+
+                    tool="reasoning_tool"
+
+                )
+
+            )
 
 
-        mapping = {
+        #
+        # Final response generation
+        #
 
-            "analytics": "analytics_tool",
+        steps.append(
 
-            "document": "document_tool",
+            PlanStep(
 
-            "unknown": "default_tool"
+                step_id=4,
 
-        }
+                action="generate_response",
 
+                description=(
+                    "Generate final response "
+                    "for the user"
+                ),
 
-        return mapping.get(
-            request_type,
-            "default_tool"
+                tool="response_generator"
+
+            )
+
         )
 
 
-
-    def _execution_description(
-        self,
-        request_type: str
-    ) -> str:
-        """
-        Generate execution description
-        without changing execution contract.
-        """
-
-
-        descriptions = {
-
-            "analytics":
-                "Execute analytics capability.",
-
-            "document":
-                "Execute document processing capability.",
-
-            "unknown":
-                "Execute selected tool."
-
-        }
-
-
-        return descriptions.get(
-            request_type,
-            "Execute selected tool."
-        )
+        return steps

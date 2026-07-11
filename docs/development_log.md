@@ -2686,3 +2686,338 @@ Completed.
 Next milestone:
 V1.13 - Advanced Goal Reasoning and Autonomous Planning
 
+# V1.11 - Goal Driven Agent Reasoning Planning
+
+## Release
+
+v1.11.0 (in development)
+
+## Overview
+
+V1.11 introduces Goal Driven Planning capabilities into the Agent Intelligence architecture.
+
+The agent execution flow evolved from tool-oriented planning into goal-oriented reasoning, allowing the planner to understand the desired objective, generate execution steps, and produce a final response workflow.
+
+This milestone establishes the foundation for more advanced reasoning agents.
+
+---
+
+## Implemented Features
+
+### Goal Model
+
+Created a dedicated Goal abstraction representing the agent objective.
+
+Capabilities:
+
+- user objective definition
+- intent association
+- required capabilities tracking
+- planning metadata support
+
+Location:
+src/agents/planning/goal.py
+
+---
+
+### Goal Builder
+
+Implemented GoalBuilder responsible for transforming reasoning outputs into executable goals.
+
+Features:
+
+- builds goals from ReasoningResult
+- uses reasoning conclusion as objective fallback
+- preserves intent and required capabilities
+
+Location:
+src/agents/planning/goal_builder.py
+
+---
+
+### Dynamic Goal Driven Planner
+
+Enhanced DynamicExecutionPlanner to generate execution plans based on goals and detected strategies.
+
+The planner now supports:
+
+- request routing
+- tool execution
+- reasoning steps
+- final response generation
+
+Execution flow:
+User Request
+|
+v
+Goal Creation
+|
+v
+Dynamic Planning
+|
+v
+route_request
+|
+v
+execute_tool
+|
+v
+reasoning
+|
+v
+generate_response
+
+
+Location:
+
+
+src/agents/planning/dynamic_execution_planner.py
+
+---
+
+## Agent Controller Integration
+
+Updated AgentController validation to support the new planning lifecycle.
+
+The controller now works with:
+
+- Goal based plans
+- Dynamic execution steps
+- Response generation stage
+
+---
+
+## Testing
+
+Full project validation completed.
+
+Results:
+248 passed
+
+
+Test coverage includes:
+
+- Goal creation
+- GoalBuilder behavior
+- Dynamic planner strategy integration
+- Agent Controller planning flow
+- Runtime execution compatibility
+
+---
+
+## Architecture Evolution
+
+Before V1.11:
+
+
+Request
+|
+Planner
+|
+Tool Execution
+
+
+After V1.11:
+
+
+Request
+|
+Reasoning
+|
+Goal
+|
+Planning
+|
+Execution
+|
+Response Generation
+
+
+---
+
+## Next Steps
+
+Future iterations:
+
+- advanced reasoning strategies
+- planning feedback loops
+- adaptive goal refinement
+- autonomous replanning
+- agent self-improvement mechanisms
+
+
+# V1.12 - Goal Driven Planning
+
+## Status
+
+Completed
+
+## Release
+
+v1.12.0 (planned)
+
+## Overview
+
+V1.12 introduces Goal Driven Planning capabilities into the Agent Intelligence architecture.
+
+The planner evolution moves from static execution planning into goal-oriented planning, where user requests are transformed into explicit goals, analyzed intents, required capabilities and dynamic execution flows.
+
+## Implemented Features
+
+### Goal Model
+
+Added a structured goal representation:
+
+- Objective definition
+- Intent classification
+- Required capabilities
+- Planning metadata
+
+New module:
+src/agents/planning/goal.py
+
+
+---
+
+### Goal Builder
+
+Introduced goal construction layer responsible for transforming user requests into structured goals.
+
+New module:
+
+
+src/agents/planning/goal_builder.py
+
+
+---
+
+### Goal Planner
+
+Added goal-driven planning component responsible for creating execution strategies based on objectives.
+
+New module:
+
+
+src/agents/planning/goal_planner.py
+
+
+---
+
+### Dynamic Execution Planner Evolution
+
+Enhanced:
+
+
+src/agents/planning/dynamic_execution_planner.py
+
+
+Capabilities added:
+
+- Goal creation
+- Strategy-aware planning
+- Dynamic execution flow generation
+- Route request step
+- Tool execution step
+- Response generation step
+
+Execution flow:
+
+
+User Request
+|
+v
+Goal Creation
+|
+v
+Strategy Analysis
+|
+v
+Dynamic Plan Generation
+|
+v
+Execution Pipeline
+|
+v
+Final Response
+
+
+---
+
+### Runtime Integration
+
+Updated Agent Runtime components:
+
+
+src/agents/runtime/agent_runtime.py
+src/agents/runtime/execution_context.py
+
+
+New capabilities:
+
+- Goal propagation
+- Goal-aware execution context
+- Planning metadata tracking
+
+---
+
+### Reasoning Integration
+
+Updated:
+
+
+src/agents/reasoning/reasoning_engine.py
+
+
+Added compatibility with goal-driven reasoning workflows.
+
+---
+
+## Tests
+
+Full validation completed.
+
+Result:
+
+
+248 passed
+
+
+Coverage includes:
+
+- Goal creation
+- Goal builder
+- Goal planning
+- Dynamic planner strategy integration
+- Runtime goal propagation
+- Agent Controller integration
+- Execution flow preservation
+
+---
+
+## Architecture Impact
+
+V1.12 establishes the foundation for more autonomous agent behavior.
+
+The system now evolves from:
+
+
+Request -> Tool Execution
+
+
+towards:
+
+
+Request
+|
+Goal Understanding
+|
+Planning
+|
+Execution Strategy
+|
+Tool Orchestration
+|
+Reasoned Response
+
+
+This milestone prepares the architecture for future reasoning improvements and autonomous replanning capabilities.

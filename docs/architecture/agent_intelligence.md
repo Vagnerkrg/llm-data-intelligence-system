@@ -757,3 +757,233 @@ Tool Orchestration Layer
  v
 
 Specialized Tools
+
+# Goal Driven Planning Architecture
+
+## Overview
+
+The Goal Driven Planning architecture introduces an intermediate reasoning layer between user requests and execution plans.
+
+Instead of directly mapping requests into tools, agents first define an explicit goal representation.
+
+This allows the system to reason about:
+
+- what must be achieved
+- which capabilities are required
+- which execution strategy should be applied
+
+---
+
+## Goal Lifecycle
+
+The execution lifecycle is:
+User Request
+|
+v
+Reasoning Engine
+|
+v
+Goal Builder
+|
+v
+Goal Object
+|
+v
+Dynamic Execution Planner
+|
+v
+Execution Plan
+
+
+---
+
+## Execution Plan Structure
+
+A generated plan contains ordered execution steps:
+
+route_request
+execute_tool
+reasoning / processing
+generate_response
+
+Each step contains:
+
+- step identifier
+- action
+- description
+- assigned tool
+- execution status
+- result metadata
+
+---
+
+## Benefits
+
+Goal Driven Planning provides:
+
+- clearer agent objectives
+- better execution traceability
+- improved planning transparency
+- foundation for adaptive agents
+- support for future autonomous reasoning
+
+---
+
+## Future Evolution
+
+This architecture enables future capabilities:
+
+- goal refinement
+- planning evaluation
+- self-correction
+- dynamic replanning
+- multi-agent collaboration
+
+## Goal Driven Planning Architecture
+
+Version 1.12 introduces goal-oriented planning into the agent intelligence layer.
+
+The planner now converts user requests into explicit goals before generating execution plans.
+
+## Goal Flow
+
+
+User Request
+
+  |
+  v
+
+Goal Extraction
+
+  |
+  v
+
+Intent Analysis
+
+  |
+  v
+
+Capability Detection
+
+  |
+  v
+
+Dynamic Execution Plan
+
+  |
+  v
+
+Tool Execution
+
+  |
+  v
+
+Response Generation
+
+
+## Goal Components
+
+The planning layer now contains:
+
+
+planning/
+
+├── goal.py
+├── goal_builder.py
+├── goal_planner.py
+├── dynamic_execution_planner.py
+├── planning_policy.py
+
+
+Responsibilities:
+
+### Goal
+
+Represents the desired objective.
+
+Contains:
+
+- objective
+- intent
+- required capabilities
+- metadata
+
+
+### Goal Builder
+
+Transforms user input into structured goals.
+
+
+### Goal Planner
+
+Creates planning decisions based on goals and strategies.
+
+
+### Dynamic Execution Planner
+
+Generates execution steps dynamically.
+
+Current pipeline:
+
+
+route_request
+
+    ↓
+
+execute_tool
+
+    ↓
+
+generate_response
+
+
+---
+
+## Architectural Evolution
+
+Before V1.12:
+
+
+Request
+
+↓
+
+Planner
+
+↓
+
+Execution Steps
+
+
+After V1.12:
+
+
+Request
+
+↓
+
+Goal Understanding
+
+↓
+
+Strategy Selection
+
+↓
+
+Dynamic Planning
+
+↓
+
+Execution
+
+↓
+
+Response
+
+
+This enables future capabilities:
+
+- autonomous replanning
+- multi-agent collaboration
+- adaptive execution strategies
+- reasoning-driven planning
