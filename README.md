@@ -12,50 +12,55 @@ The **LLM Data Intelligence System** is an advanced AI engineering platform desi
 
 The platform combines:
 
-* Large Language Models (LLMs)
-* Retrieval-Augmented Generation (RAG)
-* Semantic Search
-* Vector Knowledge Retrieval
-* Data Intelligence
-* AI Reasoning
-* Goal-Oriented Planning
-* Agent Runtime Architecture
-* Tool-Based Intelligence Execution
-* Autonomous Decision Workflows
+- Large Language Models (LLMs)
+- Retrieval-Augmented Generation (RAG)
+- Semantic Search
+- Vector Knowledge Retrieval
+- Data Intelligence
+- AI Reasoning
+- Goal-Oriented Planning
+- Agent Runtime Architecture
+- Tool-Based Intelligence Execution
+- Autonomous Decision Workflows
+- Cognitive Agent Architecture
 
-The objective is to build a production-grade AI platform capable of allowing organizations to interact with their data and knowledge using natural language while intelligent agents determine the best strategy to solve each request.
+The objective is to build a production-oriented AI platform capable of allowing organizations to interact with their data and knowledge using natural language while intelligent agents determine the best strategy to solve each request.
+
+The system is evolving from a traditional AI pipeline into a **Cognitive Agent Platform**, where agents can understand objectives, reason about problems, create execution strategies, evaluate results and continuously improve decision processes.
 
 ---
 
 # 🎯 Product Vision
 
-The vision of the **LLM Data Intelligence System** is to create an autonomous AI analyst capable of understanding business objectives, reasoning about problems, planning actions, executing specialized capabilities and generating reliable insights.
+The vision of the **LLM Data Intelligence System** is to create an autonomous AI analyst capable of understanding business objectives, reasoning about complex problems, planning actions, executing specialized capabilities and generating reliable insights.
 
-The platform is designed around the principle:
+The platform follows the principle:
 
 > Users should ask questions naturally while AI agents understand the objective, select the appropriate intelligence source, execute the required analysis and generate valuable decisions.
 
 Example:
 
-User:
+## User:
 
-```text
 Why did our sales decrease last quarter?
-```
 
-The system:
+## System:
 
-```text
 1. Understand business objective
 
 2. Analyze available data
 
-3. Detect relevant patterns
+3. Reason about possible causes
 
-4. Evaluate possible causes
+4. Define execution strategy
 
-5. Generate actionable insights
-```
+5. Plan required actions
+
+6. Execute specialized capabilities
+
+7. Evaluate results
+
+8. Generate actionable insights
 
 ---
 
@@ -63,34 +68,35 @@ The system:
 
 The **LLM Data Intelligence System** is being developed as a proprietary AI platform foundation.
 
-Although the project repository is currently visible for development tracking, experimentation and professional portfolio purposes, the platform is not designed as an open-source project.
+Although the repository is visible for development tracking, experimentation and professional portfolio purposes, the platform is not designed as an open-source project.
 
-The architecture, engineering decisions, future product strategy and intellectual property remain controlled as part of the product development process.
+The architecture, engineering decisions, technical documentation, future product strategy and intellectual property remain controlled as part of the product development process.
 
 Future commercial evolution may include:
 
-* enterprise deployments;
-* proprietary AI workflows;
-* specialized industry solutions;
-* managed AI intelligence services;
-* private organizational implementations.
+- enterprise AI deployments;
+- proprietary intelligence workflows;
+- specialized industry solutions;
+- managed AI intelligence services;
+- private organizational implementations.
 
-The long-term objective is to transform this engineering foundation into a complete AI Data Intelligence product.
+The long-term objective is to transform this engineering foundation into a complete **AI Data Intelligence Product Platform**.
 
 ---
 
 # 🧠 Core Problem
 
-Organizations generate massive amounts of information but still struggle to transform data into decisions.
+Organizations generate massive amounts of information but still struggle to transform data into strategic decisions.
 
 Common challenges:
 
-* disconnected data sources;
-* manual analysis processes;
-* dependence on technical teams;
-* static dashboards;
-* slow decision cycles;
-* difficulty extracting business insights.
+- disconnected data sources;
+- manual analysis processes;
+- dependency on technical teams;
+- static dashboards;
+- slow decision cycles;
+- difficulty extracting business insights;
+- lack of autonomous intelligence systems.
 
 The platform aims to reduce this gap by enabling natural language interaction with enterprise intelligence systems.
 
@@ -102,26 +108,276 @@ The platform provides an intelligent layer between users and complex data enviro
 
 Instead of requiring:
 
-```text
-SQL knowledge
+SQL Knowledge
 
-+
+Technical Analysis
 
-Technical analysis
+Manual Interpretation
 
-+
-
-Manual interpretation
-```
 
 Users interact through:
 
-```text
+
 Natural Language Questions
+
+    ↓
+
+AI Understanding
+
+    ↓
+
+Reasoning
+
+    ↓
+
+Goal Definition
+
+    ↓
+
+Planning
+
+    ↓
+
+Execution
+
+    ↓
+
+Evaluation
+
+    ↓
+
+Decision Intelligence
+
+
+The system transforms questions into intelligent workflows executed by specialized AI capabilities.
+
+# 🏗️ Complete Future Platform Vision
+
+The long-term architecture is designed around autonomous cognitive AI agents.
+
+The platform evolution follows the model:
+
+                          USER
+
+                           |
+
+                           v
+
+                Natural Language Interface
+
+                           |
+
+                           v
+
+              AI Intelligence Orchestrator
+
+                           |
+
+          +----------------+----------------+
+
+          |                                 |
+
+          v                                 v
+
+
+   Reasoning Layer                  Memory Layer
+
+
+          |                                 |
+
+          |                                 |
+
+          v                                 v
+
+
+  Goal Understanding              User Context
+
+  Intent Detection                Historical Knowledge
+
+  Planning Strategy               Learning Context
+
+
+          |
+
+          v
+
+
+      Cognitive Agent Runtime
+
+
+          |
+
+          v
+
+
+      Goal Driven Planning
+
+
+          |
+
+          v
+
+
+    Autonomous Replanning
+
+
+          |
+
+          v
+
+
+      Execution Engine
+
+
+          |
+
+ +--------+---------+---------+---------+
+
+ |        |         |         |         |
+
+ v        v         v         v         v
+
+Data RAG Search Analytics External
+
+Agent Agent Agent Agent Tools
+ |        |         |         |
+
+ +--------+---------+---------+
+
+          |
+
+          v
+
+
+    Intelligent Tool Ecosystem
+
+
+          |
+
+          v
+Enterprise Data Sources
+
+SQL | APIs | Files | Documents | Databases
+          |
+
+          v
+
+
+    Intelligent Decision Output
+
+
+The final objective is to create an autonomous AI intelligence ecosystem capable of combining:
+
+- perception;
+- reasoning;
+- planning;
+- execution;
+- evaluation;
+- memory;
+- continuous improvement.
+
+---
+
+# 📌 Current Development Stage
+
+Current milestone:
+
+## V1.14 — Advanced Agent Intelligence
+
+---
+
+Latest stable release:
+
+## v1.13.0
+
+---
+
+Current branch:
+
+feature/v1.14-advanced-agent-intelligence
+
+
+---
+
+Current status:
+
+V1.13 RELEASED
 
 ↓
 
-AI Understanding
+V1.14 IN DEVELOPMENT
+
+
+---
+
+## V1.13 Achievement
+
+The previous milestone introduced:
+
+# Autonomous Replanning
+
+The platform gained the ability to evaluate execution lifecycle, analyze outcomes and adapt execution strategies.
+
+Delivered:
+
+✅ Execution Lifecycle
+
+✅ Execution State Management
+
+✅ Execution Event Tracking
+
+✅ Execution Feedback Loop
+
+✅ Execution Metrics
+
+✅ Execution Observability
+
+✅ Execution Trace
+
+✅ Plan Evaluation
+
+✅ Replanning Decision Engine
+
+✅ Autonomous Replanner
+
+✅ Adaptive Replanning Policy
+
+✅ Runtime Replanning Controller
+
+✅ Autonomous Execution Runtime
+
+Result:
+
+The agent evolved from:
+
+Plan Execution
+
+
+into:
+
+
+Adaptive Autonomous Execution
+
+
+---
+
+# 🚀 V1.14 — Advanced Agent Intelligence
+
+Current development phase:
+
+The objective of V1.14 is to evolve the autonomous agent architecture into a more intelligent decision system.
+
+Main focus:
+
+- deeper reasoning capabilities;
+- advanced decision intelligence;
+- execution optimization;
+- experience-based improvement;
+- memory-aware intelligence foundations.
+
+The evolution target:
+
+Goal
 
 ↓
 
@@ -137,288 +393,58 @@ Execution
 
 ↓
 
-Decision Intelligence
-```
+Evaluation
+
+↓
+
+Memory
+
+↓
+
+Optimization
+
+↓
+
+Continuous Improvement
+
 
 ---
 
-# 🏗️ Complete Future Platform Vision
-
-The long-term architecture is designed around autonomous AI agents:
-
-```text
-                              USER
-
-                               |
-
-                               v
-
-                    Natural Language Interface
-
-                               |
-
-                               v
-
-                  AI Intelligence Orchestrator
-
-                               |
-
-              +----------------+----------------+
-
-              |                                 |
-
-              v                                 v
-
-
-       Reasoning Layer                  Memory Layer
-
-
-              |                                 |
-
-              |                                 |
-
-              v                                 v
-
-
-      Goal Understanding              User Context
-
-      Intent Detection                Historical Knowledge
-
-      Planning Strategy               Learning Context
-
-
-              |
-
-              v
-
-
-              Autonomous Agent Runtime
-
-
-              |
-
-              v
-
-
-          Goal Driven Planning
-
-
-              |
-
-              v
-
-
-        Autonomous Replanning
-
-
-              |
-
-              v
-
-
-          Execution Engine
-
-
-              |
-
-     +--------+---------+---------+---------+
-
-     |        |         |         |         |
-
-     v        v         v         v         v
-
-
- Data     RAG      Search   Analytics  External
-
- Agent   Agent     Agent     Agent      Tools
-
-
-     |        |         |         |
-
-
-     +--------+---------+---------+
-
-
-              |
-
-              v
-
-
-        Intelligent Tool Ecosystem
-
-
-              |
-
-              v
-
-
- Enterprise Data Sources
-
-
- SQL | APIs | Files | Documents | Databases
-
-
-              |
-
-              v
-
-
-        Intelligent Decision Output
-```
-
----
-
-# 📌 Current Development Stage
-
-Current milestone:
-
-```text
-V1.13 — Autonomous Replanning
-```
-
-Latest stable release:
-
-```text
-v1.12.0
-```
-
-Current focus:
-
-```text
-Transforming goal-driven agents into adaptive autonomous agents.
-```
 # 🏗️ Current Platform Architecture
 
-The current system represents the transition from a traditional AI pipeline into an autonomous agent architecture.
+The current system represents a **Cognitive Agent Architecture**.
 
-The platform currently contains:
+The architecture is organized through independent intelligence layers:
 
-* Intelligence Layer
-* Reasoning Layer
-* Planning Layer
-* Execution Layer
-* Tool Intelligence Layer
-* Data Intelligence Layer
-* Knowledge Intelligence Layer
+Perception Layer
 
-Current architecture:
+    ↓
 
-```text
-                         User Request
+Reasoning Layer
 
-                              |
+    ↓
 
-                              v
+Planning Layer
 
+    ↓
 
-                    Intelligence System
+Execution Layer
 
+    ↓
 
-                              |
+Evaluation Layer
 
-                              v
+    ↓
 
+Memory Layer
 
-                       Agent Runtime
+    ↓
 
+Learning Layer
 
-                              |
 
-                              v
+Each layer has a specific cognitive responsibility and can evolve independently through capability-driven development.
 
-
-                     Reasoning Engine
-
-
-                              |
-
-                              v
-
-
-                    Reasoning Result
-
-
-                              |
-
-                              v
-
-
-                    Execution Context
-
-
-                              |
-
-                              v
-
-
-                     Planner Strategy
-
-
-                              |
-
-                              v
-
-
-              Dynamic Execution Planner
-
-
-                              |
-
-                              v
-
-
-                  Goal Based Execution Plan
-
-
-                              |
-
-                              v
-
-
-                    Execution Engine
-
-
-                              |
-
-                              v
-
-
-                   Agent Controller
-
-
-                              |
-
-                              v
-
-
-                     Agent Router
-
-
-                              |
-
-                              v
-
-
-                    Tool Intelligence Layer
-
-
-                              |
-
-                              v
-
-
-                  Specialized Capabilities
-
-
-                              |
-
-                              v
-
-
-                 Intelligent Final Response
-```
-
----
 
 # 🧠 Reasoning Intelligence Layer
 
@@ -426,57 +452,56 @@ The Reasoning Layer introduced the ability for the system to interpret requests 
 
 Before reasoning:
 
-```text
 Question
 
-    |
+|
 
-    v
+v
 
 Planner
 
-    |
+|
 
-    v
+v
 
 Execution
-```
+
 
 After Reasoning Layer:
 
-```text
+
 Question
 
-    |
+|
 
-    v
+v
 
 Reasoning Engine
 
-    |
+|
 
-    v
+v
 
 Understanding
 
-    |
+|
 
-    v
+v
 
 Strategy Definition
 
-    |
+|
 
-    v
+v
 
 Planning
 
-    |
+|
 
-    v
+v
 
 Execution
-```
+
 
 The Reasoning Engine is responsible for:
 
@@ -490,86 +515,99 @@ The Reasoning Engine is responsible for:
 
 ✅ Confidence evaluation
 
+The reasoning layer establishes the foundation for cognitive decision-making before actions are executed.
+
 ---
 
 # 🎯 Goal Driven Planning Layer
 
-The Goal Driven Planning architecture transformed static execution flows into dynamic goal-oriented plans.
+The Goal Driven Planning architecture transformed static execution flows into dynamic objective-oriented plans.
 
 Previous model:
 
-```text
+
 User Question
 
-      |
+  |
 
-      v
+  v
 
 Execution Planner
 
-      |
+  |
 
-      v
+  v
 
 Fixed Steps
-
 
 route_request
 
 execute_tool
 
 generate_response
-```
+
 
 Current model:
 
-```text
-User Question
 
-      |
+User Request
 
-      v
+  |
+
+  v
 
 Reasoning Context
 
-      |
+  |
 
-      v
+  v
 
 Planner Strategy
 
-      |
+  |
 
-      v
+  v
 
 Goal Understanding
 
-      |
+  |
 
-      v
+  v
 
 Dynamic Planning
 
-      |
+  |
 
-      v
+  v
 
 Goal Based Execution Plan
 
-      |
+  |
 
-      v
+  v
 
 Execution Engine
-```
 
-The planner can now understand:
 
-* user objective;
-* request type;
-* required capabilities;
-* execution strategy;
-* expected outcome.
+The planning system can understand:
+
+- user objective;
+- request type;
+- required capabilities;
+- execution strategy;
+- expected outcome.
+
+The platform evolved from:
+
+
+Task Execution
+
+
+into:
+
+
+Goal Driven Intelligence
+
 
 ---
 
@@ -615,101 +653,87 @@ The execution plan represents the strategy required to solve a request.
 
 A plan contains:
 
-```text
+
 Goal
 
-    |
+|
 
-    v
+v
 
 Execution Steps
 
-    |
+|
 
-    v
+v
 
 Required Tools
 
-    |
+|
 
-    v
+v
 
 Expected Outcome
-```
+
+
+The execution planning architecture provides the foundation for adaptive autonomous workflows.
 
 ---
 
 # 🔄 Autonomous Replanning Layer (V1.13)
 
-The current development milestone focuses on evolving the planner into an adaptive autonomous system.
+The Autonomous Replanning capability introduced adaptive execution into the agent architecture.
 
-Objective:
+The system can now observe execution lifecycle events, evaluate outcomes and determine when a strategy adjustment is required.
 
-Create agents capable of evaluating their own execution process and adapting plans when necessary.
+Evolution:
 
-Future flow:
 
-```text
 Initial Goal
 
+  |
 
-      |
-
-      v
-
+  v
 
 Planning
 
+  |
 
-      |
-
-      v
-
+  v
 
 Execution
 
+  |
 
-      |
-
-      v
-
+  v
 
 Observation
 
+  |
 
-      |
-
-      v
-
+  v
 
 Evaluation
 
+  |
 
-      |
-
-      v
-
+  v
 
 Decision
 
+  |
 
-      |
-
-      v
-
+  v
 
 Replanning
 
+  |
 
-      |
-
-      v
-
+  v
 
 Improved Execution
-```
 
-The autonomous replanning layer will enable:
+
+The autonomous replanning layer provides:
 
 ✅ Plan evaluation
 
@@ -721,81 +745,157 @@ The autonomous replanning layer will enable:
 
 ✅ Adaptive workflows
 
+✅ Execution recovery
+
+The agent is no longer limited to following predefined plans.
+
+It can evaluate execution conditions and adapt its strategy according to observed results.
+
+---
+
+# 🧠 Cognitive Agent Architecture
+
+The platform evolution is guided by a cognitive model.
+
+The agent lifecycle follows:
+
+
+Perception
+
+↓
+
+Reasoning
+
+↓
+
+Planning
+
+↓
+
+Execution
+
+↓
+
+Evaluation
+
+↓
+
+Memory
+
+↓
+
+Learning
+
+
+Each version strengthens a specific cognitive capability.
+
+The architecture principle is:
+
+> Evolution happens through capabilities, not isolated features.
+
 ---
 
 # 🔧 Intelligent Tool Ecosystem
 
-The platform uses a modular tool architecture.
+The platform uses a modular tool architecture designed around standardized capability contracts.
 
-Each capability follows a standardized contract:
+Each capability follows a defined structure:
 
-```text
 Base Tool
 
+|
 
-    |
++----------------+
 
-    +----------------+
+|
 
-    |                |
++----------------+
 
-    v                v
+|
 
+v
 
-Metadata          Execution
+Metadata
 
+|
 
-    |
+v
 
-    v
+Execution
 
+|
+
+v
 
 Capability Discovery
-```
+
+The Tool Ecosystem allows agents to discover, select and execute specialized capabilities without changing the core architecture.
 
 Current tool architecture:
 
-```text
-                    Tool Registry
+                Tool Registry
 
 
-                          |
+                      |
 
-          +---------------+---------------+
+      +---------------+---------------+
 
-          |               |               |
+      |               |               |
 
-          v               v               v
-
-
-    Analytics Tool     RAG Tool      Search Tool
+      v               v               v
 
 
-          |
-
-          v
+Analytics Tool     RAG Tool      Search Tool
 
 
-     Data Intelligence
+      |
+
+      v
 
 
-          |
-
-          v
+ Data Intelligence
 
 
-      Business Insights
-```
+      |
 
-The architecture allows future expansion without modifying the core agent system.
+      v
+
+
+  Business Insights
+
+  
+The architecture supports future expansion through:
+
+- new specialized tools;
+- external integrations;
+- domain-specific capabilities;
+- autonomous capability selection.
+
+The agent architecture separates:
+
+
+Decision
+
+↓
+
+Capability Selection
+
+↓
+
+Tool Execution
+
+↓
+
+Result Evaluation
+
+
+This enables scalable intelligence workflows.
 
 ---
 
 # 📂 Current Project Structure
 
-```text
 llm-data-intelligence-system/
-
 
 ├── src/
 
@@ -805,101 +905,122 @@ llm-data-intelligence-system/
 
 │
 
-│   ├── controller/
+│ ├── controller/
 
-│   │
+│ │
 
-│   │   └── agent_controller.py
+│ │ └── agent_controller.py
 
-│   │
+│ │
 
-│   ├── runtime/
+│ ├── runtime/
 
-│   │
+│ │
 
-│   │   ├── agent_runtime.py
+│ │ ├── agent_runtime.py
 
-│   │   └── execution_context.py
+│ │ └── execution_context.py
 
-│   │
+│ │
 
-│   ├── reasoning/
+│ ├── reasoning/
 
-│   │
+│ │
 
-│   │   ├── reasoning_engine.py
+│ │ ├── reasoning_engine.py
 
-│   │   └── reasoning_result.py
+│ │ └── reasoning_result.py
 
-│   │
+│ │
 
-│   ├── planning/
+│ ├── planning/
 
-│   │
+│ │
 
-│   │   ├── dynamic_execution_planner.py
+│ │ ├── dynamic_execution_planner.py
 
-│   │   ├── execution_plan.py
+│ │ ├── execution_plan.py
 
-│   │   ├── goal.py
+│ │ ├── goal.py
 
-│   │   ├── goal_builder.py
+│ │ ├── goal_builder.py
 
-│   │   ├── goal_planner.py
+│ │ ├── goal_planner.py
 
-│   │   └── planning_policy.py
+│ │ └── planning_policy.py
 
-│   │
+│ │
 
-│   ├── router/
+│ ├── execution/
 
-│   │
+│ │
 
-│   │   └── agent_router.py
+│ │ ├── execution_engine.py
 
-│   │
+│ │ ├── execution_state.py
 
-│   └── tools/
+│ │ ├── execution_feedback.py
 
-│       ├── base_tool.py
+│ │ └── execution_trace.py
 
-│       ├── tool_registry.py
+│ │
 
-│       ├── tool_executor.py
+│ ├── intelligence/
 
-│       └── analytics_tool.py
+│ │
 
+│ │ ├── adaptive_replanning_policy.py
+
+│ │ ├── autonomous_replanner.py
+
+│ │ └── replanning_controller.py
+
+│ │
+
+│ ├── router/
+
+│ │
+
+│ │ └── agent_router.py
+
+│ │
+
+│ └── tools/
+
+│ ├── base_tool.py
+
+│ ├── tool_registry.py
+
+│ ├── tool_executor.py
+
+│ └── analytics_tool.py
 
 ├── rag/
 
-│
-
 ├── embeddings/
-
-│
 
 ├── analysis/
 
-│
-
 ├── services/
-
-│
 
 ├── application/
 
+├── models/
+
+├── data/
 
 ├── tests/
 
-
 └── docs/
-```
+
+
+The project structure reflects the evolution from a traditional AI application into a modular cognitive agent platform.
 
 ---
 
 # 🏛️ Engineering Architecture Principles
 
-The platform follows:
+The platform follows permanent engineering principles:
 
 ## Modularity
 
@@ -907,27 +1028,75 @@ Each intelligence capability exists as an independent component.
 
 ## Separation of Responsibilities
 
-Reasoning, planning, execution and tools have independent responsibilities.
+Reasoning, planning, execution, evaluation and tools have independent responsibilities.
 
 ## Scalability
 
-New agents and tools can be added without redesigning the foundation.
+New agents and capabilities can be added without redesigning the foundation.
 
 ## Reproducibility
 
-Every execution should be traceable and testable.
+Every execution should be traceable, observable and testable.
 
 ## Product-Oriented Engineering
 
 The architecture is designed for future enterprise deployment.
 
-```
-```
+## Architecture Before Code
+
+Every capability starts with:
+
+- architecture definition;
+- decision records;
+- contracts;
+- validation strategy.
+
+---
+
+# 🔄 Agent Engineering Lifecycle (AEL)
+
+All new capabilities follow the official engineering lifecycle:
+
+Capability Discovery
+
+    ↓
+
+Architecture Modeling
+
+    ↓
+
+Architecture Decision Record
+
+    ↓
+
+Contract Design
+
+    ↓
+
+Implementation
+
+    ↓
+
+Validation
+
+    ↓
+
+Documentation
+
+    ↓
+
+Release
+
+
+This process guarantees controlled architectural evolution.
+
 # 📈 Project Evolution History
 
-The LLM Data Intelligence System has evolved through multiple architectural milestones.
+The **LLM Data Intelligence System** has evolved through multiple architectural milestones.
 
-Each version represents an important step toward building an autonomous AI intelligence platform.
+Each version represents a major step toward building a Cognitive Agent Intelligence Platform.
+
+The project evolution is guided by capability-driven architecture.
 
 ---
 
@@ -969,6 +1138,8 @@ Delivered:
 
 ✅ Analytical capabilities
 
+The platform established the foundation for intelligent data interaction.
+
 ---
 
 # Phase 2 — Knowledge Intelligence and RAG
@@ -993,39 +1164,38 @@ Delivered:
 
 Architecture:
 
-```text
 Documents
 
-    |
+|
 
-    v
+v
 
 Processing Pipeline
 
-    |
+|
 
-    v
+v
 
 Embedding Layer
 
-    |
+|
 
-    v
+v
 
 Vector Knowledge Base
 
-    |
+|
 
-    v
+v
 
 Retrieval System
 
-    |
+|
 
-    v
+v
 
 LLM Intelligence
-```
+
 
 ---
 
@@ -1049,19 +1219,22 @@ Delivered:
 
 The platform evolved from:
 
-```text
 Data Processing
-```
+
 
 into:
 
-```text
+
 Data Understanding System
-```
+
 
 ---
 
 # Phase 4 — Agent Intelligence Platform
+
+The project transitioned from pipeline-based intelligence into an agent-based architecture.
+
+---
 
 ## V1.8 — Agent Intelligence Expansion
 
@@ -1074,6 +1247,8 @@ Delivered:
 ✅ Routing metrics
 
 ✅ Adaptive policies
+
+The system gained intelligent capability selection.
 
 ---
 
@@ -1091,17 +1266,16 @@ Delivered:
 
 ✅ Analytics Tool
 
-The system became:
+The system evolved from:
 
-```text
 Traditional AI Pipeline
 
-          |
 
-          v
+into:
+
 
 Agent Based Intelligence Platform
-```
+
 
 ---
 
@@ -1113,19 +1287,21 @@ Delivered:
 
 ✅ Execution Planner
 
+✅ Execution Context
+
 ✅ Execution Engine
 
 ✅ Multi-tool orchestration
 
 ✅ Plan execution foundation
 
-The platform gained the ability to coordinate multiple capabilities.
+The platform gained the ability to coordinate multiple capabilities through intelligent execution planning.
 
 ---
 
 # Phase 6 — Reasoning Intelligence
 
-## V1.11 — Agent Reasoning Layer
+## V1.11 — Goal Driven Agent Reasoning
 
 Delivered:
 
@@ -1135,47 +1311,49 @@ Delivered:
 
 ✅ Intent understanding
 
-✅ Capability mapping
+✅ Goal identification
+
+✅ Capability awareness
 
 ✅ Strategy definition
 
 The system gained:
 
-```text
-Understanding before execution
-```
+Understanding Before Execution
+
 
 ---
 
 # Phase 7 — Goal Driven Intelligence
 
-## V1.12 — Goal Driven Planning Foundation
+## V1.12 — Goal Driven Planning
 
 Delivered:
 
-✅ Goal representation
+✅ Goal Model
 
 ✅ Goal Builder
 
 ✅ Goal Planner
 
-✅ Dynamic Execution Planner
+✅ Planner Strategy
 
 ✅ Planning Policy
 
-✅ Goal-oriented execution plans
+✅ Dynamic Execution Planner
+
+✅ Runtime Goal Integration
 
 The platform evolved from:
 
-```text
 Task Execution
-```
+
 
 into:
 
-```text
+
 Objective Driven Intelligence
-```
+
 
 ---
 
@@ -1183,123 +1361,100 @@ Objective Driven Intelligence
 
 ## V1.13 — Autonomous Replanning
 
-Current development:
+Status:
 
-Objective:
+RELEASED
 
-Create agents capable of evaluating execution, adapting strategies and improving plans autonomously.
+Release:
 
-Future capabilities:
-
-✅ Self-evaluation
-
-✅ Plan correction
-
-✅ Failure recovery
-
-✅ Adaptive execution
-
-✅ Autonomous workflows
-
----
-
-# 🗺️ Long-Term Product Roadmap
-
-The long-term evolution:
-
-```text
-V1.10
-
-Multi Tool Intelligence
-
-        |
-
-        v
+v1.13.0
 
 
-V1.11
+Delivered:
 
-Reasoning Layer
+✅ Execution Lifecycle
 
-        |
+✅ Execution State Management
 
-        v
+✅ Execution Event Tracking
 
+✅ Execution Feedback Loop
 
-V1.12
+✅ Execution Metrics
 
-Goal Driven Planning
+✅ Execution Observability
 
-        |
+✅ Execution Trace
 
-        v
+✅ Plan Evaluation
 
+✅ Replanning Decision Engine
 
-V1.13
+✅ Autonomous Replanner
 
-Autonomous Replanning
+✅ Adaptive Replanning Policy
 
-        |
+✅ Runtime Replanning Controller
 
-        v
+✅ Autonomous Execution Runtime
 
+Result:
 
-V1.14
+The agent evolved from:
 
-Memory-Aware Intelligence
-
-        |
-
-        v
-
-
-V1.15
-
-Multi-Agent Collaboration
-
-        |
-
-        v
+Execution Oriented Planning
 
 
-V2.0
+into:
 
-Enterprise Autonomous AI Platform
-```
+
+Adaptive Autonomous Execution
+
+
+The system can observe execution, evaluate results and adjust strategies when necessary.
 
 ---
 
-# 🧮 Current Platform Maturity
+# 🧭 Current Platform Maturity
 
 Estimated engineering maturity:
+
+---
 
 ## Architecture
 
 █████████░ 90%
 
-The core architecture is established:
+
+The core cognitive architecture is established:
 
 ✅ Agent Runtime
 
-✅ Planning
+✅ Reasoning Layer
 
-✅ Reasoning
-
-✅ Tools
+✅ Planning Layer
 
 ✅ Execution Engine
 
+✅ Tool Ecosystem
+
+✅ Autonomous Replanning
+
+✅ Cognitive Architecture Principles
+
 Remaining evolution:
 
-* autonomous behaviors;
-* advanced memory;
-* multi-agent collaboration.
+- advanced memory systems;
+- deeper reasoning capabilities;
+- continuous improvement;
+- multi-agent collaboration.
 
 ---
 
 ## AI Intelligence
 
 ████████░░ 80%
+
 
 Implemented:
 
@@ -1309,19 +1464,23 @@ Implemented:
 
 ✅ Reasoning
 
-✅ Planning
+✅ Goal Driven Planning
 
-Future:
+✅ Autonomous Execution
 
-* deeper reasoning;
-* self-improvement;
-* autonomous decisions.
+Future evolution:
+
+- advanced decision intelligence;
+- memory-aware reasoning;
+- experience-based optimization;
+- autonomous learning workflows.
 
 ---
 
 ## Engineering Quality
 
-█████████░ 90%
+█████████░ 95%
+
 
 Implemented:
 
@@ -1333,13 +1492,21 @@ Implemented:
 
 ✅ Version control
 
-✅ Architectural decisions
+✅ Architecture Decision Records
+
+✅ Capability-driven development
 
 Current validation:
 
-```text
-248 automated tests passing
-```
+326 automated tests passing
+
+Status:
+
+✅ Stable architecture
+
+✅ No regression detected
+
+✅ Release process established
 
 ---
 
@@ -1347,25 +1514,28 @@ Current validation:
 
 ██████░░░░ 60%
 
+
 Current:
 
 ✅ Technology foundation
 
-✅ Architecture
+✅ Cognitive Agent Architecture
 
-✅ Prototype capability
+✅ Autonomous execution capability
 
-✅ Core intelligence
+✅ Prototype intelligence platform
+
+✅ Core AI workflows
 
 Remaining:
 
-* user interface;
-* authentication;
-* deployment;
-* enterprise security;
-* billing;
-* monitoring;
-* customer workflows.
+- user interface;
+- authentication;
+- deployment infrastructure;
+- enterprise security;
+- billing;
+- monitoring;
+- customer workflows.
 
 ---
 
@@ -1373,19 +1543,18 @@ Remaining:
 
 Current estimated maturity:
 
-```text
-████████░░
+████████░░ ≈ 80%
 
-≈ 80%
-```
 
-The platform already contains the foundations required for a production-oriented AI intelligence product.
+The platform already contains the architectural foundations required for a production-oriented AI intelligence product.
+
+The next evolution focuses on increasing autonomy, intelligence quality and operational reliability.
 
 ---
 
 # 💰 Product Value Perspective
 
-The LLM Data Intelligence System should be evaluated as a technology platform, not only as a software repository.
+The **LLM Data Intelligence System** should be evaluated as a technology platform, not only as a software repository.
 
 The value comes from:
 
@@ -1393,15 +1562,17 @@ The value comes from:
 
 Created assets:
 
-✅ Proprietary architecture
+✅ Proprietary cognitive architecture
 
 ✅ Agent orchestration design
 
-✅ Planning system
-
 ✅ Reasoning workflow
 
-✅ Tool ecosystem
+✅ Goal-driven planning system
+
+✅ Autonomous replanning engine
+
+✅ Intelligent tool ecosystem
 
 ✅ Data intelligence foundation
 
@@ -1409,19 +1580,22 @@ Created assets:
 
 ## Technology Value
 
-A platform with:
+A platform combining:
 
-* LLM integration;
-* RAG architecture;
-* autonomous agents;
-* enterprise intelligence workflows;
+- LLM integration;
+- RAG architecture;
+- autonomous agents;
+- reasoning systems;
+- planning engines;
+- enterprise intelligence workflows.
 
-can represent significant value depending on:
+The potential value depends on:
 
-* maturity;
-* market validation;
-* customers;
-* deployment capability.
+- technical maturity;
+- market validation;
+- customer adoption;
+- deployment capability;
+- business model.
 
 ---
 
@@ -1433,10 +1607,11 @@ Possible future products:
 
 Organizations ask questions and receive:
 
-* analysis;
-* explanations;
-* insights;
-* recommendations.
+- analysis;
+- explanations;
+- insights;
+- recommendations;
+- decision support.
 
 ---
 
@@ -1444,10 +1619,10 @@ Organizations ask questions and receive:
 
 AI assistant connected to:
 
-* documents;
-* databases;
-* internal systems;
-* operational knowledge.
+- documents;
+- databases;
+- internal systems;
+- operational knowledge.
 
 ---
 
@@ -1455,10 +1630,12 @@ AI assistant connected to:
 
 AI agents capable of:
 
-* monitoring;
-* analyzing;
-* planning;
-* recommending actions.
+- monitoring;
+- analyzing;
+- reasoning;
+- planning;
+- recommending actions;
+- adapting strategies.
 
 ---
 
@@ -1468,37 +1645,33 @@ Possible commercialization:
 
 ## Enterprise Licensing
 
-Private deployment inside organizations.
-
----
+Private AI deployments inside organizations.
 
 ## SaaS Platform
 
-Subscription-based AI intelligence service.
-
----
+Subscription-based AI intelligence services.
 
 ## Industry Solutions
 
-Specialized versions for:
+Specialized AI platforms for:
 
-* finance;
-* healthcare;
-* logistics;
-* retail;
-* operations.
-
----
+- finance;
+- healthcare;
+- logistics;
+- retail;
+- operations.
 
 ## AI Automation Services
 
-Custom intelligent workflows.
+Custom intelligent workflows powered by autonomous agents.
 
 ---
 
 # 🔐 Intellectual Property Protection
 
 The project follows a proprietary development model.
+
+The objective is to preserve the architectural assets, engineering decisions and future product strategy.
 
 Protection strategy:
 
@@ -1512,12 +1685,15 @@ Protection strategy:
 
 ✅ Ownership tracking
 
+✅ Release traceability
+
 Future steps:
 
-* trademark strategy;
-* legal protection;
-* commercial agreements;
-* product registration.
+- trademark strategy;
+- legal protection;
+- commercial agreements;
+- product registration;
+- enterprise contracts.
 
 ---
 
@@ -1525,41 +1701,165 @@ Future steps:
 
 The ultimate objective is to create an autonomous AI intelligence ecosystem capable of:
 
-```text
 Understanding Questions
 
-        |
+    |
 
-        v
+    v
 
 Reasoning About Objectives
 
-        |
+    |
 
-        v
+    v
 
 Planning Solutions
 
-        |
+    |
 
-        v
+    v
 
-Executing Specialized Agents
+Executing Specialized Capabilities
 
-        |
+    |
 
-        v
+    v
 
-Learning From Results
+Evaluating Results
 
-        |
+    |
 
-        v
+    v
+
+Learning From Experience
+
+    |
+
+    v
 
 Generating Business Decisions
-```
 
-The LLM Data Intelligence System is evolving from a software project into a complete AI product foundation.
+
+The **LLM Data Intelligence System** is evolving from a software project into a complete AI product foundation.
+
+The final vision is a platform where intelligent agents can:
+
+- understand objectives;
+- reason about possible solutions;
+- coordinate capabilities;
+- execute workflows;
+- evaluate outcomes;
+- improve future decisions.
+
+---
+
+# 🧠 Cognitive Evolution Roadmap
+
+The architectural evolution follows:
+
+Data Intelligence
+
+    ↓
+
+Knowledge Intelligence
+
+    ↓
+
+Agent Intelligence
+
+    ↓
+
+Multi Tool Intelligence
+
+    ↓
+
+Reasoning Intelligence
+
+    ↓
+
+Goal Driven Planning
+
+    ↓
+
+Autonomous Replanning
+
+    ↓
+
+Advanced Agent Intelligence
+
+    ↓
+
+Memory-Aware Reasoning
+
+    ↓
+
+Autonomous Multi-Agent Intelligence
+
+    ↓
+
+Enterprise Autonomous AI Platform
+
+
+---
+
+# 🚀 Future Development Roadmap
+
+## V1.14 — Advanced Agent Intelligence
+
+Status:
+
+IN DEVELOPMENT
+
+Objective:
+
+Build advanced cognitive capabilities focused on:
+
+- deeper reasoning;
+- decision intelligence;
+- execution optimization;
+- autonomous improvement foundations.
+
+---
+
+## V1.15 — Memory-Aware Reasoning
+
+Objective:
+
+Introduce:
+
+- episodic memory;
+- working memory;
+- semantic memory;
+- experience retrieval;
+- context-aware decisions.
+
+---
+
+## V1.16 — Learning & Autonomous Multi-Agent Intelligence
+
+Objective:
+
+Enable:
+
+- collaboration between agents;
+- experience-based learning;
+- multi-agent workflows;
+- autonomous coordination.
+
+---
+
+## V2.0 — Enterprise Autonomous AI Platform
+
+Objective:
+
+Transform the platform into a complete enterprise AI intelligence ecosystem.
+
+Capabilities:
+
+- autonomous workflows;
+- enterprise integrations;
+- scalable deployments;
+- intelligent business operations.
 
 ---
 
@@ -1567,27 +1867,36 @@ The LLM Data Intelligence System is evolving from a software project into a comp
 
 Current version:
 
-```text
-V1.13 — Autonomous Replanning
-```
+V1.14 — Advanced Agent Intelligence
+
 
 Latest stable release:
 
-```text
-v1.12.0
-```
+
+v1.13.0
+
 
 Current state:
 
-```text
+
 ACTIVE DEVELOPMENT
-```
+
+
+Branch:
+
+
+feature/v1.14-advanced-agent-intelligence
+
+
+Tests:
+
+
+326 automated tests passing
+
 
 Project direction:
 
-```text
-Building the next generation of autonomous AI data intelligence platforms.
-```
+Building the next generation of autonomous cognitive AI data intelligence platforms.
 
 ---
 
@@ -1595,13 +1904,48 @@ Building the next generation of autonomous AI data intelligence platforms.
 
 The **LLM Data Intelligence System** represents a long-term engineering effort to create a proprietary AI platform combining:
 
-* Data Intelligence
-* Retrieval-Augmented Generation
-* Reasoning
-* Planning
-* Autonomous Agents
-* Intelligent Decision Systems
+- Data Intelligence
+- Retrieval-Augmented Generation
+- Reasoning
+- Planning
+- Autonomous Agents
+- Intelligent Decision Systems
+- Cognitive Architectures
 
 The goal is not only to answer questions.
 
-The goal is to build an AI system capable of understanding objectives, solving complex problems and generating measurable value.
+The goal is to build an AI system capable of understanding objectives, solving complex problems, adapting execution strategies and generating measurable business value.
+
+---
+
+# 🏁 Project Identity
+
+Architecture:
+
+Cognitive Agent Architecture
+
+
+Development Model:
+
+
+Capability Driven Architecture
+
+
+Engineering Process:
+
+
+Agent Engineering Lifecycle (AEL)
+
+
+Permanent Principles:
+
+
+Cognitive Architecture Principles (CAP)
+
+
+Last Update:
+
+
+12-07-2026
+
+
