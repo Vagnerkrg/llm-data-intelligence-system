@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Dict, Any, List
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 @dataclass
@@ -21,7 +21,7 @@ class ExecutionTrace:
     )
 
     created_at: datetime = field(
-        default_factory=datetime.utcnow
+        default_factory=lambda: datetime.now(timezone.utc)
     )
 
 
@@ -38,7 +38,7 @@ class ExecutionTrace:
             {
                 "type": event_type,
                 "payload": payload,
-                "timestamp": datetime.utcnow()
+                "timestamp": datetime.now(timezone.utc)
             }
         )
 
