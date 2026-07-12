@@ -153,118 +153,128 @@ The system transforms questions into intelligent workflows executed by specializ
 
 # 🏗️ Complete Future Platform Vision
 
-The long-term architecture is designed around autonomous cognitive AI agents.
+The long-term architecture is designed around autonomous AI agents:
 
-The platform evolution follows the model:
+```text
+                              USER
 
-                          USER
+                               |
 
-                           |
+                               v
 
-                           v
+                    Natural Language Interface
 
-                Natural Language Interface
+                               |
 
-                           |
+                               v
 
-                           v
+                  AI Intelligence Orchestrator
 
-              AI Intelligence Orchestrator
+                               |
 
-                           |
+              +----------------+----------------+
 
-          +----------------+----------------+
+              |                                 |
 
-          |                                 |
-
-          v                                 v
-
-
-   Reasoning Layer                  Memory Layer
+              v                                 v
 
 
-          |                                 |
-
-          |                                 |
-
-          v                                 v
+       Reasoning Layer                  Memory Layer
 
 
-  Goal Understanding              User Context
+              |                                 |
 
-  Intent Detection                Historical Knowledge
+              |                                 |
 
-  Planning Strategy               Learning Context
-
-
-          |
-
-          v
+              v                                 v
 
 
-      Cognitive Agent Runtime
+      Goal Understanding              User Context
+
+      Intent Detection                Historical Knowledge
+
+      Planning Strategy               Learning Context
 
 
-          |
+              |
 
-          v
-
-
-      Goal Driven Planning
+              v
 
 
-          |
-
-          v
+              Autonomous Agent Runtime
 
 
-    Autonomous Replanning
+              |
+
+              v
 
 
-          |
-
-          v
+          Goal Driven Planning
 
 
-      Execution Engine
+              |
+
+              v
 
 
-          |
-
- +--------+---------+---------+---------+
-
- |        |         |         |         |
-
- v        v         v         v         v
-
-Data RAG Search Analytics External
-
-Agent Agent Agent Agent Tools
- |        |         |         |
-
- +--------+---------+---------+
-
-          |
-
-          v
+        Autonomous Replanning
 
 
-    Intelligent Tool Ecosystem
+              |
+
+              v
 
 
-          |
-
-          v
-Enterprise Data Sources
-
-SQL | APIs | Files | Documents | Databases
-          |
-
-          v
+          Execution Engine
 
 
-    Intelligent Decision Output
+              |
 
+     +--------+---------+---------+---------+
+
+     |        |         |         |         |
+
+     v        v         v         v         v
+
+
+ Data     RAG      Search   Analytics  External
+
+ Agent   Agent     Agent     Agent      Tools
+
+
+     |        |         |         |
+
+
+     +--------+---------+---------+
+
+
+              |
+
+              v
+
+
+        Intelligent Tool Ecosystem
+
+
+              |
+
+              v
+
+
+ Enterprise Data Sources
+
+
+ SQL | APIs | Files | Documents | Databases
+
+
+              |
+
+              v
+
+
+        Intelligent Decision Output
+
+```
 
 The final objective is to create an autonomous AI intelligence ecosystem capable of combining:
 
