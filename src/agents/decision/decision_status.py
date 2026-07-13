@@ -9,3 +9,4 @@ class DecisionStatus(str, Enum):
     SELECTED = "selected"
     COMMITTED = "committed"
     EVALUATED = "evaluated"
+    COMPLETED = "completed"

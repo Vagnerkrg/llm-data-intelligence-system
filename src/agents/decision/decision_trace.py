@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import List, Optional
 
 from .decision_reason import DecisionReason
@@ -26,7 +26,7 @@ class DecisionTrace:
     selected_alternative_id: Optional[str] = None
 
     created_at: datetime = field(
-        default_factory=datetime.utcnow
+        default_factory=lambda: datetime.now(UTC)
     )
 
     metadata: dict = field(default_factory=dict)

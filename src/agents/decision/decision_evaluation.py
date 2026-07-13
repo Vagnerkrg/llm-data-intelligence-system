@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, UTC
 
 
 @dataclass(slots=True)
@@ -20,7 +20,7 @@ class DecisionEvaluation:
     feedback: list[str] = field(default_factory=list)
 
     created_at: datetime = field(
-        default_factory=datetime.utcnow
+        default_factory=lambda: datetime.now(UTC)
     )
 
     metadata: dict[str, str] = field(
