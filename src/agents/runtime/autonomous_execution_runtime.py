@@ -6,20 +6,33 @@ from src.agents.runtime.execution_loop import (
 )
 
 
+from src.agents.autonomy.autonomy_engine import (
+    AutonomyEngine
+)
+
+
 
 class AutonomousExecutionRuntime:
     """
     Runtime layer responsible for autonomous
     execution adaptation.
 
-    Coordinates execution cycles and
-    replanning decisions.
+    Coordinates execution cycles,
+    replanning decisions and
+    autonomy learning feedback.
+
+    V1.16 adds:
+    - observation;
+    - reflection;
+    - learning;
+    - adaptation.
     """
 
 
     def __init__(
         self,
-        execution_loop=None
+        execution_loop=None,
+        autonomy_engine=None
     ):
 
         self.execution_loop = (
@@ -27,6 +40,14 @@ class AutonomousExecutionRuntime:
             if execution_loop
             else ExecutionLoop()
         )
+
+
+        self.autonomy_engine = (
+            autonomy_engine
+            if autonomy_engine
+            else AutonomyEngine()
+        )
+
 
 
     def run_cycle(
@@ -38,6 +59,10 @@ class AutonomousExecutionRuntime:
     ):
         """
         Execute one autonomous execution cycle.
+
+        V1.16:
+        After execution evaluation,
+        generates autonomy feedback.
         """
 
 
@@ -49,10 +74,26 @@ class AutonomousExecutionRuntime:
         )
 
 
+        autonomy_result = (
+            self.autonomy_engine.evaluate_execution(
+                execution_id="runtime-cycle",
+                result=str(result),
+                success=not evaluation.get(
+                    "failed",
+                    False
+                ),
+                metrics={}
+            )
+        )
+
+
         return {
+
             "plan": result["plan"],
 
             "replanned": result["replanned"],
 
-            "decision": result["decision"]
+            "decision": result["decision"],
+
+            "autonomy": autonomy_result
         }
