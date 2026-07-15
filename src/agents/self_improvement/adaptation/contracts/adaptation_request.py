@@ -6,9 +6,8 @@ from ..domain.adaptation_context import AdaptationContext
 @dataclass
 class AdaptationRequest:
     """
-    Request received by the adaptation capability.
+    Contract representing an adaptation request.
     """
 
     context: AdaptationContext
-
     target: str
