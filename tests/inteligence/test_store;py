@@ -1,0 +1,37 @@
+from src.intelligence.execution.store import ExecutionStore
+from src.intelligence.execution.models import ExecutionRecord
+
+
+def test_execution_store_save_and_get():
+
+    store = ExecutionStore()
+
+    execution = ExecutionRecord(
+        execution_id="exec-001",
+        request="test request",
+    )
+
+    store.save(execution)
+
+    result = store.get(
+        "exec-001"
+    )
+
+    assert result is not None
+    assert result.execution_id == "exec-001"
+
+
+def test_execution_store_list():
+
+    store = ExecutionStore()
+
+    execution = ExecutionRecord(
+        execution_id="exec-001",
+        request="test",
+    )
+
+    store.save(execution)
+
+    executions = store.list_all()
+
+    assert len(executions) == 1
