@@ -1,4 +1,4 @@
-🚀 LLM Data Intelligence System
+# 🚀 LLM Data Intelligence System
 
 ## Self-Improving Cognitive Agent Platform
 
@@ -104,28 +104,34 @@ The platform aims to reduce this gap by enabling natural language interaction wi
 The platform provides an intelligent layer between users and complex data environments.
 
 Instead of requiring:
+
+```
 SQL Knowledge → Technical Analysis → Manual Interpretation
+```
 
 Users interact through:
+
+```
 Natural Language Questions
-↓
-AI Understanding
-↓
-Reasoning
-↓
-Goal Definition
-↓
-Planning
-↓
-Execution
-↓
-Evaluation
-↓
-Reflection
-↓
-Learning
-↓
+        ↓
+   AI Understanding
+        ↓
+      Reasoning
+        ↓
+   Goal Definition
+        ↓
+      Planning
+        ↓
+      Execution
+        ↓
+     Evaluation
+        ↓
+      Reflection
+        ↓
+       Learning
+        ↓
 Decision Intelligence
+```
 
 The system transforms questions into intelligent workflows executed by specialized AI capabilities — and each execution becomes an experience the platform learns from.
 
@@ -134,29 +140,32 @@ The system transforms questions into intelligent workflows executed by specializ
 # 🧠 Cognitive Agent Architecture
 
 The platform evolution is guided by a cognitive model. The full agent lifecycle currently implemented is:
+
+```
 Perception
-↓
+   ↓
 Reasoning
-↓
+   ↓
 Decision
-↓
+   ↓
 Planning
-↓
+   ↓
 Execution
-↓
+   ↓
 Observation
-↓
+   ↓
 Evaluation
-↓
+   ↓
 Reflection
-↓
+   ↓
 Learning
-↓
+   ↓
 Knowledge
-↓
+   ↓
 Adaptation
-↓
+   ↓
 Continuous Improvement
+```
 
 This lifecycle is coordinated by the **Agent Runtime**, which orchestrates the overall flow, while the **Execution Engine** is responsible for executing plans. Each layer has a specific cognitive responsibility and can evolve independently through capability-driven development.
 
@@ -169,19 +178,22 @@ The architecture principle is:
 # 🔁 Self Improvement Layer
 
 Introduced in **V1.17 — Self Improvement Expansion**, this layer is what turns the platform from an autonomous *executor* into a *self-improving* system. It closes the loop between what the agent does and how it gets better at doing it.
+
+```
 Experience
-↓
+    ↓
 Evaluation
-↓
+    ↓
 Reflection
-↓
+    ↓
 Learning
-↓
+    ↓
 Knowledge Consolidation
-↓
+    ↓
 Adaptation
-↓
+    ↓
 Improved Execution
+```
 
 ## Evaluation Capability
 Responsible for assessing execution results and producing learning signals.
@@ -220,21 +232,27 @@ The five capabilities above no longer operate as isolated units. They are now in
 # 🔧 Intelligent Tool Ecosystem
 
 The platform uses a modular tool architecture designed around standardized capability contracts.
-            Tool Registry
-                  |
-  +---------------+---------------+
-  |               |               |
-  v               v               v
+
+```
+                Tool Registry
+                      |
+      +---------------+---------------+
+      |               |               |
+      v               v               v
 Analytics Tool     RAG Tool      Search Tool
-|
-v
-Data Intelligence
-|
-v
-Business Insights
+      |
+      v
+ Data Intelligence
+      |
+      v
+  Business Insights
+```
 
 The agent architecture separates:
+
+```
 Decision → Capability Selection → Tool Execution → Result Evaluation
+```
 
 This enables scalable intelligence workflows, and supports future expansion through new specialized tools, external integrations and domain-specific capabilities.
 
@@ -243,27 +261,30 @@ This enables scalable intelligence workflows, and supports future expansion thro
 # 🏛️ Engineering Methodology — Cognitive Capability Engineering (CCE)
 
 Every new capability in the platform — from Reasoning to Reflection — is required to go through the same disciplined engineering lifecycle. No implementation happens before the architecture is defined.
+
+```
 Capability Definition
-↓
+        ↓
 Architecture Blueprint
-↓
+        ↓
 ADR (Architecture Decision Record)
-↓
+        ↓
 Domain Modeling
-↓
+        ↓
 Contract Design
-↓
+        ↓
 Interaction Design
-↓
+        ↓
 Implementation
-↓
+        ↓
 Tests
-↓
+        ↓
 Validation
-↓
+        ↓
 Documentation
-↓
+        ↓
 Release
+```
 
 **Engineering principles enforced across the platform:**
 
@@ -327,6 +348,8 @@ The Self Improvement Loop has been integrated directly into the **Agent Runtime*
 # 📊 Platform Maturity
 
 The estimates below reflect **product maturity** — how complete and integrated each area is — not just "code exists." This is a deliberately honest snapshot rather than a marketing one.
+
+```
 Engineering Foundation        ██████████ 100%
 Data Intelligence Platform    ██████████ 100%
 Agent Intelligence Platform   ██████████ 100%
@@ -340,14 +363,18 @@ Cognitive Evaluation Metrics  ████░░░░░░  40%
 User Interface                ░░░░░░░░░░   0%
 Cloud Infrastructure          ░░░░░░░░░░   0%
 Enterprise Productization     ░░░░░░░░░░   0%
+```
 
 ### Executive Summary
+
+```
 Overall Project            ███████░░░  73%
 Cognitive Architecture     █████████░  93%
 Software Engineering       ██████████ 100%
 Agent Capabilities         ██████████ 100%
 Self Improvement           █████████░  90%
 Commercial Product         ██░░░░░░░░  20%
+```
 
 **Current phase:** Cognitive Loop Integration into the Agent Runtime is complete (`~100%` of the Self Improvement Layer's structural integration). Remaining focus for V1.18: cognitive evolution metrics, long-term memory and expanded autonomy.
 
@@ -413,23 +440,26 @@ The project follows a proprietary development model. The repository is visible f
 ---
 
 # 🌎 Final Vision
+
+```
 Understanding Questions
-↓
+        ↓
 Reasoning About Objectives
-↓
+        ↓
 Planning Solutions
-↓
+        ↓
 Executing Specialized Capabilities
-↓
+        ↓
 Evaluating Results
-↓
+        ↓
 Reflecting on Experience
-↓
+        ↓
 Learning and Consolidating Knowledge
-↓
+        ↓
 Adapting Future Behavior
-↓
+        ↓
 Generating Business Decisions
+```
 
 The **LLM Data Intelligence System** is evolving from a software project into a complete AI product foundation — a platform where intelligent agents understand objectives, reason about solutions, coordinate capabilities, execute workflows, evaluate outcomes and continuously improve future decisions.
 
@@ -447,30 +477,3 @@ The **LLM Data Intelligence System** is evolving from a software project into a 
 | **Current Branch** | `feature/v1.18-cognitive-integration-expansion` |
 | **Tests** | 508 automated tests passing |
 | **Status** | Active development |
-
-Resumo das mudanças
-
-Cycle de Self Improvement documentado como integrado ao Agent Runtime (nova subseção "🔗 Cognitive Loop Integration"), refletindo a Execution Engine + camada de Cognitive Improvement pós-execução
-Contagem de testes atualizada: 488 → 508
-Fase 11 (V1.18) atualizada: integração do loop no runtime marcada como concluída; métricas cognitivas, memória de longo prazo e autonomia seguem em andamento
-Roadmap V1.18: primeiro item marcado como ✅ concluído, os demais mantidos como 🚧 pendentes
-
-Seções modificadas
-
-Overview (menção à integração no Agent Runtime)
-Cognitive Agent Architecture (Agent Runtime / Execution Engine citados)
-Self Improvement Layer (nova subseção de integração)
-Project Evolution History — Phase 11
-Platform Maturity (barras) + Executive Summary
-Roadmap V1.18
-Product Value Perspective (menção à integração)
-Project Identity (campo Tests)
-
-Percentuais atualizados
-
-Self Improvement Layer: 90% → 100%
-Learning & Knowledge Loop: 80% → 90%
-Overall Project: 70% → 73%
-Cognitive Architecture: 90% → 93%
-Self Improvement (executivo): 80% → 90%
-Demais barras (Decision Intelligence, Autonomous Evolution, Long-Term Memory, Cognitive Evaluation Metrics, UI, Cloud, Enterprise) mantidas — nenhuma informação nova sobre elas
