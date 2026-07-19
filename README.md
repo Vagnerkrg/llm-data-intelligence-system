@@ -1,5 +1,4 @@
-Aqui está o README atualizado. Mantive 100% da estrutura, títulos, ordem de seções e o estilo das barras — só ajustei conteúdo, status e percentuais com base no que você me passou (integração do ciclo cognitivo ao Agent Runtime concluída, 508 testes passando).
-markdown# 🚀 LLM Data Intelligence System
+🚀 LLM Data Intelligence System
 
 ## Self-Improving Cognitive Agent Platform
 
