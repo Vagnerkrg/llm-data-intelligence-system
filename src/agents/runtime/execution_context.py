@@ -17,10 +17,14 @@ class ExecutionContext:
     - reasoning layer;
     - goal layer;
     - planning layer;
-    - execution layer.
+    - execution layer;
+    - cognitive improvement layer.
 
     V1.12 introduces goal driven
     execution context support.
+
+    V1.19 introduces cognitive
+    improvement state storage.
     """
 
     def __init__(
@@ -45,6 +49,10 @@ class ExecutionContext:
 
         # V1.12 goal driven planning
         self.goal = None
+
+
+        # V1.19 cognitive improvement
+        self.cognitive_improvement = None
 
 
         self.current_step = None
@@ -92,6 +100,25 @@ class ExecutionContext:
         """
 
         self.goal = goal
+
+
+
+    def set_cognitive_improvement(
+        self,
+        improvement_result: Any
+    ):
+        """
+        Store cognitive improvement
+        cycle result.
+
+        V1.19:
+        Keeps the learning/improvement
+        output attached to execution.
+        """
+
+        self.cognitive_improvement = (
+            improvement_result
+        )
 
 
 

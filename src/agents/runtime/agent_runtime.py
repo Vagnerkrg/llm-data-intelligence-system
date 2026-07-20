@@ -17,6 +17,20 @@ from src.agents.reasoning.reasoning_engine import ReasoningEngine
 from src.agents.reasoning.reasoning_result import ReasoningResult
 
 
+# Cognitive Improvement
+from src.agents.cognitive_improvement.services.cognitive_improvement_engine import (
+    CognitiveImprovementEngine
+)
+
+from src.agents.cognitive_improvement.domain.improvement_context import (
+    ImprovementContext
+)
+
+from src.agents.cognitive_improvement.contracts.improvement_request import (
+    ImprovementRequest
+)
+
+
 class AgentRuntime:
     """
     Runtime execution layer for AI agents.
@@ -27,10 +41,8 @@ class AgentRuntime:
     - reasoning;
     - goal generation;
     - goal driven planning;
-    - execution.
-
-    V1.12 introduces
-    goal driven planning flow.
+    - execution;
+    - cognitive improvement cycle.
     """
 
 
@@ -41,9 +53,9 @@ class AgentRuntime:
         planner=None,
         reasoning_engine=None,
         goal_builder=None,
-        goal_planner=None
+        goal_planner=None,
+        cognitive_improvement_engine=None
     ):
-
 
         self.controller = (
             controller
@@ -52,7 +64,6 @@ class AgentRuntime:
         )
 
 
-        # Legacy planner support
         self.execution_planner = (
             planner
             if planner
@@ -90,64 +101,51 @@ class AgentRuntime:
         )
 
 
+        self.cognitive_improvement_engine = (
+            cognitive_improvement_engine
+            if cognitive_improvement_engine
+            else CognitiveImprovementEngine()
+        )
+
 
     def create_context(
         self,
         question: str
     ) -> ExecutionContext:
-        """
-        Create execution context.
-        """
 
         return ExecutionContext(
             question=question
         )
 
 
-
     def create_reasoning(
         self,
         question: str
     ) -> ReasoningResult:
-        """
-        Generate reasoning before planning.
-        """
 
         return self.reasoning_engine.reason(
             question
         )
 
 
-
     def create_goal(
         self,
         reasoning_result: ReasoningResult
     ) -> Goal:
-        """
-        Build execution goal from reasoning.
-        """
 
         return self.goal_builder.build(
             reasoning_result
         )
 
 
-
     def create_goal_plan(
         self,
         goal: Goal
     ) -> ExecutionPlan:
-        """
-        Create execution plan from goal.
-
-        V1.12:
-        Goal driven planning path.
-        """
 
         return self.goal_planner.create_plan(
             goal
         )
-
 
 
     def create_initial_plan(
@@ -156,14 +154,6 @@ class AgentRuntime:
         reasoning_result: Optional[ReasoningResult] = None,
         goal: Optional[Goal] = None
     ) -> ExecutionPlan:
-        """
-        Legacy planning fallback.
-
-        Supports:
-
-        - reasoning aware planners;
-        - old execution planners.
-        """
 
 
         try:
@@ -177,14 +167,12 @@ class AgentRuntime:
 
         except TypeError:
 
-
             try:
 
                 return self.execution_planner.create_plan(
                     question,
                     reasoning_result
                 )
-
 
             except TypeError:
 
@@ -193,30 +181,10 @@ class AgentRuntime:
                 )
 
 
-
     def prepare(
         self,
         question: str
     ) -> ExecutionContext:
-        """
-        Prepare execution lifecycle.
-
-        V1.12 Flow:
-
-        Question
-            |
-        Reasoning
-            |
-        Goal Builder
-            |
-        Goal
-            |
-        Goal Planner
-            |
-        Execution Plan
-            |
-        Execution Context
-        """
 
 
         context = self.create_context(
@@ -244,10 +212,6 @@ class AgentRuntime:
         )
 
 
-        #
-        # V1.12 Goal Driven Planning
-        #
-
         if goal:
 
             plan = self.create_goal_plan(
@@ -273,17 +237,10 @@ class AgentRuntime:
         return context
 
 
-
     def execute(
         self,
         question: str
     ) -> ExecutionContext:
-        """
-        Execute agent workflow.
-
-        Delegates execution
-        to ExecutionEngine.
-        """
 
 
         context = self.prepare(
@@ -291,6 +248,46 @@ class AgentRuntime:
         )
 
 
-        return self.execution_engine.execute(
+        execution_result = self.execution_engine.execute(
             context
         )
+
+
+        #
+        # Cognitive Improvement Loop
+        #
+        # Executed after main execution cycle.
+        #
+
+        improvement_context = ImprovementContext(
+
+            experience=execution_result,
+
+            objective=question,
+
+            metadata={
+                "source": "agent_runtime",
+                "execution_status": execution_result.status
+            }
+
+        )
+
+
+        improvement_request = ImprovementRequest(
+            context=improvement_context
+        )
+
+
+        improvement_response = (
+            self.cognitive_improvement_engine.execute(
+                improvement_request
+            )
+        )
+
+
+        execution_result.set_cognitive_improvement(
+            improvement_response.result
+        )
+
+
+        return execution_result
