@@ -18,13 +18,17 @@ class ExecutionContext:
     - goal layer;
     - planning layer;
     - execution layer;
-    - cognitive improvement layer.
+    - cognitive improvement layer;
+    - memory intelligence layer.
 
     V1.12 introduces goal driven
     execution context support.
 
     V1.19 introduces cognitive
     improvement state storage.
+
+    V1.20 introduces memory
+    intelligence state storage.
     """
 
     def __init__(
@@ -53,6 +57,10 @@ class ExecutionContext:
 
         # V1.19 cognitive improvement
         self.cognitive_improvement = None
+
+
+        # V1.20 memory intelligence
+        self.memory_context = None
 
 
         self.current_step = None
@@ -118,6 +126,25 @@ class ExecutionContext:
 
         self.cognitive_improvement = (
             improvement_result
+        )
+
+
+
+    def set_memory_context(
+        self,
+        memory_context: Any
+    ):
+        """
+        Store memory intelligence
+        context attached to execution.
+
+        V1.20:
+        Keeps retrieved and generated
+        memories attached to runtime.
+        """
+
+        self.memory_context = (
+            memory_context
         )
 
 
@@ -238,6 +265,11 @@ class ExecutionContext:
 
             "has_plan": (
                 self.plan is not None
+            ),
+
+
+            "has_memory_context": (
+                self.memory_context is not None
             )
 
         }
