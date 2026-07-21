@@ -42,7 +42,8 @@ class AgentRuntime:
     - goal generation;
     - goal driven planning;
     - execution;
-    - cognitive improvement cycle.
+    - cognitive improvement cycle;
+    - memory intelligence integration.
     """
 
 
@@ -54,7 +55,8 @@ class AgentRuntime:
         reasoning_engine=None,
         goal_builder=None,
         goal_planner=None,
-        cognitive_improvement_engine=None
+        cognitive_improvement_engine=None,
+        memory_adapter=None
     ):
 
         self.controller = (
@@ -108,6 +110,11 @@ class AgentRuntime:
         )
 
 
+        # V1.20 Memory Intelligence
+        self.memory_adapter = memory_adapter
+
+
+
     def create_context(
         self,
         question: str
@@ -116,6 +123,35 @@ class AgentRuntime:
         return ExecutionContext(
             question=question
         )
+
+
+
+    def load_memory_context(
+        self,
+        context: ExecutionContext
+    ):
+        """
+        Attach memory context to execution.
+
+        V1.20:
+        Connects runtime lifecycle
+        with memory intelligence.
+        """
+
+        if not self.memory_adapter:
+            return
+
+
+        memory_context = {
+            "enabled": True,
+            "source": "runtime_memory_adapter"
+        }
+
+
+        context.set_memory_context(
+            memory_context
+        )
+
 
 
     def create_reasoning(
@@ -128,6 +164,7 @@ class AgentRuntime:
         )
 
 
+
     def create_goal(
         self,
         reasoning_result: ReasoningResult
@@ -138,6 +175,7 @@ class AgentRuntime:
         )
 
 
+
     def create_goal_plan(
         self,
         goal: Goal
@@ -146,6 +184,7 @@ class AgentRuntime:
         return self.goal_planner.create_plan(
             goal
         )
+
 
 
     def create_initial_plan(
@@ -181,6 +220,7 @@ class AgentRuntime:
                 )
 
 
+
     def prepare(
         self,
         question: str
@@ -189,6 +229,12 @@ class AgentRuntime:
 
         context = self.create_context(
             question
+        )
+
+
+        # V1.20 Memory Integration
+        self.load_memory_context(
+            context
         )
 
 
@@ -235,6 +281,7 @@ class AgentRuntime:
 
 
         return context
+
 
 
     def execute(
