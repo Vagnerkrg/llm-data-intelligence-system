@@ -2,8 +2,6 @@
   <img src="img/Image%2022%20de%20jul.%20de%202026,%2011_13_00.png" alt="LLM Data Intelligence System Logo" width="300">
 </p>
 
-# 🚀 LLM Data Intelligence System
-
 ## Self-Improving Cognitive Agent Platform
 
 ### Agentic AI, RAG, Reasoning, Planning, Self Improvement and Continuous Learning
