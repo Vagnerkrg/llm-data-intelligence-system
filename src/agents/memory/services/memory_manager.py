@@ -14,6 +14,18 @@ from src.agents.memory.services.memory_ranker import (
     MemoryRanker
 )
 
+from src.agents.memory.services.memory_consolidator import (
+    MemoryConsolidator
+)
+
+from src.agents.memory.services.memory_decay import (
+    MemoryDecay
+)
+
+from src.agents.memory.services.relevance_analyzer import (
+    RelevanceAnalyzer
+)
+
 from src.agents.memory.domain.memory_entry import (
     MemoryEntry
 )
@@ -26,11 +38,17 @@ from src.agents.memory.domain.retrieval_result import (
     RetrievalResult
 )
 
+from src.agents.memory.domain.consolidation_result import (
+    ConsolidationResult
+)
+
+
 
 class MemoryManager:
     """
     Coordinates memory operations.
     """
+
 
 
     def __init__(
@@ -48,6 +66,14 @@ class MemoryManager:
         self.validator = validator
 
         self.ranker = ranker
+
+
+        self.consolidator = MemoryConsolidator(
+            RelevanceAnalyzer()
+        )
+
+
+        self.decay_engine = MemoryDecay()
 
 
 
@@ -97,4 +123,34 @@ class MemoryManager:
 
         return self.ranker.rank(
             result
+        )
+
+
+
+    def consolidate(
+        self,
+        memory: MemoryEntry
+    ) -> ConsolidationResult:
+        """
+        Consolidate memory information.
+        """
+
+
+        return self.consolidator.consolidate(
+            memory
+        )
+
+
+
+    def decay(
+        self,
+        memory: MemoryEntry
+    ):
+        """
+        Apply memory decay.
+        """
+
+
+        return self.decay_engine.apply(
+            memory
         )
