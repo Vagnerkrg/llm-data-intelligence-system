@@ -16,18 +16,53 @@ from src.agents.memory.domain.memory_type import (
 
 
 
-def test_should_save_using_adapter():
+def create_adapter():
 
-    adapter = StorageAdapter(
-        InMemoryStore()
+    store = InMemoryStore()
+
+    return StorageAdapter(
+        store
     )
 
 
-    memory = MemoryEntry(
+
+def create_memory():
+
+    return MemoryEntry(
         memory_id="001",
-        content="Adapter test",
+        content="Memory through adapter.",
         memory_type=MemoryType.LONG_TERM
     )
+
+
+
+def test_should_save_memory_through_adapter():
+
+    adapter = create_adapter()
+
+
+    memory = create_memory()
+
+
+    result = adapter.save(
+        memory
+    )
+
+
+    assert result is None
+
+    assert adapter.get(
+        "001"
+    ) == memory
+
+
+
+def test_should_get_memory_through_adapter():
+
+    adapter = create_adapter()
+
+
+    memory = create_memory()
 
 
     adapter.save(
@@ -40,18 +75,43 @@ def test_should_save_using_adapter():
     )
 
 
-    assert result == memory
+    assert result.memory_id == "001"
 
 
 
-def test_should_list_using_adapter():
+def test_should_delete_memory_through_adapter():
 
-    adapter = StorageAdapter(
-        InMemoryStore()
+    adapter = create_adapter()
+
+
+    memory = create_memory()
+
+
+    adapter.save(
+        memory
+    )
+
+
+    result = adapter.delete(
+        "001"
+    )
+
+
+    assert result is True
+
+
+
+def test_should_list_memories_through_adapter():
+
+    adapter = create_adapter()
+
+
+    adapter.save(
+        create_memory()
     )
 
 
     result = adapter.list_all()
 
 
-    assert result == []
+    assert len(result) == 1
