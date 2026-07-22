@@ -6,54 +6,64 @@ from src.agents.memory.domain.relevance_result import (
     RelevanceResult
 )
 
-from src.agents.memory.services.memory_intelligence_manager import (
-    MemoryIntelligenceManager
+from src.agents.memory.intelligence.memory_relevance_scorer import (
+    MemoryRelevanceScorer
 )
 
+from src.agents.memory.services.memory_lifecycle_manager import (
+    MemoryLifecycleManager
+)
 
 
 class MemoryIntelligencePipeline:
     """
-    Cognitive pipeline responsible for
-    processing memory intelligence flow.
+    Executes the complete memory intelligence flow.
 
-    Flow:
+    Pipeline:
 
     Memory
-        ↓
+      ↓
     Relevance Evaluation
-        ↓
+      ↓
     Lifecycle Processing
-        ↓
-    Cognitive Decision
+      ↓
+    Intelligence Result
     """
 
 
     def __init__(
         self,
-        intelligence_manager: MemoryIntelligenceManager = None
+        relevance_scorer: MemoryRelevanceScorer = None,
+        lifecycle_manager: MemoryLifecycleManager = None
     ):
 
-
-        self.intelligence_manager = (
-            intelligence_manager
-            if intelligence_manager
-            else MemoryIntelligenceManager()
+        self.relevance_scorer = (
+            relevance_scorer
+            if relevance_scorer
+            else MemoryRelevanceScorer()
         )
 
+
+        self.lifecycle_manager = (
+            lifecycle_manager
+            if lifecycle_manager
+            else None
+        )
 
 
     def process(
         self,
         memory: MemoryEntry
     ):
+        """
+        Process memory intelligence.
+        """
 
 
         if not isinstance(
             memory,
             MemoryEntry
         ):
-
 
             return RelevanceResult(
                 memory_id="",
@@ -62,12 +72,36 @@ class MemoryIntelligencePipeline:
             )
 
 
-
-        result = (
-            self.intelligence_manager.analyze(
+        relevance = (
+            self.relevance_scorer.evaluate(
                 memory
             )
         )
 
 
-        return result
+        lifecycle = None
+
+
+        if self.lifecycle_manager:
+
+            lifecycle = (
+                self.lifecycle_manager.process(
+                    memory
+                )
+            )
+
+
+        return {
+
+            "memory_id": memory.memory_id,
+
+            "relevance_score": (
+                relevance.score
+            ),
+
+            "relevance": relevance,
+
+            "lifecycle": lifecycle,
+
+            "status": "analyzed"
+        }
