@@ -31,6 +31,7 @@ from src.agents.cognitive_improvement.contracts.improvement_request import (
 )
 
 
+
 class AgentRuntime:
     """
     Runtime execution layer for AI agents.
@@ -40,10 +41,12 @@ class AgentRuntime:
     - execution context;
     - reasoning;
     - goal generation;
-    - goal driven planning;
+    - planning;
+    - memory integration;
     - execution;
-    - cognitive improvement cycle.
+    - cognitive improvement.
     """
+
 
 
     def __init__(
@@ -54,8 +57,11 @@ class AgentRuntime:
         reasoning_engine=None,
         goal_builder=None,
         goal_planner=None,
-        cognitive_improvement_engine=None
+        cognitive_improvement_engine=None,
+        memory_orchestrator=None,
+        memory_adapter=None
     ):
+
 
         self.controller = (
             controller
@@ -108,14 +114,31 @@ class AgentRuntime:
         )
 
 
+        #
+        # Memory Integration
+        #
+
+        self.memory_orchestrator = (
+            memory_orchestrator
+        )
+
+
+        self.memory_adapter = (
+            memory_adapter
+        )
+
+
+
     def create_context(
         self,
         question: str
     ) -> ExecutionContext:
 
+
         return ExecutionContext(
             question=question
         )
+
 
 
     def create_reasoning(
@@ -123,9 +146,11 @@ class AgentRuntime:
         question: str
     ) -> ReasoningResult:
 
+
         return self.reasoning_engine.reason(
             question
         )
+
 
 
     def create_goal(
@@ -133,9 +158,11 @@ class AgentRuntime:
         reasoning_result: ReasoningResult
     ) -> Goal:
 
+
         return self.goal_builder.build(
             reasoning_result
         )
+
 
 
     def create_goal_plan(
@@ -143,16 +170,18 @@ class AgentRuntime:
         goal: Goal
     ) -> ExecutionPlan:
 
+
         return self.goal_planner.create_plan(
             goal
         )
 
 
+
     def create_initial_plan(
         self,
         question: str,
-        reasoning_result: Optional[ReasoningResult] = None,
-        goal: Optional[Goal] = None
+        reasoning_result=None,
+        goal=None
     ) -> ExecutionPlan:
 
 
@@ -167,6 +196,7 @@ class AgentRuntime:
 
         except TypeError:
 
+
             try:
 
                 return self.execution_planner.create_plan(
@@ -174,11 +204,78 @@ class AgentRuntime:
                     reasoning_result
                 )
 
+
             except TypeError:
 
                 return self.execution_planner.create_plan(
                     question
                 )
+
+
+
+    #
+    # MEMORY
+    #
+
+    def attach_memory_context(
+        self,
+        context: ExecutionContext
+    ):
+
+        if self.memory_adapter:
+
+            context.set_memory_context(
+                {
+                    "enabled": True,
+                    "source": "runtime_memory_adapter",
+                    "adapter": self.memory_adapter
+                }
+            )
+
+
+        elif self.memory_orchestrator:
+
+            context.set_memory_context(
+                {
+                    "enabled": True,
+                    "source": "memory_orchestrator",
+                    "orchestrator": self.memory_orchestrator
+                }
+            )
+
+
+
+    def remember_memory(
+        self,
+        memory
+    ):
+
+        if not self.memory_orchestrator:
+
+            return None
+
+
+        return self.memory_orchestrator.remember(
+            memory
+        )
+
+
+
+    def recall_memory(
+        self,
+        memory_id: str
+    ):
+
+
+        if not self.memory_orchestrator:
+
+            return None
+
+
+        return self.memory_orchestrator.recall(
+            memory_id
+        )
+
 
 
     def prepare(
@@ -190,6 +287,16 @@ class AgentRuntime:
         context = self.create_context(
             question
         )
+
+
+        #
+        # Attach Memory
+        #
+
+        self.attach_memory_context(
+            context
+        )
+
 
 
         reasoning_result = self.create_reasoning(
@@ -214,16 +321,20 @@ class AgentRuntime:
 
         if goal:
 
+
             plan = self.create_goal_plan(
                 goal
             )
 
+
         else:
+
 
             plan = self.create_initial_plan(
                 question,
                 reasoning_result
             )
+
 
 
         context.set_plan(
@@ -235,6 +346,7 @@ class AgentRuntime:
 
 
         return context
+
 
 
     def execute(
@@ -253,10 +365,9 @@ class AgentRuntime:
         )
 
 
+
         #
         # Cognitive Improvement Loop
-        #
-        # Executed after main execution cycle.
         #
 
         improvement_context = ImprovementContext(
