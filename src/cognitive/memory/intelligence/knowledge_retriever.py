@@ -1,6 +1,7 @@
-from typing import List, Optional
+from typing import List, Optional, Any
 
 from .memory_index import MemoryIndex
+
 
 
 class KnowledgeRetriever:
@@ -8,14 +9,20 @@ class KnowledgeRetriever:
     Responsável por recuperar conhecimentos
     armazenados no sistema de memória cognitiva.
 
-    A primeira versão utiliza busca simples
-    baseada em metadados indexados.
+    Suporta:
+
+    - recuperação por id
+    - busca por metadados
+    - busca textual por conteúdo
     """
+
+
 
     def __init__(
         self,
         memory_index: MemoryIndex
     ):
+
         self.memory_index = memory_index
 
 
@@ -25,7 +32,7 @@ class KnowledgeRetriever:
         memory_id: str
     ) -> Optional[dict]:
         """
-        Recupera um conhecimento específico.
+        Recupera uma memória específica.
         """
 
         return self.memory_index.get(
@@ -37,32 +44,83 @@ class KnowledgeRetriever:
     def search(
         self,
         key: str,
-        value: str
+        value: Optional[str] = None
     ) -> List[dict]:
         """
-        Busca conhecimentos por metadados.
+        Busca conhecimentos armazenados.
+
+        Modos suportados:
+
+        1. Busca por metadado:
+
+            search(
+                "type",
+                "learning"
+            )
+
+        2. Busca textual:
+
+            search(
+                "planning"
+            )
         """
 
         results = []
 
+
+
         for memory_id in self.memory_index.list_ids():
 
-            metadata = self.memory_index.get(
+            memory = self.memory_index.get(
                 memory_id
             )
 
-            if metadata is None:
+
+            if memory is None:
                 continue
 
 
-            if metadata.get(key) == value:
 
-                results.append(
-                    {
-                        "memory_id": memory_id,
-                        "metadata": metadata
-                    }
+            # -----------------------------
+            # Busca por chave/valor
+            # -----------------------------
+
+            if value is not None:
+
+                if memory.get(key) == value:
+
+                    results.append(
+                        {
+                            "memory_id": memory_id,
+                            "metadata": memory
+                        }
+                    )
+
+
+
+            # -----------------------------
+            # Busca textual
+            # -----------------------------
+
+            else:
+
+                content = str(
+                    memory.get(
+                        "content",
+                        ""
+                    )
                 )
+
+
+                if key.lower() in content.lower():
+
+                    results.append(
+                        {
+                            "memory_id": memory_id,
+                            "content": content
+                        }
+                    )
+
 
 
         return results

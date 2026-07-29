@@ -1,32 +1,61 @@
 from typing import Dict, List, Optional, Any
+from uuid import uuid4
 
 
 class MemoryIndex:
     """
-    Índice responsável por organizar referências
-    de conhecimentos armazenados na memória cognitiva.
+    Índice responsável por organizar memórias
+    da camada Memory Intelligence.
 
-    A primeira versão trabalha com indexação simples
-    por identificadores e metadados.
+    Responsabilidades:
+
+    - gerar identificadores
+    - armazenar conteúdos
+    - recuperar memórias
+    - buscar informações
     """
 
+
     def __init__(self):
+
         self._index: Dict[str, Dict[str, Any]] = {}
+
 
 
     def add(
         self,
-        memory_id: str,
-        metadata: Optional[Dict[str, Any]] = None
-    ) -> None:
+        memory_id: Optional[str] = None,
+        metadata: Optional[Any] = None
+    ) -> str:
         """
         Adiciona uma memória ao índice.
+
+        Caso o identificador não seja informado,
+        um novo ID é criado.
         """
 
-        if metadata is None:
-            metadata = {}
+        if memory_id is None:
 
-        self._index[memory_id] = metadata
+            memory_id = str(
+                uuid4()
+            )
+
+
+        if isinstance(metadata, dict):
+
+            stored_data = metadata
+
+        else:
+
+            stored_data = {
+                "content": metadata
+            }
+
+
+        self._index[memory_id] = stored_data
+
+
+        return memory_id
 
 
 
@@ -35,7 +64,7 @@ class MemoryIndex:
         memory_id: str
     ) -> Optional[Dict[str, Any]]:
         """
-        Recupera metadados de uma memória.
+        Recupera uma memória pelo ID.
         """
 
         return self._index.get(
@@ -49,7 +78,7 @@ class MemoryIndex:
         memory_id: str
     ) -> bool:
         """
-        Verifica se uma memória está indexada.
+        Verifica existência da memória.
         """
 
         return memory_id in self._index
@@ -61,21 +90,26 @@ class MemoryIndex:
         memory_id: str
     ) -> bool:
         """
-        Remove uma memória do índice.
+        Remove uma memória.
         """
 
         if memory_id not in self._index:
+
             return False
 
+
         del self._index[memory_id]
+
 
         return True
 
 
 
-    def list_ids(self) -> List[str]:
+    def list_ids(
+        self
+    ) -> List[str]:
         """
-        Retorna todos os identificadores indexados.
+        Lista identificadores armazenados.
         """
 
         return list(
@@ -84,9 +118,11 @@ class MemoryIndex:
 
 
 
-    def count(self) -> int:
+    def count(
+        self
+    ) -> int:
         """
-        Retorna quantidade de memórias indexadas.
+        Retorna quantidade de memórias.
         """
 
         return len(
