@@ -128,6 +128,7 @@ pure_eval==0.2.3
 pyarrow==24.0.0
 pycparser==3.0
 pydantic==2.13.4
+pydantic-settings==2.14.2
 pydantic_core==2.46.4
 Pygments==2.20.0
 pypdf==6.14.2
