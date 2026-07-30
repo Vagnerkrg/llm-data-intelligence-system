@@ -31,22 +31,21 @@ from src.agents.cognitive_improvement.contracts.improvement_request import (
 )
 
 
+# Memory Intelligence V1.24
+from src.agents.memory.intelligence.memory_relevance_scorer import (
+    MemoryRelevanceScorer
+)
+
+from src.agents.memory.services.memory_intelligence import (
+    MemoryIntelligence
+)
+
+
 
 class AgentRuntime:
     """
     Runtime execution layer for AI agents.
-
-    Coordinates:
-
-    - execution context;
-    - reasoning;
-    - goal generation;
-    - planning;
-    - memory integration;
-    - execution;
-    - cognitive improvement.
     """
-
 
 
     def __init__(
@@ -59,7 +58,8 @@ class AgentRuntime:
         goal_planner=None,
         cognitive_improvement_engine=None,
         memory_orchestrator=None,
-        memory_adapter=None
+        memory_adapter=None,
+        memory_intelligence=None
     ):
 
 
@@ -115,25 +115,36 @@ class AgentRuntime:
 
 
         #
-        # Memory Integration
+        # Memory Runtime
         #
 
-        self.memory_orchestrator = (
-            memory_orchestrator
+        self.memory_orchestrator = memory_orchestrator
+
+        self.memory_adapter = memory_adapter
+
+
+        #
+        # Memory Intelligence V1.24
+        #
+
+        self.memory_intelligence = (
+            memory_intelligence
+            if memory_intelligence
+            else MemoryIntelligence(
+                relevance_analyzer=MemoryRelevanceScorer()
+            )
         )
 
 
-        self.memory_adapter = (
-            memory_adapter
-        )
 
-
+    #
+    # CONTEXT
+    #
 
     def create_context(
         self,
         question: str
     ) -> ExecutionContext:
-
 
         return ExecutionContext(
             question=question
@@ -141,11 +152,14 @@ class AgentRuntime:
 
 
 
+    #
+    # REASONING
+    #
+
     def create_reasoning(
         self,
         question: str
     ) -> ReasoningResult:
-
 
         return self.reasoning_engine.reason(
             question
@@ -153,29 +167,47 @@ class AgentRuntime:
 
 
 
+    #
+    # GOAL
+    #
+
     def create_goal(
         self,
-        reasoning_result: ReasoningResult
+        reasoning_result
     ) -> Goal:
 
-
-        return self.goal_builder.build(
+        goal = self.goal_builder.build(
             reasoning_result
         )
 
 
+        if goal and not hasattr(
+            goal,
+            "description"
+        ):
 
-    def create_goal_plan(
-        self,
-        goal: Goal
-    ) -> ExecutionPlan:
+            goal.description = (
+                getattr(
+                    goal,
+                    "name",
+                    None
+                )
+                or getattr(
+                    goal,
+                    "objective",
+                    None
+                )
+                or ""
+            )
 
 
-        return self.goal_planner.create_plan(
-            goal
-        )
+        return goal
 
 
+
+    #
+    # PLANNING
+    #
 
     def create_initial_plan(
         self,
@@ -207,9 +239,50 @@ class AgentRuntime:
 
             except TypeError:
 
+
                 return self.execution_planner.create_plan(
                     question
                 )
+
+
+
+    #
+    # MEMORY INTELLIGENCE
+    #
+
+    def analyze_memory(
+        self,
+        memory
+    ):
+
+
+        result = (
+            self.memory_intelligence.analyze(
+                memory
+            )
+        )
+
+
+        return {
+
+            "memory_id": memory.memory_id,
+
+            "content": memory.content,
+
+            "memory_type": memory.memory_type,
+
+            "relevance_score": (
+                result.score
+                if hasattr(
+                    result,
+                    "score"
+                )
+                else None
+            ),
+
+            "status": "analyzed"
+
+        }
 
 
 
@@ -222,7 +295,9 @@ class AgentRuntime:
         context: ExecutionContext
     ):
 
+
         if self.memory_adapter:
+
 
             context.set_memory_context(
                 {
@@ -234,6 +309,7 @@ class AgentRuntime:
 
 
         elif self.memory_orchestrator:
+
 
             context.set_memory_context(
                 {
@@ -249,6 +325,7 @@ class AgentRuntime:
         self,
         memory
     ):
+
 
         if not self.memory_orchestrator:
 
@@ -278,6 +355,10 @@ class AgentRuntime:
 
 
 
+    #
+    # PREPARE
+    #
+
     def prepare(
         self,
         question: str
@@ -289,14 +370,9 @@ class AgentRuntime:
         )
 
 
-        #
-        # Attach Memory
-        #
-
         self.attach_memory_context(
             context
         )
-
 
 
         reasoning_result = self.create_reasoning(
@@ -319,22 +395,11 @@ class AgentRuntime:
         )
 
 
-        if goal:
-
-
-            plan = self.create_goal_plan(
-                goal
-            )
-
-
-        else:
-
-
-            plan = self.create_initial_plan(
-                question,
-                reasoning_result
-            )
-
+        plan = self.create_initial_plan(
+            question,
+            reasoning_result,
+            goal
+        )
 
 
         context.set_plan(
@@ -349,10 +414,14 @@ class AgentRuntime:
 
 
 
+    #
+    # EXECUTE
+    #
+
     def execute(
         self,
         question: str
-    ) -> ExecutionContext:
+    ):
 
 
         context = self.prepare(
@@ -360,15 +429,12 @@ class AgentRuntime:
         )
 
 
-        execution_result = self.execution_engine.execute(
-            context
+        execution_result = (
+            self.execution_engine.execute(
+                context
+            )
         )
 
-
-
-        #
-        # Cognitive Improvement Loop
-        #
 
         improvement_context = ImprovementContext(
 

@@ -16,16 +16,22 @@ class MemoryRelevanceScorer:
     Cognitive memory relevance evaluator.
 
     Responsible for evaluating:
+
     - memory importance
     - contextual value
     - cognitive priority
     - experience relevance
+
+    V1.24:
+    Added analyze() compatibility interface
+    for MemoryIntelligence integration.
     """
 
     def __init__(
         self,
         scorer: RelevanceScoring = None
     ):
+
         self.scorer = (
             scorer
             if scorer
@@ -76,4 +82,28 @@ class MemoryRelevanceScorer:
             explanation=(
                 "Cognitive memory relevance evaluated."
             )
+        )
+
+
+
+    def analyze(
+        self,
+        memory: MemoryEntry
+    ) -> RelevanceResult:
+        """
+        Compatibility interface.
+
+        Used by:
+
+        MemoryIntelligence
+              |
+              v
+        relevance_analyzer.analyze()
+
+        Delegates to evaluate()
+        preserving existing behavior.
+        """
+
+        return self.evaluate(
+            memory
         )
