@@ -1,6 +1,6 @@
 from src.embeddings.local_embedding import LocalEmbeddingGenerator
 from src.index.vector_index import VectorIndex
-from src.llm.groq_client import GroqClient
+from src.llm.llm_factory import LLMFactory
 from src.rag.prompt_templates import RAGPromptTemplate
 from src.query.query_router import QueryRouter
 from src.evaluation.rag_metrics import RAGMetrics
@@ -55,7 +55,7 @@ class RAGQueryEngine:
 
         self.vector_index.load()
 
-        self.llm = GroqClient()
+        self.llm = LLMFactory.create()
 
         self.prompt_template = (
             RAGPromptTemplate()
