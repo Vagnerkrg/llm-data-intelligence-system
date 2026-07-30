@@ -41,21 +41,11 @@ from src.agents.memory.services.memory_intelligence import (
 )
 
 
+
 class AgentRuntime:
     """
     Runtime execution layer for AI agents.
-
-    Coordinates:
-
-    - execution context;
-    - reasoning;
-    - goal generation;
-    - planning;
-    - execution;
-    - memory;
-    - cognitive improvement.
     """
-
 
 
     def __init__(
@@ -128,14 +118,9 @@ class AgentRuntime:
         # Memory Runtime
         #
 
-        self.memory_orchestrator = (
-            memory_orchestrator
-        )
+        self.memory_orchestrator = memory_orchestrator
 
-        self.memory_adapter = (
-            memory_adapter
-        )
-
+        self.memory_adapter = memory_adapter
 
 
         #
@@ -191,9 +176,73 @@ class AgentRuntime:
         reasoning_result
     ) -> Goal:
 
-        return self.goal_builder.build(
+        goal = self.goal_builder.build(
             reasoning_result
         )
+
+
+        if goal and not hasattr(
+            goal,
+            "description"
+        ):
+
+            goal.description = (
+                getattr(
+                    goal,
+                    "name",
+                    None
+                )
+                or getattr(
+                    goal,
+                    "objective",
+                    None
+                )
+                or ""
+            )
+
+
+        return goal
+
+
+
+    #
+    # PLANNING
+    #
+
+    def create_initial_plan(
+        self,
+        question: str,
+        reasoning_result=None,
+        goal=None
+    ) -> ExecutionPlan:
+
+
+        try:
+
+            return self.execution_planner.create_plan(
+                question,
+                reasoning_result,
+                goal
+            )
+
+
+        except TypeError:
+
+
+            try:
+
+                return self.execution_planner.create_plan(
+                    question,
+                    reasoning_result
+                )
+
+
+            except TypeError:
+
+
+                return self.execution_planner.create_plan(
+                    question
+                )
 
 
 
@@ -206,19 +255,6 @@ class AgentRuntime:
         memory
     ):
 
-        """
-        Analyze memory relevance.
-
-        V1.24 Runtime Memory Intelligence.
-
-        Runtime contract:
-        - memory_id
-        - content
-        - memory_type
-        - relevance_score
-        - status
-        """
-
 
         result = (
             self.memory_intelligence.analyze(
@@ -229,20 +265,11 @@ class AgentRuntime:
 
         return {
 
-            "memory_id": (
-                memory.memory_id
-            ),
+            "memory_id": memory.memory_id,
 
+            "content": memory.content,
 
-            "content": (
-                memory.content
-            ),
-
-
-            "memory_type": (
-                memory.memory_type
-            ),
-
+            "memory_type": memory.memory_type,
 
             "relevance_score": (
                 result.score
@@ -253,10 +280,7 @@ class AgentRuntime:
                 else None
             ),
 
-
-            "status": (
-                "analyzed"
-            )
+            "status": "analyzed"
 
         }
 
@@ -371,7 +395,7 @@ class AgentRuntime:
         )
 
 
-        plan = self.execution_planner.create_plan(
+        plan = self.create_initial_plan(
             question,
             reasoning_result,
             goal
@@ -411,11 +435,6 @@ class AgentRuntime:
             )
         )
 
-
-
-        #
-        # Cognitive Improvement Loop
-        #
 
         improvement_context = ImprovementContext(
 
