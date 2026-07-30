@@ -1,27 +1,44 @@
+"""
+Execution Planner
+
+Responsible for creating execution plans
+for AgentRuntime.
+
+Generates ExecutionPlan composed by
+ExecutionStep objects.
+"""
+
+
 from typing import Optional
 
-from src.agents.planning.execution_plan import ExecutionPlan
-from src.agents.planning.plan_step import PlanStep
-from src.agents.planning.goal import Goal
 
-from src.agents.reasoning.reasoning_result import ReasoningResult
+from src.agents.planning.execution_plan import ExecutionPlan
+from src.agents.planning.execution_step import ExecutionStep
+
+
+try:
+    from src.agents.reasoning.reasoning_result import ReasoningResult
+except Exception:
+    ReasoningResult = object
+
+
+try:
+    from src.agents.planning.goal import Goal
+except Exception:
+    Goal = object
+
 
 
 class ExecutionPlanner:
     """
-    Responsible for creating execution plans.
-
-    The planner defines the sequence of actions
-    required to execute an agent workflow.
-
-    Evolution:
-
-    V1.11:
-        Reasoning aware planning.
-
-    V1.12:
-        Goal driven planning foundation.
+    Creates execution plans for agent execution.
     """
+
+
+
+    def __init__(self):
+        pass
+
 
 
     def create_plan(
@@ -31,17 +48,15 @@ class ExecutionPlanner:
         goal: Optional[Goal] = None
     ) -> ExecutionPlan:
         """
-        Create an execution plan.
+        Creates an execution plan.
 
         Supports:
 
-        - question only;
-        - reasoning aware planning;
-        - goal driven planning.
-
-        Backward compatible with
-        previous planners.
+        - simple question planning
+        - reasoning aware planning
+        - goal driven planning
         """
+
 
 
         plan = ExecutionPlan(
@@ -49,69 +64,103 @@ class ExecutionPlanner:
         )
 
 
+
         metadata = {}
 
 
+
+        #
+        # Reasoning metadata
+        #
+
         if reasoning_result:
+
 
             metadata.update(
 
                 {
 
-                    "reasoning": (
-                        reasoning_result.reasoning
+                    "reasoning": getattr(
+                        reasoning_result,
+                        "reasoning",
+                        None
                     ),
 
-                    "conclusion": (
-                        reasoning_result.conclusion
+
+                    "conclusion": getattr(
+                        reasoning_result,
+                        "conclusion",
+                        None
                     ),
 
-                    "confidence": (
-                        reasoning_result.confidence
+
+                    "confidence": getattr(
+                        reasoning_result,
+                        "confidence",
+                        None
                     ),
 
-                    "strategy": (
-                        reasoning_result.strategy
-                        if hasattr(
-                            reasoning_result,
-                            "strategy"
-                        )
-                        else "default"
+
+                    "strategy": getattr(
+                        reasoning_result,
+                        "strategy",
+                        "default"
                     ),
 
-                    "required_capabilities": (
-                        reasoning_result.required_capabilities
-                        if hasattr(
-                            reasoning_result,
-                            "required_capabilities"
-                        )
-                        else []
+
+                    "required_capabilities": getattr(
+                        reasoning_result,
+                        "required_capabilities",
+                        []
                     )
 
                 }
 
             )
 
+
+
+        #
+        # Goal metadata
+        #
 
         if goal:
 
+
             metadata.update(
 
                 {
 
-                    "goal": goal.description,
 
-                    "goal_type": (
-                        goal.goal_type
+                    "goal": getattr(
+                        goal,
+                        "description",
+                        getattr(
+                            goal,
+                            "objective",
+                            None
+                        )
                     ),
 
-                    "goal_priority": (
-                        goal.priority
-                        if hasattr(
-                            goal,
-                            "priority"
-                        )
-                        else None
+
+                    "goal_type": getattr(
+                        goal,
+                        "goal_type",
+                        "general"
+                    ),
+
+
+                    "intent": getattr(
+                        goal,
+                        "intent",
+                        "general"
+                    ),
+
+
+                    "goal_priority": getattr(
+                        goal,
+                        "priority",
+                        None
                     )
 
                 }
@@ -119,82 +168,78 @@ class ExecutionPlanner:
             )
 
 
-        if metadata:
 
-            plan.metadata = metadata
+        plan.metadata = metadata
 
 
 
         #
-        # V1.12:
-        # Goal can influence future
-        # planning decisions.
-        #
-        # Current stage keeps
-        # execution contract stable.
+        # Default execution pipeline
         #
 
+        if not plan.steps:
 
-        plan.add_step(
 
-            PlanStep(
 
-                step_id=1,
+            plan.add_step(
 
-                action="route_request",
+                ExecutionStep(
 
-                description=(
+                    step_id="step_1",
 
-                    "Select the best agent tool "
-                    "for the request."
+                    action="route_request",
+
+                    description=(
+                        "Route user request"
+                    )
 
                 )
 
             )
 
-        )
 
 
+            plan.add_step(
 
-        plan.add_step(
+                ExecutionStep(
 
-            PlanStep(
+                    step_id="step_2",
 
-                step_id=2,
+                    action="execute_tool",
 
-                action="execute_tool",
+                    description=(
+                        "Execute required tools"
+                    ),
 
-                description=(
-
-                    "Execute selected tool "
-                    "according to the goal."
-
-                )
-
-            )
-
-        )
-
-
-
-        plan.add_step(
-
-            PlanStep(
-
-                step_id=3,
-
-                action="generate_response",
-
-                description=(
-
-                    "Prepare final response "
-                    "aligned with execution goal."
+                    dependencies=[
+                        "step_1"
+                    ]
 
                 )
 
             )
 
-        )
+
+
+            plan.add_step(
+
+                ExecutionStep(
+
+                    step_id="step_3",
+
+                    action="generate_response",
+
+                    description=(
+                        "Generate final response"
+                    ),
+
+                    dependencies=[
+                        "step_2"
+                    ]
+
+                )
+
+            )
 
 
 

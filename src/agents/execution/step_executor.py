@@ -1,18 +1,14 @@
 from src.agents.controller.agent_controller import AgentController
-from src.agents.planning.plan_step import PlanStep
-
 
 
 class StepExecutor:
     """
-    Executes individual steps from
-    an agent execution plan.
+    Executes individual plan steps.
 
-    Responsible for translating
-    plan actions into operations.
+    Supports:
+    - ExecutionStep (new planning model)
+    - PlanStep (legacy compatibility)
     """
-
-
 
     def __init__(
         self,
@@ -26,80 +22,178 @@ class StepExecutor:
         )
 
 
+    def _mark_running(
+        self,
+        step
+    ):
+
+        if hasattr(
+            step,
+            "mark_running"
+        ):
+
+            step.mark_running()
+
+
+    def _complete(
+        self,
+        step,
+        result
+    ):
+
+        if hasattr(
+            step,
+            "mark_completed"
+        ):
+
+            step.mark_completed(
+                result
+            )
+
+            return
+
+
+        if hasattr(
+            step,
+            "complete"
+        ):
+
+            step.complete(
+                result
+            )
+
+            return
+
+
+
+    def _fail(
+        self,
+        step,
+        error
+    ):
+
+        if hasattr(
+            step,
+            "mark_failed"
+        ):
+
+            step.mark_failed(
+                error
+            )
+
+            return
+
+
+        if hasattr(
+            step,
+            "fail"
+        ):
+
+            step.fail(
+                error
+            )
+
+            return
+
+
 
     def execute(
         self,
-        step: PlanStep,
+        step,
         question: str
     ):
         """
-        Execute a single plan step.
+        Execute one plan step.
         """
 
-        if step.action == "route_request":
+        try:
 
-            result = {
+            self._mark_running(
+                step
+            )
 
-                "status": "routing_ready"
 
+            action = step.action
+
+
+
+            if action == "route_request":
+
+                result = {
+                    "status": "routing_ready"
+                }
+
+
+                self._complete(
+                    step,
+                    result
+                )
+
+
+                return result
+
+
+
+            if action == "execute_tool":
+
+                result = self.controller.run(
+                    question
+                )
+
+
+                self._complete(
+                    step,
+                    result
+                )
+
+
+                return result
+
+
+
+            if action == "generate_response":
+
+                result = {
+                    "status": "response_ready"
+                }
+
+
+                self._complete(
+                    step,
+                    result
+                )
+
+
+                return result
+
+
+
+            error = (
+                f"Unknown action: {action}"
+            )
+
+
+            self._fail(
+                step,
+                error
+            )
+
+
+            return {
+                "error": error
             }
 
 
-            step.complete(
-                result
+
+        except Exception as exc:
+
+
+            self._fail(
+                step,
+                str(exc)
             )
 
 
-            return result
-
-
-
-        if step.action == "execute_tool":
-
-            result = self.controller.run(
-                question
-            )
-
-
-            step.complete(
-                result
-            )
-
-
-            return result
-
-
-
-        if step.action == "generate_response":
-
-            result = {
-
-                "status": "response_ready"
-
+            return {
+                "error": str(exc)
             }
-
-
-            step.complete(
-                result
-            )
-
-
-            return result
-
-
-
-        error = {
-
-            "error": (
-                f"Unknown action: {step.action}"
-            )
-
-        }
-
-
-        step.fail(
-            error["error"]
-        )
-
-
-        return error
