@@ -18,6 +18,7 @@ class ExecutionContext:
     - goal layer;
     - planning layer;
     - execution layer;
+    - cognitive evaluation layer;
     - cognitive improvement layer;
     - memory intelligence layer.
 
@@ -29,59 +30,54 @@ class ExecutionContext:
 
     V1.20 introduces memory
     intelligence state storage.
+
+    V1.25 introduces cognitive
+    evaluation state storage.
     """
 
     def __init__(
         self,
         question: str,
         plan: Optional[ExecutionPlan] = None,
-        metadata: Optional[Dict[str, Any]] = None
+        metadata: Optional[Dict[str, Any]] = None,
     ):
-
         self.question = question
 
         self.plan = plan
 
-
         # V1.10 compatibility
         self.reasoning_result = None
-
 
         # V1.11 reasoning flow
         self.reasoning = None
 
-
         # V1.12 goal driven planning
         self.goal = None
-
 
         # V1.19 cognitive improvement
         self.cognitive_improvement = None
 
-
         # V1.20 memory intelligence
         self.memory_context = None
 
+        # V1.25 cognitive evaluation
+        self.cognitive_evaluation = None
 
         self.current_step = None
 
         self.results = []
 
-
         self.metadata = (
             metadata
-            if metadata
+            if metadata is not None
             else {}
         )
 
-
         self.status = "initialized"
-
-
 
     def set_reasoning(
         self,
-        reasoning_result: ReasoningResult
+        reasoning_result: ReasoningResult,
     ):
         """
         Store reasoning output
@@ -92,11 +88,9 @@ class ExecutionContext:
 
         self.reasoning = reasoning_result
 
-
-
     def set_goal(
         self,
-        goal: Goal
+        goal: Goal,
     ):
         """
         Store execution goal
@@ -109,11 +103,24 @@ class ExecutionContext:
 
         self.goal = goal
 
+    def set_cognitive_evaluation(
+        self,
+        evaluation_result: Any,
+    ):
+        """
+        Store cognitive evaluation
+        generated after agent execution.
 
+        V1.25:
+        Keeps the cognitive evaluation
+        attached to the runtime execution.
+        """
+
+        self.cognitive_evaluation = evaluation_result
 
     def set_cognitive_improvement(
         self,
-        improvement_result: Any
+        improvement_result: Any,
     ):
         """
         Store cognitive improvement
@@ -124,15 +131,11 @@ class ExecutionContext:
         output attached to execution.
         """
 
-        self.cognitive_improvement = (
-            improvement_result
-        )
-
-
+        self.cognitive_improvement = improvement_result
 
     def set_memory_context(
         self,
-        memory_context: Any
+        memory_context: Any,
     ):
         """
         Store memory intelligence
@@ -143,25 +146,18 @@ class ExecutionContext:
         memories attached to runtime.
         """
 
-        self.memory_context = (
-            memory_context
-        )
-
-
+        self.memory_context = memory_context
 
     def set_plan(
         self,
-        plan: ExecutionPlan
+        plan: ExecutionPlan,
     ):
-
         self.plan = plan
 
         self.status = "planned"
 
-
-
     def update_current_step(
-        self
+        self,
     ):
         """
         Update current runtime step
@@ -169,20 +165,13 @@ class ExecutionContext:
         """
 
         if not self.plan:
-
             self.current_step = None
-
             return
 
-
-        self.current_step = (
-            self.plan.next_step()
-        )
-
-
+        self.current_step = self.plan.next_step()
 
     def clear_current_step(
-        self
+        self,
     ):
         """
         Clear current runtime step.
@@ -190,66 +179,50 @@ class ExecutionContext:
 
         self.current_step = None
 
-
-
     def add_result(
         self,
-        result: Any
+        result: Any,
     ):
-
-        self.results.append(
-            result
-        )
-
-
+        self.results.append(result)
 
     def complete(
-        self
+        self,
     ):
-
         self.status = "completed"
-
-
 
     def fail(
         self,
-        error: str
+        error: str,
     ):
-
         self.status = "failed"
 
         self.metadata["error"] = error
 
-
-
     def summary(
-        self
+        self,
     ) -> Dict[str, Any]:
-
         return {
-
             "question": self.question,
 
-
             "status": self.status,
-
 
             "has_reasoning": (
                 self.reasoning is not None
             ),
 
-
             "has_goal": (
                 self.goal is not None
             ),
 
-
             "goal_type": (
-                self.goal.goal_type
+                getattr(
+                    self.goal,
+                    "goal_type",
+                    None,
+                )
                 if self.goal
                 else None
             ),
-
 
             "current_step": (
                 self.current_step.action
@@ -257,19 +230,17 @@ class ExecutionContext:
                 else None
             ),
 
-
-            "results_count": len(
-                self.results
-            ),
-
+            "results_count": len(self.results),
 
             "has_plan": (
                 self.plan is not None
             ),
 
-
             "has_memory_context": (
                 self.memory_context is not None
-            )
+            ),
 
+            "has_cognitive_evaluation": (
+                self.cognitive_evaluation is not None
+            ),
         }
