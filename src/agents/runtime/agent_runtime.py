@@ -44,6 +44,10 @@ from src.agents.cognitive_evaluation.services.cognitive_evaluator import (
     CognitiveEvaluator
 )
 
+from src.agents.autonomous_evolution.services.autonomous_evolution_adapter import (
+    AutonomousEvolutionAdapter
+)
+
 
 class AgentRuntime:
     """
@@ -64,6 +68,7 @@ class AgentRuntime:
         memory_intelligence=None,
         cognitive_evaluation_adapter=None,
         cognitive_evaluator=None,
+        autonomous_evolution_adapter=None,
     ):
 
         self.controller = (
@@ -131,6 +136,12 @@ class AgentRuntime:
             cognitive_evaluator
             if cognitive_evaluator
             else CognitiveEvaluator()
+        )
+
+        self.autonomous_evolution_adapter = (
+            autonomous_evolution_adapter
+            if autonomous_evolution_adapter
+            else AutonomousEvolutionAdapter()
         )
 
     # CONTEXT
@@ -368,6 +379,24 @@ class AgentRuntime:
 
         return evaluation_result
 
+    # AUTONOMOUS EVOLUTION
+
+    def evaluate_evolution(
+        self,
+        context: ExecutionContext
+    ):
+        """
+        Evaluate whether the completed execution provides sufficient
+        evidence for autonomous evolution.
+
+        The method only orchestrates the adapter. It does not contain
+        evolution criteria or adaptation rules.
+        """
+
+        return self.autonomous_evolution_adapter.evaluate(
+            context
+        )
+
     # EXECUTE
 
     def execute(
@@ -409,6 +438,10 @@ class AgentRuntime:
         )
 
         self.evaluate_cognition(
+            execution_result
+        )
+
+        self.evaluate_evolution(
             execution_result
         )
 
