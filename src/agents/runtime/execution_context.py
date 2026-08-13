@@ -1,8 +1,7 @@
-from typing import Optional, Dict, Any
+from typing import Any, Dict, Optional
 
 from src.agents.planning.execution_plan import ExecutionPlan
 from src.agents.planning.goal import Goal
-
 from src.agents.reasoning.reasoning_result import ReasoningResult
 
 
@@ -20,7 +19,8 @@ class ExecutionContext:
     - execution layer;
     - cognitive evaluation layer;
     - cognitive improvement layer;
-    - memory intelligence layer.
+    - memory intelligence layer;
+    - autonomous evolution layer.
 
     V1.12 introduces goal driven
     execution context support.
@@ -33,6 +33,9 @@ class ExecutionContext:
 
     V1.25 introduces cognitive
     evaluation state storage.
+
+    V1.26 introduces autonomous
+    evolution state storage.
     """
 
     def __init__(
@@ -62,6 +65,11 @@ class ExecutionContext:
 
         # V1.25 cognitive evaluation
         self.cognitive_evaluation = None
+
+        # V1.26 autonomous evolution
+        self.evolution_decision = None
+        self.evolution_result = None
+        self.adaptation_action = None
 
         self.current_step = None
 
@@ -147,6 +155,40 @@ class ExecutionContext:
         """
 
         self.memory_context = memory_context
+
+    def set_evolution_decision(
+        self,
+        evolution_decision: Any,
+    ):
+        """
+        Store the autonomous evolution decision.
+        """
+
+        self.evolution_decision = evolution_decision
+
+    def set_evolution_result(
+        self,
+        evolution_result: Any,
+    ):
+        """
+        Store the autonomous evolution result.
+        """
+
+        self.evolution_result = evolution_result
+
+    def set_adaptation_action(
+        self,
+        adaptation_action: Any,
+    ):
+        """
+        Store a behavior adaptation action proposed
+        by the autonomous evolution layer.
+
+        The action is descriptive only and is not
+        executed by the runtime at this stage.
+        """
+
+        self.adaptation_action = adaptation_action
 
     def set_plan(
         self,
@@ -242,5 +284,17 @@ class ExecutionContext:
 
             "has_cognitive_evaluation": (
                 self.cognitive_evaluation is not None
+            ),
+
+            "has_evolution_decision": (
+                self.evolution_decision is not None
+            ),
+
+            "has_evolution_result": (
+                self.evolution_result is not None
+            ),
+
+            "has_adaptation_action": (
+                self.adaptation_action is not None
             ),
         }
