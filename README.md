@@ -7,8 +7,8 @@
 [![CI](https://github.com/Vagnerkrg/llm-data-intelligence-system/actions/workflows/ci-tests.yml/badge.svg)](https://github.com/Vagnerkrg/llm-data-intelligence-system/actions/workflows/ci-tests.yml)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![Tests](https://img.shields.io/badge/tests-1015%20passing-brightgreen)
+![Ruff](https://img.shields.io/badge/ruff-all%20checks%20passed-brightgreen)
 ![Status](https://img.shields.io/badge/status-active%20development-yellow)
-![Branch](https://img.shields.io/badge/branch-main-informational)
 
 ---
 
@@ -344,7 +344,7 @@ Optimization Signal
 Future Strategy Optimization
 ```
 
-> **Importante:** esta camada não é uma AGI nem um sistema totalmente autônomo. A adaptação permanece controlada, baseada em evidência e sujeita a política. O Agent Runtime continua sendo responsável pela orquestração geral, e a Autonomous Evolution não modifica o código do sistema de forma arbitrária — ela ajusta parâmetros de comportamento e estratégia dentro de limites definidos pela `AdaptiveBehaviorPolicy`.
+> **Importante:** esta camada não é uma AGI nem um sistema totalmente autônomo. A camada produz decisões e ações de adaptação controladas, baseadas em evidência e submetidas às políticas de comportamento definidas pela plataforma — a `AdaptiveBehaviorPolicy` controla e valida se uma decisão evolutiva pode efetivamente gerar uma ação de adaptação, e o `AutonomousEvolutionAdapter` conecta essa decisão ao Agent Runtime, que registra e transporta decisão, resultado e ação de adaptação. A execução efetiva de adaptações permanece dentro dos limites arquiteturais do sistema: a V1.26 não implementa self-modifying code, reescrita autônoma de código ou modificação comportamental totalmente autônoma, e o Agent Runtime continua responsável pela orquestração geral.
 
 Uma suíte de testes dedicada (`tests/test_agents/autonomous_evolution/`) cobre domínio, serviços, isolamento de camada e determinismo, com **93 testes automatizados** validando especificamente esta camada.
 
@@ -481,7 +481,7 @@ Framework de avaliação cognitiva, métricas de performance do agente, integra�
 Consolidação da **Autonomous Evolution Layer**: Evolution Domain, Evolution Decision Engine, Adaptive Behavior Policy, Autonomous Evolution Adapter e Experience-Driven Optimization, totalmente integrados ao Agent Runtime, com suíte de testes dedicada. **1015 testes automatizados** no total.
 
 ### Fase 18 — Cognitive Learning Integration (V1.27) 🚧 PLANNED
-Ainda não implementada — apenas a estrutura da milestone está definida, na branch `feature/v1.27-cognitive-learning-integration`. Escopo planejado:
+Ainda não implementada — apenas a estrutura da milestone está definida, na branch `feature/v1.27-cognitive-learning-integration`. A V1.27 não cria Cognitive Learning do zero: ela integra e expande a capacidade de aprendizado cognitivo já existente desde a V1.21–V1.23 (`src/cognitive/learning/`), conectando-a diretamente ao ciclo de Autonomous Evolution e ao Agent Runtime como um loop unificado. Escopo planejado:
 
 - Definir a arquitetura de Cognitive Learning
 - Criar o Cognitive Learning Domain
@@ -505,9 +505,13 @@ Ainda não implementada — apenas a estrutura da milestone está definida, na b
 
 **Previous Stable Milestone:** V1.26 — Cognitive Improvement & Learning Loop ✅
 
-**Latest Validation:** 1015 testes automatizados passando (suíte completa, conforme último `pytest tests -v`).
+**Latest Tagged Release:** `v1.22.0` (última tag oficial no GitHub — V1.24, V1.25 e V1.26 são milestones consolidadas na `main`, ainda sem tag semver)
 
-**Branch atual:** `feature/v1.27-cognitive-learning-integration`
+**Latest Validation:** 1015 automated tests passing (`pytest -q` → `1015 passed in 30.34s`).
+
+**Static Analysis:** Ruff — All checks passed (correção consolidada no commit `5f5795a`, incluindo o código morto de `src/data/data_loader.py`).
+
+**Current Branch:** `feature/v1.27-cognitive-learning-integration`
 
 ### Architecture Status
 
@@ -526,6 +530,8 @@ Ainda não implementada — apenas a estrutura da milestone está definida, na b
 ## 📊 Maturity Dashboard
 
 Snapshot honesto de maturidade por capacidade, considerando arquitetura, implementação, integração, validação e estabilidade de engenharia — não um dashboard de marketing.
+
+> O percentual de maturidade geral (quando citado) é uma heurística de engenharia baseada em nível de conclusão, integração, validação, estabilidade e operacionalidade de cada capacidade. Não representa percentual de código implementado, cobertura de testes ou progresso comercial do produto.
 
 | Capacidade | Status |
 |---|---|
@@ -624,6 +630,8 @@ New Experience
 
 Alguns componentes operam de forma paralela ou são conectados por adapters específicos (por exemplo, `AutonomousEvolutionAdapter` conectando Evolution ao Runtime), em vez de uma sequência estritamente linear.
 
+O bloco de **Learning**, dentro do Cognitive Improvement, já possui uma base histórica própria desde a V1.21–V1.23 (`src/cognitive/learning/`: consolidação de padrões, knowledge store e knowledge consolidation). A V1.27 — ainda não implementada — pretende integrar essa capacidade diretamente ao ciclo de Autonomous Evolution e ao Agent Runtime, formando um Cognitive Learning Loop unificado, em vez de criar uma capacidade de aprendizado nova.
+
 Toda camada acima é testável de forma independente e evolui através de seu próprio ciclo de capacidade (CCE), sem exigir mudanças nas camadas abaixo dela. Esse princípio se mantém desde a V1.0.
 
 ---
@@ -635,9 +643,9 @@ Toda camada acima é testável de forma independente e evolui através de seu pr
 - **44 testes** dedicados ao Agent Runtime (`tests/test_agents/runtime/`), incluindo execução, planejamento, replanning, contexto de execução e integração com memória, avaliação cognitiva e autonomous evolution.
 - Estrutura de testes espelha a estrutura de `src/`, com pastas dedicadas para cognitive, agents, application, api, evaluation, analysis, monitoring e core.
 
-**CI/CD:** pipeline via GitHub Actions (`.github/workflows/ci-tests.yml`), executado em `push` e `pull_request` para as branches `main`, `feature/v1.21-cognitive-evaluation-system`, `feature/v1.25-cognitive-evaluation-metrics` e `feature/v1.26-advanced-cognitive-evaluation`. O workflow roda em Ubuntu, Python 3.12, instala dependências via `pip install -r requirements.txt` e executa `pytest tests -v`.
+**CI/CD:** pipeline via GitHub Actions (`.github/workflows/ci-tests.yml`), executado em `push` e `pull_request` para as branches `main`, `feature/v1.21-cognitive-evaluation-system`, `feature/v1.25-cognitive-evaluation-metrics`, `feature/v1.26-advanced-cognitive-evaluation` e `feature/v1.27-cognitive-learning-integration`. O workflow roda em Ubuntu, Python 3.12, instala dependências via `pip install -r requirements.txt` e executa `pytest tests -v`. O pipeline atual não inclui Ruff, coverage, deployment, Docker ou security scanning.
 
-**Análise estática:** o projeto utiliza Ruff para linting. No estado atual do código, a checagem padrão (`ruff check .`) ainda aponta um pequeno número de findings (principalmente imports não utilizados) — não é um "all checks passed" limpo no momento desta atualização. Static analysis com Black e isort também está configurada via `requirements/dev.txt`.
+**Análise estática:** Ruff — **All checks passed**. As violações globais (incluindo código morto em `src/data/data_loader.py`) foram corrigidas no commit `5f5795a` (`chore: corrige violacoes globais do ruff`), consolidado na branch `feature/v1.27-cognitive-learning-integration`. Black e isort também estão configurados via `requirements/dev.txt`.
 
 ---
 
@@ -759,6 +767,8 @@ O LLM Data Intelligence System está evoluindo de um projeto de software para um
 | **Engineering Process** | Cognitive Capability Engineering (CCE) |
 | **Current Milestone** | V1.27 — Cognitive Learning Integration (planejamento) |
 | **Previous Stable Milestone** | V1.26 — Cognitive Improvement & Learning Loop |
+| **Latest Tagged Release** | `v1.22.0` |
 | **Current Branch** | `feature/v1.27-cognitive-learning-integration` |
-| **Tests** | 1015 testes automatizados passando |
+| **Tests** | 1015 automated tests passing (`30.34s`) |
+| **Static Analysis** | Ruff — All checks passed |
 | **Status** | 🟢 Active Development |
