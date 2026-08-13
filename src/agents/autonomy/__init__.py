@@ -4,7 +4,7 @@ from .reflection import ReflectionResult
 from .learning import LearningSignal
 from .adaptation import AdaptationStrategy
 from .decision import AutonomyDecision
-from .autonomy_engine import AutonomyEngine
+from .autonomy_engine import AutonomyEngine as AutonomyEngine
 
 
 __all__ = [
@@ -14,4 +14,5 @@ __all__ = [
     "LearningSignal",
     "AdaptationStrategy",
     "AutonomyDecision",
+    "AutonomyEngine",
 ]

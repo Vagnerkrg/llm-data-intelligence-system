@@ -1,6 +1,4 @@
 from src.agents.controller.agent_controller import AgentController
-from src.agents.execution.tool_executor import ToolExecutor
-from src.agents.tools.registry import ToolRegistry
 
 
 class FakeExecutor:

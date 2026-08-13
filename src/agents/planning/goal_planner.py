@@ -1,4 +1,3 @@
-from typing import Optional
 
 from src.agents.planning.execution_plan import ExecutionPlan
 from src.agents.planning.plan_step import PlanStep

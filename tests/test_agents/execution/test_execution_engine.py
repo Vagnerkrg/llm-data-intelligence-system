@@ -1,5 +1,4 @@
 from src.agents.execution.execution_engine import ExecutionEngine
-from src.agents.execution.step_executor import StepExecutor
 from src.agents.runtime.execution_context import ExecutionContext
 from src.agents.planning.execution_plan import ExecutionPlan
 from src.agents.planning.plan_step import PlanStep

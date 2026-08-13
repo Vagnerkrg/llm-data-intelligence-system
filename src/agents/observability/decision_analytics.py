@@ -1,6 +1,5 @@
-from typing import Dict, List
+from typing import Dict
 
-from src.agents.observability.agent_decision_trace import AgentDecisionTrace
 from src.agents.observability.decision_trace_store import DecisionTraceStore
 
 

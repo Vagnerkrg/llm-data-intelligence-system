@@ -1,4 +1,3 @@
-from typing import List
 
 from src.agents.memory.domain.retrieval_result import (
     RetrievalResult

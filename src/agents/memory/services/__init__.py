@@ -1,3 +1,7 @@
 from src.agents.memory.services.relevance_analyzer import (
-    RelevanceAnalyzer
+    RelevanceAnalyzer as RelevanceAnalyzer,
 )
+
+__all__ = [
+    "RelevanceAnalyzer",
+]

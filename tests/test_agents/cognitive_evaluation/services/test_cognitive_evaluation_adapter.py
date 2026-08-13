@@ -1,9 +1,6 @@
 from src.agents.cognitive_evaluation.domain.evaluation_context import (
     EvaluationContext,
 )
-from src.agents.cognitive_evaluation.domain.evaluation_result import (
-    EvaluationResult,
-)
 from src.agents.cognitive_evaluation.services.cognitive_evaluation_adapter import (
     CognitiveEvaluationAdapter,
 )
