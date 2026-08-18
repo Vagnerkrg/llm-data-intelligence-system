@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+﻿from dataclasses import dataclass, field
 from typing import Any
 
 
@@ -21,7 +21,7 @@ class LearningSignal:
             raise ValueError("signal_type must not be empty.")
 
         if not 0.0 <= self.confidence <= 1.0:
-            raise ValueError("confidence must be between 0.0 and 1.0.")
+            raise ValueError("confidence must be between 0 and 1")
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -32,3 +32,4 @@ class LearningSignal:
             "impact": self.impact,
             "metadata": dict(self.metadata),
         }
+

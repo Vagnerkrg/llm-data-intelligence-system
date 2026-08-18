@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+﻿from dataclasses import dataclass, field
 from typing import Any
 
 
@@ -36,3 +36,4 @@ class LearningContext:
             "signals": list(self.signals),
             "metadata": dict(self.metadata),
         }
+
