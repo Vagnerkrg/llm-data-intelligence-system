@@ -169,7 +169,6 @@ Natural Language Questions
         ↓
     Reflection
         ↓
-<<<<<<< HEAD
 Learning Signal Processing
         ↓
   Learning Outcomes
@@ -184,18 +183,6 @@ Decision Intelligence
 ```
 
 The system transforms questions into intelligent workflows executed by specialized AI capabilities — and each execution becomes an experience that the platform learns from, remembers, evaluates and uses to evolve future behavior.
-=======
-     Learning
-        ↓
-      Memory
-        ↓
-Cognitive Evaluation
-        ↓
-Decision Intelligence
-```
-
-The system transforms questions into intelligent workflows executed by specialized AI capabilities — and each execution becomes an experience that the platform learns from, remembers and evaluates for future improvement.
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 ---
 
@@ -216,7 +203,6 @@ Execution
     ↓
 Observation
     ↓
-<<<<<<< HEAD
 Cognitive Evaluation
     ↓
 Learning Signal Processing
@@ -234,23 +220,6 @@ Adaptation
 Improved Execution
     ↓
 New Experience
-=======
-Evaluation
-    ↓
-Reflection
-    ↓
-Learning
-    ↓
-Memory
-    ↓
-Knowledge
-    ↓
-Adaptation
-    ↓
-Cognitive Evaluation
-    ↓
-Continuous Improvement
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 ```
 
 This lifecycle is coordinated by the **Agent Runtime**, which orchestrates the overall flow, while the **Execution Engine** is responsible for executing plans.
@@ -270,7 +239,6 @@ The architecture principle is:
 Introduced in **V1.17 — Self Improvement Expansion**, this layer is what turns the platform from an autonomous *executor* into a *self-improving* system. It closes the loop between what the agent does and how it gets better at doing it.
 
 ```text
-<<<<<<< HEAD
 Self Improvement Layer
         ↓
 Cognitive Learning Integration (V1.27)
@@ -280,22 +248,6 @@ Memory, Optimization, Evolution and Runtime
 ```
 
 With **V1.27**, Learning was expanded from an isolated capability into a comprehensive cognitive integration, connecting directly to Knowledge, Memory, Autonomous Evolution and the Agent Runtime.
-=======
-Experience
-    ↓
-Evaluation
-    ↓
-Reflection
-    ↓
-Learning
-    ↓
-Knowledge Consolidation
-    ↓
-Adaptation
-    ↓
-Improved Execution
-```
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 ## Evaluation Capability
 
@@ -341,7 +293,6 @@ Turns consolidated knowledge and evaluation outcomes into concrete changes in ag
 
 Introduced and completed in **V1.27 — Cognitive Learning Integration**, this layer is what closes the loop between raw execution experience and the platform's Knowledge, Memory and Autonomous Evolution systems.
 
-<<<<<<< HEAD
 ## Cognitive Learning Domain
 
 `LearningExperience` · `LearningOutcome` · `LearningInsight` · `LearningSignal` · `LearningContext` · `LearningStatus`
@@ -454,29 +405,6 @@ New Experience
 ```
 
 `CognitiveLearningLoop` coordinates all of the layers above without assuming their internal rules. It relies on dependency injection, tracks intermediate states, isolates failures per layer, and guarantees deterministic, integrated processing across Learning, Knowledge, Memory and Evolution.
-=======
-```text
-Execution Engine
-    ↓
-Observation
-    ↓
-Evaluation
-    ↓
-Reflection
-    ↓
-Knowledge Update
-    ↓
-Learning
-    ↓
-Adaptation
-    ↓
-Improvement Execution
-    ↓
-Feedback Loop
-```
-
-The Self Improvement Loop operates as a native component of the platform execution lifecycle.
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 ---
 
@@ -516,11 +444,6 @@ Memory Storage
 
 ## Memory Intelligence Layer
 
-<<<<<<< HEAD
-=======
-The Memory Intelligence Layer is now completed and provides cognitive memory management:
-
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 ```text
 Memory Storage
     ↓
@@ -563,11 +486,6 @@ The objective is to evaluate:
 - memory contribution;
 - improvement signals.
 
-<<<<<<< HEAD
-=======
-The evaluation lifecycle:
-
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 ```text
 Agent Execution
     ↓
@@ -579,15 +497,10 @@ Performance Analysis
     ↓
 Feedback Signals
     ↓
-<<<<<<< HEAD
 Cognitive Learning Loop
 ```
 
 ---
-=======
-Improvement Loop
-```
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 # 🤖 Agent Runtime — Cognitive Learning Integration
 
@@ -832,15 +745,12 @@ Runtime Memory Integration    ██████████ 100%
 Long-Term Memory System       ██████████ 100%
 Memory Intelligence Layer     ██████████ 100%
 Cognitive Evaluation Metrics  ██████░░░░  60%
-<<<<<<< HEAD
 Cognitive Learning Layer      ██████████ 100%
 Cognitive Learning Loop       ██████████ 100%
 Learning → Knowledge          ██████████ 100%
 Learning → Memory              ██████████ 100%
 Learning → Evolution           ██████████ 100%
 Agent Runtime Learning        ██████████ 100%
-=======
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 Autonomous Evolution          ██████░░░░  60%
 
 Observability                 ███░░░░░░░  30%
@@ -854,35 +764,21 @@ Cloud Infrastructure          ░░░░░░░░░░   0%
 ## Executive Summary
 
 ```text
-<<<<<<< HEAD
 Overall Platform Maturity  █████████░  85%
 Cognitive Architecture     █████████░  97%
-=======
-Overall Platform Maturity  ████████░░  80%
-Cognitive Architecture     █████████░  95%
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 Software Engineering       ██████████ 100%
 Agent Capabilities         ██████████ 100%
 Self Improvement           ██████████ 100%
 Memory Intelligence        ██████████ 100%
-<<<<<<< HEAD
 Cognitive Learning         ██████████ 100%
-=======
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 Cognitive Evaluation       ██████░░░░  60%
 Autonomous Evolution       ██████░░░░  60%
 Commercial Product         ██░░░░░░░░  20%
 ```
 
-<<<<<<< HEAD
 **Current phase:** The Self Improvement Loop, Runtime Memory Integration, Memory Intelligence Layer and Cognitive Learning Layer are fully operational and integrated into the Agent Runtime.
 
 The current focus moves to **V1.28 — Observability**, giving visibility into execution, cognitive evaluation, learning, memory and evolution.
-=======
-**Current phase:** The Self Improvement Loop, Runtime Memory Integration and Memory Intelligence Layer are fully operational and integrated into the Agent Runtime.
-
-The current focus is **Cognitive Evaluation Metrics**, transforming the cognitive architecture into a measurable intelligence platform capable of evaluating decisions, execution quality and improvement signals.
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 ---
 
@@ -960,7 +856,6 @@ The current focus is **Cognitive Evaluation Metrics**, transforming the cognitiv
 
 ## Cognitive Learning
 
-<<<<<<< HEAD
 - ✅ Learning Domain
 - ✅ Learning Signal Processing
 - ✅ Learning Outcome Engine
@@ -976,14 +871,6 @@ The current focus is **Cognitive Evaluation Metrics**, transforming the cognitiv
 
 - 🚧 Next engineering milestone
 - 🚧 Not yet implemented
-=======
-- 🚧 Cognitive Evaluation Framework
-- 🚧 Agent Performance Metrics
-- 🚧 Runtime Cognitive Evaluation
-- 🚧 Decision Quality Analysis
-- 🚧 Improvement Signal Processing
-- 🚧 Regression Evaluation Tests
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 ---
 
@@ -996,15 +883,7 @@ User Request
     ↓
 Agent Runtime
     ↓
-<<<<<<< HEAD
 Perception / Reasoning / Decision
-=======
-Perception
-    ↓
-Reasoning
-    ↓
-Decision
->>>>>>> fd7544553e02874225629f737efc3b882036398c
     ↓
 Planning
     ↓
@@ -1012,7 +891,6 @@ Execution ── Tool Registry ── Analytics / RAG / Search Tools
     ↓
 Observation
     ↓
-<<<<<<< HEAD
 Cognitive Evaluation
     ↓
 ┌──────────────────────────────────────────────┐
@@ -1032,37 +910,6 @@ Adaptation
 Improved Execution
     ↓
 New Experience
-=======
-┌────────────────────────────────────────────┐
-│              Self Improvement Loop          │
-│                                              │
-│  Evaluation → Reflection → Learning →       │
-│  Knowledge Consolidation → Adaptation       │
-└────────────────────────────────────────────┘
-    ↓
-┌────────────────────────────────────────────┐
-│              Runtime Memory Layer           │
-│                                              │
-│  Storage → Retrieval → Consolidation →      │
-│  Decay → Lifecycle Management               │
-└────────────────────────────────────────────┘
-    ↓
-┌────────────────────────────────────────────┐
-│           Memory Intelligence Layer         │
-│                                              │
-│  Relevance → Ranking → Consolidation →      │
-│  Cognitive Memory Management                │
-└────────────────────────────────────────────┘
-    ↓
-┌────────────────────────────────────────────┐
-│           Cognitive Evaluation Layer        │
-│                                              │
-│  Metrics → Analysis → Feedback Signals →    │
-│  Continuous Improvement                     │
-└────────────────────────────────────────────┘
-    ↓
-Improved Execution / Business Decision
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 ```
 
 ## Module-Level Breakdown
@@ -1100,7 +947,6 @@ src/agents/self_improvement/
                          AdaptationManager
 ```
 
-<<<<<<< HEAD
 **Cognitive Learning Layer** (`src/agents/cognitive_learning/`) — added in V1.27:
 
 ```text
@@ -1129,10 +975,6 @@ src/agents/cognitive_learning/
 
 **Runtime Memory Layer components:**
 
-=======
-**Runtime Memory Layer components:**
-
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 `RuntimeMemoryAdapter` · `MemoryOrchestrator` · `MemoryEngine` · `MemoryManager`
 
 Implementing the Remember and Recall workflows and injecting memory context directly into the Agent Runtime reasoning cycle.
@@ -1181,12 +1023,9 @@ Memory Intelligence Layer
         ↓
 Cognitive Evaluation Layer
 (metrics, analysis, improvement signals)
-<<<<<<< HEAD
         ↓
 Cognitive Learning Layer
 (signal processing, outcomes, knowledge/memory/evolution integration)
-=======
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 ```
 
 Every layer above is independently testable and evolves through its own capability lifecycle (CCE), without requiring changes to the layers below it.
@@ -1195,7 +1034,6 @@ This principle has remained consistent since V1.0.
 
 ---
 
-<<<<<<< HEAD
 # 🏁 Milestone Transition
 
 ```text
@@ -1228,8 +1066,6 @@ feature/v1.28-observability
 
 ---
 
-=======
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 # 🚀 Roadmap
 
 ### V1.18 — Cognitive Integration Expansion ✅ RELEASED
@@ -1257,17 +1093,11 @@ Implemented:
 - Memory ranking;
 - Memory consolidation;
 - Cognitive memory workflows.
-<<<<<<< HEAD
-=======
-
-### V1.25 — Cognitive Evaluation Metrics 🚧 CURRENT
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 ### V1.25 — Cognitive Evaluation Metrics ✅ RELEASED
 
 Built a measurable cognitive intelligence layer: evaluation framework, agent performance metrics, runtime evaluation integration and decision quality analysis.
 
-<<<<<<< HEAD
 ### V1.27 — Cognitive Learning Integration ✅ COMPLETED
 
 Implemented:
@@ -1299,14 +1129,6 @@ Planned focus:
 - engineering observability.
 
 Implementation not yet completed.
-=======
-- Cognitive Evaluation Framework;
-- Agent Performance Metrics;
-- Runtime Evaluation Integration;
-- Decision Quality Analysis;
-- Cognitive Feedback Signals;
-- Regression Evaluation Tests.
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 
 ### Future Evolution
 
@@ -1349,10 +1171,7 @@ The LLM Data Intelligence System should be evaluated as a technology platform, n
 - self improvement loop integrated into the Agent Runtime;
 - runtime memory and Memory Intelligence Layer;
 - cognitive evaluation foundation;
-<<<<<<< HEAD
 - cognitive learning layer connecting experience to knowledge, memory and evolution;
-=======
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 - agent orchestration and reasoning workflow;
 - goal-driven planning and autonomous execution capabilities;
 - intelligent tool ecosystem;
@@ -1408,31 +1227,16 @@ The LLM Data Intelligence System is evolving from a software project into a comp
 
 ---
 
-<<<<<<< HEAD
 # 🏁 Project Identity
 
-=======
----
-
-# 🏁 Project Identity
-
->>>>>>> fd7544553e02874225629f737efc3b882036398c
 | | |
 |---|---|
 | **Architecture** | Cognitive Agent Architecture |
 | **Development Model** | Capability Driven Architecture |
 | **Engineering Process** | Cognitive Capability Engineering (CCE) |
-<<<<<<< HEAD
 | **Completed Milestone** | V1.27 — Cognitive Learning Integration |
 | **Next Milestone** | V1.28 — Observability |
 | **Milestone Status** | V1.27 ✅ Completed |
 | **Current Branch** | `feature/v1.28-observability` |
 | **Latest Validation** | 1084 automated tests |
 | **Status** | Active Development |
-=======
-| **Current Milestone** | V1.25 — Cognitive Evaluation Metrics |
-| **Latest Stable Release** | v1.24.0 |
-| **Current Branch** | feature/v1.25-cognitive-evaluation-metrics |
-| **Tests** | 817 automated tests passing |
-| **Status** | Active development |
->>>>>>> fd7544553e02874225629f737efc3b882036398c
