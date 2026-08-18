@@ -3,35 +3,31 @@ from typing import Any
 
 
 @dataclass(frozen=True)
-class LearningExperience:
-    """Structured experience entering the cognitive learning layer."""
+class LearningSignal:
+    """Normalized signal entering cognitive learning."""
 
-    experience_id: str
-    source: str
+    signal_id: str
     signal_type: str
     pattern: str
-    outcome: str
     confidence: float
     impact: str
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        if not self.experience_id.strip():
-            raise ValueError("experience_id must not be empty.")
+        if not self.signal_id.strip():
+            raise ValueError("signal_id must not be empty.")
 
-        if not self.source.strip():
-            raise ValueError("source must not be empty.")
+        if not self.signal_type.strip():
+            raise ValueError("signal_type must not be empty.")
 
         if not 0.0 <= self.confidence <= 1.0:
             raise ValueError("confidence must be between 0.0 and 1.0.")
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "experience_id": self.experience_id,
-            "source": self.source,
+            "signal_id": self.signal_id,
             "signal_type": self.signal_type,
             "pattern": self.pattern,
-            "outcome": self.outcome,
             "confidence": self.confidence,
             "impact": self.impact,
             "metadata": dict(self.metadata),

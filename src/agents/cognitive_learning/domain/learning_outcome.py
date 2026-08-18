@@ -12,3 +12,23 @@ class LearningOutcome:
     confidence: float
     recommendation: str
     metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not self.experience_id.strip():
+            raise ValueError("experience_id must not be empty.")
+
+        if not self.learned_pattern.strip():
+            raise ValueError("learned_pattern must not be empty.")
+
+        if not 0.0 <= self.confidence <= 1.0:
+            raise ValueError("confidence must be between 0.0 and 1.0.")
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "experience_id": self.experience_id,
+            "learned_pattern": self.learned_pattern,
+            "knowledge_candidate": self.knowledge_candidate,
+            "confidence": self.confidence,
+            "recommendation": self.recommendation,
+            "metadata": dict(self.metadata),
+        }
