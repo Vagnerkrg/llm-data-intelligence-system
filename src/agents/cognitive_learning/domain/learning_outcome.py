@@ -32,4 +32,3 @@ class LearningOutcome:
             "recommendation": self.recommendation,
             "metadata": dict(self.metadata),
         }
-
