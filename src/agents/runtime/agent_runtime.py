@@ -1,51 +1,75 @@
 ﻿from typing import Optional
 
-from src.agents.runtime.execution_context import ExecutionContext
+from src.agents.runtime.execution_context import (
+    ExecutionContext,
+)
 
-from src.agents.planning.execution_plan import ExecutionPlan
-from src.agents.planning.execution_planner import ExecutionPlanner
+from src.agents.planning.execution_plan import (
+    ExecutionPlan,
+)
+from src.agents.planning.execution_planner import (
+    ExecutionPlanner,
+)
 
-from src.agents.planning.goal import Goal
-from src.agents.planning.goal_builder import GoalBuilder
-from src.agents.planning.goal_planner import GoalPlanner
+from src.agents.planning.goal import (
+    Goal,
+)
+from src.agents.planning.goal_builder import (
+    GoalBuilder,
+)
+from src.agents.planning.goal_planner import (
+    GoalPlanner,
+)
 
-from src.agents.controller.agent_controller import AgentController
+from src.agents.controller.agent_controller import (
+    AgentController,
+)
 
-from src.agents.execution.execution_engine import ExecutionEngine
+from src.agents.execution.execution_engine import (
+    ExecutionEngine,
+)
 
-from src.agents.reasoning.reasoning_engine import ReasoningEngine
-from src.agents.reasoning.reasoning_result import ReasoningResult
+from src.agents.reasoning.reasoning_engine import (
+    ReasoningEngine,
+)
+from src.agents.reasoning.reasoning_result import (
+    ReasoningResult,
+)
 
 from src.agents.cognitive_improvement.services.cognitive_improvement_engine import (
-    CognitiveImprovementEngine
+    CognitiveImprovementEngine,
 )
 
 from src.agents.cognitive_improvement.domain.improvement_context import (
-    ImprovementContext
+    ImprovementContext,
 )
 
 from src.agents.cognitive_improvement.contracts.improvement_request import (
-    ImprovementRequest
+    ImprovementRequest,
 )
 
 from src.agents.memory.intelligence.memory_relevance_scorer import (
-    MemoryRelevanceScorer
+    MemoryRelevanceScorer,
 )
 
 from src.agents.memory.services.memory_intelligence import (
-    MemoryIntelligence
+    MemoryIntelligence,
 )
 
 from src.agents.cognitive_evaluation.services.cognitive_evaluation_adapter import (
-    CognitiveEvaluationAdapter
+    CognitiveEvaluationAdapter,
 )
 
 from src.agents.cognitive_evaluation.services.cognitive_evaluator import (
-    CognitiveEvaluator
+    CognitiveEvaluator,
 )
 
 from src.agents.autonomous_evolution.services.autonomous_evolution_adapter import (
-    AutonomousEvolutionAdapter
+    AutonomousEvolutionAdapter,
+)
+
+from src.agents.cognitive_learning.services.cognitive_learning_loop import (
+    CognitiveLearningLoop,
 )
 
 
@@ -69,6 +93,7 @@ class AgentRuntime:
         cognitive_evaluation_adapter=None,
         cognitive_evaluator=None,
         autonomous_evolution_adapter=None,
+        cognitive_learning_loop=None,
     ):
 
         self.controller = (
@@ -144,11 +169,17 @@ class AgentRuntime:
             else AutonomousEvolutionAdapter()
         )
 
+        self.cognitive_learning_loop = (
+            cognitive_learning_loop
+            if cognitive_learning_loop is not None
+            else CognitiveLearningLoop()
+        )
+
     # CONTEXT
 
     def create_context(
         self,
-        question: str
+        question: str,
     ) -> ExecutionContext:
 
         return ExecutionContext(
@@ -159,7 +190,7 @@ class AgentRuntime:
 
     def create_reasoning(
         self,
-        question: str
+        question: str,
     ) -> ReasoningResult:
 
         return self.reasoning_engine.reason(
@@ -170,7 +201,7 @@ class AgentRuntime:
 
     def create_goal(
         self,
-        reasoning_result
+        reasoning_result,
     ) -> Goal:
 
         goal = self.goal_builder.build(
@@ -179,19 +210,19 @@ class AgentRuntime:
 
         if goal and not hasattr(
             goal,
-            "description"
+            "description",
         ):
 
             goal.description = (
                 getattr(
                     goal,
                     "name",
-                    None
+                    None,
                 )
                 or getattr(
                     goal,
                     "objective",
-                    None
+                    None,
                 )
                 or ""
             )
@@ -204,7 +235,7 @@ class AgentRuntime:
         self,
         question: str,
         reasoning_result=None,
-        goal=None
+        goal=None,
     ) -> ExecutionPlan:
 
         try:
@@ -212,7 +243,7 @@ class AgentRuntime:
             return self.execution_planner.create_plan(
                 question,
                 reasoning_result,
-                goal
+                goal,
             )
 
         except TypeError:
@@ -221,7 +252,7 @@ class AgentRuntime:
 
                 return self.execution_planner.create_plan(
                     question,
-                    reasoning_result
+                    reasoning_result,
                 )
 
             except TypeError:
@@ -234,7 +265,7 @@ class AgentRuntime:
 
     def analyze_memory(
         self,
-        memory
+        memory,
     ):
 
         result = (
@@ -251,18 +282,18 @@ class AgentRuntime:
                 result.score
                 if hasattr(
                     result,
-                    "score"
+                    "score",
                 )
                 else None
             ),
-            "status": "analyzed"
+            "status": "analyzed",
         }
 
     # MEMORY
 
     def attach_memory_context(
         self,
-        context: ExecutionContext
+        context: ExecutionContext,
     ):
 
         if self.memory_adapter:
@@ -271,7 +302,7 @@ class AgentRuntime:
                 {
                     "enabled": True,
                     "source": "runtime_memory_adapter",
-                    "adapter": self.memory_adapter
+                    "adapter": self.memory_adapter,
                 }
             )
 
@@ -281,13 +312,13 @@ class AgentRuntime:
                 {
                     "enabled": True,
                     "source": "memory_orchestrator",
-                    "orchestrator": self.memory_orchestrator
+                    "orchestrator": self.memory_orchestrator,
                 }
             )
 
     def remember_memory(
         self,
-        memory
+        memory,
     ):
 
         if not self.memory_orchestrator:
@@ -299,7 +330,7 @@ class AgentRuntime:
 
     def recall_memory(
         self,
-        memory_id: str
+        memory_id: str,
     ):
 
         if not self.memory_orchestrator:
@@ -313,7 +344,7 @@ class AgentRuntime:
 
     def prepare(
         self,
-        question: str
+        question: str,
     ) -> ExecutionContext:
 
         context = self.create_context(
@@ -343,7 +374,7 @@ class AgentRuntime:
         plan = self.create_initial_plan(
             question,
             reasoning_result,
-            goal
+            goal,
         )
 
         context.set_plan(
@@ -358,7 +389,7 @@ class AgentRuntime:
 
     def evaluate_cognition(
         self,
-        context: ExecutionContext
+        context: ExecutionContext,
     ):
 
         evaluation_context = (
@@ -379,11 +410,60 @@ class AgentRuntime:
 
         return evaluation_result
 
+    # COGNITIVE LEARNING
+
+    def run_cognitive_learning(
+        self,
+        context: ExecutionContext,
+        learning_signals=None,
+        execution_history=None,
+    ):
+        """
+        Execute the cognitive learning loop.
+
+        The runtime only coordinates the loop and persists its
+        intermediate results in ExecutionContext.
+        """
+
+        if not isinstance(
+            context,
+            ExecutionContext,
+        ):
+            raise TypeError(
+                "context must be an ExecutionContext instance."
+            )
+
+        evaluation_context = (
+            self.cognitive_evaluation_adapter.adapt(
+                context
+            )
+        )
+
+        result = self.cognitive_learning_loop.run(
+            evaluation_context,
+            learning_signals=(
+                learning_signals
+                if learning_signals is not None
+                else ()
+            ),
+            execution_history=(
+                execution_history
+                if execution_history is not None
+                else context.results
+            ),
+        )
+
+        context.set_learning_loop_result(
+            result
+        )
+
+        return result
+
     # AUTONOMOUS EVOLUTION
 
     def evaluate_evolution(
         self,
-        context: ExecutionContext
+        context: ExecutionContext,
     ):
         """
         Evaluate whether the completed execution provides sufficient
@@ -401,7 +481,7 @@ class AgentRuntime:
 
     def execute(
         self,
-        question: str
+        question: str,
     ):
 
         context = self.prepare(
@@ -419,8 +499,8 @@ class AgentRuntime:
             objective=question,
             metadata={
                 "source": "agent_runtime",
-                "execution_status": execution_result.status
-            }
+                "execution_status": execution_result.status,
+            },
         )
 
         improvement_request = ImprovementRequest(
@@ -438,6 +518,10 @@ class AgentRuntime:
         )
 
         self.evaluate_cognition(
+            execution_result
+        )
+
+        self.run_cognitive_learning(
             execution_result
         )
 

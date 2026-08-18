@@ -2,7 +2,6 @@ from typing import Dict
 
 from src.services.data_intelligence_service import DataIntelligenceService
 from src.analysis.analytics_engine import AnalyticsEngine
-from src.analysis.dataframe_repository import DataFrameRepository
 from src.logging import AppLogger
 
 

@@ -1,6 +1,5 @@
 import json
 
-from pathlib import Path
 
 from src.monitoring.dashboard_metrics import DashboardMetrics
 

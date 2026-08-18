@@ -7,35 +7,11 @@ from src.agents.reasoning.reasoning_result import ReasoningResult
 
 class ExecutionContext:
     """
-    Stores runtime information during
-    an agent execution.
+    Stores runtime information during an agent execution.
 
-    The context keeps the current state
-    shared between:
-
-    - reasoning layer;
-    - goal layer;
-    - planning layer;
-    - execution layer;
-    - cognitive evaluation layer;
-    - cognitive improvement layer;
-    - memory intelligence layer;
-    - autonomous evolution layer.
-
-    V1.12 introduces goal driven
-    execution context support.
-
-    V1.19 introduces cognitive
-    improvement state storage.
-
-    V1.20 introduces memory
-    intelligence state storage.
-
-    V1.25 introduces cognitive
-    evaluation state storage.
-
-    V1.26 introduces autonomous
-    evolution state storage.
+    The context keeps the current state shared between reasoning,
+    planning, execution, cognitive evaluation, improvement, memory,
+    learning, and autonomous evolution layers.
     """
 
     def __init__(
@@ -45,34 +21,25 @@ class ExecutionContext:
         metadata: Optional[Dict[str, Any]] = None,
     ):
         self.question = question
-
         self.plan = plan
 
-        # V1.10 compatibility
         self.reasoning_result = None
-
-        # V1.11 reasoning flow
         self.reasoning = None
-
-        # V1.12 goal driven planning
         self.goal = None
 
-        # V1.19 cognitive improvement
         self.cognitive_improvement = None
-
-        # V1.20 memory intelligence
         self.memory_context = None
-
-        # V1.25 cognitive evaluation
         self.cognitive_evaluation = None
 
-        # V1.26 autonomous evolution
+        self.learning_experiences = []
+        self.learning_outcomes = []
+        self.learning_loop_result = None
+
         self.evolution_decision = None
         self.evolution_result = None
         self.adaptation_action = None
 
         self.current_step = None
-
         self.results = []
 
         self.metadata = (
@@ -87,107 +54,96 @@ class ExecutionContext:
         self,
         reasoning_result: ReasoningResult,
     ):
-        """
-        Store reasoning output
-        generated before planning.
-        """
-
         self.reasoning_result = reasoning_result
-
         self.reasoning = reasoning_result
 
     def set_goal(
         self,
         goal: Goal,
     ):
-        """
-        Store execution goal
-        generated from reasoning.
-
-        V1.12:
-        Goal becomes an explicit
-        runtime state.
-        """
-
         self.goal = goal
 
     def set_cognitive_evaluation(
         self,
         evaluation_result: Any,
     ):
-        """
-        Store cognitive evaluation
-        generated after agent execution.
-
-        V1.25:
-        Keeps the cognitive evaluation
-        attached to the runtime execution.
-        """
-
         self.cognitive_evaluation = evaluation_result
 
     def set_cognitive_improvement(
         self,
         improvement_result: Any,
     ):
-        """
-        Store cognitive improvement
-        cycle result.
-
-        V1.19:
-        Keeps the learning/improvement
-        output attached to execution.
-        """
-
         self.cognitive_improvement = improvement_result
 
     def set_memory_context(
         self,
         memory_context: Any,
     ):
-        """
-        Store memory intelligence
-        context attached to execution.
-
-        V1.20:
-        Keeps retrieved and generated
-        memories attached to runtime.
-        """
-
         self.memory_context = memory_context
+
+    def set_learning_experiences(
+        self,
+        learning_experiences: Any,
+    ):
+        self.learning_experiences = list(
+            learning_experiences
+        )
+
+    def set_learning_outcomes(
+        self,
+        learning_outcomes: Any,
+    ):
+        self.learning_outcomes = list(
+            learning_outcomes
+        )
+
+    def set_learning_loop_result(
+        self,
+        learning_loop_result: Any,
+    ):
+        self.learning_loop_result = learning_loop_result
+
+        if learning_loop_result is None:
+            return
+
+        experiences = getattr(
+            learning_loop_result,
+            "learning_experiences",
+            None,
+        )
+
+        outcomes = getattr(
+            learning_loop_result,
+            "learning_outcomes",
+            None,
+        )
+
+        if experiences is not None:
+            self.set_learning_experiences(
+                experiences
+            )
+
+        if outcomes is not None:
+            self.set_learning_outcomes(
+                outcomes
+            )
 
     def set_evolution_decision(
         self,
         evolution_decision: Any,
     ):
-        """
-        Store the autonomous evolution decision.
-        """
-
         self.evolution_decision = evolution_decision
 
     def set_evolution_result(
         self,
         evolution_result: Any,
     ):
-        """
-        Store the autonomous evolution result.
-        """
-
         self.evolution_result = evolution_result
 
     def set_adaptation_action(
         self,
         adaptation_action: Any,
     ):
-        """
-        Store a behavior adaptation action proposed
-        by the autonomous evolution layer.
-
-        The action is descriptive only and is not
-        executed by the runtime at this stage.
-        """
-
         self.adaptation_action = adaptation_action
 
     def set_plan(
@@ -195,17 +151,11 @@ class ExecutionContext:
         plan: ExecutionPlan,
     ):
         self.plan = plan
-
         self.status = "planned"
 
     def update_current_step(
         self,
     ):
-        """
-        Update current runtime step
-        from execution plan.
-        """
-
         if not self.plan:
             self.current_step = None
             return
@@ -215,10 +165,6 @@ class ExecutionContext:
     def clear_current_step(
         self,
     ):
-        """
-        Clear current runtime step.
-        """
-
         self.current_step = None
 
     def add_result(
@@ -237,7 +183,6 @@ class ExecutionContext:
         error: str,
     ):
         self.status = "failed"
-
         self.metadata["error"] = error
 
     def summary(
@@ -245,17 +190,13 @@ class ExecutionContext:
     ) -> Dict[str, Any]:
         return {
             "question": self.question,
-
             "status": self.status,
-
             "has_reasoning": (
                 self.reasoning is not None
             ),
-
             "has_goal": (
                 self.goal is not None
             ),
-
             "goal_type": (
                 getattr(
                     self.goal,
@@ -265,35 +206,44 @@ class ExecutionContext:
                 if self.goal
                 else None
             ),
-
             "current_step": (
                 self.current_step.action
                 if self.current_step
                 else None
             ),
-
-            "results_count": len(self.results),
-
+            "results_count": len(
+                self.results
+            ),
             "has_plan": (
                 self.plan is not None
             ),
-
             "has_memory_context": (
                 self.memory_context is not None
             ),
-
             "has_cognitive_evaluation": (
                 self.cognitive_evaluation is not None
             ),
-
+            "has_learning_experiences": bool(
+                self.learning_experiences
+            ),
+            "learning_experiences_count": len(
+                self.learning_experiences
+            ),
+            "has_learning_outcomes": bool(
+                self.learning_outcomes
+            ),
+            "learning_outcomes_count": len(
+                self.learning_outcomes
+            ),
+            "has_learning_loop_result": (
+                self.learning_loop_result is not None
+            ),
             "has_evolution_decision": (
                 self.evolution_decision is not None
             ),
-
             "has_evolution_result": (
                 self.evolution_result is not None
             ),
-
             "has_adaptation_action": (
                 self.adaptation_action is not None
             ),

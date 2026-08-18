@@ -1,4 +1,3 @@
-from ..domain.improvement_context import ImprovementContext
 
 
 class ReflectionAdapter:

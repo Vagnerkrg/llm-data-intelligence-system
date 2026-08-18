@@ -1,4 +1,3 @@
-from typing import Iterable
 
 from ..domain.evaluation_context import EvaluationContext
 from ..domain.evaluation_metric import EvaluationMetric
