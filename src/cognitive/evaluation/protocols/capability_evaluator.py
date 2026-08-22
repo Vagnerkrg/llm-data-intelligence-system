@@ -12,7 +12,6 @@ class CapabilityEvaluator(ABC):
     - tools
     """
 
-
     @abstractmethod
     def evaluate(self, context):
         """

@@ -12,7 +12,6 @@ from src.cognitive.evaluation.feedback_loop.protocols.learning_integration_proto
 
 
 class FakeLearningIntegration(LearningIntegrationProtocol):
-
     def store_learning_feedback(
         self,
         feedback: LearningFeedback,

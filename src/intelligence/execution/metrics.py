@@ -13,9 +13,7 @@ class ExecutionMetric:
     execution_id: str | None = None
     category: str | None = None
 
-    timestamp: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -36,7 +34,6 @@ class ExecutionMetricsStore:
     def __init__(self):
         self._metrics: list[ExecutionMetricRecord] = []
 
-
     def add(
         self,
         execution_id: str,
@@ -55,7 +52,6 @@ class ExecutionMetricsStore:
 
         self._metrics.append(record)
 
-
     def get_by_execution(
         self,
         execution_id: str,
@@ -65,11 +61,8 @@ class ExecutionMetricsStore:
         """
 
         return [
-            record
-            for record in self._metrics
-            if record.execution_id == execution_id
+            record for record in self._metrics if record.execution_id == execution_id
         ]
-
 
     def get_all(
         self,
@@ -78,6 +71,4 @@ class ExecutionMetricsStore:
         Returns all stored metrics.
         """
 
-        return list(
-            self._metrics
-        )
+        return list(self._metrics)

@@ -16,10 +16,7 @@ class PatternDetector:
         self.patterns: Dict[str, LearningPattern] = {}
 
     def detect(
-        self,
-        pattern_id: str,
-        description: str,
-        metadata: Dict[str, Any] | None = None
+        self, pattern_id: str, description: str, metadata: Dict[str, Any] | None = None
     ) -> LearningPattern:
         """
         Detecta ou atualiza um padrão existente.
@@ -29,7 +26,6 @@ class PatternDetector:
             metadata = {}
 
         if pattern_id in self.patterns:
-
             pattern = self.patterns[pattern_id]
 
             pattern.increase_frequency()
@@ -37,19 +33,17 @@ class PatternDetector:
 
             return pattern
 
-
         pattern = LearningPattern(
             pattern_id=pattern_id,
             description=description,
             frequency=1,
             confidence=0.5,
-            metadata=metadata
+            metadata=metadata,
         )
 
         self.patterns[pattern_id] = pattern
 
         return pattern
-
 
     def get_patterns(self) -> List[LearningPattern]:
         """
@@ -57,7 +51,6 @@ class PatternDetector:
         """
 
         return list(self.patterns.values())
-
 
     def count(self) -> int:
         """

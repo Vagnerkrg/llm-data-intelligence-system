@@ -43,14 +43,9 @@ class CognitiveScoreCalculator:
         ]
 
         if invalid_metrics:
-            raise TypeError(
-                "All metrics must be EvaluationMetric instances."
-            )
+            raise TypeError("All metrics must be EvaluationMetric instances.")
 
-        score = sum(
-            metric.score
-            for metric in metrics_list
-        ) / len(metrics_list)
+        score = sum(metric.score for metric in metrics_list) / len(metrics_list)
 
         return EvaluationMetric(
             name=self.metric_name,
@@ -58,10 +53,7 @@ class CognitiveScoreCalculator:
             score=score,
             metadata={
                 "metrics_evaluated": len(metrics_list),
-                "metric_names": [
-                    metric.name
-                    for metric in metrics_list
-                ],
+                "metric_names": [metric.name for metric in metrics_list],
             },
             description="Consolidated cognitive score calculated.",
         )

@@ -123,13 +123,15 @@ def test_processes_known_signal_sources():
 
     result = processor.process(signals)
 
-    assert sorted(item.source for item in result) == sorted([
-        "cognitive_evaluation",
-        "autonomous_evolution",
-        "agent_runtime",
-        "cognitive_reflection",
-        "experience_optimization",
-    ])
+    assert sorted(item.source for item in result) == sorted(
+        [
+            "cognitive_evaluation",
+            "autonomous_evolution",
+            "agent_runtime",
+            "cognitive_reflection",
+            "experience_optimization",
+        ]
+    )
 
 
 def test_processing_is_deterministic():
@@ -156,12 +158,8 @@ def test_processing_is_deterministic():
     second = processor.process(signals)
 
     assert first == second
-    assert [
-        item.experience_id
-        for item in first
-    ] == [
-        item.experience_id
-        for item in second
+    assert [item.experience_id for item in first] == [
+        item.experience_id for item in second
     ]
 
 
@@ -182,6 +180,4 @@ def test_accepts_mapping_signals():
 
     assert len(result) == 1
     assert result[0].source == "cognitive_reflection"
-    assert result[0].metadata["recommendation"] == (
-        "Review reasoning."
-    )
+    assert result[0].metadata["recommendation"] == ("Review reasoning.")

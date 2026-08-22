@@ -12,9 +12,7 @@ def test_should_create_improvement_request():
         objective="test objective",
     )
 
-    request = ImprovementRequest(
-        context=context
-    )
+    request = ImprovementRequest(context=context)
 
     assert request is not None
     assert request.context == context

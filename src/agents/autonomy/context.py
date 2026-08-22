@@ -17,18 +17,10 @@ class AutonomyContext:
     goal: str | None = None
     current_state: str | None = None
 
-    execution_history: list[str] = field(
-        default_factory=list
-    )
+    execution_history: list[str] = field(default_factory=list)
 
-    metrics: dict[str, float] = field(
-        default_factory=dict
-    )
+    metrics: dict[str, float] = field(default_factory=dict)
 
-    feedback: list[str] = field(
-        default_factory=list
-    )
+    feedback: list[str] = field(default_factory=list)
 
-    metadata: dict[str, str] = field(
-        default_factory=dict
-    )
+    metadata: dict[str, str] = field(default_factory=dict)

@@ -51,14 +51,8 @@ def test_experience_optimization_is_deterministic() -> None:
         ]
     )
 
-    first = [
-        signal.to_dict()
-        for signal in optimizer.optimize(context)
-    ]
+    first = [signal.to_dict() for signal in optimizer.optimize(context)]
 
-    second = [
-        signal.to_dict()
-        for signal in optimizer.optimize(context)
-    ]
+    second = [signal.to_dict() for signal in optimizer.optimize(context)]
 
     assert first == second

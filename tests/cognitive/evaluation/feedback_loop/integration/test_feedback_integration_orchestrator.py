@@ -25,9 +25,7 @@ def test_feedback_integration_flow():
         created_at=datetime.now(),
     )
 
-    result = orchestrator.integrate_feedback(
-        feedback
-    )
+    result = orchestrator.integrate_feedback(feedback)
 
     assert result is True
 
@@ -44,8 +42,6 @@ def test_improvement_integration_flow():
         created_at=datetime.now(),
     )
 
-    result = orchestrator.integrate_improvement(
-        improvement
-    )
+    result = orchestrator.integrate_improvement(improvement)
 
     assert result is True

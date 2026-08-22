@@ -46,30 +46,15 @@ class MemoryEffectivenessMetric:
             )
 
         factors = [
-            self._normalize_value(
-                information.get("memory_usage")
-            ),
-            self._normalize_value(
-                information.get("relevance_score")
-            ),
-            self._normalize_value(
-                information.get("retrieved_context_quality")
-            ),
-            self._normalize_value(
-                information.get("memory_contribution")
-            ),
+            self._normalize_value(information.get("memory_usage")),
+            self._normalize_value(information.get("relevance_score")),
+            self._normalize_value(information.get("retrieved_context_quality")),
+            self._normalize_value(information.get("memory_contribution")),
         ]
 
-        available = [
-            factor for factor in factors
-            if factor is not None
-        ]
+        available = [factor for factor in factors if factor is not None]
 
-        score = (
-            sum(available) / len(available)
-            if available
-            else 0.0
-        )
+        score = sum(available) / len(available) if available else 0.0
 
         return EvaluationMetric(
             name=self.metric_name,

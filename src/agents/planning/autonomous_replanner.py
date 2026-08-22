@@ -34,24 +34,16 @@ class AutonomousReplanner:
         if not decision.should_replan:
             return updated_plan
 
-
         recovery_step = PlanStep(
             step_id=len(updated_plan.steps) + 1,
             action="adaptive_recovery",
-            description=(
-                "Execute recovery strategy "
-                "after execution failure"
-            ),
+            description=("Execute recovery strategy after execution failure"),
             metadata={
                 "reason": decision.reason,
                 "issues": decision.issues,
-            }
+            },
         )
 
-
-        updated_plan.add_step(
-            recovery_step
-        )
-
+        updated_plan.add_step(recovery_step)
 
         return updated_plan

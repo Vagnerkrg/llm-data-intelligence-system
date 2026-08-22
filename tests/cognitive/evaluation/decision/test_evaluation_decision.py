@@ -16,25 +16,14 @@ def test_evaluation_decision_creates_adaptation_decision():
     interpretation = EvaluationInterpretation(
         severity="high",
         requires_improvement=True,
-        areas=[
-            "reasoning"
-        ],
+        areas=["reasoning"],
     )
-
 
     engine = EvaluationDecisionEngine()
 
+    decision = engine.decide(interpretation)
 
-    decision = engine.decide(
-        interpretation
-    )
-
-
-    assert isinstance(
-        decision,
-        EvaluationDecision
-    )
-
+    assert isinstance(decision, EvaluationDecision)
 
     assert decision.action == "adapt"
 

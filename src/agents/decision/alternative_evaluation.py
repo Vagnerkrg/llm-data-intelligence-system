@@ -14,6 +14,4 @@ class AlternativeEvaluation:
     risk_level: str
     evaluation_reason: str
 
-    metadata: dict[str, str] = field(
-        default_factory=dict
-    )
+    metadata: dict[str, str] = field(default_factory=dict)

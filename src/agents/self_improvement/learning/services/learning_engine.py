@@ -26,17 +26,11 @@ class LearningEngine:
     ) -> list[LearningOutcome]:
         """Execute learning cycle."""
 
-        self._analyzer.analyze(
-            request.context
-        )
+        self._analyzer.analyze(request.context)
 
-        outcomes = self._extractor.extract(
-            request.context.experiences
-        )
+        outcomes = self._extractor.extract(request.context.experiences)
 
         if not self._validator.validate(outcomes):
-            raise ValueError(
-                "Invalid learning outcomes."
-            )
+            raise ValueError("Invalid learning outcomes.")
 
         return outcomes

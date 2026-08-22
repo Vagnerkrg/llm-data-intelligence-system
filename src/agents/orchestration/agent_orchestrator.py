@@ -6,7 +6,6 @@ from src.agents.reasoning.reasoning_engine import ReasoningEngine
 from src.agents.orchestration.orchestration_result import OrchestrationResult
 
 
-
 class AgentOrchestrator:
     """
     High level coordination layer
@@ -19,92 +18,42 @@ class AgentOrchestrator:
     - final orchestration result.
     """
 
-
-
     def __init__(
         self,
         runtime: Optional[AgentRuntime] = None,
-        reasoning_engine: Optional[ReasoningEngine] = None
+        reasoning_engine: Optional[ReasoningEngine] = None,
     ):
 
-
-        self.runtime = (
-            runtime
-            if runtime
-            else AgentRuntime()
-        )
-
+        self.runtime = runtime if runtime else AgentRuntime()
 
         self.reasoning_engine = (
-            reasoning_engine
-            if reasoning_engine
-            else ReasoningEngine()
+            reasoning_engine if reasoning_engine else ReasoningEngine()
         )
 
-
-
-    def run(
-        self,
-        question: str
-    ) -> OrchestrationResult:
+    def run(self, question: str) -> OrchestrationResult:
         """
         Execute complete agent flow.
         """
 
-
         try:
+            reasoning = self.reasoning_engine.reason(question)
 
-
-            reasoning = (
-                self.reasoning_engine.reason(
-                    question
-                )
-            )
-
-
-            context = (
-                self.runtime.execute(
-                    question
-                )
-            )
-
+            context = self.runtime.execute(question)
 
             return OrchestrationResult(
-
                 status="completed",
-
                 result=context,
-
                 reasoning=reasoning.reasoning,
-
                 metadata={
-
-                    "component":
-                        "agent_orchestrator",
-
-                    "confidence":
-                        reasoning.confidence
-
-                }
-
+                    "component": "agent_orchestrator",
+                    "confidence": reasoning.confidence,
+                },
             )
-
 
         except Exception as error:
-
-
             return OrchestrationResult(
-
                 status="failed",
-
                 result=None,
-
                 reasoning=None,
-
-                metadata={
-
-                    "error": str(error)
-
-                }
-
+                metadata={"error": str(error)},
             )

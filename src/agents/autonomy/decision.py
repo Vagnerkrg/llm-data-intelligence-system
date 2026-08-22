@@ -26,10 +26,6 @@ class AutonomyDecision:
 
     status: str = "PENDING"
 
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(UTC)
-    )
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
-    metadata: dict[str, str] = field(
-        default_factory=dict
-    )
+    metadata: dict[str, str] = field(default_factory=dict)

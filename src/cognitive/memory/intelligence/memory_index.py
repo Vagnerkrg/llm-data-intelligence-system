@@ -15,17 +15,12 @@ class MemoryIndex:
     - buscar informações
     """
 
-
     def __init__(self):
 
         self._index: Dict[str, Dict[str, Any]] = {}
 
-
-
     def add(
-        self,
-        memory_id: Optional[str] = None,
-        metadata: Optional[Any] = None
+        self, memory_id: Optional[str] = None, metadata: Optional[Any] = None
     ) -> str:
         """
         Adiciona uma memória ao índice.
@@ -35,96 +30,54 @@ class MemoryIndex:
         """
 
         if memory_id is None:
-
-            memory_id = str(
-                uuid4()
-            )
-
+            memory_id = str(uuid4())
 
         if isinstance(metadata, dict):
-
             stored_data = metadata
 
         else:
-
-            stored_data = {
-                "content": metadata
-            }
-
+            stored_data = {"content": metadata}
 
         self._index[memory_id] = stored_data
 
-
         return memory_id
 
-
-
-    def get(
-        self,
-        memory_id: str
-    ) -> Optional[Dict[str, Any]]:
+    def get(self, memory_id: str) -> Optional[Dict[str, Any]]:
         """
         Recupera uma memória pelo ID.
         """
 
-        return self._index.get(
-            memory_id
-        )
+        return self._index.get(memory_id)
 
-
-
-    def exists(
-        self,
-        memory_id: str
-    ) -> bool:
+    def exists(self, memory_id: str) -> bool:
         """
         Verifica existência da memória.
         """
 
         return memory_id in self._index
 
-
-
-    def remove(
-        self,
-        memory_id: str
-    ) -> bool:
+    def remove(self, memory_id: str) -> bool:
         """
         Remove uma memória.
         """
 
         if memory_id not in self._index:
-
             return False
-
 
         del self._index[memory_id]
 
-
         return True
 
-
-
-    def list_ids(
-        self
-    ) -> List[str]:
+    def list_ids(self) -> List[str]:
         """
         Lista identificadores armazenados.
         """
 
-        return list(
-            self._index.keys()
-        )
+        return list(self._index.keys())
 
-
-
-    def count(
-        self
-    ) -> int:
+    def count(self) -> int:
         """
         Retorna quantidade de memórias.
         """
 
-        return len(
-            self._index
-        )
+        return len(self._index)

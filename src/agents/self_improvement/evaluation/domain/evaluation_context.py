@@ -19,14 +19,8 @@ class EvaluationContext:
 
     actual_result: Any
 
-    execution_metrics: dict[str, Any] = field(
-        default_factory=dict
-    )
+    execution_metrics: dict[str, Any] = field(default_factory=dict)
 
-    decisions: list[Any] = field(
-        default_factory=list
-    )
+    decisions: list[Any] = field(default_factory=list)
 
-    tools_used: list[str] = field(
-        default_factory=list
-    )
+    tools_used: list[str] = field(default_factory=list)

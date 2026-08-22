@@ -65,13 +65,9 @@ class ExperienceDrivenOptimizer:
         if len(context.execution_history) < self.min_experiences:
             return []
 
-        patterns = self.detect_patterns(
-            context
-        )
+        patterns = self.detect_patterns(context)
 
-        return self.generate_signals(
-            patterns
-        )
+        return self.generate_signals(patterns)
 
     def detect_patterns(
         self,
@@ -81,38 +77,18 @@ class ExperienceDrivenOptimizer:
         Detect recurring effective and ineffective execution patterns.
         """
 
-        scores = self._extract_scores(
-            context.execution_history
-        )
+        scores = self._extract_scores(context.execution_history)
 
         if len(scores) < self.min_experiences:
             return []
 
-        average_score = (
-            sum(
-                score
-                for score, _ in scores
-            )
-            / len(scores)
-        )
+        average_score = sum(score for score, _ in scores) / len(scores)
 
-        average_confidence = (
-            sum(
-                confidence
-                for _, confidence in scores
-            )
-            / len(scores)
-        )
+        average_confidence = sum(confidence for _, confidence in scores) / len(scores)
 
-        strategies = self._extract_strategies(
-            context.execution_history
-        )
+        strategies = self._extract_strategies(context.execution_history)
 
-        strategy_name = (
-            strategies[0]
-            if len(set(strategies)) == 1
-            else None
-        )
+        strategy_name = strategies[0] if len(set(strategies)) == 1 else None
 
         patterns: list[OptimizationPattern] = []
 
@@ -128,10 +104,7 @@ class ExperienceDrivenOptimizer:
                     average_score=average_score,
                     average_confidence=average_confidence,
                     strategy=strategy_name,
-                    evidence=[
-                        item
-                        for item in context.execution_history
-                    ],
+                    evidence=[item for item in context.execution_history],
                 )
             )
 
@@ -147,10 +120,7 @@ class ExperienceDrivenOptimizer:
                     average_score=average_score,
                     average_confidence=average_confidence,
                     strategy=strategy_name,
-                    evidence=[
-                        item
-                        for item in context.execution_history
-                    ],
+                    evidence=[item for item in context.execution_history],
                 )
             )
 
@@ -182,9 +152,7 @@ class ExperienceDrivenOptimizer:
                             "Repeated execution outcomes indicate that "
                             "the observed strategy is effective."
                         ),
-                        supporting_patterns=[
-                            pattern.name
-                        ],
+                        supporting_patterns=[pattern.name],
                     )
                 )
 
@@ -203,9 +171,7 @@ class ExperienceDrivenOptimizer:
                             "Repeated execution outcomes indicate that "
                             "the observed strategy is ineffective."
                         ),
-                        supporting_patterns=[
-                            pattern.name
-                        ],
+                        supporting_patterns=[pattern.name],
                     )
                 )
 
@@ -218,16 +184,12 @@ class ExperienceDrivenOptimizer:
         results: list[tuple[float, float]] = []
 
         for experience in experiences:
-            score = ExperienceDrivenOptimizer._extract_score(
-                experience
-            )
+            score = ExperienceDrivenOptimizer._extract_score(experience)
 
             if score is None:
                 continue
 
-            confidence = ExperienceDrivenOptimizer._extract_confidence(
-                experience
-            )
+            confidence = ExperienceDrivenOptimizer._extract_confidence(experience)
 
             results.append(
                 (
@@ -331,9 +293,7 @@ class ExperienceDrivenOptimizer:
             strategy: Any = None
 
             if isinstance(experience, Mapping):
-                strategy = experience.get(
-                    "strategy"
-                )
+                strategy = experience.get("strategy")
             else:
                 strategy = getattr(
                     experience,
@@ -341,13 +301,14 @@ class ExperienceDrivenOptimizer:
                     None,
                 )
 
-            if isinstance(
-                strategy,
-                str,
-            ) and strategy.strip():
-                strategies.append(
-                    strategy.strip()
+            if (
+                isinstance(
+                    strategy,
+                    str,
                 )
+                and strategy.strip()
+            ):
+                strategies.append(strategy.strip())
 
         return strategies
 
@@ -359,27 +320,18 @@ class ExperienceDrivenOptimizer:
         ineffective_threshold: float,
     ) -> None:
         if min_experiences < 1:
-            raise ValueError(
-                "min_experiences must be greater than or equal to 1."
-            )
+            raise ValueError("min_experiences must be greater than or equal to 1.")
 
         if not 0.0 <= min_confidence <= 1.0:
-            raise ValueError(
-                "min_confidence must be between 0.0 and 1.0."
-            )
+            raise ValueError("min_confidence must be between 0.0 and 1.0.")
 
         if not 0.0 <= ineffective_threshold <= 1.0:
-            raise ValueError(
-                "ineffective_threshold must be between 0.0 and 1.0."
-            )
+            raise ValueError("ineffective_threshold must be between 0.0 and 1.0.")
 
         if not 0.0 <= effective_threshold <= 1.0:
-            raise ValueError(
-                "effective_threshold must be between 0.0 and 1.0."
-            )
+            raise ValueError("effective_threshold must be between 0.0 and 1.0.")
 
         if ineffective_threshold >= effective_threshold:
             raise ValueError(
-                "ineffective_threshold must be lower than "
-                "effective_threshold."
+                "ineffective_threshold must be lower than effective_threshold."
             )

@@ -1,4 +1,4 @@
-﻿from enum import Enum
+from enum import Enum
 
 
 class LearningStatus(str, Enum):
@@ -8,4 +8,3 @@ class LearningStatus(str, Enum):
     PROCESSING = "processing"
     LEARNED = "learned"
     REJECTED = "rejected"
-

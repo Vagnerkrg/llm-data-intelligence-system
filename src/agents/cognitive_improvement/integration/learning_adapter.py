@@ -4,11 +4,7 @@ class LearningAdapter:
     cognitive improvement with learning capability.
     """
 
-
-    def execute(
-        self,
-        reflection
-    ):
+    def execute(self, reflection):
         """
         Execute learning phase.
 
@@ -16,7 +12,4 @@ class LearningAdapter:
         generates learning signal from reflection.
         """
 
-        return {
-            "learning": "generated",
-            "reflection": reflection
-        }
+        return {"learning": "generated", "reflection": reflection}

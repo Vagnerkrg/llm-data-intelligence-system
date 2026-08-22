@@ -44,21 +44,15 @@ def test_optimizer_detects_effective_strategy() -> None:
         ]
     )
 
-    patterns = optimizer.detect_patterns(
-        context
-    )
+    patterns = optimizer.detect_patterns(context)
 
     assert len(patterns) == 1
     assert isinstance(
         patterns[0],
         OptimizationPattern,
     )
-    assert patterns[0].name == (
-        "effective_execution_pattern"
-    )
-    assert patterns[0].strategy == (
-        "direct_execution"
-    )
+    assert patterns[0].name == ("effective_execution_pattern")
+    assert patterns[0].strategy == ("direct_execution")
 
 
 def test_optimizer_generates_reinforcement_signal() -> None:
@@ -79,9 +73,7 @@ def test_optimizer_generates_reinforcement_signal() -> None:
         ]
     )
 
-    signals = optimizer.optimize(
-        context
-    )
+    signals = optimizer.optimize(context)
 
     assert len(signals) == 1
     assert signals[0].direction == "reinforce"
@@ -112,9 +104,7 @@ def test_optimizer_detects_ineffective_strategy() -> None:
         ]
     )
 
-    signals = optimizer.optimize(
-        context
-    )
+    signals = optimizer.optimize(context)
 
     assert len(signals) == 1
     assert signals[0].direction == "avoid"
@@ -172,9 +162,7 @@ def test_optimizer_accepts_object_experiences() -> None:
         ]
     )
 
-    signals = optimizer.optimize(
-        context
-    )
+    signals = optimizer.optimize(context)
 
     assert len(signals) == 1
     assert signals[0].target == "validated_strategy"

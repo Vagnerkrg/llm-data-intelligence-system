@@ -12,24 +12,13 @@ class ExecutionTrace:
 
     execution_id: str
 
-    events: List[Dict[str, Any]] = field(
-        default_factory=list
-    )
+    events: List[Dict[str, Any]] = field(default_factory=list)
 
-    metadata: Dict[str, Any] = field(
-        default_factory=dict
-    )
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
-
-    def add_event(
-        self,
-        event_type: str,
-        payload: Dict[str, Any]
-    ):
+    def add_event(self, event_type: str, payload: Dict[str, Any]):
         """
         Register a new execution event.
         """
@@ -38,26 +27,18 @@ class ExecutionTrace:
             {
                 "type": event_type,
                 "payload": payload,
-                "timestamp": datetime.now(timezone.utc)
+                "timestamp": datetime.now(timezone.utc),
             }
         )
 
-
-    def count_events(
-        self
-    ) -> int:
+    def count_events(self) -> int:
         """
         Return number of recorded events.
         """
 
-        return len(
-            self.events
-        )
+        return len(self.events)
 
-
-    def summary(
-        self
-    ) -> Dict[str, Any]:
+    def summary(self) -> Dict[str, Any]:
         """
         Return execution trace summary.
         """
@@ -65,5 +46,5 @@ class ExecutionTrace:
         return {
             "execution_id": self.execution_id,
             "events": len(self.events),
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }

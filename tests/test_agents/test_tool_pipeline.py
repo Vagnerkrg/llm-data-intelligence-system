@@ -3,7 +3,6 @@ from src.agents.tools.tool_result import ToolResult
 
 
 class MockToolExecutor:
-
     def __init__(self):
         self.calls = []
 

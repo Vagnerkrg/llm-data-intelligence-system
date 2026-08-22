@@ -46,9 +46,7 @@ class LearningKnowledgeIntegrator:
         repository: KnowledgeRepository | None = None,
     ) -> None:
         self.repository = (
-            repository
-            if repository is not None
-            else KnowledgeRepository()
+            repository if repository is not None else KnowledgeRepository()
         )
 
     def integrate(
@@ -100,10 +98,7 @@ class LearningKnowledgeIntegrator:
     ) -> list[LearningKnowledgeResult]:
         """Integrate multiple learning outcomes deterministically."""
 
-        return [
-            self.integrate(outcome)
-            for outcome in outcomes
-        ]
+        return [self.integrate(outcome) for outcome in outcomes]
 
     @staticmethod
     def _validate_outcome(
@@ -113,19 +108,13 @@ class LearningKnowledgeIntegrator:
             outcome,
             LearningOutcome,
         ):
-            raise ValueError(
-                "outcome must be a LearningOutcome."
-            )
+            raise ValueError("outcome must be a LearningOutcome.")
 
         if not outcome.knowledge_candidate.strip():
-            raise ValueError(
-                "knowledge_candidate must not be empty."
-            )
+            raise ValueError("knowledge_candidate must not be empty.")
 
         if not outcome.recommendation.strip():
-            raise ValueError(
-                "recommendation must not be empty."
-            )
+            raise ValueError("recommendation must not be empty.")
 
     def _find_existing(
         self,
@@ -166,15 +155,11 @@ class LearningKnowledgeIntegrator:
         outcome: LearningOutcome,
     ) -> KnowledgeEntry:
         return KnowledgeEntry(
-            knowledge_type=self._resolve_knowledge_type(
-                outcome
-            ),
+            knowledge_type=self._resolve_knowledge_type(outcome),
             title=outcome.knowledge_candidate,
             description=outcome.recommendation,
             confidence=outcome.confidence,
-            metadata=self._build_metadata(
-                outcome
-            ),
+            metadata=self._build_metadata(outcome),
         )
 
     def _update_knowledge(
@@ -200,12 +185,16 @@ class LearningKnowledgeIntegrator:
     def _resolve_knowledge_type(
         outcome: LearningOutcome,
     ) -> KnowledgeType:
-        signal_type = str(
-            outcome.metadata.get(
-                "signal_type",
-                "",
+        signal_type = (
+            str(
+                outcome.metadata.get(
+                    "signal_type",
+                    "",
+                )
             )
-        ).strip().casefold()
+            .strip()
+            .casefold()
+        )
 
         if signal_type == "strategy":
             return KnowledgeType.STRATEGY

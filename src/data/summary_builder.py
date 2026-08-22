@@ -3,7 +3,6 @@ from typing import Dict, List
 import pandas as pd
 
 
-
 class SummaryBuilder:
     """
     Creates analytical summary documents from datasets.
@@ -12,33 +11,16 @@ class SummaryBuilder:
     for RAG business questions.
     """
 
-
-
-    def build_product_summary(
-        self,
-        dataframe: pd.DataFrame
-    ) -> str:
+    def build_product_summary(self, dataframe: pd.DataFrame) -> str:
         """
         Creates analytical summary for products.
         """
 
+        total_products = len(dataframe)
 
-        total_products = len(
-            dataframe
-        )
+        categories = dataframe["product_category_name"].dropna().value_counts()
 
-
-        categories = (
-            dataframe["product_category_name"]
-            .dropna()
-            .value_counts()
-        )
-
-
-        total_categories = len(
-            categories
-        )
-
+        total_categories = len(categories)
 
         category_text = "\n".join(
             [
@@ -47,15 +29,11 @@ class SummaryBuilder:
             ]
         )
 
-
         average_weight = (
-            dataframe["product_weight_g"]
-            .dropna()
-            .mean()
+            dataframe["product_weight_g"].dropna().mean()
             if "product_weight_g" in dataframe.columns
             else 0
         )
-
 
         return f"""
 Tipo de documento:
@@ -87,34 +65,16 @@ Este documento representa uma visão agregada
 do catálogo de produtos do marketplace.
 """
 
-
-
-    def build_review_summary(
-        self,
-        dataframe: pd.DataFrame
-    ) -> str:
+    def build_review_summary(self, dataframe: pd.DataFrame) -> str:
         """
         Creates analytical summary for reviews.
         """
 
+        total_reviews = len(dataframe)
 
-        total_reviews = len(
-            dataframe
-        )
+        average_score = dataframe["review_score"].mean()
 
-
-        average_score = (
-            dataframe["review_score"]
-            .mean()
-        )
-
-
-        score_distribution = (
-            dataframe["review_score"]
-            .value_counts()
-            .sort_index()
-        )
-
+        score_distribution = dataframe["review_score"].value_counts().sort_index()
 
         distribution_text = "\n".join(
             [
@@ -122,7 +82,6 @@ do catálogo de produtos do marketplace.
                 for score, count in score_distribution.items()
             ]
         )
-
 
         return f"""
 Tipo de documento:
@@ -150,29 +109,18 @@ Este documento representa uma visão agregada
 da satisfação dos clientes.
 """
 
-
-
-    def build_order_summary(
-        self,
-        dataframe: pd.DataFrame
-    ) -> str:
+    def build_order_summary(self, dataframe: pd.DataFrame) -> str:
         """
         Creates analytical summary for orders.
         """
 
-
-        total_orders = len(
-            dataframe
-        )
-
+        total_orders = len(dataframe)
 
         status_distribution = (
-            dataframe["order_status"]
-            .value_counts()
+            dataframe["order_status"].value_counts()
             if "order_status" in dataframe.columns
             else pd.Series()
         )
-
 
         status_text = "\n".join(
             [
@@ -181,27 +129,13 @@ da satisfação dos clientes.
             ]
         )
 
-
         delivered_percentage = 0
 
-
         if "order_status" in dataframe.columns:
-
-            delivered_count = (
-                dataframe["order_status"]
-                .eq("delivered")
-                .sum()
-            )
-
+            delivered_count = dataframe["order_status"].eq("delivered").sum()
 
             if total_orders > 0:
-
-                delivered_percentage = (
-                    delivered_count /
-                    total_orders *
-                    100
-                )
-
+                delivered_percentage = delivered_count / total_orders * 100
 
         return f"""
 Tipo de documento:
@@ -230,38 +164,22 @@ do desempenho operacional e logístico
 dos pedidos do marketplace.
 """
 
-
-
-    def build_customer_summary(
-        self,
-        dataframe: pd.DataFrame
-    ) -> str:
+    def build_customer_summary(self, dataframe: pd.DataFrame) -> str:
         """
         Creates analytical summary for customers.
         """
 
-
-        total_customers = len(
-            dataframe
-        )
-
+        total_customers = len(dataframe)
 
         states = (
-            dataframe["customer_state"]
-            .value_counts()
-            .head(10)
+            dataframe["customer_state"].value_counts().head(10)
             if "customer_state" in dataframe.columns
             else pd.Series()
         )
 
-
         state_text = "\n".join(
-            [
-                f"- {state}: {count} clientes"
-                for state, count in states.items()
-            ]
+            [f"- {state}: {count} clientes" for state, count in states.items()]
         )
-
 
         return f"""
 Tipo de documento:
@@ -285,55 +203,24 @@ Este documento representa uma visão agregada
 dos clientes do marketplace.
 """
 
-
-
-    def build_dataset_summaries(
-        self,
-        datasets: Dict[str, pd.DataFrame]
-    ) -> List[str]:
+    def build_dataset_summaries(self, datasets: Dict[str, pd.DataFrame]) -> List[str]:
         """
         Generates summary documents
         from available datasets.
         """
 
-
         summaries = []
 
-
         if "products" in datasets:
-
-            summaries.append(
-                self.build_product_summary(
-                    datasets["products"]
-                )
-            )
-
+            summaries.append(self.build_product_summary(datasets["products"]))
 
         if "reviews" in datasets:
-
-            summaries.append(
-                self.build_review_summary(
-                    datasets["reviews"]
-                )
-            )
-
+            summaries.append(self.build_review_summary(datasets["reviews"]))
 
         if "orders" in datasets:
-
-            summaries.append(
-                self.build_order_summary(
-                    datasets["orders"]
-                )
-            )
-
+            summaries.append(self.build_order_summary(datasets["orders"]))
 
         if "customers" in datasets:
-
-            summaries.append(
-                self.build_customer_summary(
-                    datasets["customers"]
-                )
-            )
-
+            summaries.append(self.build_customer_summary(datasets["customers"]))
 
         return summaries

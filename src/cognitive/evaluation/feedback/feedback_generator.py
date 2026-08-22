@@ -15,20 +15,11 @@ class FeedbackGenerator:
     ) -> FeedbackResult:
 
         return FeedbackResult(
-
             feedback_id=str(uuid4()),
-
-            feedback_type=FeedbackType(
-                analysis["feedback_type"]
-            ),
-
+            feedback_type=FeedbackType(analysis["feedback_type"]),
             message=analysis["message"],
-
             confidence=analysis["confidence"],
-
             recommendation=analysis["recommendation"],
-
             source="CognitiveEvaluationSystem",
-
             metadata={},
         )

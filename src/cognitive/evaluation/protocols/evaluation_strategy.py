@@ -12,7 +12,6 @@ class EvaluationStrategy(ABC):
     - composite
     """
 
-
     @abstractmethod
     def execute(self, evaluations):
         """

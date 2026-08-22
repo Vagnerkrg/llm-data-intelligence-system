@@ -1,6 +1,4 @@
-from src.cognitive.evaluation.models.evaluation_result import (
-    EvaluationResult
-)
+from src.cognitive.evaluation.models.evaluation_result import EvaluationResult
 
 
 class ReasoningEvaluator:
@@ -16,7 +14,5 @@ class ReasoningEvaluator:
             reasoning_score = 1.0
 
         return EvaluationResult(
-            score=reasoning_score,
-            passed=reasoning_score > 0,
-            evaluator="reasoning"
+            score=reasoning_score, passed=reasoning_score > 0, evaluator="reasoning"
         )

@@ -21,9 +21,7 @@ class SignalGenerator:
                     pattern=finding.description,
                     confidence=0.7,
                     impact=finding.severity,
-                    recommendation=(
-                        "Review execution strategy."
-                    ),
+                    recommendation=("Review execution strategy."),
                 )
             )
 

@@ -1,4 +1,4 @@
-﻿from dataclasses import dataclass, field
+from dataclasses import dataclass, field
 from typing import Any
 
 
@@ -36,4 +36,3 @@ class LearningExperience:
             "impact": self.impact,
             "metadata": dict(self.metadata),
         }
-

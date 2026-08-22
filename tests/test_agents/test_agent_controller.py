@@ -3,19 +3,12 @@ from src.agents.execution.tool_executor import ToolExecutor
 
 
 class FakeExecutor(ToolExecutor):
-
     def __init__(self):
         self.executed = False
 
-
-    def execute(
-        self,
-        tool,
-        question
-    ):
+    def execute(self, tool, question):
 
         self.executed = True
-
 
         return type(
             "FakeResult",
@@ -23,29 +16,19 @@ class FakeExecutor(ToolExecutor):
             {
                 "success": True,
                 "tool": tool.name,
-                "data": {
-                    "type": "analysis"
-                },
-                "metadata": {}
-            }
+                "data": {"type": "analysis"},
+                "metadata": {},
+            },
         )()
-
 
 
 def test_agent_controller_uses_executor():
 
     executor = FakeExecutor()
 
+    controller = AgentController(execution_executor=executor)
 
-    controller = AgentController(
-        execution_executor=executor
-    )
-
-
-    response = controller.run(
-        "quantos produtos existem?"
-    )
-
+    response = controller.run("quantos produtos existem?")
 
     assert response["status"] == "success"
 

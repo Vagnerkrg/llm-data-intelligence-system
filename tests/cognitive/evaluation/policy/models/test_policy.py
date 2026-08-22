@@ -10,13 +10,9 @@ from src.cognitive.evaluation.policy.models.policy_type import (
 def test_policy_creation():
 
     policy = Policy(
-
         policy_type=PolicyType.AUTOMATIC,
-
         priority=100,
-
         description="Automatic approval",
-
     )
 
     assert policy.policy_type == PolicyType.AUTOMATIC
@@ -29,11 +25,8 @@ def test_policy_creation():
 def test_policy_can_be_disabled():
 
     policy = Policy(
-
         policy_type=PolicyType.ABORT,
-
         enabled=False,
-
     )
 
     assert not policy.is_enabled()

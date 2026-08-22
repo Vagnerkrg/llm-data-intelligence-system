@@ -21,9 +21,7 @@ class AdaptationEngine:
         request: AdaptationRequest,
     ) -> AdaptationResponse:
 
-        allowed = self.policy.evaluate(
-            request.context.confidence
-        )
+        allowed = self.policy.evaluate(request.context.confidence)
 
         action = self.planner.plan(
             request.context,
@@ -33,13 +31,7 @@ class AdaptationEngine:
         result = AdaptationResult(
             success=allowed,
             action=action,
-            message=(
-                "Adaptation approved."
-                if allowed
-                else "Adaptation rejected."
-            ),
+            message=("Adaptation approved." if allowed else "Adaptation rejected."),
         )
 
-        return AdaptationResponse(
-            result=result
-        )
+        return AdaptationResponse(result=result)

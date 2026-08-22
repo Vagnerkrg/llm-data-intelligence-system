@@ -6,7 +6,7 @@ def test_decision_pipeline_result_creation():
     result = DecisionPipelineResult(
         decision_id="decision_001",
         confidence=0.9,
-        explanation="Selected best alternative"
+        explanation="Selected best alternative",
     )
 
     assert result.decision_id == "decision_001"

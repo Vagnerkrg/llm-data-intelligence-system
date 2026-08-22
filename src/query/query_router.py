@@ -1,7 +1,6 @@
 from typing import Dict
 
 
-
 class QueryRouter:
     """
     Routes user questions to the most appropriate dataset domain.
@@ -9,14 +8,10 @@ class QueryRouter:
     Uses rule-based intent classification.
     """
 
-
-
     def __init__(self):
 
         self.routes = {
-
             "reviews": [
-
                 "avalia",
                 "avaliacao",
                 "avaliação",
@@ -35,14 +30,9 @@ class QueryRouter:
                 "reclamacao",
                 "reclamação",
                 "opiniao",
-                "opinião"
-
+                "opinião",
             ],
-
-
-
             "orders": [
-
                 "pedido",
                 "pedidos",
                 "entrega",
@@ -52,14 +42,9 @@ class QueryRouter:
                 "status",
                 "compra",
                 "logistica",
-                "logística"
-
+                "logística",
             ],
-
-
-
             "products": [
-
                 "produto",
                 "produtos",
                 "categoria",
@@ -70,83 +55,37 @@ class QueryRouter:
                 "item",
                 "itens",
                 "catalogo",
-                "catálogo"
-
+                "catálogo",
             ],
-
-
-
             "customers": [
-
                 "cliente",
                 "clientes",
                 "cidade",
                 "estado",
                 "localizacao",
-                "localização"
-
-            ]
-
+                "localização",
+            ],
         }
 
+        self.priority = ["reviews", "orders", "products", "customers"]
 
-
-        self.priority = [
-
-            "reviews",
-            "orders",
-            "products",
-            "customers"
-
-        ]
-
-
-
-    def route(
-        self,
-        question: str
-    ) -> Dict:
+    def route(self, question: str) -> Dict:
 
         question_lower = question.lower()
 
-
         scores = {}
 
-
-
         for domain, keywords in self.routes.items():
-
             score = 0
 
-
             for keyword in keywords:
-
                 if keyword in question_lower:
                     score += 1
 
-
             scores[domain] = score
 
-
-
         for domain in self.priority:
-
             if scores[domain] > 0:
+                return {"domain": domain, "confidence": scores[domain]}
 
-                return {
-
-                    "domain": domain,
-
-                    "confidence": scores[domain]
-
-                }
-
-
-
-        return {
-
-            "domain": "general",
-
-            "confidence": 0
-
-        }
+        return {"domain": "general", "confidence": 0}

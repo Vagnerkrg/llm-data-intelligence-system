@@ -53,9 +53,7 @@ def test_should_return_zero_when_planning_information_is_missing():
 
 
 def test_should_return_zero_for_invalid_planning_information():
-    context = EvaluationContext(
-        planning_information="invalid"
-    )
+    context = EvaluationContext(planning_information="invalid")
 
     result = PlanningQualityMetric().evaluate(context)
 

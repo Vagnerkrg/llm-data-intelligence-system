@@ -18,16 +18,11 @@ class ConsolidatedKnowledge:
 
     confidence: float
 
-    metadata: Dict[str, Any] = field(
-        default_factory=dict
-    )
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
     usage_count: int = 0
 
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
-
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
     def id(self) -> str:
@@ -38,7 +33,6 @@ class ConsolidatedKnowledge:
 
         return self.knowledge_id
 
-
     def increase_usage(self) -> None:
         """
         Incrementa o número de utilizações
@@ -47,11 +41,7 @@ class ConsolidatedKnowledge:
 
         self.usage_count += 1
 
-
-    def update_confidence(
-        self,
-        confidence: float
-    ) -> None:
+    def update_confidence(self, confidence: float) -> None:
         """
         Atualiza nível de confiança
         do conhecimento.
@@ -59,23 +49,14 @@ class ConsolidatedKnowledge:
 
         self.confidence = confidence
 
-
-    def add_metadata(
-        self,
-        key: str,
-        value: Any
-    ) -> None:
+    def add_metadata(self, key: str, value: Any) -> None:
         """
         Adiciona informação complementar.
         """
 
         self.metadata[key] = value
 
-
-    def is_reliable(
-        self,
-        threshold: float = 0.7
-    ) -> bool:
+    def is_reliable(self, threshold: float = 0.7) -> bool:
         """
         Verifica se o conhecimento possui
         confiança suficiente.

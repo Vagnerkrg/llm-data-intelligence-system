@@ -1,10 +1,6 @@
-from src.cognitive.evaluation.models.evaluation_context import (
-    EvaluationContext
-)
+from src.cognitive.evaluation.models.evaluation_context import EvaluationContext
 
-from src.cognitive.evaluation.models.evaluation_result import (
-    EvaluationResult
-)
+from src.cognitive.evaluation.models.evaluation_result import EvaluationResult
 
 
 class MemoryEvaluator:
@@ -13,10 +9,7 @@ class MemoryEvaluator:
     capacidade de memória do agente.
     """
 
-    def evaluate(
-        self,
-        context: EvaluationContext
-    ) -> EvaluationResult:
+    def evaluate(self, context: EvaluationContext) -> EvaluationResult:
         """
         Avaliação inicial:
 
@@ -24,28 +17,21 @@ class MemoryEvaluator:
         contexto recuperado.
         """
 
-        memory_context = context.metadata.get(
-            "memory_context"
-        )
+        memory_context = context.metadata.get("memory_context")
 
         if memory_context:
-
             return EvaluationResult(
                 score=1.0,
                 passed=True,
                 evaluator="memory",
-                details={
-                    "memory_available": True
-                },
-                confidence=1.0
+                details={"memory_available": True},
+                confidence=1.0,
             )
 
         return EvaluationResult(
             score=0.0,
             passed=False,
             evaluator="memory",
-            details={
-                "memory_available": False
-            },
-            confidence=0.5
+            details={"memory_available": False},
+            confidence=0.5,
         )

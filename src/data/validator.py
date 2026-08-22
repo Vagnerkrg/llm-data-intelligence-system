@@ -12,7 +12,6 @@ class DataValidator:
     def __init__(self, dataframe: pd.DataFrame):
         self.df = dataframe
 
-
     def summary(self):
         """
         Returns general dataset information.
@@ -22,25 +21,16 @@ class DataValidator:
             "rows": self.df.shape[0],
             "columns": self.df.shape[1],
             "memory_usage_mb": float(
-                round(
-                    self.df.memory_usage(deep=True).sum() / 1024**2,
-                    2
-                )
-            )
+                round(self.df.memory_usage(deep=True).sum() / 1024**2, 2)
+            ),
         }
-
 
     def missing_values(self):
         """
         Returns the amount of missing values.
         """
 
-        return (
-            self.df.isnull()
-            .sum()
-            .sort_values(ascending=False)
-        )
-
+        return self.df.isnull().sum().sort_values(ascending=False)
 
     def data_types(self):
         """
@@ -48,7 +38,6 @@ class DataValidator:
         """
 
         return self.df.dtypes
-
 
     def validate(self):
         """
@@ -58,5 +47,5 @@ class DataValidator:
         return {
             "summary": self.summary(),
             "missing_values": self.missing_values(),
-            "data_types": self.data_types()
+            "data_types": self.data_types(),
         }

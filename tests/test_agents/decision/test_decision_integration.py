@@ -7,9 +7,7 @@ from src.agents.decision.decision_strategy import DecisionStrategy
 
 def test_decision_integration_executes_flow():
 
-    integration = DecisionIntegration(
-        engine=DecisionEngine()
-    )
+    integration = DecisionIntegration(engine=DecisionEngine())
 
     context = DecisionContext(
         request_id="req-002",

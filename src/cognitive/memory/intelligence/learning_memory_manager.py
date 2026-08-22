@@ -11,11 +11,7 @@ class LearningMemoryManager:
     e consultar aprendizados.
     """
 
-
-    def __init__(
-        self,
-        memory_index: Optional[MemoryIndex] = None
-    ):
+    def __init__(self, memory_index: Optional[MemoryIndex] = None):
         """
         Cria o gerenciador.
 
@@ -23,109 +19,55 @@ class LearningMemoryManager:
         cria um MemoryIndex interno.
         """
 
-        self.memory_index = (
-            memory_index
-            if memory_index is not None
-            else MemoryIndex()
-        )
+        self.memory_index = memory_index if memory_index is not None else MemoryIndex()
 
-
-
-    def store(
-        self,
-        memory_id: str,
-        content: Any
-    ) -> bool:
+    def store(self, memory_id: str, content: Any) -> bool:
         """
         Armazena uma memória.
         """
 
-        self.memory_index.add(
-            memory_id,
-            content
-        )
+        self.memory_index.add(memory_id, content)
 
         return True
 
-
-
     def store_learning(
-        self,
-        memory_id: str,
-        learning: Dict[str, Any]
+        self, memory_id: str, learning: Dict[str, Any]
     ) -> Dict[str, Any]:
         """
         Armazena aprendizado cognitivo.
         """
 
-        self.store(
-            memory_id,
-            learning
-        )
+        self.store(memory_id, learning)
 
-        return {
-            "stored": True,
-            "memory_id": memory_id,
-            "learning": learning
-        }
+        return {"stored": True, "memory_id": memory_id, "learning": learning}
 
-
-
-    def retrieve(
-        self,
-        memory_id: str
-    ) -> Optional[Any]:
+    def retrieve(self, memory_id: str) -> Optional[Any]:
         """
         Recupera memória.
         """
 
-        return self.memory_index.get(
-            memory_id
-        )
+        return self.memory_index.get(memory_id)
 
-
-
-    def retrieve_learning(
-        self,
-        memory_id: str
-    ) -> Optional[Any]:
+    def retrieve_learning(self, memory_id: str) -> Optional[Any]:
         """
         Recupera aprendizado.
         """
 
-        return self.retrieve(
-            memory_id
-        )
+        return self.retrieve(memory_id)
 
-
-
-    def exists(
-        self,
-        memory_id: str
-    ) -> bool:
+    def exists(self, memory_id: str) -> bool:
         """
         Verifica existência.
         """
 
-        return self.memory_index.exists(
-            memory_id
-        )
+        return self.memory_index.exists(memory_id)
 
-
-
-    def has_learning(
-        self,
-        memory_id: str
-    ) -> bool:
+    def has_learning(self, memory_id: str) -> bool:
         """
         Alias semântico.
         """
 
-        return self.exists(
-            memory_id
-        )
-
-
+        return self.exists(memory_id)
 
     def count(self) -> int:
         """

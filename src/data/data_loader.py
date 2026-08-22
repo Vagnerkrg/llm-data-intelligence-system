@@ -30,25 +30,17 @@ class OlistDataLoader:
         file_path = self.data_path / filename
 
         if not file_path.exists():
-            raise FileNotFoundError(
-                f"Arquivo não encontrado: {file_path}"
-            )
+            raise FileNotFoundError(f"Arquivo não encontrado: {file_path}")
 
         dataframe = pd.read_csv(file_path)
 
         dataset_name = name or file_path.stem
 
         info = DatasetInfo(
-            name=dataset_name,
-            rows=dataframe.shape[0],
-            columns=list(dataframe.columns)
+            name=dataset_name, rows=dataframe.shape[0], columns=list(dataframe.columns)
         )
 
-        return LoadResult(
-            name=dataset_name,
-            dataframe=dataframe,
-            info=info
-        )
+        return LoadResult(name=dataset_name, dataframe=dataframe, info=info)
 
     def load_all(self):
         """
@@ -63,15 +55,12 @@ class OlistDataLoader:
             "payments": "olist_order_payments_dataset.csv",
             "reviews": "olist_order_reviews_dataset.csv",
             "sellers": "olist_sellers_dataset.csv",
-            "geolocation": "olist_geolocation_dataset.csv"
+            "geolocation": "olist_geolocation_dataset.csv",
         }
 
         data = {}
 
         for name, filename in datasets.items():
-            data[name] = self.load_csv(
-                filename,
-                name=name
-            )
+            data[name] = self.load_csv(filename, name=name)
 
         return data

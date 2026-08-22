@@ -8,73 +8,26 @@ class ToolExecutor:
     and normalizing execution results.
     """
 
-
-    def execute(
-        self,
-        tool: BaseTool,
-        question: str
-    ) -> ToolResult:
+    def execute(self, tool: BaseTool, question: str) -> ToolResult:
         """
         Execute a tool and return
         a standardized ToolResult.
         """
 
-
         try:
-
-            result = tool.execute(
-                question
-            )
-
+            result = tool.execute(question)
 
             return ToolResult(
-
                 tool=tool.name,
-
                 success=True,
-
                 data=result,
-
-                metadata={
-
-                    "description": getattr(
-                        tool,
-                        "description",
-                        ""
-                    )
-
-                }
-
+                metadata={"description": getattr(tool, "description", "")},
             )
-
 
         except Exception as error:
-
-
             return ToolResult(
-
-                tool=getattr(
-                    tool,
-                    "name",
-                    "unknown"
-                ),
-
+                tool=getattr(tool, "name", "unknown"),
                 success=False,
-
-                data={
-
-                    "error": str(error)
-
-                },
-
-                metadata={
-
-                    "description": getattr(
-                        tool,
-                        "description",
-                        ""
-                    )
-
-                }
-
+                data={"error": str(error)},
+                metadata={"description": getattr(tool, "description", "")},
             )

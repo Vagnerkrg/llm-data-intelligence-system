@@ -14,12 +14,8 @@ class CognitiveKnowledge:
 
     description: str
 
-    source_patterns: List[str] = field(
-        default_factory=list
-    )
+    source_patterns: List[str] = field(default_factory=list)
 
     confidence: float = 0.0
 
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))

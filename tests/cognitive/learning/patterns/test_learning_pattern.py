@@ -8,7 +8,7 @@ def test_learning_pattern_creation():
         description="Erro recorrente de execução",
         frequency=1,
         confidence=0.5,
-        metadata={}
+        metadata={},
     )
 
     assert pattern.pattern_id == "pattern-001"
@@ -23,7 +23,7 @@ def test_learning_pattern_frequency_increment():
         description="Teste",
         frequency=1,
         confidence=0.5,
-        metadata={}
+        metadata={},
     )
 
     pattern.increase_frequency()
@@ -38,7 +38,7 @@ def test_learning_pattern_strength():
         description="Teste",
         frequency=1,
         confidence=0.6,
-        metadata={}
+        metadata={},
     )
 
     pattern.strengthen(0.2)

@@ -18,7 +18,6 @@ Compatível com:
 - Runtime Agent Flow
 """
 
-
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
@@ -39,27 +38,21 @@ class ExecutionStep:
     com versões anteriores do planner.
     """
 
-
     step_id: Optional[str] = None
 
     action: Optional[str] = None
 
     description: Optional[str] = None
 
-    parameters: Dict[str, Any] = field(
-        default_factory=dict
-    )
+    parameters: Dict[str, Any] = field(default_factory=dict)
 
-    dependencies: List[str] = field(
-        default_factory=list
-    )
+    dependencies: List[str] = field(default_factory=list)
 
     status: str = "pending"
 
     result: Any = None
 
     error: Optional[str] = None
-
 
     def __post_init__(self):
         """
@@ -70,11 +63,8 @@ class ExecutionStep:
         if self.step_id is None and self.action:
             self.step_id = self.action
 
-
         if self.action is None and self.step_id:
             self.action = self.step_id
-
-
 
     @property
     def name(self) -> str:
@@ -84,8 +74,6 @@ class ExecutionStep:
 
         return self.step_id
 
-
-
     def mark_running(self):
         """
         Marca execução iniciada.
@@ -93,12 +81,7 @@ class ExecutionStep:
 
         self.status = "running"
 
-
-
-    def mark_completed(
-        self,
-        result: Any = None
-    ):
+    def mark_completed(self, result: Any = None):
         """
         Marca execução concluída.
         """
@@ -106,20 +89,13 @@ class ExecutionStep:
         self.status = "completed"
         self.result = result
 
-
-
-    def mark_failed(
-        self,
-        error: str
-    ):
+    def mark_failed(self, error: str):
         """
         Marca execução falhou.
         """
 
         self.status = "failed"
         self.error = error
-
-
 
     def is_completed(self) -> bool:
         """
@@ -128,8 +104,6 @@ class ExecutionStep:
 
         return self.status == "completed"
 
-
-
     def is_failed(self) -> bool:
         """
         Verifica falha.
@@ -137,22 +111,12 @@ class ExecutionStep:
 
         return self.status == "failed"
 
-
-
-    def can_execute(
-        self,
-        completed_steps: List[str]
-    ) -> bool:
+    def can_execute(self, completed_steps: List[str]) -> bool:
         """
         Verifica dependências.
         """
 
-        return all(
-            dependency in completed_steps
-            for dependency in self.dependencies
-        )
-
-
+        return all(dependency in completed_steps for dependency in self.dependencies)
 
     def to_dict(self) -> Dict[str, Any]:
         """

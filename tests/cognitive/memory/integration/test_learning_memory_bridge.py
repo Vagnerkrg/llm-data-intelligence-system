@@ -1,13 +1,11 @@
-from src.cognitive.memory.integration.learning_memory_bridge import (
-    LearningMemoryBridge
-)
+from src.cognitive.memory.integration.learning_memory_bridge import LearningMemoryBridge
 
 from src.cognitive.memory.intelligence.learning_memory_manager import (
-    LearningMemoryManager
+    LearningMemoryManager,
 )
 
 from src.cognitive.learning.knowledge.consolidated_knowledge import (
-    ConsolidatedKnowledge
+    ConsolidatedKnowledge,
 )
 
 
@@ -15,9 +13,7 @@ def create_bridge():
 
     manager = LearningMemoryManager()
 
-    return LearningMemoryBridge(
-        memory_manager=manager
-    )
+    return LearningMemoryBridge(memory_manager=manager)
 
 
 def create_knowledge():
@@ -26,7 +22,7 @@ def create_knowledge():
         knowledge_id="knowledge-001",
         content="Improve query execution",
         source_pattern="pattern-001",
-        confidence=0.95
+        confidence=0.95,
     )
 
 
@@ -36,15 +32,10 @@ def test_learning_memory_bridge_store():
 
     knowledge = create_knowledge()
 
-
-    result = bridge.store_learning(
-        knowledge
-    )
-
+    result = bridge.store_learning(knowledge)
 
     assert result["stored"] is True
     assert result["knowledge_id"] == "knowledge-001"
-
 
 
 def test_learning_memory_bridge_retrieve():
@@ -53,20 +44,12 @@ def test_learning_memory_bridge_retrieve():
 
     knowledge = create_knowledge()
 
+    bridge.store_learning(knowledge)
 
-    bridge.store_learning(
-        knowledge
-    )
-
-
-    result = bridge.retrieve_learning(
-        "knowledge-001"
-    )
-
+    result = bridge.retrieve_learning("knowledge-001")
 
     assert result is not None
     assert result.content == "Improve query execution"
-
 
 
 def test_learning_memory_bridge_exists():
@@ -75,16 +58,9 @@ def test_learning_memory_bridge_exists():
 
     knowledge = create_knowledge()
 
+    bridge.store_learning(knowledge)
 
-    bridge.store_learning(
-        knowledge
-    )
-
-
-    assert bridge.exists(
-        "knowledge-001"
-    )
-
+    assert bridge.exists("knowledge-001")
 
 
 def test_learning_memory_bridge_count():
@@ -93,10 +69,6 @@ def test_learning_memory_bridge_count():
 
     knowledge = create_knowledge()
 
-
-    bridge.store_learning(
-        knowledge
-    )
-
+    bridge.store_learning(knowledge)
 
     assert bridge.count() == 1

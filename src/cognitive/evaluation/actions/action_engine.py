@@ -25,10 +25,6 @@ class ActionEngine:
         evaluation: EvaluationResult,
     ) -> ActionResult:
 
-        action = self.selector.select(
-            evaluation
-        )
+        action = self.selector.select(evaluation)
 
-        return self.executor.execute(
-            action
-        )
+        return self.executor.execute(action)

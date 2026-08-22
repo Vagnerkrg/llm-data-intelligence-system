@@ -16,17 +16,15 @@ class EvaluationReport:
 
     final_score: float = 0.0
 
-
     def add_result(self, result: EvaluationResult):
         self.results.append(result)
-
 
     def calculate_score(self) -> float:
         if not self.results:
             return 0.0
 
-        self.final_score = sum(
-            result.score for result in self.results
-        ) / len(self.results)
+        self.final_score = sum(result.score for result in self.results) / len(
+            self.results
+        )
 
         return self.final_score

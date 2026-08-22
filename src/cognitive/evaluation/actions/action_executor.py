@@ -17,11 +17,8 @@ class ActionExecutor:
     ) -> ActionResult:
 
         result = ActionResult(
-
             action=action,
-
             message=f"{action.action_type.value} executed",
-
         )
 
         result.mark_executed()

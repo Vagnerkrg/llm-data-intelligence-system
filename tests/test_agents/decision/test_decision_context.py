@@ -2,17 +2,13 @@ from src.agents.decision.decision_context import DecisionContext
 
 
 def test_should_create_decision_context_with_goal():
-    context = DecisionContext(
-        goal="Optimize analysis strategy"
-    )
+    context = DecisionContext(goal="Optimize analysis strategy")
 
     assert context.goal == "Optimize analysis strategy"
 
 
 def test_should_create_empty_collections_by_default():
-    context = DecisionContext(
-        goal="Improve execution"
-    )
+    context = DecisionContext(goal="Improve execution")
 
     assert context.constraints == []
     assert context.capabilities == []
@@ -23,10 +19,7 @@ def test_should_create_empty_collections_by_default():
 def test_should_store_constraints():
     context = DecisionContext(
         goal="Optimize execution",
-        constraints=[
-            "low_cost",
-            "fast_response"
-        ],
+        constraints=["low_cost", "fast_response"],
     )
 
     assert len(context.constraints) == 2
@@ -36,10 +29,7 @@ def test_should_store_constraints():
 def test_should_store_available_capabilities():
     context = DecisionContext(
         goal="Analyze data",
-        capabilities=[
-            "analytics",
-            "retrieval"
-        ],
+        capabilities=["analytics", "retrieval"],
     )
 
     assert "analytics" in context.capabilities
@@ -49,10 +39,7 @@ def test_should_store_available_capabilities():
 def test_should_store_available_tools():
     context = DecisionContext(
         goal="Generate report",
-        available_tools=[
-            "analytics_tool",
-            "search_tool"
-        ],
+        available_tools=["analytics_tool", "search_tool"],
     )
 
     assert len(context.available_tools) == 2
@@ -75,18 +62,10 @@ def test_should_store_metadata_information():
 def test_should_support_complete_context_definition():
     context = DecisionContext(
         goal="Select best strategy",
-        constraints=[
-            "time_limit"
-        ],
-        capabilities=[
-            "reasoning"
-        ],
-        available_tools=[
-            "analytics_tool"
-        ],
-        metadata={
-            "source": "agent_runtime"
-        },
+        constraints=["time_limit"],
+        capabilities=["reasoning"],
+        available_tools=["analytics_tool"],
+        metadata={"source": "agent_runtime"},
     )
 
     assert context.goal == "Select best strategy"

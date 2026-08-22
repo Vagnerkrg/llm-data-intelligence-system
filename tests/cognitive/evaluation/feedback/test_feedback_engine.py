@@ -14,20 +14,14 @@ from src.cognitive.evaluation.models.evaluation_result import (
 def test_feedback_engine_generates_feedback():
 
     evaluation = EvaluationResult(
-
         score=0.92,
-
         passed=True,
-
         evaluator="feedback",
-
     )
 
     engine = FeedbackEngine()
 
-    result = engine.generate_feedback(
-        evaluation
-    )
+    result = engine.generate_feedback(evaluation)
 
     assert isinstance(
         result,

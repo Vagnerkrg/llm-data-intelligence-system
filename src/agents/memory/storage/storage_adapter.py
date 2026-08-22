@@ -1,11 +1,6 @@
-from src.agents.memory.domain.memory_entry import (
-    MemoryEntry
-)
+from src.agents.memory.domain.memory_entry import MemoryEntry
 
-from src.agents.memory.storage.memory_store import (
-    MemoryStore
-)
-
+from src.agents.memory.storage.memory_store import MemoryStore
 
 
 class StorageAdapter:
@@ -14,51 +9,22 @@ class StorageAdapter:
     and storage implementations.
     """
 
-
-    def __init__(
-        self,
-        store: MemoryStore
-    ):
+    def __init__(self, store: MemoryStore):
 
         self.store = store
 
+    def save(self, memory: MemoryEntry):
 
+        return self.store.save(memory)
 
-    def save(
-        self,
-        memory: MemoryEntry
-    ):
+    def get(self, memory_id: str):
 
-        return self.store.save(
-            memory
-        )
+        return self.store.get(memory_id)
 
+    def delete(self, memory_id: str):
 
+        return self.store.delete(memory_id)
 
-    def get(
-        self,
-        memory_id: str
-    ):
-
-        return self.store.get(
-            memory_id
-        )
-
-
-
-    def delete(
-        self,
-        memory_id: str
-    ):
-
-        return self.store.delete(
-            memory_id
-        )
-
-
-
-    def list_all(
-        self
-    ):
+    def list_all(self):
 
         return self.store.list_all()

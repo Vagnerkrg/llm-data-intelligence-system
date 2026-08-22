@@ -7,11 +7,7 @@ class EvaluationAdapter:
     cognitive improvement with evaluation capability.
     """
 
-
-    def execute(
-        self,
-        context: ImprovementContext
-    ):
+    def execute(self, context: ImprovementContext):
         """
         Execute evaluation phase.
 
@@ -19,7 +15,4 @@ class EvaluationAdapter:
         returns evaluation signal placeholder.
         """
 
-        return {
-            "quality": "evaluated",
-            "objective": context.objective
-        }
+        return {"quality": "evaluated", "objective": context.objective}

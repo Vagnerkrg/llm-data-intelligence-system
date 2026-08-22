@@ -6,49 +6,32 @@ def test_agent_runtime_execution_result_tracking():
 
     planner = DynamicExecutionPlanner()
 
-    runtime = AgentRuntime(
-        planner=planner
-    )
+    runtime = AgentRuntime(planner=planner)
 
-    context = runtime.execute(
-        "Analise os dados de vendas"
-    )
+    context = runtime.execute("Analise os dados de vendas")
 
     assert context is not None
-
 
 
 def test_agent_runtime_execution_result_tracking_has_plan():
 
     planner = DynamicExecutionPlanner()
 
-    runtime = AgentRuntime(
-        planner=planner
-    )
+    runtime = AgentRuntime(planner=planner)
 
-    context = runtime.execute(
-        "Analise os dados financeiros"
-    )
+    context = runtime.execute("Analise os dados financeiros")
 
     assert context.plan is not None
-
 
 
 def test_agent_runtime_execution_result_tracking_has_execution_state():
 
     planner = DynamicExecutionPlanner()
 
-    runtime = AgentRuntime(
-        planner=planner
-    )
+    runtime = AgentRuntime(planner=planner)
 
-    context = runtime.execute(
-        "Explique este documento"
-    )
+    context = runtime.execute("Explique este documento")
 
-    assert hasattr(
-        context,
-        "plan"
-    )
+    assert hasattr(context, "plan")
 
     assert context.current_step is not None

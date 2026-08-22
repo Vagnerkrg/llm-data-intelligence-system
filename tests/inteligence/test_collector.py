@@ -16,34 +16,22 @@ def test_collector_execution_flow():
 
     store = ExecutionStore()
 
-    collector = ExecutionCollector(
-        store
-    )
+    collector = ExecutionCollector(store)
 
-    execution_id = collector.start_execution(
-        "Analyze customer data"
-    )
+    execution_id = collector.start_execution("Analyze customer data")
 
     event = ExecutionEvent(
         execution_id=execution_id,
         event_type=ExecutionEventType.STEP_COMPLETED,
         component="analytics_tool",
-        payload={
-            "rows": 100
-        },
+        payload={"rows": 100},
     )
 
-    collector.record_event(
-        event
-    )
+    collector.record_event(event)
 
-    collector.finish_execution(
-        execution_id
-    )
+    collector.finish_execution(execution_id)
 
-    execution = store.get(
-        execution_id
-    )
+    execution = store.get(execution_id)
 
     assert execution is not None
     assert execution.status == "completed"

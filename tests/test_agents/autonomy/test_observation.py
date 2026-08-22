@@ -8,7 +8,7 @@ def test_observation_creation():
         context_id="ctx-001",
         execution_id="exec-001",
         observation_type="SUCCESS",
-        state="Execution completed"
+        state="Execution completed",
     )
 
     assert observation.observation_id == "obs-001"
@@ -24,7 +24,7 @@ def test_observation_metrics_default():
         context_id="ctx-002",
         execution_id="exec-002",
         observation_type="PERFORMANCE",
-        state="Completed"
+        state="Completed",
     )
 
     assert observation.metrics == {}

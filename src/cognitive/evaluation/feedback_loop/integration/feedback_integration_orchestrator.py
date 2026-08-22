@@ -31,22 +31,16 @@ class FeedbackIntegrationOrchestrator:
         self.memory_adapter = LearningMemoryAdapter()
         self.improvement_adapter = CognitiveImprovementAdapter()
 
-
     def integrate_feedback(
         self,
         feedback: LearningFeedback,
     ) -> bool:
 
-        return self.memory_adapter.store_feedback(
-            feedback
-        )
-
+        return self.memory_adapter.store_feedback(feedback)
 
     def integrate_improvement(
         self,
         improvement: ImprovementFeedback,
     ) -> bool:
 
-        return self.improvement_adapter.send_improvement(
-            improvement
-        )
+        return self.improvement_adapter.send_improvement(improvement)

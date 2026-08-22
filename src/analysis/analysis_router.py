@@ -19,20 +19,14 @@ class AnalysisRouter:
         and structured analysis.
     """
 
-
-    def route(
-        self,
-        question: str
-    ) -> Dict:
+    def route(self, question: str) -> Dict:
         """
         Determines the required analysis strategy.
         """
 
         text = question.lower()
 
-
         analysis_keywords = [
-
             "quantos",
             "quantidade",
             "total",
@@ -49,13 +43,10 @@ class AnalysisRouter:
             "estatística",
             "estatistica",
             "distribuição",
-            "distribuicao"
-
+            "distribuicao",
         ]
 
-
         hybrid_keywords = [
-
             "qual",
             "quais",
             "melhor",
@@ -63,43 +54,15 @@ class AnalysisRouter:
             "comparar",
             "relação",
             "relacao",
-            "impacto"
-
+            "impacto",
         ]
 
-
         for keyword in analysis_keywords:
-
             if keyword in text:
-
-                return {
-
-                    "type": "analysis",
-
-                    "confidence": 3
-
-                }
-
-
+                return {"type": "analysis", "confidence": 3}
 
         for keyword in hybrid_keywords:
-
             if keyword in text:
+                return {"type": "hybrid", "confidence": 2}
 
-                return {
-
-                    "type": "hybrid",
-
-                    "confidence": 2
-
-                }
-
-
-
-        return {
-
-            "type": "rag",
-
-            "confidence": 1
-
-        }
+        return {"type": "rag", "confidence": 1}

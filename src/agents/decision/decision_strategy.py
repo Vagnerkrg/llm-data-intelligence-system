@@ -24,9 +24,7 @@ class DecisionStrategy:
         """
 
         if not alternatives:
-            raise ValueError(
-                "At least one alternative is required."
-            )
+            raise ValueError("At least one alternative is required.")
 
         return max(
             alternatives,

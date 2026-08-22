@@ -16,135 +16,66 @@ class DataPipeline:
     - processed data persistence
     """
 
+    def __init__(self, data_path="data/raw/olist", output_path="data/processed"):
 
-    def __init__(
-        self,
-        data_path="data/raw/olist",
-        output_path="data/processed"
-    ):
+        self.loader = OlistDataLoader(data_path=data_path)
 
-        self.loader = OlistDataLoader(
-            data_path=data_path
-        )
+        self.output_path = Path(output_path)
 
-        self.output_path = Path(
-            output_path
-        )
+        self.output_path.mkdir(parents=True, exist_ok=True)
 
-        self.output_path.mkdir(
-            parents=True,
-            exist_ok=True
-        )
-
-
-    def save_processed_data(
-        self,
-        datasets
-    ):
+    def save_processed_data(self, datasets):
         """
         Saves processed datasets as parquet files.
         """
 
         for name, dataframe in datasets.items():
+            file_path = self.output_path / f"{name}.parquet"
 
-            file_path = (
-                self.output_path /
-                f"{name}.parquet"
-            )
+            dataframe.to_parquet(file_path, index=False)
 
-            dataframe.to_parquet(
-                file_path,
-                index=False
-            )
-
-            print(
-                f"Saved: {file_path}"
-            )
-
+            print(f"Saved: {file_path}")
 
     def run(self):
         """
         Executes complete data pipeline.
         """
 
-        print(
-            "Starting data pipeline..."
-        )
-
+        print("Starting data pipeline...")
 
         datasets = self.loader.load_all()
 
-
-        print(
-            f"Loaded datasets: {list(datasets.keys())}"
-        )
-
+        print(f"Loaded datasets: {list(datasets.keys())}")
 
         processed_data = {}
 
-
         for name, dataframe in datasets.items():
+            print(f"\nProcessing dataset: {name}")
 
-            print(
-                f"\nProcessing dataset: {name}"
-            )
+            validator = DataValidator(dataframe)
 
+            validation_result = validator.validate()
 
-            validator = DataValidator(
-                dataframe
-            )
+            print(f"Rows: {validation_result['summary']['rows']}")
 
+            preprocessing_pipeline = PreprocessingPipeline(dataframe)
 
-            validation_result = (
-                validator.validate()
-            )
+            processed_dataframe = preprocessing_pipeline.run()
 
+            processed_data[name] = processed_dataframe
 
-            print(
-                f"Rows: {validation_result['summary']['rows']}"
-            )
+        self.save_processed_data(processed_data)
 
-
-            preprocessing_pipeline = PreprocessingPipeline(
-                dataframe
-            )
-
-
-            processed_dataframe = (
-                preprocessing_pipeline.run()
-            )
-
-
-            processed_data[name] = (
-                processed_dataframe
-            )
-
-
-        self.save_processed_data(
-            processed_data
-        )
-
-
-        print(
-            "\nData pipeline completed successfully."
-        )
-
+        print("\nData pipeline completed successfully.")
 
         return processed_data
 
 
-
 if __name__ == "__main__":
-
     pipeline = DataPipeline()
 
     data = pipeline.run()
 
+    print("\nAvailable processed datasets:")
 
-    print(
-        "\nAvailable processed datasets:"
-    )
-
-    print(
-        list(data.keys())
-    )
+    print(list(data.keys()))

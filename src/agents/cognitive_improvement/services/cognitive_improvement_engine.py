@@ -23,16 +23,10 @@ class CognitiveImprovementEngine:
     ) -> None:
 
         self.orchestrator = (
-            orchestrator
-            if orchestrator is not None
-            else ImprovementOrchestrator()
+            orchestrator if orchestrator is not None else ImprovementOrchestrator()
         )
 
-        self.validator = (
-            validator
-            if validator is not None
-            else ImprovementValidator()
-        )
+        self.validator = validator if validator is not None else ImprovementValidator()
 
     def execute(
         self,
@@ -42,12 +36,8 @@ class CognitiveImprovementEngine:
         Execute a complete cognitive improvement cycle.
         """
 
-        result = self.orchestrator.execute(
-            request.context
-        )
+        result = self.orchestrator.execute(request.context)
 
         self.validator.validate(result)
 
-        return ImprovementResponse(
-            result=result
-        )
+        return ImprovementResponse(result=result)

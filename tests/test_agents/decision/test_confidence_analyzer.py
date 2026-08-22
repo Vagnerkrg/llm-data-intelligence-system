@@ -10,21 +10,19 @@ def test_confidence_analyzer_calculates_confidence():
             score=0.6,
             confidence=0.6,
             risk_level="medium",
-            evaluation_reason="acceptable"
+            evaluation_reason="acceptable",
         ),
         AlternativeEvaluation(
             alternative_id="strategy_b",
             score=0.9,
             confidence=0.9,
             risk_level="low",
-            evaluation_reason="best option"
-        )
+            evaluation_reason="best option",
+        ),
     ]
 
     analyzer = ConfidenceAnalyzer()
 
-    confidence = analyzer.calculate(
-        evaluations
-    )
+    confidence = analyzer.calculate(evaluations)
 
     assert confidence == 0.9

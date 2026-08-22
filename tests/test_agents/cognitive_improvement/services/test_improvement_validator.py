@@ -15,10 +15,6 @@ def test_should_validate_completed_improvement():
 
     validator = ImprovementValidator()
 
-    result = ImprovementResult(
-        status=ImprovementStatus.COMPLETED
-    )
+    result = ImprovementResult(status=ImprovementStatus.COMPLETED)
 
-    assert validator.validate(
-        result
-    ) is True
+    assert validator.validate(result) is True

@@ -21,9 +21,7 @@ class PlannerStrategy:
     """
 
     def analyze(
-        self,
-        question: str,
-        reasoning_result: Optional[ReasoningResult] = None
+        self, question: str, reasoning_result: Optional[ReasoningResult] = None
     ) -> dict:
         """
         Analyze user request and classify
@@ -36,47 +34,26 @@ class PlannerStrategy:
         """
 
         if reasoning_result:
-
             return {
-
                 "type": (
-                    reasoning_result.intent
-                    if reasoning_result.intent
-                    else "unknown"
+                    reasoning_result.intent if reasoning_result.intent else "unknown"
                 ),
-
                 "goal": (
-                    reasoning_result.goal
-                    if hasattr(
-                        reasoning_result,
-                        "goal"
-                    )
-                    else None
+                    reasoning_result.goal if hasattr(reasoning_result, "goal") else None
                 ),
-
                 "strategy": (
                     reasoning_result.strategy
-                    if hasattr(
-                        reasoning_result,
-                        "strategy"
-                    )
+                    if hasattr(reasoning_result, "strategy")
                     else "default"
                 ),
-
                 "required_capabilities": (
                     reasoning_result.required_capabilities
-                    if hasattr(
-                        reasoning_result,
-                        "required_capabilities"
-                    )
+                    if hasattr(reasoning_result, "required_capabilities")
                     else []
-                )
-
+                ),
             }
 
-
         text = question.lower()
-
 
         if any(
             keyword in text
@@ -87,22 +64,15 @@ class PlannerStrategy:
                 "quantos",
                 "quantidade",
                 "análise",
-                "analise"
+                "analise",
             ]
         ):
-
             return {
-
                 "type": "analytics",
                 "goal": None,
                 "strategy": "keyword_analysis",
-                "required_capabilities": [
-                    "analytics"
-                ]
-
+                "required_capabilities": ["analytics"],
             }
-
-
 
         if any(
             keyword in text
@@ -112,28 +82,19 @@ class PlannerStrategy:
                 "arquivo",
                 "texto",
                 "explique",
-                "resuma"
+                "resuma",
             ]
         ):
-
             return {
-
                 "type": "document",
                 "goal": None,
                 "strategy": "keyword_document",
-                "required_capabilities": [
-                    "document_processing"
-                ]
-
+                "required_capabilities": ["document_processing"],
             }
 
-
-
         return {
-
             "type": "unknown",
             "goal": None,
             "strategy": "default",
-            "required_capabilities": []
-
+            "required_capabilities": [],
         }

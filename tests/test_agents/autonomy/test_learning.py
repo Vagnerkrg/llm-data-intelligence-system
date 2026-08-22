@@ -8,7 +8,7 @@ def test_learning_signal_creation():
         reflection_id="ref-001",
         source="execution",
         pattern="Successful query optimization",
-        impact="Improved response time"
+        impact="Improved response time",
     )
 
     assert signal.signal_id == "signal-001"
@@ -23,7 +23,7 @@ def test_learning_signal_defaults():
         reflection_id="ref-002",
         source="evaluation",
         pattern="Failure pattern",
-        impact="Requires adjustment"
+        impact="Requires adjustment",
     )
 
     assert signal.confidence == 0.0

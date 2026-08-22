@@ -34,10 +34,7 @@ class HypothesisBuilder:
         if isinstance(pattern, ReflectionFinding):
             return ReflectionFinding(
                 title=pattern.title,
-                description=(
-                    f"Hypothesis generated from "
-                    f"{pattern.title}"
-                ),
+                description=(f"Hypothesis generated from {pattern.title}"),
                 confidence=pattern.confidence,
                 reflection_type="hypothesis",
             )

@@ -11,7 +11,6 @@ class BaseTool(ABC):
     must implement this contract.
     """
 
-
     @property
     @abstractmethod
     def name(self) -> str:
@@ -19,8 +18,6 @@ class BaseTool(ABC):
         Tool identifier.
         """
         pass
-
-
 
     @property
     @abstractmethod
@@ -30,8 +27,6 @@ class BaseTool(ABC):
         """
         pass
 
-
-
     @property
     @abstractmethod
     def metadata(self) -> ToolMetadata:
@@ -39,8 +34,6 @@ class BaseTool(ABC):
         Tool metadata information.
         """
         pass
-
-
 
     @abstractmethod
     def execute(self, *args, **kwargs):

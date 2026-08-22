@@ -11,7 +11,6 @@ class RoutingFeedback:
     a routing decision was effective.
     """
 
-
     question: str
 
     selected_tool: str | None

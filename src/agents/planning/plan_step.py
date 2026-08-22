@@ -26,12 +26,7 @@ class PlanStep:
 
     metadata: Optional[Dict[str, Any]] = None
 
-
-
-    def complete(
-        self,
-        result: Any
-    ):
+    def complete(self, result: Any):
         """
         Mark the step as completed
         and store execution result.
@@ -41,27 +36,16 @@ class PlanStep:
 
         self.result = result
 
-
-
-    def fail(
-        self,
-        error: str
-    ):
+    def fail(self, error: str):
         """
         Mark the step as failed.
         """
 
         self.status = "failed"
 
-        self.result = {
-            "error": error
-        }
+        self.result = {"error": error}
 
-
-
-    def is_completed(
-        self
-    ) -> bool:
+    def is_completed(self) -> bool:
         """
         Check whether the step
         finished successfully.

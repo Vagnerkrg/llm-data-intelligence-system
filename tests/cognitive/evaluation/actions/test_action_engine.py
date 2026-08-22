@@ -12,17 +12,11 @@ def test_action_engine():
     engine = ActionEngine()
 
     result = engine.execute(
-
         EvaluationResult(
-
             score=0.95,
-
             passed=True,
-
             evaluator="unit",
-
         )
-
     )
 
     assert result.executed

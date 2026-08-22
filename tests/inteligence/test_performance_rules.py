@@ -45,10 +45,13 @@ def test_evaluate_greater_than_rule():
         message="Slow execution",
     )
 
-    assert evaluate_rule(
-        rule,
-        1500,
-    ) is True
+    assert (
+        evaluate_rule(
+            rule,
+            1500,
+        )
+        is True
+    )
 
 
 def test_evaluate_greater_than_rule_false():
@@ -64,10 +67,13 @@ def test_evaluate_greater_than_rule_false():
         message="Slow execution",
     )
 
-    assert evaluate_rule(
-        rule,
-        500,
-    ) is False
+    assert (
+        evaluate_rule(
+            rule,
+            500,
+        )
+        is False
+    )
 
 
 def test_evaluate_greater_equal_rule():
@@ -83,10 +89,13 @@ def test_evaluate_greater_equal_rule():
         message="Execution contains errors.",
     )
 
-    assert evaluate_rule(
-        rule,
-        1,
-    ) is True
+    assert (
+        evaluate_rule(
+            rule,
+            1,
+        )
+        is True
+    )
 
 
 def test_evaluate_unknown_operator_returns_false():
@@ -102,7 +111,10 @@ def test_evaluate_unknown_operator_returns_false():
         message="Invalid operator",
     )
 
-    assert evaluate_rule(
-        rule,
-        1000,
-    ) is False
+    assert (
+        evaluate_rule(
+            rule,
+            1000,
+        )
+        is False
+    )

@@ -15,17 +15,14 @@ class DecisionSelector:
     def select(
         self,
         alternatives: list[DecisionAlternative],
-        evaluations: list[AlternativeEvaluation]
+        evaluations: list[AlternativeEvaluation],
     ) -> Decision:
         """
         Select highest scored alternative
         and create a cognitive decision.
         """
 
-        best_evaluation = max(
-            evaluations,
-            key=lambda evaluation: evaluation.score
-        )
+        best_evaluation = max(evaluations, key=lambda evaluation: evaluation.score)
 
         selected_alternative = next(
             alternative
@@ -35,18 +32,13 @@ class DecisionSelector:
 
         decision_id = str(uuid4())
 
-        trace = DecisionTrace(
-            decision_id=decision_id,
-            alternatives=alternatives
-        )
+        trace = DecisionTrace(decision_id=decision_id, alternatives=alternatives)
 
-        trace.select_alternative(
-            selected_alternative.name
-        )
+        trace.select_alternative(selected_alternative.name)
 
         return Decision(
             decision_id=decision_id,
             status=DecisionStatus.SELECTED,
             strategy=selected_alternative.name,
-            trace=trace
+            trace=trace,
         )

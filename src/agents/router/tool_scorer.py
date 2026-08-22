@@ -10,9 +10,7 @@ class ToolScorer:
     """
 
     def score(
-        self,
-        question: str,
-        tools: List[ToolMetadata]
+        self, question: str, tools: List[ToolMetadata]
     ) -> list[tuple[ToolMetadata, float, str]]:
         """
         Return ranked tool candidates.
@@ -22,41 +20,19 @@ class ToolScorer:
 
         results = []
 
-
         for tool in tools:
-
             score = 0.0
             reason = "No capability match."
 
-
             for capability in tool.capabilities:
-
                 capability_text = capability.lower()
 
-
                 if capability_text in text:
-
                     score += 0.5
 
-                    reason = (
-                        "Matched capability: "
-                        + capability
-                    )
-
+                    reason = "Matched capability: " + capability
 
             if score > 0:
+                results.append((tool, min(score, 1.0), reason))
 
-                results.append(
-                    (
-                        tool,
-                        min(score, 1.0),
-                        reason
-                    )
-                )
-
-
-        return sorted(
-            results,
-            key=lambda item: item[1],
-            reverse=True
-        )
+        return sorted(results, key=lambda item: item[1], reverse=True)

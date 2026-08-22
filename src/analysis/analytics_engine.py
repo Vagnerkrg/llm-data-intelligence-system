@@ -13,94 +13,36 @@ class AnalyticsEngine:
     making the analytical layer reusable.
     """
 
+    def __init__(self, repository=None, statistics_engine=None):
 
-    def __init__(
-        self,
-        repository=None,
-        statistics_engine=None
-    ):
+        self.repository = repository if repository else DataFrameRepository()
 
-        self.repository = (
-            repository
-            if repository
-            else DataFrameRepository()
-        )
+        self.statistics = statistics_engine if statistics_engine else StatisticsEngine()
 
+    def count_rows(self, dataset_name):
 
-        self.statistics = (
-            statistics_engine
-            if statistics_engine
-            else StatisticsEngine()
-        )
+        dataframe = self.repository.get(dataset_name)
 
+        return self.statistics.count_rows(dataframe)
 
+    def columns(self, dataset_name):
 
-    def count_rows(
-        self,
-        dataset_name
-    ):
+        dataframe = self.repository.get(dataset_name)
 
-        dataframe = self.repository.get(
-            dataset_name
-        )
+        return self.statistics.columns(dataframe)
 
-        return self.statistics.count_rows(
-            dataframe
-        )
+    def value_counts(self, dataset_name, column, limit=5):
 
+        dataframe = self.repository.get(dataset_name)
 
+        return self.statistics.value_counts(dataframe, column, limit)
 
-    def columns(
-        self,
-        dataset_name
-    ):
+    def describe(self, dataset_name):
 
-        dataframe = self.repository.get(
-            dataset_name
-        )
+        dataframe = self.repository.get(dataset_name)
 
-        return self.statistics.columns(
-            dataframe
-        )
+        return dataframe.describe(include="all")
 
-
-
-    def value_counts(
-        self,
-        dataset_name,
-        column,
-        limit=5
-    ):
-
-        dataframe = self.repository.get(
-            dataset_name
-        )
-
-        return self.statistics.value_counts(
-            dataframe,
-            column,
-            limit
-        )
-
-
-
-    def describe(
-        self,
-        dataset_name
-    ):
-
-        dataframe = self.repository.get(
-            dataset_name
-        )
-
-        return dataframe.describe(
-            include="all"
-        )
-
-
-
-    def datasets(
-        self
-    ):
+    def datasets(self):
 
         return self.repository.list_datasets()

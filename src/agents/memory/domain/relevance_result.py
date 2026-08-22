@@ -13,8 +13,6 @@ class RelevanceResult:
 
     score: float = 0.0
 
-    factors: Dict[str, float] = field(
-        default_factory=dict
-    )
+    factors: Dict[str, float] = field(default_factory=dict)
 
     explanation: str = ""

@@ -8,7 +8,7 @@ def test_alternative_evaluation_creation():
         score=0.85,
         confidence=0.8,
         risk_level="low",
-        evaluation_reason="Good alignment with objective"
+        evaluation_reason="Good alignment with objective",
     )
 
     assert evaluation.alternative_id == "analysis_optimization"

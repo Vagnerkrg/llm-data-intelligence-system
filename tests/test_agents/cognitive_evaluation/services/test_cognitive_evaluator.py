@@ -71,10 +71,7 @@ def test_should_include_individual_metric_breakdown():
 
     result = evaluator.evaluate(context)
 
-    metric_names = [
-        metric.name
-        for metric in result.metrics
-    ]
+    metric_names = [metric.name for metric in result.metrics]
 
     assert "reasoning_quality" in metric_names
     assert "planning_quality" in metric_names
@@ -100,15 +97,8 @@ def test_should_produce_deterministic_evaluation():
     first_result = evaluator.evaluate(context)
     second_result = evaluator.evaluate(context)
 
-    assert (
-        first_result.overall_score
-        == second_result.overall_score
-    )
+    assert first_result.overall_score == second_result.overall_score
 
-    assert [
-        metric.score
-        for metric in first_result.metrics
-    ] == [
-        metric.score
-        for metric in second_result.metrics
+    assert [metric.score for metric in first_result.metrics] == [
+        metric.score for metric in second_result.metrics
     ]

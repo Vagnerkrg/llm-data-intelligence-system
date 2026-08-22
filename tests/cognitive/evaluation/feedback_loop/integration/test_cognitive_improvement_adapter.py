@@ -21,12 +21,8 @@ def test_send_improvement():
         created_at=datetime.now(),
     )
 
-    result = adapter.send_improvement(
-        improvement
-    )
+    result = adapter.send_improvement(improvement)
 
     assert result is True
 
-    assert len(
-        adapter.get_pending_improvements()
-    ) == 1
+    assert len(adapter.get_pending_improvements()) == 1

@@ -12,7 +12,6 @@ class LLMFactory:
     based on environment configuration.
     """
 
-
     @staticmethod
     def create():
         """
@@ -23,13 +22,9 @@ class LLMFactory:
             MockLLMClient otherwise.
         """
 
-        api_key = os.getenv(
-            "GROQ_API_KEY"
-        )
-
+        api_key = os.getenv("GROQ_API_KEY")
 
         if api_key:
             return GroqClient()
-
 
         return MockLLMClient()

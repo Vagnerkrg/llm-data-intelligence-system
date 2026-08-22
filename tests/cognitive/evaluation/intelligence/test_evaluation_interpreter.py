@@ -26,14 +26,9 @@ def test_interpreter_creates_interpretation():
 
     interpreter = EvaluationInterpreter()
 
-    interpretation = interpreter.interpret(
-        result
-    )
+    interpretation = interpreter.interpret(result)
 
-    assert isinstance(
-        interpretation,
-        EvaluationInterpretation
-    )
+    assert isinstance(interpretation, EvaluationInterpretation)
 
     assert interpretation.severity == "low"
 
@@ -48,24 +43,16 @@ def test_interpreter_detects_high_risk_signal():
         recommendation="improve reasoning",
     )
 
-
     result = EvaluationResult(
         evaluation_id="eval-002",
         score=0.4,
         quality_level="medium",
-        signals=[
-            signal
-        ],
+        signals=[signal],
     )
-
 
     interpreter = EvaluationInterpreter()
 
-
-    interpretation = interpreter.interpret(
-        result
-    )
-
+    interpretation = interpreter.interpret(result)
 
     assert interpretation.requires_improvement is True
 

@@ -18,21 +18,14 @@ class ConsolidatedKnowledge:
     metadata: Dict[str, Any] = field(default_factory=dict)
 
     usage_count: int = 0
-    created_at: datetime = field(
-        default_factory=datetime.now
-    )
-
+    created_at: datetime = field(default_factory=datetime.now)
 
     def reinforce(self, value: float = 0.05) -> None:
         """
         Reforça a confiança do conhecimento.
         """
 
-        self.confidence = min(
-            1.0,
-            self.confidence + value
-        )
-
+        self.confidence = min(1.0, self.confidence + value)
 
     def register_usage(self) -> None:
         """
@@ -40,7 +33,6 @@ class ConsolidatedKnowledge:
         """
 
         self.usage_count += 1
-
 
     def is_valid(self) -> bool:
         """

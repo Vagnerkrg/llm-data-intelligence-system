@@ -10,13 +10,9 @@ from src.agents.cognitive_improvement.domain.improvement_status import (
 
 
 def test_should_create_improvement_response():
-    result = ImprovementResult(
-        status=ImprovementStatus.PENDING
-    )
+    result = ImprovementResult(status=ImprovementStatus.PENDING)
 
-    response = ImprovementResponse(
-        result=result
-    )
+    response = ImprovementResponse(result=result)
 
     assert response is not None
     assert response.result == result

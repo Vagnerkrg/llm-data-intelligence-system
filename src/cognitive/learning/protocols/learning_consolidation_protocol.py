@@ -10,12 +10,8 @@ class LearningConsolidationProtocol(ABC):
     de aprendizado cognitivo.
     """
 
-
     @abstractmethod
-    def consolidate(
-        self,
-        pattern: LearningPattern
-    ) -> ConsolidatedKnowledge | None:
+    def consolidate(self, pattern: LearningPattern) -> ConsolidatedKnowledge | None:
         """
         Consolida um padrão aprendido.
         """

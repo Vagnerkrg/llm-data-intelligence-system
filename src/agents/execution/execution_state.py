@@ -23,24 +23,14 @@ class ExecutionState:
 
     execution_id: str
 
-    status: ExecutionStatus = (
-        ExecutionStatus.PENDING
-    )
+    status: ExecutionStatus = ExecutionStatus.PENDING
 
     current_step_id: str | None = None
 
-    events: List[ExecutionEvent] = field(
-        default_factory=list
-    )
+    events: List[ExecutionEvent] = field(default_factory=list)
 
-    metrics: ExecutionMetrics = field(
-        default_factory=ExecutionMetrics
-    )
+    metrics: ExecutionMetrics = field(default_factory=ExecutionMetrics)
 
-    results: List[Any] = field(
-        default_factory=list
-    )
+    results: List[Any] = field(default_factory=list)
 
-    metadata: Dict[str, Any] = field(
-        default_factory=dict
-    )
+    metadata: Dict[str, Any] = field(default_factory=dict)

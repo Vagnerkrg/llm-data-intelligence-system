@@ -8,7 +8,6 @@ from src.observability.domain.models import (
     ExecutionError,
     ExecutionEvent,
     ExecutionMetric,
-    ExecutionState,
     ExecutionTrace,
 )
 

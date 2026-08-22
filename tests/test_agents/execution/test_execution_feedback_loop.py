@@ -40,16 +40,11 @@ def test_feedback_loop_success_flow():
         status=ExecutionStatus.COMPLETED,
     )
 
-    feedback = loop.evaluate(
-        state
-    )
+    feedback = loop.evaluate(state)
 
     assert feedback.success is True
 
-    assert (
-        feedback.message
-        == "Execution completed successfully"
-    )
+    assert feedback.message == "Execution completed successfully"
 
 
 def test_feedback_loop_failure_flow():
@@ -64,16 +59,11 @@ def test_feedback_loop_failure_flow():
         status=ExecutionStatus.FAILED,
     )
 
-    feedback = loop.evaluate(
-        state
-    )
+    feedback = loop.evaluate(state)
 
     assert feedback.success is False
 
-    assert (
-        "Execution status is failed"
-        in feedback.issues
-    )
+    assert "Execution status is failed" in feedback.issues
 
 
 def test_feedback_loop_custom_evaluator():
@@ -82,22 +72,11 @@ def test_feedback_loop_custom_evaluator():
     """
 
     class CustomEvaluator:
-
         def evaluate(self, state):
             return "custom_feedback"
 
+    loop = ExecutionFeedbackLoop(evaluator=CustomEvaluator())
 
-    loop = ExecutionFeedbackLoop(
-        evaluator=CustomEvaluator()
-    )
+    result = loop.evaluate(ExecutionState(execution_id="exec_003"))
 
-    result = loop.evaluate(
-        ExecutionState(
-            execution_id="exec_003"
-        )
-    )
-
-    assert (
-        result
-        == "custom_feedback"
-    )
+    assert result == "custom_feedback"

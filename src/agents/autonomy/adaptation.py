@@ -21,6 +21,4 @@ class AdaptationStrategy:
 
     confidence: float = 0.0
 
-    metadata: dict[str, str] = field(
-        default_factory=dict
-    )
+    metadata: dict[str, str] = field(default_factory=dict)

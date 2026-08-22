@@ -2,7 +2,6 @@ from src.evaluation.answer_evaluator import AnswerEvaluator
 from src.evaluation.evaluation_history import EvaluationHistory
 
 
-
 class QualityMonitor:
     """
     Monitors answer quality.
@@ -11,76 +10,29 @@ class QualityMonitor:
     historical tracking.
     """
 
+    def __init__(self, evaluator=None, history=None):
 
-    def __init__(
-        self,
-        evaluator=None,
-        history=None
-    ):
+        self.evaluator = evaluator if evaluator else AnswerEvaluator()
 
+        self.history = history if history else EvaluationHistory()
 
-        self.evaluator = (
-            evaluator
-            if evaluator
-            else AnswerEvaluator()
-        )
-
-
-        self.history = (
-            history
-            if history
-            else EvaluationHistory()
-        )
-
-
-
-    def evaluate(
-        self,
-        question: str,
-        answer: str,
-        route: str
-    ):
+    def evaluate(self, question: str, answer: str, route: str):
         """
         Evaluates response quality
         and stores result.
         """
 
-
-        evaluation = self.evaluator.evaluate(
-            question,
-            answer
-        )
-
+        evaluation = self.evaluator.evaluate(question, answer)
 
         result = {
-
             "question": question,
-
             "answer": answer,
-
             "route": route,
-
-            "score": evaluation.get(
-                "score",
-                0
-            ),
-
-            "quality": evaluation.get(
-                "quality",
-                "unknown"
-            ),
-
-            "issues": evaluation.get(
-                "issues",
-                []
-            )
-
+            "score": evaluation.get("score", 0),
+            "quality": evaluation.get("quality", "unknown"),
+            "issues": evaluation.get("issues", []),
         }
 
-
-        self.history.save(
-            result
-        )
-
+        self.history.save(result)
 
         return result

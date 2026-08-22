@@ -23,16 +23,11 @@ def test_plan_evaluator_success_execution():
         status=ExecutionStatus.COMPLETED,
     )
 
-    feedback = evaluator.evaluate(
-        state
-    )
+    feedback = evaluator.evaluate(state)
 
     assert feedback.success is True
 
-    assert (
-        feedback.message
-        == "Execution completed successfully"
-    )
+    assert feedback.message == "Execution completed successfully"
 
 
 def test_plan_evaluator_failed_execution():
@@ -47,16 +42,11 @@ def test_plan_evaluator_failed_execution():
         status=ExecutionStatus.FAILED,
     )
 
-    feedback = evaluator.evaluate(
-        state
-    )
+    feedback = evaluator.evaluate(state)
 
     assert feedback.success is False
 
-    assert (
-        "Execution status is failed"
-        in feedback.issues
-    )
+    assert "Execution status is failed" in feedback.issues
 
 
 def test_plan_evaluator_running_execution():
@@ -71,13 +61,8 @@ def test_plan_evaluator_running_execution():
         status=ExecutionStatus.RUNNING,
     )
 
-    feedback = evaluator.evaluate(
-        state
-    )
+    feedback = evaluator.evaluate(state)
 
     assert feedback.success is False
 
-    assert (
-        "Execution not finished"
-        in feedback.issues
-    )
+    assert "Execution not finished" in feedback.issues

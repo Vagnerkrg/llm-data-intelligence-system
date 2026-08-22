@@ -8,7 +8,7 @@ def test_adaptation_strategy_creation():
         learning_signal_id="signal-001",
         trigger="Repeated execution failure",
         action="Change execution strategy",
-        expected_effect="Improve success rate"
+        expected_effect="Improve success rate",
     )
 
     assert strategy.strategy_id == "strategy-001"
@@ -23,7 +23,7 @@ def test_adaptation_strategy_defaults():
         learning_signal_id="signal-002",
         trigger="Performance issue",
         action="Optimize process",
-        expected_effect="Reduce latency"
+        expected_effect="Reduce latency",
     )
 
     assert strategy.confidence == 0.0

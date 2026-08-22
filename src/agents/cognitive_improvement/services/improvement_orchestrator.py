@@ -20,9 +20,7 @@ class ImprovementOrchestrator:
     ) -> None:
 
         self.cycle_executor = (
-            cycle_executor
-            if cycle_executor is not None
-            else CycleExecutor()
+            cycle_executor if cycle_executor is not None else CycleExecutor()
         )
 
     def execute(
@@ -33,6 +31,4 @@ class ImprovementOrchestrator:
         Execute the cognitive improvement workflow.
         """
 
-        return self.cycle_executor.execute(
-            context
-        )
+        return self.cycle_executor.execute(context)

@@ -72,20 +72,13 @@ class LearningEvolutionBridge:
             base_context=base_context,
         )
 
-        decision = self.evolution_decision_engine.decide(
-            context
-        )
+        decision = self.evolution_decision_engine.decide(context)
 
         return LearningEvolutionResult(
             context=context,
             decision=decision,
-            learning_evidence_count=(
-                len(learning_outcomes)
-                + len(learning_signals)
-            ),
-            optimization_signal_count=len(
-                optimization_signals
-            ),
+            learning_evidence_count=(len(learning_outcomes) + len(learning_signals)),
+            optimization_signal_count=len(optimization_signals),
         )
 
     def build_context(
@@ -101,19 +94,15 @@ class LearningEvolutionBridge:
             base_context,
             EvolutionContext,
         ):
-            raise TypeError(
-                "base_context must be an EvolutionContext instance."
-            )
+            raise TypeError("base_context must be an EvolutionContext instance.")
 
         learning_information = self._build_learning_information(
             learning_outcomes=learning_outcomes,
             learning_signals=learning_signals,
         )
 
-        optimization_information = (
-            self._build_optimization_information(
-                optimization_signals
-            )
+        optimization_information = self._build_optimization_information(
+            optimization_signals
         )
 
         if base_context is None:
@@ -150,8 +139,7 @@ class LearningEvolutionBridge:
                 LearningOutcome,
             ):
                 raise TypeError(
-                    "learning_outcomes must contain only "
-                    "LearningOutcome instances."
+                    "learning_outcomes must contain only LearningOutcome instances."
                 )
 
             information.append(
@@ -170,8 +158,7 @@ class LearningEvolutionBridge:
                 LearningSignal,
             ):
                 raise TypeError(
-                    "learning_signals must contain only "
-                    "LearningSignal instances."
+                    "learning_signals must contain only LearningSignal instances."
                 )
 
             information.append(

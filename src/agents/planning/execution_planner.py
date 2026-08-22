@@ -8,7 +8,6 @@ Generates ExecutionPlan composed by
 ExecutionStep objects.
 """
 
-
 from typing import Optional
 
 
@@ -28,24 +27,19 @@ except Exception:
     Goal = object
 
 
-
 class ExecutionPlanner:
     """
     Creates execution plans for agent execution.
     """
 
-
-
     def __init__(self):
         pass
-
-
 
     def create_plan(
         self,
         question: str,
         reasoning_result: Optional[ReasoningResult] = None,
-        goal: Optional[Goal] = None
+        goal: Optional[Goal] = None,
     ) -> ExecutionPlan:
         """
         Creates an execution plan.
@@ -57,190 +51,74 @@ class ExecutionPlanner:
         - goal driven planning
         """
 
-
-
-        plan = ExecutionPlan(
-            objective=question
-        )
-
-
+        plan = ExecutionPlan(objective=question)
 
         metadata = {}
-
-
 
         #
         # Reasoning metadata
         #
 
         if reasoning_result:
-
-
             metadata.update(
-
                 {
-
-                    "reasoning": getattr(
-                        reasoning_result,
-                        "reasoning",
-                        None
-                    ),
-
-
-                    "conclusion": getattr(
-                        reasoning_result,
-                        "conclusion",
-                        None
-                    ),
-
-
-                    "confidence": getattr(
-                        reasoning_result,
-                        "confidence",
-                        None
-                    ),
-
-
-                    "strategy": getattr(
-                        reasoning_result,
-                        "strategy",
-                        "default"
-                    ),
-
-
+                    "reasoning": getattr(reasoning_result, "reasoning", None),
+                    "conclusion": getattr(reasoning_result, "conclusion", None),
+                    "confidence": getattr(reasoning_result, "confidence", None),
+                    "strategy": getattr(reasoning_result, "strategy", "default"),
                     "required_capabilities": getattr(
-                        reasoning_result,
-                        "required_capabilities",
-                        []
-                    )
-
+                        reasoning_result, "required_capabilities", []
+                    ),
                 }
-
             )
-
-
 
         #
         # Goal metadata
         #
 
         if goal:
-
-
             metadata.update(
-
                 {
-
-
                     "goal": getattr(
-                        goal,
-                        "description",
-                        getattr(
-                            goal,
-                            "objective",
-                            None
-                        )
+                        goal, "description", getattr(goal, "objective", None)
                     ),
-
-
-                    "goal_type": getattr(
-                        goal,
-                        "goal_type",
-                        "general"
-                    ),
-
-
-                    "intent": getattr(
-                        goal,
-                        "intent",
-                        "general"
-                    ),
-
-
-                    "goal_priority": getattr(
-                        goal,
-                        "priority",
-                        None
-                    )
-
+                    "goal_type": getattr(goal, "goal_type", "general"),
+                    "intent": getattr(goal, "intent", "general"),
+                    "goal_priority": getattr(goal, "priority", None),
                 }
-
             )
 
-
-
         plan.metadata = metadata
-
-
 
         #
         # Default execution pipeline
         #
 
         if not plan.steps:
-
-
-
             plan.add_step(
-
                 ExecutionStep(
-
                     step_id="step_1",
-
                     action="route_request",
-
-                    description=(
-                        "Route user request"
-                    )
-
+                    description=("Route user request"),
                 )
-
             )
 
-
-
             plan.add_step(
-
                 ExecutionStep(
-
                     step_id="step_2",
-
                     action="execute_tool",
-
-                    description=(
-                        "Execute required tools"
-                    ),
-
-                    dependencies=[
-                        "step_1"
-                    ]
-
+                    description=("Execute required tools"),
+                    dependencies=["step_1"],
                 )
-
             )
-
-
 
             plan.add_step(
-
                 ExecutionStep(
-
                     step_id="step_3",
-
                     action="generate_response",
-
-                    description=(
-                        "Generate final response"
-                    ),
-
-                    dependencies=[
-                        "step_2"
-                    ]
-
+                    description=("Generate final response"),
+                    dependencies=["step_2"],
                 )
-
             )
-
-
 
         return plan

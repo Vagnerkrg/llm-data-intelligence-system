@@ -3,13 +3,13 @@ from src.agents.decision.decision_status import DecisionStatus
 
 def test_should_define_all_expected_statuses():
     expected = {
-    "pending",
-    "analyzing",
-    "selected",
-    "committed",
-    "evaluated",
-    "completed",
-}
+        "pending",
+        "analyzing",
+        "selected",
+        "committed",
+        "evaluated",
+        "completed",
+    }
 
     actual = {status.value for status in DecisionStatus}
 

@@ -35,20 +35,15 @@ class CognitiveFeedbackPipeline:
 
         self.learning_service = FeedbackLearningService()
 
-
     def execute(
         self,
         context: RuntimeFeedbackContext,
     ):
 
-        feedback_cycle = self.feedback_runtime.execute_feedback_cycle(
-            context
-        )
+        feedback_cycle = self.feedback_runtime.execute_feedback_cycle(context)
 
-        learning_feedback = (
-            self.learning_service.store_learning_feedback(
-                feedback_cycle
-            )
+        learning_feedback = self.learning_service.store_learning_feedback(
+            feedback_cycle
         )
 
         return {

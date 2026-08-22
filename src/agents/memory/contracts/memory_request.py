@@ -19,8 +19,6 @@ class MemoryRequest:
 
     memory_type: Optional[str] = None
 
-    metadata: Dict = field(
-        default_factory=dict
-    )
+    metadata: Dict = field(default_factory=dict)
 
     limit: int = 10

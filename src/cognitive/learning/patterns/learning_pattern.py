@@ -31,10 +31,7 @@ class LearningPattern:
         Aumenta a confiança do padrão aprendido.
         """
 
-        self.confidence = min(
-            1.0,
-            self.confidence + value
-        )
+        self.confidence = min(1.0, self.confidence + value)
 
     def is_reliable(self) -> bool:
         """

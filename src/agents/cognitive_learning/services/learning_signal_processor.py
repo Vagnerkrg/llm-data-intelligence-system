@@ -77,9 +77,7 @@ class LearningSignalProcessor:
         if not signal_type or not pattern:
             return None
 
-        confidence_value = self._normalize_confidence(
-            confidence
-        )
+        confidence_value = self._normalize_confidence(confidence)
 
         if confidence_value < self.MIN_CONFIDENCE:
             return None
@@ -106,11 +104,7 @@ class LearningSignalProcessor:
             "pattern": str(pattern).strip(),
             "confidence": confidence_value,
             "impact": self._normalize_impact(impact),
-            "recommendation": (
-                str(recommendation).strip()
-                if recommendation
-                else ""
-            ),
+            "recommendation": (str(recommendation).strip() if recommendation else ""),
         }
 
     def _consolidate(
@@ -135,21 +129,12 @@ class LearningSignalProcessor:
         for key in sorted(groups):
             items = groups[key]
 
-            confidence = sum(
-                item["confidence"]
-                for item in items
-            ) / len(items)
+            confidence = sum(item["confidence"] for item in items) / len(items)
 
-            impact = self._resolve_impact(
-                items
-            )
+            impact = self._resolve_impact(items)
 
             recommendation = next(
-                (
-                    item["recommendation"]
-                    for item in items
-                    if item["recommendation"]
-                ),
+                (item["recommendation"] for item in items if item["recommendation"]),
                 "",
             )
 
@@ -211,9 +196,7 @@ class LearningSignalProcessor:
         if explicit_source:
             return str(explicit_source).strip()
 
-        normalized_type = str(
-            signal_type
-        ).strip().lower()
+        normalized_type = str(signal_type).strip().lower()
 
         return self.SOURCE_BY_SIGNAL_TYPE.get(
             normalized_type,
@@ -287,9 +270,6 @@ class LearningSignalProcessor:
         }
 
         return max(
-            (
-                item["impact"]
-                for item in signals
-            ),
+            (item["impact"] for item in signals),
             key=lambda impact: ranking[impact],
         )

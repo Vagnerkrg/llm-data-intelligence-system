@@ -37,9 +37,7 @@ class AdaptationManager:
 
         response = self.engine.adapt(request)
 
-        result = self.executor.execute(
-            response.result.action
-        )
+        result = self.executor.execute(response.result.action)
 
         self.history.record(result)
 

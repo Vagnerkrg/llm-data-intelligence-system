@@ -15,38 +15,21 @@ class StatisticsEngine:
     - Provides safe analytical operations.
     """
 
-
-
-    def count_rows(
-        self,
-        dataframe
-    ) -> int:
+    def count_rows(self, dataframe) -> int:
         """
         Returns number of records.
         """
 
         return len(dataframe)
 
-
-
-    def columns(
-        self,
-        dataframe
-    ):
+    def columns(self, dataframe):
         """
         Returns dataframe columns.
         """
 
-        return list(
-            dataframe.columns
-        )
+        return list(dataframe.columns)
 
-
-
-    def get_column_names(
-        self,
-        dataframe
-    ):
+    def get_column_names(self, dataframe):
         """
         Returns dataframe column names.
 
@@ -54,65 +37,26 @@ class StatisticsEngine:
         external consumers and tests.
         """
 
-        return self.columns(
-            dataframe
-        )
+        return self.columns(dataframe)
 
-
-
-    def summary(
-        self,
-        dataframe
-    ) -> Dict[str, Any]:
+    def summary(self, dataframe) -> Dict[str, Any]:
         """
         Returns basic dataframe statistics.
         """
 
         return {
-
             "rows": len(dataframe),
-
-            "columns": list(
-                dataframe.columns
-            ),
-
-            "missing_values": (
-                dataframe
-                .isnull()
-                .sum()
-                .to_dict()
-            )
-
+            "columns": list(dataframe.columns),
+            "missing_values": (dataframe.isnull().sum().to_dict()),
         }
 
-
-
-    def value_counts(
-        self,
-        dataframe,
-        column,
-        limit=10
-    ):
+    def value_counts(self, dataframe, column, limit=10):
         """
         Returns most frequent values
         from a column.
         """
 
-
         if column not in dataframe.columns:
+            return {"error": (f"Column not found: {column}")}
 
-            return {
-                "error": (
-                    f"Column not found: {column}"
-                )
-            }
-
-
-        return (
-
-            dataframe[column]
-            .value_counts()
-            .head(limit)
-            .to_dict()
-
-        )
+        return dataframe[column].value_counts().head(limit).to_dict()

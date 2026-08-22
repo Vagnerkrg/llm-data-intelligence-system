@@ -9,41 +9,28 @@ class DataCleaner:
     It creates a copy before applying transformations.
     """
 
-
     def __init__(self, dataframe: pd.DataFrame):
 
         self.df = dataframe.copy()
-
 
     def clean_text_columns(self):
         """
         Removes unnecessary spaces from text columns.
         """
 
-        for column in self.df.select_dtypes(
-            include="object"
-        ).columns:
-
-            self.df[column] = (
-                self.df[column]
-                .str.strip()
-            )
+        for column in self.df.select_dtypes(include="object").columns:
+            self.df[column] = self.df[column].str.strip()
 
         return self.df
-
 
     def remove_empty_columns(self):
         """
         Removes columns with all values missing.
         """
 
-        self.df = self.df.dropna(
-            axis=1,
-            how="all"
-        )
+        self.df = self.df.dropna(axis=1, how="all")
 
         return self.df
-
 
     def remove_duplicates(self):
         """
@@ -53,7 +40,6 @@ class DataCleaner:
         self.df = self.df.drop_duplicates()
 
         return self.df
-
 
     def clean(self):
         """

@@ -25,9 +25,7 @@ class QualityAnalyzer:
                 EvaluationFinding(
                     category="tool_usage",
                     severity="medium",
-                    description=(
-                        "Execution used a high number of tools."
-                    ),
+                    description=("Execution used a high number of tools."),
                 )
             )
 

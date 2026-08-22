@@ -39,9 +39,7 @@ def test_evaluate_produces_learning_outcome():
 
     assert outcome.experience_id == "exp-1"
     assert outcome.learned_pattern == "effective: stable strategy"
-    assert outcome.knowledge_candidate == (
-        "strategy: effective: stable strategy"
-    )
+    assert outcome.knowledge_candidate == ("strategy: effective: stable strategy")
     assert outcome.confidence == 0.9
     assert outcome.recommendation
     assert outcome.metadata["learning_type"] == "effective_behavior"
@@ -64,13 +62,10 @@ def test_identifies_ineffective_behavior():
 
     outcome = result[0]
 
-    assert outcome.learned_pattern == (
-        "ineffective: failed reasoning strategy"
-    )
+    assert outcome.learned_pattern == ("ineffective: failed reasoning strategy")
     assert outcome.metadata["learning_type"] == "ineffective_behavior"
     assert outcome.recommendation == (
-        "Avoid repeating this behavior and evaluate "
-        "alternative strategies."
+        "Avoid repeating this behavior and evaluate alternative strategies."
     )
 
 
@@ -91,12 +86,8 @@ def test_identifies_improvement_opportunity():
 
     outcome = result[0]
 
-    assert outcome.learned_pattern == (
-        "improvement: new routing opportunity"
-    )
-    assert outcome.metadata["learning_type"] == (
-        "improvement_opportunity"
-    )
+    assert outcome.learned_pattern == ("improvement: new routing opportunity")
+    assert outcome.metadata["learning_type"] == ("improvement_opportunity")
 
 
 def test_calculates_confidence_by_impact():

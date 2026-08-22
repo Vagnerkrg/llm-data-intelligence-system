@@ -7,7 +7,6 @@ from src.agents.execution.execution_feedback import (
 )
 
 
-
 def create_feedback(
     success=True,
     message="Execution completed",
@@ -16,7 +15,6 @@ def create_feedback(
         success=success,
         message=message,
     )
-
 
 
 def test_memory_starts_empty():
@@ -31,7 +29,6 @@ def test_memory_starts_empty():
     assert memory.all() == []
 
 
-
 def test_memory_add_feedback():
     """
     Validate feedback storage.
@@ -41,17 +38,11 @@ def test_memory_add_feedback():
 
     feedback = create_feedback()
 
-    memory.add(
-        feedback
-    )
+    memory.add(feedback)
 
     assert memory.count() == 1
 
-    assert (
-        memory.last()
-        == feedback
-    )
-
+    assert memory.last() == feedback
 
 
 def test_memory_preserves_history():
@@ -71,21 +62,17 @@ def test_memory_preserves_history():
         "Failure",
     )
 
-
     memory.add(first)
 
     memory.add(second)
 
-
     history = memory.all()
-
 
     assert len(history) == 2
 
     assert history[0] == first
 
     assert history[1] == second
-
 
 
 def test_memory_clear():
@@ -95,12 +82,9 @@ def test_memory_clear():
 
     memory = ExecutionFeedbackMemory()
 
-    memory.add(
-        create_feedback()
-    )
+    memory.add(create_feedback())
 
     memory.clear()
-
 
     assert memory.count() == 0
 

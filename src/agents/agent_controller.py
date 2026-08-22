@@ -10,22 +10,11 @@ class AgentController:
     available AI tools and agents.
     """
 
+    def __init__(self, registry=None):
 
-    def __init__(
-        self,
-        registry=None
-    ):
-
-        self.registry = (
-            registry
-            if registry
-            else AgentRegistry()
-        )
-
+        self.registry = registry if registry else AgentRegistry()
 
         self._register_default_tools()
-
-
 
     def _register_default_tools(self):
         """
@@ -34,91 +23,37 @@ class AgentController:
 
         analytics_tool = AnalyticsTool()
 
-        self.registry.register_tool(
-            analytics_tool
-        )
+        self.registry.register_tool(analytics_tool)
 
-
-
-    def run(
-        self,
-        question: str
-    ) -> Dict:
+    def run(self, question: str) -> Dict:
         """
         Execute a user request using
         the appropriate registered tool.
         """
 
-
-        tool = self._select_tool(
-            question
-        )
-
+        tool = self._select_tool(question)
 
         if not tool:
+            return {"status": "error", "message": ("No suitable tool found.")}
 
-            return {
+        result = tool.execute(question)
 
-                "status": "error",
+        return {"status": "success", "tool": tool.name, "result": result}
 
-                "message": (
-                    "No suitable tool found."
-                )
-
-            }
-
-
-
-        result = tool.execute(
-            question
-        )
-
-
-        return {
-
-            "status": "success",
-
-            "tool": tool.name,
-
-            "result": result
-
-        }
-
-
-
-    def _select_tool(
-        self,
-        question: str
-    ):
+    def _select_tool(self, question: str):
 
         text = question.lower()
 
-
         analytical_keywords = [
-
             "quantos",
-
             "categoria",
-
             "colunas",
-
             "dados",
-
             "produtos",
-
-            "clientes"
-
+            "clientes",
         ]
 
-
-        if any(
-            keyword in text
-            for keyword in analytical_keywords
-        ):
-
-            return self.registry.get_tool(
-                "analytics"
-            )
-
+        if any(keyword in text for keyword in analytical_keywords):
+            return self.registry.get_tool("analytics")
 
         return None

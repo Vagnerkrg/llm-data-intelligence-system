@@ -14,30 +14,15 @@ class DataQueryEngine:
     - return standardized retrieval results
     """
 
-    def __init__(
-        self,
-        embedding_generator=None,
-        vector_index=None,
-        router=None
-    ):
+    def __init__(self, embedding_generator=None, vector_index=None, router=None):
 
         self.embedding_generator = (
-            embedding_generator
-            if embedding_generator
-            else LocalEmbeddingGenerator()
+            embedding_generator if embedding_generator else LocalEmbeddingGenerator()
         )
 
-        self.vector_index = (
-            vector_index
-            if vector_index
-            else VectorIndex()
-        )
+        self.vector_index = vector_index if vector_index else VectorIndex()
 
-        self.router = (
-            router
-            if router
-            else QueryRouter()
-        )
+        self.router = router if router else QueryRouter()
 
         self._loaded = False
 
@@ -47,15 +32,10 @@ class DataQueryEngine:
         """
 
         if not self._loaded:
-
             self.vector_index.load()
             self._loaded = True
 
-    def query(
-        self,
-        question: str,
-        top_k=5
-    ):
+    def query(self, question: str, top_k=5):
         """
         Executes semantic retrieval.
         """
@@ -64,25 +44,18 @@ class DataQueryEngine:
 
         route = self.router.route(question)
 
-        query_embedding = (
-            self.embedding_generator
-            .generate([question])[0]
-        )
+        query_embedding = self.embedding_generator.generate([question])[0]
 
         source = None
 
         if route["domain"] != "general":
             source = route["domain"]
 
-        results = self.vector_index.search(
-            query_embedding,
-            top_k=top_k,
-            source=source
-        )
+        results = self.vector_index.search(query_embedding, top_k=top_k, source=source)
 
         return {
             "type": "rag",
             "route": route,
             "results": results,
-            "total_results": len(results)
+            "total_results": len(results),
         }

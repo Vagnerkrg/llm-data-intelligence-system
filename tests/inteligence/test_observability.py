@@ -29,9 +29,7 @@ def test_execution_observability_get_metrics():
         metric_value=5,
     )
 
-    metrics = observability.get_execution_metrics(
-        "exec-001"
-    )
+    metrics = observability.get_execution_metrics("exec-001")
 
     assert len(metrics) == 1
     assert metrics[0].metric_name == "steps"
@@ -53,9 +51,7 @@ def test_execution_observability_analysis():
         metric_value=20,
     )
 
-    result = observability.analyze_execution(
-        "exec-001"
-    )
+    result = observability.analyze_execution("exec-001")
 
     assert result["execution_id"] == "exec-001"
     assert result["total_metrics"] == 2

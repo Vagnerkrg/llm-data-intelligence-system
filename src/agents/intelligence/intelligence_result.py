@@ -15,27 +15,17 @@ class IntelligenceResult:
 
     reasoning: str = ""
 
-    metadata: Dict[str, Any] = field(
-        default_factory=dict
-    )
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
-
-    def to_dict(
-        self
-    ) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """
         Convert intelligence result
         into dictionary format.
         """
 
         return {
-
             "answer": self.answer,
-
             "confidence": self.confidence,
-
             "reasoning": self.reasoning,
-
-            "metadata": self.metadata
-
+            "metadata": self.metadata,
         }

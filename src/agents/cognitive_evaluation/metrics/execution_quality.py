@@ -45,13 +45,9 @@ class ExecutionQualityMetric:
                 description="Invalid execution information.",
             )
 
-        status_score = self._status_score(
-            information.get("execution_status")
-        )
+        status_score = self._status_score(information.get("execution_status"))
 
-        completed_score = self._normalize_value(
-            information.get("completed_steps")
-        )
+        completed_score = self._normalize_value(information.get("completed_steps"))
 
         failed_steps = information.get("failed_steps")
 
@@ -72,16 +68,9 @@ class ExecutionQualityMetric:
             efficiency_score,
         ]
 
-        available = [
-            factor for factor in factors
-            if factor is not None
-        ]
+        available = [factor for factor in factors if factor is not None]
 
-        score = (
-            sum(available) / len(available)
-            if available
-            else 0.0
-        )
+        score = sum(available) / len(available) if available else 0.0
 
         return EvaluationMetric(
             name=self.metric_name,

@@ -27,19 +27,12 @@ def test_autonomous_evolution_domain_accepts_generic_external_information() -> N
 
 def test_experience_optimization_context_is_independent_from_runtime() -> None:
     context = ExperienceOptimizationContext(
-        execution_history=[
-            {"score": 0.90}
-        ],
-        cognitive_evaluations=[
-            {"overall_score": 0.85}
-        ],
+        execution_history=[{"score": 0.90}],
+        cognitive_evaluations=[{"overall_score": 0.85}],
     )
 
     assert context.execution_history[0]["score"] == 0.90
-    assert (
-        context.cognitive_evaluations[0]["overall_score"]
-        == 0.85
-    )
+    assert context.cognitive_evaluations[0]["overall_score"] == 0.85
 
 
 def test_domain_objects_do_not_execute_external_behavior() -> None:

@@ -1,11 +1,8 @@
-from src.agents.memory.domain.memory_entry import (
-    MemoryEntry
-)
+from src.agents.memory.domain.memory_entry import MemoryEntry
 
 from src.agents.memory.services.memory_intelligence_pipeline import (
-    MemoryIntelligencePipeline
+    MemoryIntelligencePipeline,
 )
-
 
 
 class MemoryIntelligenceAdapter:
@@ -18,25 +15,10 @@ class MemoryIntelligenceAdapter:
     inside runtime execution.
     """
 
+    def __init__(self, pipeline: MemoryIntelligencePipeline = None):
 
-    def __init__(
-        self,
-        pipeline: MemoryIntelligencePipeline = None
-    ):
+        self.pipeline = pipeline if pipeline else MemoryIntelligencePipeline()
 
-        self.pipeline = (
-            pipeline
-            if pipeline
-            else MemoryIntelligencePipeline()
-        )
+    def analyze(self, memory: MemoryEntry):
 
-
-
-    def analyze(
-        self,
-        memory: MemoryEntry
-    ):
-
-        return self.pipeline.process(
-            memory
-        )
+        return self.pipeline.process(memory)

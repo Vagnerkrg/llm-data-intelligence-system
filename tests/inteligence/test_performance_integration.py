@@ -27,26 +27,16 @@ def test_performance_monitoring_flow():
 
     evaluator = PerformanceRuleEvaluator()
 
-    evaluation_results = evaluator.evaluate(
-        metrics
-    )
+    evaluation_results = evaluator.evaluate(metrics)
 
     analyzer = PerformanceAnalyzer()
 
-    insights = analyzer.analyze(
-        metrics
-    )
+    insights = analyzer.analyze(metrics)
 
     assert len(evaluation_results) == 2
 
     assert len(insights) == 2
 
-    assert any(
-        result.severity == "critical"
-        for result in evaluation_results
-    )
+    assert any(result.severity == "critical" for result in evaluation_results)
 
-    assert any(
-        insight.metric_name == "error_count"
-        for insight in insights
-    )
+    assert any(insight.metric_name == "error_count" for insight in insights)

@@ -1,50 +1,33 @@
 from src.cognitive.memory.integration.cognitive_memory_orchestrator import (
-    CognitiveMemoryOrchestrator
+    CognitiveMemoryOrchestrator,
 )
 
-from src.cognitive.memory.integration.learning_memory_bridge import (
-    LearningMemoryBridge
-)
+from src.cognitive.memory.integration.learning_memory_bridge import LearningMemoryBridge
 
 from src.cognitive.memory.intelligence.learning_memory_manager import (
-    LearningMemoryManager
+    LearningMemoryManager,
 )
 
-from src.cognitive.memory.intelligence.memory_index import (
-    MemoryIndex
-)
+from src.cognitive.memory.intelligence.memory_index import MemoryIndex
 
-from src.cognitive.memory.intelligence.knowledge_retriever import (
-    KnowledgeRetriever
-)
+from src.cognitive.memory.intelligence.knowledge_retriever import KnowledgeRetriever
 
 from src.cognitive.learning.knowledge.consolidated_knowledge import (
-    ConsolidatedKnowledge
+    ConsolidatedKnowledge,
 )
-
 
 
 def create_orchestrator():
 
     memory_index = MemoryIndex()
 
-    manager = LearningMemoryManager(
-        memory_index
-    )
+    manager = LearningMemoryManager(memory_index)
 
-    bridge = LearningMemoryBridge(
-        manager
-    )
+    bridge = LearningMemoryBridge(manager)
 
-    retriever = KnowledgeRetriever(
-        memory_index
-    )
+    retriever = KnowledgeRetriever(memory_index)
 
-    return CognitiveMemoryOrchestrator(
-        bridge,
-        retriever
-    )
-
+    return CognitiveMemoryOrchestrator(bridge, retriever)
 
 
 def create_knowledge():
@@ -53,9 +36,8 @@ def create_knowledge():
         knowledge_id="knowledge-001",
         content="Improve query execution",
         source_pattern="pattern-001",
-        confidence=0.95
+        confidence=0.95,
     )
-
 
 
 def test_cognitive_memory_orchestrator_store():
@@ -64,14 +46,9 @@ def test_cognitive_memory_orchestrator_store():
 
     knowledge = create_knowledge()
 
-
-    result = orchestrator.store_learning(
-        knowledge
-    )
-
+    result = orchestrator.store_learning(knowledge)
 
     assert result["stored"] is True
-
 
 
 def test_cognitive_memory_orchestrator_retrieve():
@@ -80,20 +57,12 @@ def test_cognitive_memory_orchestrator_retrieve():
 
     knowledge = create_knowledge()
 
+    orchestrator.store_learning(knowledge)
 
-    orchestrator.store_learning(
-        knowledge
-    )
-
-
-    result = orchestrator.retrieve_learning(
-        "knowledge-001"
-    )
-
+    result = orchestrator.retrieve_learning("knowledge-001")
 
     assert result is not None
     assert result.content == "Improve query execution"
-
 
 
 def test_cognitive_memory_orchestrator_exists():
@@ -102,16 +71,9 @@ def test_cognitive_memory_orchestrator_exists():
 
     knowledge = create_knowledge()
 
+    orchestrator.store_learning(knowledge)
 
-    orchestrator.store_learning(
-        knowledge
-    )
-
-
-    assert orchestrator.exists(
-        "knowledge-001"
-    )
-
+    assert orchestrator.exists("knowledge-001")
 
 
 def test_cognitive_memory_orchestrator_count():
@@ -120,24 +82,15 @@ def test_cognitive_memory_orchestrator_count():
 
     knowledge = create_knowledge()
 
-
-    orchestrator.store_learning(
-        knowledge
-    )
-
+    orchestrator.store_learning(knowledge)
 
     assert orchestrator.count() == 1
-
 
 
 def test_cognitive_memory_orchestrator_search():
 
     orchestrator = create_orchestrator()
 
-
-    result = orchestrator.search_memory(
-        "query"
-    )
-
+    result = orchestrator.search_memory("query")
 
     assert result is not None

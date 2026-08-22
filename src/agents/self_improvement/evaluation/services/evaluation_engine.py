@@ -21,24 +21,13 @@ class EvaluationEngine:
         context: EvaluationContext,
     ) -> EvaluationResult:
 
-        findings = self._quality_analyzer.analyze(
-            context
-        )
+        findings = self._quality_analyzer.analyze(context)
 
-        signals = self._signal_generator.generate(
-            findings
-        )
+        signals = self._signal_generator.generate(findings)
 
-        score = max(
-            0.0,
-            1.0 - (len(findings) * 0.1)
-        )
+        score = max(0.0, 1.0 - (len(findings) * 0.1))
 
-        quality_level = (
-            "high"
-            if score >= 0.8
-            else "medium"
-        )
+        quality_level = "high" if score >= 0.8 else "medium"
 
         return EvaluationResult(
             evaluation_id=str(uuid4()),

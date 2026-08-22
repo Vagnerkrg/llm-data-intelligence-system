@@ -1,4 +1,3 @@
-
 from ..domain.evaluation_context import EvaluationContext
 from ..domain.evaluation_metric import EvaluationMetric
 from ..domain.evaluation_result import EvaluationResult
@@ -36,9 +35,7 @@ class CognitiveEvaluator:
         )
 
         self.planning_metric = (
-            planning_metric
-            if planning_metric is not None
-            else PlanningQualityMetric()
+            planning_metric if planning_metric is not None else PlanningQualityMetric()
         )
 
         self.execution_metric = (
@@ -48,9 +45,7 @@ class CognitiveEvaluator:
         )
 
         self.memory_metric = (
-            memory_metric
-            if memory_metric is not None
-            else MemoryEffectivenessMetric()
+            memory_metric if memory_metric is not None else MemoryEffectivenessMetric()
         )
 
         self.score_calculator = (
@@ -77,11 +72,7 @@ class CognitiveEvaluator:
 
         metrics = self._evaluate_metrics(context)
 
-        cognitive_score = (
-            self.score_calculator.calculate(
-                metrics
-            )
-        )
+        cognitive_score = self.score_calculator.calculate(metrics)
 
         result = EvaluationResult(
             overall_score=cognitive_score.score,
@@ -95,9 +86,7 @@ class CognitiveEvaluator:
         for metric in metrics:
             result.add_metric(metric)
 
-        result.add_metric(
-            cognitive_score
-        )
+        result.add_metric(cognitive_score)
 
         return result
 
@@ -110,16 +99,8 @@ class CognitiveEvaluator:
         """
 
         return [
-            self.reasoning_metric.evaluate(
-                context
-            ),
-            self.planning_metric.evaluate(
-                context
-            ),
-            self.execution_metric.evaluate(
-                context
-            ),
-            self.memory_metric.evaluate(
-                context
-            ),
+            self.reasoning_metric.evaluate(context),
+            self.planning_metric.evaluate(context),
+            self.execution_metric.evaluate(context),
+            self.memory_metric.evaluate(context),
         ]

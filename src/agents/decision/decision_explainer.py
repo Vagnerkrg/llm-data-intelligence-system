@@ -7,18 +7,12 @@ class DecisionExplainer:
     for cognitive decisions.
     """
 
-    def explain(
-        self,
-        decision: Decision,
-        confidence: float
-    ) -> str:
+    def explain(self, decision: Decision, confidence: float) -> str:
         """
         Explain why a decision was selected.
         """
 
-        selected_alternative = (
-            decision.trace.selected_alternative_id
-        )
+        selected_alternative = decision.trace.selected_alternative_id
 
         return (
             f"Decision strategy: {decision.strategy}\n"

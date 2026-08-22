@@ -22,9 +22,7 @@ def test_handler_creates_feedback():
         created_at=datetime.now(),
     )
 
-    feedback = handler.handle(
-        context
-    )
+    feedback = handler.handle(context)
 
     assert feedback.feedback_id == "exec-001"
     assert feedback.signal == "planning_failure"
