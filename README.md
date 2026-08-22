@@ -1,13 +1,13 @@
 # 🚀 LLM Data Intelligence System
 ## Self-Improving Cognitive Agent Platform
 
-### Agentic AI, RAG, Reasoning, Planning, Self Improvement, Memory Intelligence, Cognitive Evaluation and Cognitive Learning
+### Agentic AI, RAG, Reasoning, Planning, Self Improvement, Memory Intelligence, Cognitive Evaluation, Cognitive Learning, Observability and API / UI Contract
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
 ![Pytest](https://img.shields.io/badge/Tests-Pytest-0A9EDC?logo=pytest&logoColor=white)
 ![Ruff](https://img.shields.io/badge/Lint-Ruff-D7FF64?logo=ruff&logoColor=black)
 ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)
-![Milestone](https://img.shields.io/badge/Milestone-V1.27%20Completed-success)
+![Milestone](https://img.shields.io/badge/Milestone-V1.29%20Completed-success)
 
 ---
 
@@ -33,12 +33,14 @@ The platform combines:
 - Memory Intelligence
 - Cognitive Evaluation Metrics
 - Cognitive Learning (Learning Signal Processing, Learning Outcomes, Knowledge & Memory Integration, Autonomous Evolution Integration)
+- Observability (execution tracing, structured events, metrics)
+- API / UI Contract Layer (formal contract between the cognitive backend and any future interface)
 
 The objective is to build a production-oriented AI platform capable of allowing organizations to interact with their data and knowledge using natural language, while intelligent agents determine the best strategy to solve each request — and improve that strategy over time based on observed results.
 
-The system has evolved from a traditional AI pipeline into a **Self-Improving Cognitive Agent Platform**, where agents understand objectives, reason about problems, create execution strategies, evaluate results, reflect on experiences, learn from them, consolidate knowledge, retain relevant memories, measure cognitive evolution and — as of **V1.27** — close the loop between learning and autonomous evolution through an integrated **Cognitive Learning Layer**.
+The system has evolved from a traditional AI pipeline into a **Self-Improving Cognitive Agent Platform**, where agents understand objectives, reason about problems, create execution strategies, evaluate results, reflect on experiences, learn from them, consolidate knowledge, retain relevant memories, measure cognitive evolution and — as of **V1.29** — expose that entire cognitive backend through a formal **API / UI Contract Layer**, built on top of the **Observability Foundation** delivered in V1.28.
 
-With **V1.27 — Cognitive Learning Integration**, Cognitive Learning stopped being a conceptual extension of the Self Improvement Layer and became a fully integrated cognitive layer, connecting experience directly to knowledge, memory and autonomous evolution:
+With **V1.27 — Cognitive Learning Integration**, Cognitive Learning became a fully integrated cognitive layer, connecting experience directly to knowledge, memory and autonomous evolution. With **V1.28 — Observability Foundation**, the platform gained structured visibility into every execution. With **V1.29 — API / UI Contract**, that cognitive backend became consumable through a stable, versionable API surface, decoupled from internal implementation details:
 
 ```text
 Experience
@@ -59,22 +61,26 @@ Autonomous Evolution
     ↓
 Agent Runtime
     ↓
+Observability
+    ↓
+API Contract Layer
+    ↓
 Improved Execution
     ↓
 New Experience
 ```
 
-The platform is now preparing its next engineering phase, **V1.28 — Observability**, focused on giving visibility into everything the cognitive layers already do.
+The platform is now preparing its next engineering phase, **V1.30 — Security & Governance**, focused on protecting and governing access to the API surface exposed in V1.29.
 
 ---
 
 # 🎯 Product Vision
 
-The vision of the **LLM Data Intelligence System** is to create an autonomous AI analyst capable of understanding business objectives, reasoning about complex problems, planning actions, executing specialized capabilities, evaluating outcomes and continuously improving its own decision processes.
+The vision of the **LLM Data Intelligence System** is to create an autonomous AI analyst capable of understanding business objectives, reasoning about complex problems, planning actions, executing specialized capabilities, evaluating outcomes and continuously improving its own decision processes — all of it observable and consumable through a stable API contract.
 
 The platform follows the principle:
 
-> Users should ask questions naturally while AI agents understand the objective, select the appropriate intelligence source, execute the required analysis, evaluate outcomes and continuously improve future decisions through learning and cognitive feedback.
+> Users should ask questions naturally while AI agents understand the objective, select the appropriate intelligence source, execute the required analysis, evaluate outcomes and continuously improve future decisions through learning and cognitive feedback — with every step observable and exposed through a stable API.
 
 **Example:**
 
@@ -98,7 +104,9 @@ The platform follows the principle:
 12. Measure cognitive performance
 13. Feed autonomous evolution
 14. Adapt future strategies
-15. Generate actionable insights
+15. Record execution trace and observability events
+16. Expose the full execution through the API Contract
+17. Generate actionable insights
 
 ---
 
@@ -134,9 +142,10 @@ Common challenges:
 - static dashboards;
 - slow decision cycles;
 - difficulty extracting business insights;
-- lack of autonomous, self-improving intelligence systems.
+- lack of autonomous, self-improving intelligence systems;
+- lack of a stable interface between AI backend and product surfaces.
 
-The platform aims to reduce this gap by enabling natural language interaction with enterprise intelligence systems that improve through experience, memory and cognitive evaluation.
+The platform aims to reduce this gap by enabling natural language interaction with enterprise intelligence systems that improve through experience, memory and cognitive evaluation, and that can be safely consumed by any client through a formal API contract.
 
 ---
 
@@ -179,10 +188,14 @@ Cognitive Evaluation
         ↓
 Autonomous Evolution
         ↓
+Observability
+        ↓
+API Contract
+        ↓
 Decision Intelligence
 ```
 
-The system transforms questions into intelligent workflows executed by specialized AI capabilities — and each execution becomes an experience that the platform learns from, remembers, evaluates and uses to evolve future behavior.
+The system transforms questions into intelligent workflows executed by specialized AI capabilities — and each execution becomes an experience that the platform learns from, remembers, evaluates, records for observability and exposes through a stable API to any consumer, including a future UI.
 
 ---
 
@@ -216,6 +229,8 @@ Optimization
 Autonomous Evolution
     ↓
 Adaptation
+    ↓
+Observability
     ↓
 Improved Execution
     ↓
@@ -502,6 +517,36 @@ Cognitive Learning Loop
 
 ---
 
+# 🔎 Observability Architecture
+
+Delivered in **V1.28 — Observability Foundation**, this layer gives the platform structured, queryable visibility into everything the cognitive layers already do — execution steps, decisions, tool usage, cognitive states and evolution signals.
+
+```text
+Execution
+    ↓
+Events
+    ↓
+Trace
+    ↓
+Metrics
+    ↓
+Cognitive Evaluation
+    ↓
+Learning Signals
+```
+
+Observability allows the platform (and, going forward, its consumers through the API Contract Layer) to observe:
+
+- execution;
+- decisions;
+- tools used during execution;
+- cognitive states;
+- evolution over time.
+
+Observability is a foundational dependency for the **API / UI Contract Layer** introduced in V1.29: every execution exposed through the API is backed by the structured events and traces produced by this layer.
+
+---
+
 # 🤖 Agent Runtime — Cognitive Learning Integration
 
 With **V1.27**, the Agent Runtime is directly integrated with the Cognitive Learning Loop.
@@ -529,6 +574,148 @@ Improved Execution
 - Cognitive Learning Loop results.
 
 The `CognitiveLearningLoop` is injected into the Agent Runtime via dependency injection. The Agent Runtime coordinates the cognitive cycle but does not contain the internal rules of the Learning domain itself — those remain owned by the Cognitive Learning Layer.
+
+---
+
+# 🔌 API / UI Contract Architecture
+
+Delivered in **V1.29 — API / UI Contract**, this layer formalizes a stable contract between the cognitive backend and any future interface.
+
+The future UI does not depend on the internal implementation of the agents. It consumes only the API surface described below.
+
+```text
+Future UI
+    ↓
+API Request
+    ↓
+Validation Layer
+    ↓
+Application Layer
+    ↓
+Agent Runtime
+    ↓
+Cognitive Pipeline
+    ↓
+Observability
+    ↓
+Execution Trace
+    ↓
+Response Mapping
+    ↓
+API Response
+```
+
+The UI does not need to know:
+
+- Reasoning Engine internals;
+- Planning Engine internals;
+- Agent Runtime internal orchestration;
+- Memory implementation;
+- Knowledge implementation;
+- Cognitive Learning implementation.
+
+It only needs to know the API Contract described below.
+
+---
+
+# 📚 API Contract
+
+The current API surface, as implemented and validated by the test suite.
+
+## Ask API
+
+```text
+POST /ask
+```
+
+Responsible for initiating a cognitive execution.
+
+## Execution API
+
+```text
+GET /executions
+GET /executions/{execution_id}
+GET /executions/{execution_id}/trace
+```
+
+An **execution** represents a complete run of the agent, from request to response.
+
+## Cognitive State API
+
+```text
+GET /executions/{execution_id}/cognitive-state
+```
+
+## Memory API
+
+```text
+GET /executions/{execution_id}/memory
+```
+
+## Knowledge API
+
+```text
+GET /executions/{execution_id}/knowledge
+```
+
+## Learning API
+
+```text
+GET /executions/{execution_id}/learning
+```
+
+## Evolution API
+
+```text
+GET /executions/{execution_id}/evolution
+```
+
+---
+
+# 🆔 Execution Identity Model
+
+## execution_id
+
+Represents:
+
+- the unique identity of an execution;
+- traceability across the platform;
+- the connection between API, Agent Runtime and Observability.
+
+## correlation_id
+
+Represents:
+
+- correlation of events belonging to the same execution;
+- debugging support;
+- distributed tracing across cognitive layers.
+
+---
+
+# 🧩 Product Architecture Readiness
+
+With V1.29, the platform now has all of the following in place:
+
+- Cognitive Backend (Reasoning, Planning, Execution, Self Improvement, Memory, Learning, Evolution);
+- Agent Runtime;
+- Execution Lifecycle;
+- Observability;
+- API Contracts;
+- Future UI Compatibility.
+
+Product evolution so far:
+
+```text
+AI Engineering Foundation
+    ↓
+Cognitive Agent Platform
+    ↓
+API-driven AI Platform
+    ↓
+Enterprise AI Product Foundation
+```
+
+The platform has moved from a purely internal cognitive backend into an **API-driven AI Platform**, ready to be consumed by a future UI or by external systems, without exposing internal agent implementation details.
 
 ---
 
@@ -563,7 +750,7 @@ This enables scalable intelligence workflows and supports future expansion throu
 
 # 🏛️ Engineering Methodology — Cognitive Capability Engineering (CCE)
 
-Every new capability in the platform — from Reasoning to Cognitive Learning — is required to go through the same disciplined engineering lifecycle.
+Every new capability in the platform — from Reasoning to the API / UI Contract Layer — is required to go through the same disciplined engineering lifecycle.
 
 No implementation happens before the architecture is defined.
 
@@ -691,7 +878,7 @@ Implemented:
 
 Measurable cognitive intelligence layer: evaluation framework, agent performance metrics, runtime evaluation integration and decision quality analysis.
 
-### Phase 16 — Cognitive Learning Integration (V1.27) ✅ COMPLETED
+### Phase 16 — Cognitive Learning Integration (V1.27) ✅ RELEASED
 
 - Cognitive Learning Domain
 - Learning Signal Processing
@@ -705,18 +892,30 @@ Measurable cognitive intelligence layer: evaluation framework, agent performance
 
 1084 automated tests passing.
 
-### Phase 17 — Observability Foundation (V1.28) 🚧 NEXT
+### Phase 17 — Observability Foundation (V1.28) ✅ RELEASED
+
+- Execution events and structured telemetry
+- Execution trace
+- Runtime monitoring
+- Visibility over Evaluation, Learning, Memory and Evolution
+
+### Phase 18 — API / UI Contract (V1.29) ✅ COMPLETED
+
+- Formal API Contract Layer between the cognitive backend and any future interface
+- Ask API, Execution API, Cognitive State API, Memory API, Knowledge API, Learning API and Evolution API
+- Execution Identity Model (`execution_id`, `correlation_id`)
+- Validation Layer decoupling API consumers from internal agent implementation
+
+1303 automated tests passing.
+
+### Phase 19 — Security & Governance (V1.30) 🚧 NEXT
 
 Planned focus:
 
-- execution observability;
-- cognitive event tracing;
-- structured telemetry;
-- runtime monitoring;
-- visibility over Evaluation;
-- visibility over Learning;
-- visibility over Memory;
-- visibility over Evolution.
+- authentication and authorization over the API surface;
+- access governance for cognitive endpoints;
+- policy enforcement;
+- audit-ready security controls.
 
 Implementation not yet started.
 
@@ -753,8 +952,9 @@ Learning → Evolution           ██████████ 100%
 Agent Runtime Learning        ██████████ 100%
 Autonomous Evolution          ██████░░░░  60%
 
-Observability                 ███░░░░░░░  30%
-Security & Governance         ██░░░░░░░░  20%
+Observability                 ██████████ 100%
+API Contract                  ██████████ 100%
+Security & Governance         ██░░░░░░░░  20% (next milestone)
 Enterprise Productization     ██░░░░░░░░  20%
 
 User Interface                ░░░░░░░░░░   0%
@@ -764,21 +964,23 @@ Cloud Infrastructure          ░░░░░░░░░░   0%
 ## Executive Summary
 
 ```text
-Overall Platform Maturity  █████████░  85%
+Overall Platform Maturity  █████████░  87%
 Cognitive Architecture     █████████░  97%
 Software Engineering       ██████████ 100%
 Agent Capabilities         ██████████ 100%
 Self Improvement           ██████████ 100%
 Memory Intelligence        ██████████ 100%
 Cognitive Learning         ██████████ 100%
+Observability               ██████████ 100%
+API Contract                 ██████████ 100%
 Cognitive Evaluation       ██████░░░░  60%
 Autonomous Evolution       ██████░░░░  60%
 Commercial Product         ██░░░░░░░░  20%
 ```
 
-**Current phase:** The Self Improvement Loop, Runtime Memory Integration, Memory Intelligence Layer and Cognitive Learning Layer are fully operational and integrated into the Agent Runtime.
+**Current phase:** The Self Improvement Loop, Runtime Memory Integration, Memory Intelligence Layer, Cognitive Learning Layer, Observability Foundation and the API / UI Contract Layer are fully operational and integrated into the Agent Runtime.
 
-The current focus moves to **V1.28 — Observability**, giving visibility into execution, cognitive evaluation, learning, memory and evolution.
+The current focus moves to **V1.30 — Security & Governance**, protecting and governing access to the API surface exposed in V1.29.
 
 ---
 
@@ -788,15 +990,15 @@ The current focus moves to **V1.28 — Observability**, giving visibility into e
 
 **Status:** 🟢 Active Development
 
-**Completed Milestone:** V1.27 — Cognitive Learning Integration
+**Completed Milestone:** V1.29 — API / UI Contract
 
-**Next Milestone:** V1.28 — Observability
+**Next Milestone:** V1.30 — Security & Governance
 
-**Milestone Status:** V1.27 ✅ Completed
+**Milestone Status:** V1.29 ✅ Completed
 
-**Current Branch:** `feature/v1.28-observability`
+**Current Branch:** `feature/v1.29-api-ui-contract`
 
-**Latest Validation:** 1084 automated tests passing.
+**Latest Validation:** 1303 automated tests passing.
 
 ## Architecture Status
 
@@ -810,7 +1012,9 @@ The current focus moves to **V1.28 — Observability**, giving visibility into e
 - **Learning → Evolution:** ✅
 - **Cognitive Learning Loop:** ✅
 - **Runtime Integration:** ✅
-- **Observability:** 🚧 Next
+- **Observability:** ✅
+- **API / UI Contract:** ✅
+- **Security & Governance:** 🚧 Next
 
 ---
 
@@ -869,6 +1073,26 @@ The current focus moves to **V1.28 — Observability**, giving visibility into e
 
 ## Observability
 
+- ✅ Execution events
+- ✅ Execution trace
+- ✅ Structured telemetry
+- ✅ Runtime monitoring
+- ✅ Visibility over Evaluation, Learning, Memory and Evolution
+
+## API / UI Contract
+
+- ✅ Ask API
+- ✅ Execution API
+- ✅ Cognitive State API
+- ✅ Memory API
+- ✅ Knowledge API
+- ✅ Learning API
+- ✅ Evolution API
+- ✅ Execution Identity Model (`execution_id`, `correlation_id`)
+- ✅ Validation Layer decoupling API consumers from agent internals
+
+## Security & Governance
+
 - 🚧 Next engineering milestone
 - 🚧 Not yet implemented
 
@@ -879,37 +1103,35 @@ The current focus moves to **V1.28 — Observability**, giving visibility into e
 A consolidated, end-to-end view of every layer implemented so far — from a user request to a business decision.
 
 ```text
-User Request
+User
+    ↓
+API Contract Layer
+    ↓
+Application Layer
     ↓
 Agent Runtime
     ↓
-Perception / Reasoning / Decision
+Reasoning
     ↓
 Planning
     ↓
-Execution ── Tool Registry ── Analytics / RAG / Search Tools
+Execution Engine
+    ↓
+Tool Ecosystem
     ↓
 Observation
     ↓
 Cognitive Evaluation
     ↓
-┌──────────────────────────────────────────────┐
-│          Cognitive Learning Layer            │
-│                                                │
-│ Signal Processing → Experiences → Outcomes    │
-│                                                │
-│ Knowledge ← Learning → Memory                 │
-│                 ↓                             │
-│            Optimization                       │
-└──────────────────────────────────────────────┘
+Cognitive Learning
     ↓
-Autonomous Evolution
+Knowledge
     ↓
-Adaptation
+Memory
+    ↓
+Evolution
     ↓
 Improved Execution
-    ↓
-New Experience
 ```
 
 ## Module-Level Breakdown
@@ -987,6 +1209,14 @@ Memory relevance analysis, ranking, consolidation and cognitive memory workflows
 
 Evaluation framework, agent performance metrics, runtime evaluation and improvement signal analysis, completed in V1.25 and feeding directly into Cognitive Learning's Learning Signal Processing.
 
+**Observability Layer components** (delivered in V1.28):
+
+Structured execution events, execution trace, telemetry collection and runtime monitoring — feeding directly into the API Contract Layer delivered in V1.29.
+
+**API / UI Contract Layer components** (delivered in V1.29):
+
+Ask API, Execution API, Cognitive State API, Memory API, Knowledge API, Learning API, Evolution API, and the Execution Identity Model (`execution_id`, `correlation_id`), sitting on top of a Validation Layer that decouples any consumer from internal agent implementation.
+
 **Data Intelligence foundation** (feeding the platform with real data):
 
 `DataPipeline` orchestrates:
@@ -1026,6 +1256,12 @@ Cognitive Evaluation Layer
         ↓
 Cognitive Learning Layer
 (signal processing, outcomes, knowledge/memory/evolution integration)
+        ↓
+Observability Layer
+(events, trace, telemetry, runtime monitoring)
+        ↓
+API / UI Contract Layer
+(Ask API, Execution API, Cognitive/Memory/Knowledge/Learning/Evolution APIs)
 ```
 
 Every layer above is independently testable and evolves through its own capability lifecycle (CCE), without requiring changes to the layers below it.
@@ -1037,31 +1273,29 @@ This principle has remained consistent since V1.0.
 # 🏁 Milestone Transition
 
 ```text
-V1.27 — Cognitive Learning Integration ✅ COMPLETED
-
-Implementation:
-#61 → #69 ✅
-
-Documentation / Audit:
-#70 ⏸️ Pending final architecture audit
+V1.27 — Cognitive Learning Integration ✅ RELEASED
+V1.28 — Observability Foundation ✅ RELEASED
+V1.29 — API / UI Contract ✅ COMPLETED
 
 Next Milestone:
-V1.28 — Observability 🚧
+V1.30 — Security & Governance 🚧
 
 Branch:
-feature/v1.28-observability
+feature/v1.29-api-ui-contract
 ```
 
 ```text
-V1.27
-Cognitive Learning Integration
+V1.28
+Observability Foundation
+✅ RELEASED
+        ↓
+V1.29
+API / UI Contract
 ✅ COMPLETED
         ↓
-V1.28
-Observability
+V1.30
+Security & Governance
 🚧 NEXT
-        ↓
-feature/v1.28-observability
 ```
 
 ---
@@ -1098,7 +1332,7 @@ Implemented:
 
 Built a measurable cognitive intelligence layer: evaluation framework, agent performance metrics, runtime evaluation integration and decision quality analysis.
 
-### V1.27 — Cognitive Learning Integration ✅ COMPLETED
+### V1.27 — Cognitive Learning Integration ✅ RELEASED
 
 Implemented:
 
@@ -1112,21 +1346,37 @@ Implemented:
 - Agent Runtime Integration
 - Cognitive Learning Test Suite
 
-Validation:
+### V1.28 — Observability Foundation ✅ RELEASED
 
-1084 automated tests passing.
-
-### V1.28 — Observability 🚧 NEXT MILESTONE
-
-Planned focus:
+Implemented:
 
 - execution observability;
 - cognitive event tracing;
 - structured telemetry;
 - runtime monitoring;
-- cognitive layer visibility;
-- diagnostic signals;
-- engineering observability.
+- visibility over Evaluation, Learning, Memory and Evolution.
+
+### V1.29 — API / UI Contract ✅ COMPLETED
+
+Implemented:
+
+- API / UI Contract Architecture;
+- Ask, Execution, Cognitive State, Memory, Knowledge, Learning and Evolution APIs;
+- Execution Identity Model (`execution_id`, `correlation_id`);
+- Validation Layer decoupling consumers from internal implementation.
+
+Validation:
+
+1303 automated tests passing.
+
+### V1.30 — Security & Governance 🚧 NEXT MILESTONE
+
+Planned focus:
+
+- authentication and authorization over the API surface;
+- access governance for cognitive endpoints;
+- policy enforcement;
+- audit-ready security controls.
 
 Implementation not yet completed.
 
@@ -1139,12 +1389,15 @@ Implementation not yet completed.
 - experience-driven optimization;
 - multi-agent collaboration.
 
+**UI Platform**
+
+- future interface consuming the API / UI Contract Layer.
+
 **V2.0 — Enterprise Autonomous AI Platform**
 
 - user interface;
 - cloud infrastructure and deployment;
 - enterprise security;
-- observability;
 - billing;
 - production-grade autonomous workflows.
 
@@ -1153,7 +1406,7 @@ Implementation not yet completed.
 # 🏛️ Engineering Architecture Principles
 
 - **Modularity** — each intelligence capability exists as an independent component.
-- **Separation of Responsibilities** — reasoning, planning, execution, evaluation, reflection, learning, adaptation and cognitive evaluation each own a single concern.
+- **Separation of Responsibilities** — reasoning, planning, execution, evaluation, reflection, learning, adaptation, observability and API exposure each own a single concern.
 - **Scalability** — new capabilities can be added without redesigning the foundation.
 - **Reproducibility** — every execution is traceable, observable and testable.
 - **Architecture Before Code** — every capability starts with definition, decision records, contracts and validation strategy before implementation.
@@ -1172,6 +1425,8 @@ The LLM Data Intelligence System should be evaluated as a technology platform, n
 - runtime memory and Memory Intelligence Layer;
 - cognitive evaluation foundation;
 - cognitive learning layer connecting experience to knowledge, memory and evolution;
+- observability foundation with structured execution tracing;
+- formal API / UI Contract Layer, ready for a future interface;
 - agent orchestration and reasoning workflow;
 - goal-driven planning and autonomous execution capabilities;
 - intelligent tool ecosystem;
@@ -1181,7 +1436,7 @@ The LLM Data Intelligence System should be evaluated as a technology platform, n
 
 - **AI Business Analyst** — natural-language analysis, insights and decision support;
 - **Enterprise Knowledge Intelligence** — AI assistant connected to documents, databases and internal systems;
-- **Autonomous Decision Platform** — monitoring, reasoning, planning, evaluating and adapting strategies over time.
+- **Autonomous Decision Platform** — monitoring, reasoning, planning, evaluating and adapting strategies over time, consumable through a stable API.
 
 ---
 
@@ -1218,12 +1473,14 @@ Evolve
         ↓
 Adapt
         ↓
-Improve
+Observe
+        ↓
+Expose via API
         ↓
 Generating Business Decisions
 ```
 
-The LLM Data Intelligence System is evolving from a software project into a complete AI product foundation — a platform where intelligent agents understand objectives, reason about solutions, coordinate capabilities, execute workflows, evaluate outcomes, learn from experience, remember what matters, and use that learning to influence knowledge, memory and future evolution.
+The LLM Data Intelligence System is evolving from a software project into a complete AI product foundation — a platform where intelligent agents understand objectives, reason about solutions, coordinate capabilities, execute workflows, evaluate outcomes, learn from experience, remember what matters, observe their own behavior, and expose all of it through a stable API contract ready for any future interface.
 
 ---
 
@@ -1231,12 +1488,13 @@ The LLM Data Intelligence System is evolving from a software project into a comp
 
 | | |
 |---|---|
+| **Repository** | [github.com/Vagnerkrg/llm-data-intelligence-system](https://github.com/Vagnerkrg/llm-data-intelligence-system) |
 | **Architecture** | Cognitive Agent Architecture |
 | **Development Model** | Capability Driven Architecture |
 | **Engineering Process** | Cognitive Capability Engineering (CCE) |
-| **Completed Milestone** | V1.27 — Cognitive Learning Integration |
-| **Next Milestone** | V1.28 — Observability |
-| **Milestone Status** | V1.27 ✅ Completed |
-| **Current Branch** | `feature/v1.28-observability` |
-| **Latest Validation** | 1084 automated tests |
+| **Completed Milestone** | V1.29 — API / UI Contract |
+| **Next Milestone** | V1.30 — Security & Governance |
+| **Milestone Status** | V1.29 ✅ Completed |
+| **Current Branch** | `feature/v1.29-api-ui-contract` |
+| **Latest Validation** | 1303 automated tests |
 | **Status** | Active Development |
