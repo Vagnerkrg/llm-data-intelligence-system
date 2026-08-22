@@ -249,17 +249,29 @@ class ExecutionTrace(SerializableModel):
 
     finished_at: Optional[datetime] = None
 
-    events: List[ExecutionEvent] = Field(default_factory=list)
+    events: List[ExecutionEvent] = Field(
+        default_factory=list,
+    )
 
-    metrics: List[ExecutionMetric] = Field(default_factory=list)
+    metrics: List[ExecutionMetric] = Field(
+        default_factory=list,
+    )
 
-    errors: List[ExecutionError] = Field(default_factory=list)
+    errors: List[ExecutionError] = Field(
+        default_factory=list,
+    )
 
     state: Optional[ExecutionState] = None
 
+    state_history: List[ExecutionState] = Field(
+        default_factory=list,
+    )
+
     context: Optional[ObservabilityContext] = None
 
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    metadata: Dict[str, Any] = Field(
+        default_factory=dict,
+    )
 
     @property
     def duration(self) -> Optional[float]:
@@ -272,6 +284,7 @@ class ExecutionTrace(SerializableModel):
     @model_validator(mode="after")
     def validate_invariants(self) -> "ExecutionTrace":
         """Validate domain invariants."""
+
         if (
             self.started_at is not None
             and self.finished_at is not None
@@ -290,6 +303,13 @@ class ExecutionTrace(SerializableModel):
             if self.context.execution_id != self.execution_id:
                 raise ValueError(
                     "ObservabilityContext.execution_id must match "
+                    "ExecutionTrace.execution_id."
+                )
+
+        for state in self.state_history:
+            if state.execution_id != self.execution_id:
+                raise ValueError(
+                    "ExecutionState.execution_id must match "
                     "ExecutionTrace.execution_id."
                 )
 
@@ -321,6 +341,7 @@ class ExecutionTrace(SerializableModel):
         context: ObservabilityContext,
     ) -> "ExecutionTrace":
         """Attach correlation context to the execution."""
+
         if context.execution_id != self.execution_id:
             raise ValueError("Context execution_id must match trace execution_id.")
 
@@ -333,6 +354,7 @@ class ExecutionTrace(SerializableModel):
         timestamp: Optional[datetime] = None,
     ) -> "ExecutionTrace":
         """Move execution from pending to running."""
+
         if self.status != ExecutionStatus.PENDING:
             raise ValueError("Only a pending execution can be started.")
 
@@ -348,6 +370,7 @@ class ExecutionTrace(SerializableModel):
         timestamp: Optional[datetime] = None,
     ) -> "ExecutionTrace":
         """Move execution from running to completed."""
+
         if self.status != ExecutionStatus.RUNNING:
             raise ValueError("Only a running execution can be completed.")
 
@@ -371,6 +394,7 @@ class ExecutionTrace(SerializableModel):
         timestamp: Optional[datetime] = None,
     ) -> "ExecutionTrace":
         """Move execution to failed."""
+
         if self.status not in {
             ExecutionStatus.PENDING,
             ExecutionStatus.RUNNING,
@@ -397,6 +421,7 @@ class ExecutionTrace(SerializableModel):
         timestamp: Optional[datetime] = None,
     ) -> "ExecutionTrace":
         """Move execution to cancelled."""
+
         if self.status != ExecutionStatus.RUNNING:
             raise ValueError("Only a running execution can be cancelled.")
 
@@ -415,15 +440,38 @@ class ExecutionTrace(SerializableModel):
 
         return self
 
+    def add_state(
+        self,
+        state: ExecutionState,
+    ) -> "ExecutionTrace":
+        """Register an execution state snapshot."""
+
+        if state.execution_id != self.execution_id:
+            raise ValueError("State execution_id must match trace execution_id.")
+
+        self.state = state
+        self.state_history.append(state)
+
+        self.state_history.sort(
+            key=lambda item: item.updated_at,
+        )
+
+        return self
+
     def add_event(
         self,
         event: ExecutionEvent,
     ) -> "ExecutionTrace":
         """Add an event to the trace."""
+
         if event.execution_id != self.execution_id:
             raise ValueError("Event execution_id must match trace execution_id.")
 
         self.events.append(event)
+
+        self.events.sort(
+            key=lambda item: item.timestamp,
+        )
 
         return self
 
@@ -432,6 +480,7 @@ class ExecutionTrace(SerializableModel):
         metric: ExecutionMetric,
     ) -> "ExecutionTrace":
         """Add a metric to the trace."""
+
         if metric.execution_id != self.execution_id:
             raise ValueError("Metric execution_id must match trace execution_id.")
 
@@ -444,15 +493,21 @@ class ExecutionTrace(SerializableModel):
         error: ExecutionError,
     ) -> "ExecutionTrace":
         """Add an error to the trace."""
+
         if error.execution_id != self.execution_id:
             raise ValueError("Error execution_id must match trace execution_id.")
 
         self.errors.append(error)
 
+        self.errors.sort(
+            key=lambda item: item.timestamp,
+        )
+
         return self
 
     def snapshot(self) -> ExecutionState:
         """Return a copy of the current execution state."""
+
         self._sync_state()
 
         if self.state is None:
@@ -461,11 +516,15 @@ class ExecutionTrace(SerializableModel):
         return self.state.model_copy(deep=True)
 
     def _sync_state(self) -> None:
-        """Synchronize the state snapshot with trace status."""
-        self.state = ExecutionState(
+        """Synchronize current state and register its history."""
+
+        state = ExecutionState(
             execution_id=self.execution_id,
             status=self.status,
             started_at=self.started_at,
             updated_at=utc_now(),
             metadata=self.metadata.copy(),
         )
+
+        self.state = state
+        self.state_history.append(state)
