@@ -157,8 +157,6 @@ class AgentRuntime:
             else CognitiveLearningLoop()
         )
 
-        # Observability is created before ExecutionEngine so the
-        # same integration boundary can be injected into the engine.
         self.observability = (
             observability
             if observability is not None
@@ -405,10 +403,26 @@ class AgentRuntime:
                 None,
             )
 
+            if score is None:
+                score = getattr(
+                    evaluation_result,
+                    "overall_score",
+                    None,
+                )
+
+            confidence = getattr(
+                evaluation_result,
+                "confidence",
+                None,
+            )
+
             self._safe_observability(
                 "cognitive_evaluation_completed",
                 context.execution_id,
                 score=score,
+                result=evaluation_result,
+                confidence=confidence,
+                provenance="agent_runtime.evaluate_cognition",
             )
 
             return evaluation_result
@@ -421,6 +435,7 @@ class AgentRuntime:
                 component="evaluation",
                 stage="evaluation",
             )
+
             raise
 
     # COGNITIVE LEARNING
@@ -449,11 +464,9 @@ class AgentRuntime:
 
         context.set_learning_loop_result(result)
 
-        self._safe_observability(
-            "learning_completed",
-            context.execution_id,
-            signals=len(context.learning_experiences),
-            outcomes=len(context.learning_outcomes),
+        self._observe_learning_result(
+            context,
+            result,
         )
 
         return result
@@ -466,19 +479,9 @@ class AgentRuntime:
     ):
         result = self.autonomous_evolution_adapter.evaluate(context)
 
-        self._safe_observability(
-            "evolution_completed",
-            context.execution_id,
-            decision_created=(result is not None),
-            adaptation_applied=(
-                getattr(
-                    result,
-                    "adapted",
-                    False,
-                )
-                if result is not None
-                else False
-            ),
+        self._observe_evolution_result(
+            context,
+            result,
         )
 
         return result
@@ -585,7 +588,214 @@ class AgentRuntime:
 
             raise
 
-    # OBSERVABILITY SAFETY BOUNDARY
+    # COGNITIVE OBSERVABILITY
+
+    def _observe_learning_result(
+        self,
+        context: ExecutionContext,
+        result,
+    ) -> None:
+        """Observe learning loop outputs without coupling internals."""
+
+        for experience in getattr(
+            result,
+            "learning_experiences",
+            [],
+        ):
+            confidence = self._extract_numeric(
+                experience,
+                "confidence",
+            )
+
+            signal_type = self._extract_string(
+                experience,
+                "signal_type",
+            )
+
+            self._safe_observability(
+                "learning_signal_generated",
+                context.execution_id,
+                confidence=confidence,
+                signal_type=signal_type,
+                provenance="cognitive_learning_loop",
+            )
+
+        for outcome in getattr(
+            result,
+            "learning_outcomes",
+            [],
+        ):
+            confidence = self._extract_numeric(
+                outcome,
+                "confidence",
+            )
+
+            outcome_type = self._extract_string(
+                outcome,
+                "outcome_type",
+            )
+
+            self._safe_observability(
+                "learning_outcome_created",
+                context.execution_id,
+                outcome_type=outcome_type,
+                confidence=confidence,
+                provenance="cognitive_learning_loop",
+            )
+
+        for knowledge_result in getattr(
+            result,
+            "knowledge_results",
+            [],
+        ):
+            self._safe_observability(
+                "knowledge_accessed",
+                context.execution_id,
+                result=knowledge_result,
+                provenance="learning_knowledge_integrator",
+                confidence=self._extract_numeric(
+                    knowledge_result,
+                    "confidence",
+                ),
+            )
+
+            self._safe_observability(
+                "knowledge_updated",
+                context.execution_id,
+                result=knowledge_result,
+                provenance="learning_knowledge_integrator",
+                confidence=self._extract_numeric(
+                    knowledge_result,
+                    "confidence",
+                ),
+            )
+
+        for memory_result in getattr(
+            result,
+            "memory_results",
+            [],
+        ):
+            self._safe_observability(
+                "memory_retrieval_completed",
+                context.execution_id,
+                memories_retrieved=1,
+                relevance_score=self._extract_numeric(
+                    memory_result,
+                    "relevance_score",
+                ),
+                provenance="learning_memory_bridge",
+            )
+
+        for optimization_signal in getattr(
+            result,
+            "optimization_signals",
+            [],
+        ):
+            self._safe_observability(
+                "optimization_signal_generated",
+                context.execution_id,
+                signal_type=self._extract_string(
+                    optimization_signal,
+                    "signal_type",
+                ),
+                confidence=self._extract_numeric(
+                    optimization_signal,
+                    "confidence",
+                ),
+                provenance="experience_driven_optimizer",
+            )
+
+        failed_stage = getattr(
+            result,
+            "failed_stage",
+            None,
+        )
+
+        error = getattr(
+            result,
+            "error",
+            None,
+        )
+
+        if failed_stage:
+            self._safe_observability(
+                "error",
+                context.execution_id,
+                RuntimeError(error or f"Cognitive stage failed: {failed_stage}"),
+                component="cognitive_learning",
+                stage=failed_stage,
+            )
+
+        self._safe_observability(
+            "learning_completed",
+            context.execution_id,
+            signals=len(
+                getattr(
+                    result,
+                    "learning_experiences",
+                    [],
+                )
+            ),
+            outcomes=len(
+                getattr(
+                    result,
+                    "learning_outcomes",
+                    [],
+                )
+            ),
+        )
+
+    def _observe_evolution_result(
+        self,
+        context: ExecutionContext,
+        result,
+    ) -> None:
+        """Observe autonomous evolution outputs."""
+
+        if result is None:
+            return
+
+        decision_created = result is not None
+
+        self._safe_observability(
+            "evolution_decision_created",
+            context.execution_id,
+            decision=result,
+            confidence=self._extract_numeric(
+                result,
+                "confidence",
+            ),
+            provenance="autonomous_evolution_adapter",
+        )
+
+        adaptation_applied = bool(
+            getattr(
+                result,
+                "adapted",
+                False,
+            )
+        )
+
+        if adaptation_applied:
+            self._safe_observability(
+                "adaptation_applied",
+                context.execution_id,
+                result=result,
+                provenance="autonomous_evolution_adapter",
+                confidence=self._extract_numeric(
+                    result,
+                    "confidence",
+                ),
+            )
+
+        self._safe_observability(
+            "evolution_completed",
+            context.execution_id,
+            decision_created=decision_created,
+            adaptation_applied=adaptation_applied,
+        )
+
+    # SAFE OBSERVABILITY
 
     def _safe_start_observation(
         self,
@@ -625,3 +835,53 @@ class AgentRuntime:
 
         except Exception:
             return None
+
+    @staticmethod
+    def _extract_numeric(
+        value,
+        attribute: str,
+    ) -> Optional[float]:
+        """Extract a numeric field from dicts or objects."""
+        if isinstance(value, dict):
+            result = value.get(
+                attribute,
+            )
+        else:
+            result = getattr(
+                value,
+                attribute,
+                None,
+            )
+
+        if result is None:
+            return None
+
+        try:
+            return float(result)
+        except (
+            TypeError,
+            ValueError,
+        ):
+            return None
+
+    @staticmethod
+    def _extract_string(
+        value,
+        attribute: str,
+    ) -> Optional[str]:
+        """Extract a string field from dicts or objects."""
+        if isinstance(value, dict):
+            result = value.get(
+                attribute,
+            )
+        else:
+            result = getattr(
+                value,
+                attribute,
+                None,
+            )
+
+        if result is None:
+            return None
+
+        return str(result)

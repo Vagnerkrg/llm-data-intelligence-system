@@ -9,6 +9,7 @@ from src.observability.domain.enums import (
     ErrorSeverity,
     EventType,
     ExecutionStatus,
+    MetricName,
 )
 from src.observability.services.execution_trace import (
     ExecutionTraceService,
@@ -417,6 +418,10 @@ class AgentRuntimeObservability:
         except Exception:
             return
 
+    # ------------------------------------------------------------------
+    # COGNITIVE EVALUATION
+    # ------------------------------------------------------------------
+
     def cognitive_evaluation_started(
         self,
         execution_id: Optional[str],
@@ -434,12 +439,26 @@ class AgentRuntimeObservability:
         execution_id: Optional[str],
         *,
         score: Optional[float] = None,
+        result: Optional[Any] = None,
+        confidence: Optional[float] = None,
+        provenance: Optional[str] = None,
     ) -> None:
         """Register cognitive evaluation completion."""
         metadata: Dict[str, Any] = {}
 
         if score is not None:
-            metadata["score"] = score
+            metadata["score"] = float(score)
+
+        if confidence is not None:
+            metadata["confidence"] = float(confidence)
+
+        if provenance:
+            metadata["provenance"] = provenance
+
+        if result is not None:
+            metadata["result"] = self._safe_value(
+                result,
+            )
 
         self._emit(
             execution_id,
@@ -447,6 +466,284 @@ class AgentRuntimeObservability:
             component="evaluation",
             stage="evaluation",
             metadata=metadata,
+        )
+
+        if score is not None:
+            self._record_metric(
+                execution_id,
+                MetricName.EVALUATION_SCORE,
+                float(score),
+                "score",
+                "evaluation",
+            )
+
+    # ------------------------------------------------------------------
+    # LEARNING
+    # ------------------------------------------------------------------
+
+    def learning_signal_generated(
+        self,
+        execution_id: Optional[str],
+        *,
+        confidence: Optional[float] = None,
+        signal_type: Optional[str] = None,
+        provenance: Optional[str] = None,
+    ) -> None:
+        """Register one learning signal."""
+        metadata: Dict[str, Any] = {}
+
+        if confidence is not None:
+            metadata["confidence"] = float(confidence)
+
+        if signal_type:
+            metadata["signal_type"] = signal_type
+
+        if provenance:
+            metadata["provenance"] = provenance
+
+        self._emit(
+            execution_id,
+            EventType.LEARNING_SIGNAL_GENERATED,
+            component="learning",
+            stage="learning",
+            metadata=metadata,
+        )
+
+        self._increment_metric(
+            execution_id,
+            MetricName.LEARNING_SIGNALS_TOTAL,
+            "learning",
+        )
+
+    def learning_outcome_created(
+        self,
+        execution_id: Optional[str],
+        *,
+        outcome_type: Optional[str] = None,
+        confidence: Optional[float] = None,
+        provenance: Optional[str] = None,
+    ) -> None:
+        """Register one learning outcome."""
+        metadata: Dict[str, Any] = {}
+
+        if outcome_type:
+            metadata["outcome_type"] = outcome_type
+
+        if confidence is not None:
+            metadata["confidence"] = float(confidence)
+
+        if provenance:
+            metadata["provenance"] = provenance
+
+        self._emit(
+            execution_id,
+            EventType.LEARNING_OUTCOME_CREATED,
+            component="learning",
+            stage="learning",
+            metadata=metadata,
+        )
+
+        self._increment_metric(
+            execution_id,
+            MetricName.LEARNING_OUTCOMES_TOTAL,
+            "learning",
+        )
+
+    # ------------------------------------------------------------------
+    # KNOWLEDGE
+    # ------------------------------------------------------------------
+
+    def knowledge_accessed(
+        self,
+        execution_id: Optional[str],
+        *,
+        result: Optional[Any] = None,
+        provenance: Optional[str] = None,
+        confidence: Optional[float] = None,
+    ) -> None:
+        """Register knowledge access."""
+        metadata = self._cognitive_metadata(
+            result=result,
+            provenance=provenance,
+            confidence=confidence,
+        )
+
+        self._emit(
+            execution_id,
+            EventType.KNOWLEDGE_ACCESSED,
+            component="knowledge",
+            stage="knowledge",
+            metadata=metadata,
+        )
+
+        self._increment_metric(
+            execution_id,
+            MetricName.KNOWLEDGE_ACCESSES_TOTAL,
+            "knowledge",
+        )
+
+    def knowledge_updated(
+        self,
+        execution_id: Optional[str],
+        *,
+        result: Optional[Any] = None,
+        provenance: Optional[str] = None,
+        confidence: Optional[float] = None,
+    ) -> None:
+        """Register knowledge update."""
+        metadata = self._cognitive_metadata(
+            result=result,
+            provenance=provenance,
+            confidence=confidence,
+        )
+
+        self._emit(
+            execution_id,
+            EventType.KNOWLEDGE_UPDATED,
+            component="knowledge",
+            stage="knowledge",
+            metadata=metadata,
+        )
+
+        self._increment_metric(
+            execution_id,
+            MetricName.KNOWLEDGE_UPDATES_TOTAL,
+            "knowledge",
+        )
+
+    # ------------------------------------------------------------------
+    # MEMORY
+    # ------------------------------------------------------------------
+
+    def memory_retrieval_completed(
+        self,
+        execution_id: Optional[str],
+        *,
+        memories_retrieved: int = 0,
+        relevance_score: Optional[float] = None,
+        provenance: Optional[str] = None,
+    ) -> None:
+        """Register memory retrieval."""
+        metadata: Dict[str, Any] = {
+            "memories_retrieved": int(memories_retrieved),
+        }
+
+        if relevance_score is not None:
+            metadata["relevance_score"] = float(relevance_score)
+
+        if provenance:
+            metadata["provenance"] = provenance
+
+        self._emit(
+            execution_id,
+            EventType.MEMORY_RETRIEVAL_COMPLETED,
+            component="memory",
+            stage="memory",
+            metadata=metadata,
+        )
+
+        self._increment_metric(
+            execution_id,
+            MetricName.MEMORY_RETRIEVALS_TOTAL,
+            "memory",
+        )
+
+        if memories_retrieved > 0:
+            self._increment_metric(
+                execution_id,
+                MetricName.MEMORIES_RETRIEVED,
+                "memory",
+                amount=memories_retrieved,
+            )
+
+    # ------------------------------------------------------------------
+    # EVOLUTION / OPTIMIZATION
+    # ------------------------------------------------------------------
+
+    def optimization_signal_generated(
+        self,
+        execution_id: Optional[str],
+        *,
+        signal_type: Optional[str] = None,
+        confidence: Optional[float] = None,
+        provenance: Optional[str] = None,
+    ) -> None:
+        """Register an optimization signal."""
+        metadata: Dict[str, Any] = {}
+
+        if signal_type:
+            metadata["signal_type"] = signal_type
+
+        if confidence is not None:
+            metadata["confidence"] = float(confidence)
+
+        if provenance:
+            metadata["provenance"] = provenance
+
+        self._emit(
+            execution_id,
+            EventType.EVOLUTION_CHANGE_EVALUATED,
+            component="evolution",
+            stage="optimization",
+            metadata=metadata,
+        )
+
+    def evolution_decision_created(
+        self,
+        execution_id: Optional[str],
+        *,
+        decision: Optional[Any] = None,
+        confidence: Optional[float] = None,
+        provenance: Optional[str] = None,
+    ) -> None:
+        """Register an evolution decision."""
+        metadata = self._cognitive_metadata(
+            result=decision,
+            provenance=provenance,
+            confidence=confidence,
+        )
+
+        self._emit(
+            execution_id,
+            EventType.EVOLUTION_DECISION_CREATED,
+            component="evolution",
+            stage="evolution",
+            metadata=metadata,
+        )
+
+        self._increment_metric(
+            execution_id,
+            MetricName.EVOLUTION_DECISIONS_TOTAL,
+            "evolution",
+        )
+
+    def adaptation_applied(
+        self,
+        execution_id: Optional[str],
+        *,
+        result: Optional[Any] = None,
+        provenance: Optional[str] = None,
+        confidence: Optional[float] = None,
+    ) -> None:
+        """Register an applied adaptation."""
+        metadata = self._cognitive_metadata(
+            result=result,
+            provenance=provenance,
+            confidence=confidence,
+        )
+
+        self._emit(
+            execution_id,
+            EventType.ADAPTATION_APPLIED,
+            component="evolution",
+            stage="adaptation",
+            metadata=metadata,
+        )
+
+        self._increment_metric(
+            execution_id,
+            MetricName.ADAPTATIONS_APPLIED_TOTAL,
+            "evolution",
         )
 
     def learning_completed(
@@ -486,6 +783,10 @@ class AgentRuntimeObservability:
                 "adaptation_applied": adaptation_applied,
             },
         )
+
+    # ------------------------------------------------------------------
+    # ERRORS / LIFECYCLE
+    # ------------------------------------------------------------------
 
     def error(
         self,
@@ -577,6 +878,10 @@ class AgentRuntimeObservability:
         except Exception:
             return None
 
+    # ------------------------------------------------------------------
+    # INTERNAL SAFETY HELPERS
+    # ------------------------------------------------------------------
+
     def _emit(
         self,
         execution_id: Optional[str],
@@ -639,6 +944,106 @@ class AgentRuntimeObservability:
 
         except Exception:
             return
+
+    def _record_metric(
+        self,
+        execution_id: Optional[str],
+        metric_name: MetricName,
+        value: float,
+        unit: str,
+        component: str,
+    ) -> None:
+        """Record a metric without affecting runtime."""
+        if not self.enabled or not execution_id:
+            return
+
+        try:
+            self.metrics_service.record(
+                execution_id=execution_id,
+                metric_name=metric_name,
+                value=value,
+                unit=unit,
+                component=component,
+            )
+        except Exception:
+            return
+
+    def _increment_metric(
+        self,
+        execution_id: Optional[str],
+        metric_name: MetricName,
+        component: str,
+        *,
+        amount: int = 1,
+    ) -> None:
+        """Increment a metric without affecting runtime."""
+        if not self.enabled or not execution_id:
+            return
+
+        try:
+            self.metrics_service.increment(
+                execution_id=execution_id,
+                metric_name=metric_name,
+                component=component,
+                amount=amount,
+            )
+        except Exception:
+            return
+
+    @staticmethod
+    def _cognitive_metadata(
+        *,
+        result: Optional[Any] = None,
+        provenance: Optional[str] = None,
+        confidence: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        """Build standardized cognitive metadata."""
+        metadata: Dict[str, Any] = {}
+
+        if result is not None:
+            metadata["result"] = AgentRuntimeObservability._safe_value(
+                result,
+            )
+
+        if provenance:
+            metadata["provenance"] = provenance
+
+        if confidence is not None:
+            metadata["confidence"] = float(confidence)
+
+        return metadata
+
+    @staticmethod
+    def _safe_value(
+        value: Any,
+    ) -> Any:
+        """Return a serializable representation of a cognitive result."""
+        if value is None:
+            return None
+
+        if isinstance(
+            value,
+            (str, int, float, bool),
+        ):
+            return value
+
+        if isinstance(value, dict):
+            return {
+                str(key): AgentRuntimeObservability._safe_value(
+                    item,
+                )
+                for key, item in value.items()
+            }
+
+        if isinstance(value, (list, tuple)):
+            return [
+                AgentRuntimeObservability._safe_value(
+                    item,
+                )
+                for item in value
+            ]
+
+        return str(value)
 
     @staticmethod
     def _duration_metadata(
