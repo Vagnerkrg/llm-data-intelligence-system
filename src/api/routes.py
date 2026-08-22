@@ -8,16 +8,21 @@ from fastapi import (
 )
 
 from src.api.dependencies import (
+    get_cognitive_state_service,
     get_execution_service,
     get_execution_trace_service,
     get_intelligence_system,
 )
 from src.api.schemas import (
     AnswerResponse,
+    CognitiveStateResponse,
     CreateExecutionRequest,
     ExecutionResponse,
     ExecutionTraceResponse,
     QuestionRequest,
+)
+from src.application.cognitive_state_service import (
+    CognitiveStateApplicationService,
 )
 from src.application.execution_service import (
     ExecutionApplicationService,
@@ -164,6 +169,53 @@ def get_execution_trace(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail={
                 "error": "TRACE_UNAVAILABLE",
+                "message": str(exc),
+            },
+        ) from exc
+
+
+# ---------------------------------------------------------------------------
+# Cognitive State API
+# ---------------------------------------------------------------------------
+
+
+@router.get(
+    "/api/v1/executions/{execution_id}/cognitive-state",
+    response_model=CognitiveStateResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get cognitive execution state",
+    tags=["cognitive"],
+)
+def get_cognitive_state(
+    execution_id: str,
+    service: CognitiveStateApplicationService = Depends(
+        get_cognitive_state_service,
+    ),
+) -> CognitiveStateResponse:
+    """Return the consolidated public cognitive state."""
+    _validate_execution_id(
+        execution_id,
+    )
+
+    try:
+        return service.get_state(
+            execution_id,
+        )
+
+    except LookupError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "error": "EXECUTION_NOT_FOUND",
+                "message": str(exc),
+            },
+        ) from exc
+
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error": "COGNITIVE_STATE_UNAVAILABLE",
                 "message": str(exc),
             },
         ) from exc

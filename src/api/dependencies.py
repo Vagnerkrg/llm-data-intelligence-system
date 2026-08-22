@@ -1,5 +1,9 @@
 """Dependency providers for the API layer."""
 
+from src.application.cognitive_state_service import (
+    CognitiveStateApplicationService,
+)
+
 from functools import lru_cache
 
 from src.application.execution_service import (
@@ -40,3 +44,9 @@ def get_execution_trace_service() -> ExecutionTraceApplicationService:
     the Observability repository directly to the API controller.
     """
     return ExecutionTraceApplicationService()
+
+
+@lru_cache
+def get_cognitive_state_service() -> CognitiveStateApplicationService:
+    """Return the cognitive state application service."""
+    return CognitiveStateApplicationService()

@@ -341,3 +341,36 @@ class ExecutionTraceResponse(BaseModel):
     errors: list[ExecutionErrorTraceResponse] = Field(
         default_factory=list,
     )
+
+
+class CognitiveStageState(BaseModel):
+    """Public state of one cognitive stage."""
+
+    status: str = "not_started"
+    component: str | None = None
+    stage: str | None = None
+    started_at: datetime | None = None
+    completed_at: datetime | None = None
+    duration_ms: float | None = None
+    result: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class CognitiveStateResponse(BaseModel):
+    """Public consolidated cognitive execution state."""
+
+    execution_id: str
+    execution_status: ExecutionStatus
+    reasoning: CognitiveStageState
+    planning: CognitiveStageState
+    execution: CognitiveStageState
+    memory: CognitiveStageState
+    knowledge: CognitiveStageState
+    evaluation: CognitiveStageState
+    learning: CognitiveStageState
+    evolution: CognitiveStageState
+    adaptation: CognitiveStageState
