@@ -256,3 +256,88 @@ class AnswerResponse(BaseModel):
     metadata: dict[str, Any] = Field(
         default_factory=dict,
     )
+
+
+class ExecutionStateResponse(BaseModel):
+    """Public execution state representation."""
+
+    execution_id: str
+    status: ExecutionStatus
+    current_component: str | None = None
+    current_stage: str | None = None
+    current_step: str | None = None
+    started_at: datetime | None = None
+    updated_at: datetime
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class ExecutionEventResponse(BaseModel):
+    """Public structured execution event."""
+
+    event_id: str
+    execution_id: str
+    event_type: str
+    timestamp: datetime
+    component: str
+    stage: str | None = None
+    status: ExecutionStatus | None = None
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class ExecutionMetricResponse(BaseModel):
+    """Public execution metric."""
+
+    metric_name: str
+    value: float
+    unit: str
+    timestamp: datetime
+    execution_id: str
+    component: str
+    metric_type: str
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class ExecutionErrorTraceResponse(BaseModel):
+    """Public execution error."""
+
+    error_id: str
+    execution_id: str
+    timestamp: datetime
+    component: str
+    stage: str | None = None
+    severity: str
+    error_type: str
+    message: str
+    recoverable: bool
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class ExecutionTraceResponse(BaseModel):
+    """Public execution trace contract."""
+
+    execution_id: str
+    status: ExecutionStatus
+    started_at: datetime | None = None
+    finished_at: datetime | None = None
+    duration_ms: float | None = Field(
+        default=None,
+        ge=0,
+    )
+    state: ExecutionStateResponse | None = None
+    events: list[ExecutionEventResponse] = Field(
+        default_factory=list,
+    )
+    metrics: list[ExecutionMetricResponse] = Field(
+        default_factory=list,
+    )
+    errors: list[ExecutionErrorTraceResponse] = Field(
+        default_factory=list,
+    )

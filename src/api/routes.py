@@ -1,19 +1,29 @@
 """API routes."""
 
-from fastapi import APIRouter, Depends, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    status,
+)
 
 from src.api.dependencies import (
     get_execution_service,
+    get_execution_trace_service,
     get_intelligence_system,
 )
 from src.api.schemas import (
     AnswerResponse,
     CreateExecutionRequest,
     ExecutionResponse,
+    ExecutionTraceResponse,
     QuestionRequest,
 )
 from src.application.execution_service import (
     ExecutionApplicationService,
+)
+from src.application.execution_trace_service import (
+    ExecutionTraceApplicationService,
 )
 from src.application.intelligence_system import (
     IntelligenceSystem,
@@ -73,3 +83,101 @@ def execute(
     return service.execute(
         request,
     )
+
+
+@router.get(
+    "/api/v1/executions/{execution_id}",
+    response_model=ExecutionResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get execution status and result",
+    tags=["execution"],
+)
+def get_execution(
+    execution_id: str,
+    service: ExecutionTraceApplicationService = Depends(
+        get_execution_trace_service,
+    ),
+) -> ExecutionResponse:
+    """Return a public execution representation."""
+    _validate_execution_id(
+        execution_id,
+    )
+
+    try:
+        return service.get_execution(
+            execution_id,
+        )
+
+    except LookupError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "error": "EXECUTION_NOT_FOUND",
+                "message": str(exc),
+            },
+        ) from exc
+
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error": "TRACE_UNAVAILABLE",
+                "message": str(exc),
+            },
+        ) from exc
+
+
+@router.get(
+    "/api/v1/executions/{execution_id}/trace",
+    response_model=ExecutionTraceResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get complete execution trace",
+    tags=["execution"],
+)
+def get_execution_trace(
+    execution_id: str,
+    service: ExecutionTraceApplicationService = Depends(
+        get_execution_trace_service,
+    ),
+) -> ExecutionTraceResponse:
+    """Return the complete public execution trace."""
+    _validate_execution_id(
+        execution_id,
+    )
+
+    try:
+        return service.get_trace(
+            execution_id,
+        )
+
+    except LookupError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "error": "TRACE_NOT_FOUND",
+                "message": str(exc),
+            },
+        ) from exc
+
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error": "TRACE_UNAVAILABLE",
+                "message": str(exc),
+            },
+        ) from exc
+
+
+def _validate_execution_id(
+    execution_id: str,
+) -> None:
+    """Validate the public execution identifier."""
+    if not execution_id.strip():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail={
+                "error": "INVALID_EXECUTION_ID",
+                "message": "execution_id must not be empty.",
+            },
+        )
