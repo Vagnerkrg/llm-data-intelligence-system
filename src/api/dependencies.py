@@ -1,8 +1,6 @@
 from functools import lru_cache
 
-from src.application.intelligence_system import (
-    IntelligenceSystem
-)
+from src.application.intelligence_system import IntelligenceSystem
 
 
 @lru_cache

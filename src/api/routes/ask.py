@@ -1,47 +1,26 @@
 from fastapi import APIRouter, Depends
 
-from src.api.schemas import (
-    QuestionRequest,
-    AnswerResponse
-)
+from src.api.schemas import QuestionRequest, AnswerResponse
 
-from src.api.dependencies import (
-    get_intelligence_system
-)
+from src.api.dependencies import get_intelligence_system
 
-from src.application.intelligence_system import (
-    IntelligenceSystem
-)
+from src.application.intelligence_system import IntelligenceSystem
 
 
 router = APIRouter()
 
 
-
-@router.post(
-    "/ask",
-    response_model=AnswerResponse
-)
+@router.post("/ask", response_model=AnswerResponse)
 def ask_question(
     request: QuestionRequest,
-    system: IntelligenceSystem = Depends(
-        get_intelligence_system
-    )
+    system: IntelligenceSystem = Depends(get_intelligence_system),
 ):
 
-    response = system.ask(
-        request.question
-    )
-
+    response = system.ask(request.question)
 
     return AnswerResponse(
-
         answer=response.answer,
-
         source=response.source,
-
         confidence=response.confidence,
-
-        metadata=response.metadata
-
+        metadata=response.metadata,
     )
