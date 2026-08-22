@@ -439,3 +439,110 @@ class KnowledgeResponse(BaseModel):
     metadata: dict[str, Any] = Field(
         default_factory=dict,
     )
+
+
+class LearningSignalResponse(BaseModel):
+    """Public learning signal."""
+
+    id: str
+    signal_type: str | None = None
+    confidence: float | None = Field(
+        default=None,
+        ge=0,
+        le=1,
+    )
+    provenance: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+    timestamp: datetime
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class LearningOutcomeResponse(BaseModel):
+    """Public learning outcome."""
+
+    id: str
+    outcome_type: str | None = None
+    success: bool | None = None
+    confidence: float | None = Field(
+        default=None,
+        ge=0,
+        le=1,
+    )
+    provenance: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+    timestamp: datetime
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class LearningResponse(BaseModel):
+    """Public learning response."""
+
+    execution_id: str
+    signals: list[LearningSignalResponse] = Field(
+        default_factory=list,
+    )
+    outcomes: list[LearningOutcomeResponse] = Field(
+        default_factory=list,
+    )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class EvolutionDecisionResponse(BaseModel):
+    """Public evolution decision."""
+
+    id: str
+    decision_type: str | None = None
+    trigger: str | None = None
+    confidence: float | None = Field(
+        default=None,
+        ge=0,
+        le=1,
+    )
+    provenance: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+    timestamp: datetime
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class AdaptationResultResponse(BaseModel):
+    """Public adaptation result."""
+
+    id: str
+    applied: bool
+    adaptation_type: str | None = None
+    result: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+    provenance: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+    timestamp: datetime
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class EvolutionResponse(BaseModel):
+    """Public evolution response."""
+
+    execution_id: str
+    decisions: list[EvolutionDecisionResponse] = Field(
+        default_factory=list,
+    )
+    adaptations: list[AdaptationResultResponse] = Field(
+        default_factory=list,
+    )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )

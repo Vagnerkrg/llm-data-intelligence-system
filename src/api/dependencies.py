@@ -14,6 +14,9 @@ from src.application.execution_trace_service import (
 from src.application.intelligence_system import (
     IntelligenceSystem,
 )
+from src.application.learning_evolution_service import (
+    LearningEvolutionApplicationService,
+)
 from src.application.memory_knowledge_service import (
     MemoryKnowledgeApplicationService,
 )
@@ -58,3 +61,9 @@ def get_cognitive_state_service() -> CognitiveStateApplicationService:
 def get_memory_knowledge_service() -> MemoryKnowledgeApplicationService:
     """Return the Memory and Knowledge application service."""
     return MemoryKnowledgeApplicationService()
+
+
+@lru_cache
+def get_learning_evolution_service() -> LearningEvolutionApplicationService:
+    """Return the Learning and Evolution application service."""
+    return LearningEvolutionApplicationService()

@@ -12,6 +12,7 @@ from src.api.dependencies import (
     get_execution_service,
     get_execution_trace_service,
     get_intelligence_system,
+    get_learning_evolution_service,
     get_memory_knowledge_service,
 )
 from src.api.schemas import (
@@ -20,7 +21,9 @@ from src.api.schemas import (
     CreateExecutionRequest,
     ExecutionResponse,
     ExecutionTraceResponse,
+    EvolutionResponse,
     KnowledgeResponse,
+    LearningResponse,
     MemoryResponse,
     QuestionRequest,
 )
@@ -35,6 +38,9 @@ from src.application.execution_trace_service import (
 )
 from src.application.intelligence_system import (
     IntelligenceSystem,
+)
+from src.application.learning_evolution_service import (
+    LearningEvolutionApplicationService,
 )
 from src.application.memory_knowledge_service import (
     MemoryKnowledgeApplicationService,
@@ -311,6 +317,95 @@ def get_execution_knowledge(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail={
                 "error": "KNOWLEDGE_UNAVAILABLE",
+                "message": str(exc),
+            },
+        ) from exc
+
+
+# ---------------------------------------------------------------------------
+# Learning & Evolution API
+# ---------------------------------------------------------------------------
+
+
+@router.get(
+    "/api/v1/executions/{execution_id}/learning",
+    response_model=LearningResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get execution learning state",
+    tags=["learning"],
+)
+def get_execution_learning(
+    execution_id: str,
+    service: LearningEvolutionApplicationService = Depends(
+        get_learning_evolution_service,
+    ),
+) -> LearningResponse:
+    """Return public Cognitive Learning observations."""
+    _validate_execution_id(
+        execution_id,
+    )
+
+    try:
+        return service.get_learning(
+            execution_id,
+        )
+
+    except LookupError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "error": "EXECUTION_NOT_FOUND",
+                "message": str(exc),
+            },
+        ) from exc
+
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error": "LEARNING_UNAVAILABLE",
+                "message": str(exc),
+            },
+        ) from exc
+
+
+@router.get(
+    "/api/v1/executions/{execution_id}/evolution",
+    response_model=EvolutionResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get execution evolution state",
+    tags=["evolution"],
+)
+def get_execution_evolution(
+    execution_id: str,
+    service: LearningEvolutionApplicationService = Depends(
+        get_learning_evolution_service,
+    ),
+) -> EvolutionResponse:
+    """Return public Autonomous Evolution observations."""
+    _validate_execution_id(
+        execution_id,
+    )
+
+    try:
+        return service.get_evolution(
+            execution_id,
+        )
+
+    except LookupError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "error": "EXECUTION_NOT_FOUND",
+                "message": str(exc),
+            },
+        ) from exc
+
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error": "EVOLUTION_UNAVAILABLE",
                 "message": str(exc),
             },
         ) from exc
