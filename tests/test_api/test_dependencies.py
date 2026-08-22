@@ -1,6 +1,4 @@
-from src.api.dependencies import (
-    get_intelligence_system
-)
+from src.api.dependencies import get_intelligence_system
 
 
 def test_singleton():

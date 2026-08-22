@@ -23,10 +23,7 @@ class IntelligenceSystem:
     - generating final answers
     """
 
-
-    def __init__(
-        self
-    ):
+    def __init__(self):
 
         self.engine = HybridQueryEngine()
 
@@ -34,300 +31,125 @@ class IntelligenceSystem:
 
         self.answer_generator = AnswerGenerator()
 
-
-        self.logger = AppLogger(
-            self.__class__.__name__
-        )
-
+        self.logger = AppLogger(self.__class__.__name__)
 
         self.metrics = MetricsTracker()
-
 
         # V1.9 Agent Runtime Foundation
         self.agent_runtime = AgentRuntime()
 
-
-
-    def ask(
-        self,
-        question: str
-    ):
-
+    def ask(self, question: str):
 
         request_id = set_request_id()
 
-
         self.metrics.start_timer()
 
+        self.logger.info(f"[QUESTION] {question}")
 
-        self.logger.info(
-            f"[QUESTION] {question}"
-        )
+        result = self.engine.query(question)
 
+        route = result.get("route")
 
-        result = self.engine.query(
-            question
-        )
+        self.logger.info(f"[ROUTE] {route}")
 
-
-        route = result.get(
-            "route"
-        )
-
-
-        self.logger.info(
-            f"[ROUTE] {route}"
-        )
-
-
-        internal_result = result.get(
-            "result"
-        )
-
-
+        internal_result = result.get("result")
 
         # -------------------------
         # Direct analysis response
         # -------------------------
 
-        if isinstance(
-            internal_result,
-            dict
-        ):
+        if isinstance(internal_result, dict):
+            if internal_result.get("type") == "analysis":
+                self.logger.info("[ANALYSIS] Response generated.")
 
-            if internal_result.get(
-                "type"
-            ) == "analysis":
-
-
-                self.logger.info(
-                    "[ANALYSIS] Response generated."
-                )
-
-
-                self.metrics.record(
-                    route=route
-                )
-
+                self.metrics.record(route=route)
 
                 return IntelligenceResponse(
-
                     answer=self.answer_generator.generate(
-                        internal_result.get(
-                            "answer"
-                        )
+                        internal_result.get("answer")
                     ),
-
                     source="analysis",
-
                     confidence=1.0,
-
-                    metadata={
-                        "route": route,
-                        "request_id": request_id
-                    }
-
+                    metadata={"route": route, "request_id": request_id},
                 )
 
+            if internal_result.get("type") == "rag":
+                answer = internal_result.get("answer")
 
+                self.logger.info("[RAG] Response generated.")
 
-            if internal_result.get(
-                "type"
-            ) == "rag":
-
-
-                answer = internal_result.get(
-                    "answer"
-                )
-
-
-                self.logger.info(
-                    "[RAG] Response generated."
-                )
-
-
-                self.metrics.record(
-                    route=route
-                )
-
+                self.metrics.record(route=route)
 
                 return IntelligenceResponse(
-
-                    answer=answer.get(
-                        "answer",
-                        "Resposta não encontrada."
-                    ),
-
+                    answer=answer.get("answer", "Resposta não encontrada."),
                     source="rag",
-
-                    metadata={
-                        "route": route,
-                        "request_id": request_id
-                    }
-
+                    metadata={"route": route, "request_id": request_id},
                 )
-
-
 
         # -------------------------
         # Hybrid structure
         # -------------------------
 
         if route == "hybrid":
-
-
             hybrid_result = internal_result
 
+            rag_result = hybrid_result.get("rag")
 
-            rag_result = hybrid_result.get(
-                "rag"
-            )
+            analysis_result = hybrid_result.get("analysis")
 
+            decision = self.decision_engine.decide(rag_result, analysis_result)
 
-            analysis_result = hybrid_result.get(
-                "analysis"
-            )
+            answer = decision.get("answer")
 
+            self.metrics.record(route=route)
 
-            decision = self.decision_engine.decide(
-                rag_result,
-                analysis_result
-            )
-
-
-            answer = decision.get(
-                "answer"
-            )
-
-
-            self.metrics.record(
-                route=route
-            )
-
-
-
-            if decision.get(
-                "type"
-            ) == "analysis":
-
-
-                self.logger.info(
-                    "[HYBRID] Analysis response generated."
-                )
-
+            if decision.get("type") == "analysis":
+                self.logger.info("[HYBRID] Analysis response generated.")
 
                 return IntelligenceResponse(
-
-                    answer=self.answer_generator.generate(
-                        answer
-                    ),
-
+                    answer=self.answer_generator.generate(answer),
                     source="hybrid",
-
-                    confidence=decision.get(
-                        "confidence"
-                    ),
-
+                    confidence=decision.get("confidence"),
                     metadata={
-
                         "route": route,
-
                         "decision_type": "analysis",
-
-                        "request_id": request_id
-
-                    }
-
+                        "request_id": request_id,
+                    },
                 )
 
-
-
-            if isinstance(
-                answer,
-                dict
-            ):
-
-
-                self.logger.info(
-                    "[HYBRID] Dictionary response generated."
-                )
-
+            if isinstance(answer, dict):
+                self.logger.info("[HYBRID] Dictionary response generated.")
 
                 return IntelligenceResponse(
-
-                    answer=answer.get(
-                        "answer",
-                        "Resposta não encontrada."
-                    ),
-
+                    answer=answer.get("answer", "Resposta não encontrada."),
                     source="hybrid",
-
                     metadata={
-
                         "route": route,
-
                         "decision_type": "rag",
-
-                        "request_id": request_id
-
-                    }
-
+                        "request_id": request_id,
+                    },
                 )
 
-
-
-            self.logger.info(
-                "[HYBRID] Response generated."
-            )
-
+            self.logger.info("[HYBRID] Response generated.")
 
             return IntelligenceResponse(
-
                 answer=str(answer),
-
                 source="hybrid",
-
                 metadata={
-
                     "route": route,
-
                     "decision_type": "direct",
-
-                    "request_id": request_id
-
-                }
-
+                    "request_id": request_id,
+                },
             )
 
-
-
-        self.logger.error(
-            "[SYSTEM] Unable to process question."
-        )
-
+        self.logger.error("[SYSTEM] Unable to process question.")
 
         self.metrics.record(
-            route="unknown",
-            status="error",
-            error="Unable to process question"
+            route="unknown", status="error", error="Unable to process question"
         )
 
-
         return IntelligenceResponse(
-
-            answer=
-                "Não foi possível processar a pergunta.",
-
+            answer="Não foi possível processar a pergunta.",
             source="system",
-
-            metadata={
-
-                "route": "unknown",
-
-                "status": "error",
-
-                "request_id": request_id
-
-            }
-
+            metadata={"route": "unknown", "status": "error", "request_id": request_id},
         )
