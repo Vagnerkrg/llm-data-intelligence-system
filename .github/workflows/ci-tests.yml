@@ -8,6 +8,11 @@ on:
       - feature/v1.25-cognitive-evaluation-metrics
       - feature/v1.26-advanced-cognitive-evaluation
       - feature/v1.27-cognitive-learning-integration
+      - feature/v1.28-observability
+      - feature/v1.29-api-ui-contract
+      - feature/v1.30-security-governance
+      - feature/v1.31-cognitive-intelligence-ui
+      - feature/v1.32-cloud-deployment
 
   pull_request:
     branches:
@@ -16,6 +21,11 @@ on:
       - feature/v1.25-cognitive-evaluation-metrics
       - feature/v1.26-advanced-cognitive-evaluation
       - feature/v1.27-cognitive-learning-integration
+      - feature/v1.28-observability
+      - feature/v1.29-api-ui-contract
+      - feature/v1.30-security-governance
+      - feature/v1.31-cognitive-intelligence-ui
+      - feature/v1.32-cloud-deployment
 
 jobs:
   test:
