@@ -1,11 +1,17 @@
-"""Observability domain contracts."""
+"""Observability persistence contracts."""
 
-from .serialization import (
-    DeserializableContract,
-    SerializableContract,
+from .storage import (
+    ErrorRepository,
+    EventRepository,
+    MetricsRepository,
+    ObservabilityRepository,
+    TraceRepository,
 )
 
 __all__ = [
-    "DeserializableContract",
-    "SerializableContract",
+    "ErrorRepository",
+    "EventRepository",
+    "MetricsRepository",
+    "ObservabilityRepository",
+    "TraceRepository",
 ]

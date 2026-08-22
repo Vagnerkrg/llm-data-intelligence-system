@@ -6,6 +6,9 @@ from copy import deepcopy
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
+from src.observability.contracts.storage import (
+    ObservabilityRepository,
+)
 from src.observability.domain.enums import (
     ErrorSeverity,
     EventType,
@@ -25,17 +28,16 @@ from src.observability.services.execution_lifecycle import (
 
 
 class ExecutionTraceService:
-    """Create, manage and reconstruct execution traces.
-
-    The service intentionally uses in-memory storage in V1.28.
-    Durable persistence belongs to the Observability Storage issue.
-    """
+    """Create, manage and reconstruct execution traces."""
 
     def __init__(
         self,
         lifecycle_service: Optional[ExecutionLifecycleService] = None,
+        repository: Optional[ObservabilityRepository] = None,
     ) -> None:
         self.lifecycle = lifecycle_service or ExecutionLifecycleService()
+
+        self.repository = repository
 
         self._traces: Dict[
             str,
@@ -56,11 +58,10 @@ class ExecutionTraceService:
         )
 
         if metadata:
-            trace.metadata.update(
-                metadata,
-            )
+            trace.metadata.update(metadata)
 
         self._register(trace)
+        self._persist(trace)
 
         return self._copy_trace(trace)
 
@@ -69,11 +70,8 @@ class ExecutionTraceService:
         execution_id: str,
         timestamp: Optional[datetime] = None,
     ) -> ExecutionTrace:
-        """Start an execution and register its lifecycle event."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        """Start an execution."""
+        trace = self._get_mutable_trace(execution_id)
 
         self.lifecycle.start(
             trace,
@@ -98,11 +96,8 @@ class ExecutionTraceService:
         execution_id: str,
         timestamp: Optional[datetime] = None,
     ) -> ExecutionTrace:
-        """Complete an execution and finalize its trace."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        """Complete an execution."""
+        trace = self._get_mutable_trace(execution_id)
 
         self.lifecycle.complete(
             trace,
@@ -128,11 +123,8 @@ class ExecutionTraceService:
         error: Optional[ExecutionError] = None,
         timestamp: Optional[datetime] = None,
     ) -> ExecutionTrace:
-        """Fail an execution and record its associated error."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        """Fail an execution."""
+        trace = self._get_mutable_trace(execution_id)
 
         self.lifecycle.fail(
             trace,
@@ -144,6 +136,7 @@ class ExecutionTraceService:
                 trace,
                 error,
             )
+
             self.lifecycle.add_error(
                 trace,
                 error,
@@ -168,10 +161,7 @@ class ExecutionTraceService:
         timestamp: Optional[datetime] = None,
     ) -> ExecutionTrace:
         """Cancel an execution."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        trace = self._get_mutable_trace(execution_id)
 
         self.lifecycle.cancel(
             trace,
@@ -202,11 +192,8 @@ class ExecutionTraceService:
         timestamp: Optional[datetime] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> ExecutionTrace:
-        """Register an explicit execution state change."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        """Register an explicit state change."""
+        trace = self._get_mutable_trace(execution_id)
 
         state = ExecutionState(
             execution_id=trace.execution_id,
@@ -215,7 +202,7 @@ class ExecutionTraceService:
             current_stage=stage,
             current_step=step,
             started_at=trace.started_at,
-            updated_at=timestamp or datetime.now().astimezone(),
+            updated_at=(timestamp or datetime.now().astimezone()),
             metadata=metadata or {},
         )
 
@@ -236,16 +223,13 @@ class ExecutionTraceService:
         timestamp: Optional[datetime] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> ExecutionEvent:
-        """Record an event associated with an execution."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        """Record an event."""
+        trace = self._get_mutable_trace(execution_id)
 
         event = ExecutionEvent(
             execution_id=trace.execution_id,
             event_type=event_type,
-            timestamp=timestamp or datetime.now().astimezone(),
+            timestamp=(timestamp or datetime.now().astimezone()),
             component=component,
             stage=stage,
             status=status,
@@ -273,17 +257,14 @@ class ExecutionTraceService:
         timestamp: Optional[datetime] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> ExecutionMetric:
-        """Record a metric associated with an execution."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        """Record a metric."""
+        trace = self._get_mutable_trace(execution_id)
 
         metric = ExecutionMetric(
             metric_name=metric_name,
             value=value,
             unit=unit,
-            timestamp=timestamp or datetime.now().astimezone(),
+            timestamp=(timestamp or datetime.now().astimezone()),
             execution_id=trace.execution_id,
             component=component,
             metric_type=metric_type,
@@ -312,15 +293,12 @@ class ExecutionTraceService:
         timestamp: Optional[datetime] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> ExecutionError:
-        """Record an error without changing lifecycle state."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        """Record an error."""
+        trace = self._get_mutable_trace(execution_id)
 
         error = ExecutionError(
             execution_id=trace.execution_id,
-            timestamp=timestamp or datetime.now().astimezone(),
+            timestamp=(timestamp or datetime.now().astimezone()),
             component=component,
             stage=stage,
             severity=severity,
@@ -343,11 +321,14 @@ class ExecutionTraceService:
         self,
         execution_id: str,
     ) -> ExecutionTrace:
-        """Return an isolated copy of a trace."""
+        """Return a trace from persistence when configured."""
+        if self.repository is not None:
+            persisted = self.repository.get_trace(execution_id)
 
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+            if persisted is not None:
+                self._traces[execution_id] = deepcopy(persisted)
+
+        trace = self._get_mutable_trace(execution_id)
 
         return self._copy_trace(trace)
 
@@ -355,27 +336,16 @@ class ExecutionTraceService:
         self,
         execution_id: str,
     ) -> ExecutionTrace:
-        """Reconstruct a chronologically ordered execution trace."""
+        """Reconstruct chronological execution trace."""
+        trace = self.get_trace(execution_id)
 
-        trace = self.get_trace(
-            execution_id,
-        )
+        trace.events.sort(key=lambda item: item.timestamp)
 
-        trace.events.sort(
-            key=lambda item: item.timestamp,
-        )
+        trace.metrics.sort(key=lambda item: item.timestamp)
 
-        trace.metrics.sort(
-            key=lambda item: item.timestamp,
-        )
+        trace.errors.sort(key=lambda item: item.timestamp)
 
-        trace.errors.sort(
-            key=lambda item: item.timestamp,
-        )
-
-        trace.state_history.sort(
-            key=lambda item: item.updated_at,
-        )
+        trace.state_history.sort(key=lambda item: item.updated_at)
 
         return trace
 
@@ -383,11 +353,8 @@ class ExecutionTraceService:
         self,
         execution_id: str,
     ) -> List[Dict[str, Any]]:
-        """Return all observable records in chronological order."""
-
-        trace = self.reconstruct(
-            execution_id,
-        )
+        """Return all observable records chronologically."""
+        trace = self.reconstruct(execution_id)
 
         records: List[Dict[str, Any]] = []
 
@@ -427,9 +394,7 @@ class ExecutionTraceService:
                 }
             )
 
-        records.sort(
-            key=lambda item: item["timestamp"],
-        )
+        records.sort(key=lambda item: item["timestamp"])
 
         return records
 
@@ -437,15 +402,12 @@ class ExecutionTraceService:
         self,
         execution_id: str,
         *,
-        message: str = "Execution finalized after incomplete lifecycle.",
+        message: str = ("Execution finalized after incomplete lifecycle."),
         component: str = "execution_trace_service",
         timestamp: Optional[datetime] = None,
     ) -> ExecutionTrace:
         """Finalize an incomplete execution as failed."""
-
-        trace = self._get_mutable_trace(
-            execution_id,
-        )
+        trace = self._get_mutable_trace(execution_id)
 
         if trace.status in {
             ExecutionStatus.COMPLETED,
@@ -456,7 +418,7 @@ class ExecutionTraceService:
 
         error = ExecutionError(
             execution_id=trace.execution_id,
-            timestamp=timestamp or datetime.now().astimezone(),
+            timestamp=(timestamp or datetime.now().astimezone()),
             component=component,
             stage="lifecycle",
             severity=ErrorSeverity.ERROR,
@@ -465,9 +427,7 @@ class ExecutionTraceService:
             recoverable=False,
         )
 
-        trace.add_error(
-            error,
-        )
+        trace.add_error(error)
 
         self.lifecycle.fail(
             trace,
@@ -495,11 +455,62 @@ class ExecutionTraceService:
         execution_id: str,
     ) -> bool:
         """Return whether an execution exists."""
+        if self.repository is not None:
+            if self.repository.exists(execution_id):
+                return True
+
         return execution_id in self._traces
 
     def count(self) -> int:
-        """Return the number of registered executions."""
+        """Return execution count."""
+        if self.repository is not None:
+            return len(self.repository.list_traces())
+
         return len(self._traces)
+
+    def list_history(
+        self,
+        *,
+        limit: Optional[int] = None,
+    ) -> List[ExecutionTrace]:
+        """Return execution history."""
+        if self.repository is not None:
+            return self.repository.list_traces(limit=limit)
+
+        traces = [deepcopy(trace) for trace in self._traces.values()]
+
+        traces.sort(
+            key=lambda item: (
+                item.started_at is not None,
+                item.started_at or datetime.min,
+            ),
+            reverse=True,
+        )
+
+        if limit is not None:
+            if limit <= 0:
+                raise ValueError("limit must be greater than zero.")
+
+            traces = traces[:limit]
+
+        return traces
+
+    def delete(
+        self,
+        execution_id: str,
+    ) -> bool:
+        """Delete an execution trace."""
+        if self.repository is not None:
+            deleted = self.repository.delete_trace(execution_id)
+        else:
+            deleted = execution_id in self._traces
+
+        self._traces.pop(
+            execution_id,
+            None,
+        )
+
+        return deleted
 
     def _record_lifecycle_event(
         self,
@@ -512,57 +523,56 @@ class ExecutionTraceService:
         stage: str,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> None:
-        """Register a lifecycle event."""
         event = ExecutionEvent(
             execution_id=trace.execution_id,
             event_type=event_type,
-            timestamp=timestamp or datetime.now().astimezone(),
+            timestamp=(timestamp or datetime.now().astimezone()),
             component=component,
             stage=stage,
             status=status,
             metadata=metadata or {},
         )
 
-        trace.add_event(
-            event,
-        )
+        trace.add_event(event)
 
     def _register(
         self,
         trace: ExecutionTrace,
     ) -> None:
-        """Register a new trace."""
         if trace.execution_id in self._traces:
             raise ValueError(f"Execution '{trace.execution_id}' already exists.")
 
-        self._traces[trace.execution_id] = deepcopy(
-            trace,
-        )
+        self._traces[trace.execution_id] = deepcopy(trace)
 
     def _persist(
         self,
         trace: ExecutionTrace,
     ) -> None:
-        """Store the current trace snapshot in memory."""
-        self._traces[trace.execution_id] = deepcopy(
-            trace,
-        )
+        self._traces[trace.execution_id] = deepcopy(trace)
+
+        if self.repository is not None:
+            self.repository.save_trace(trace)
 
     def _get_mutable_trace(
         self,
         execution_id: str,
     ) -> ExecutionTrace:
-        """Get an internal mutable trace."""
+        if execution_id not in self._traces:
+            if self.repository is not None:
+                persisted = self.repository.get_trace(execution_id)
+
+                if persisted is not None:
+                    self._traces[execution_id] = deepcopy(persisted)
+
         if execution_id not in self._traces:
             raise KeyError(f"Execution '{execution_id}' not found.")
 
         return self._traces[execution_id]
 
+    @staticmethod
     def _copy_trace(
-        self,
         trace: ExecutionTrace,
     ) -> ExecutionTrace:
-        """Return an isolated deep copy."""
         return deepcopy(trace)
 
     @staticmethod
@@ -570,6 +580,5 @@ class ExecutionTraceService:
         trace: ExecutionTrace,
         error: ExecutionError,
     ) -> None:
-        """Validate error correlation before recording."""
         if error.execution_id != trace.execution_id:
             raise ValueError("Error execution_id must match trace execution_id.")
