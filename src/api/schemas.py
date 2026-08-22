@@ -195,12 +195,17 @@ class ExecutionResponse(BaseModel):
     )
 
 
-class APIErrorResponse(BaseModel):
-    """Standard API error envelope."""
+class APIErrorDetail(BaseModel):
+    """Public standardized API error."""
 
-    error: str = Field(
+    code: str = Field(
         ...,
-        description="Stable API error code.",
+        description="Stable machine-readable error code.",
+    )
+
+    category: str = Field(
+        ...,
+        description="Public error category.",
     )
 
     message: str = Field(
@@ -208,15 +213,31 @@ class APIErrorResponse(BaseModel):
         description="Safe human-readable error message.",
     )
 
-    details: dict[str, Any] = Field(
-        default_factory=dict,
-        description="Optional structured error information.",
+    severity: str = Field(
+        default="error",
+        description="Public error severity.",
     )
 
     execution_id: str | None = Field(
         default=None,
         description="Execution identifier when applicable.",
     )
+
+    correlation_id: str | None = Field(
+        default=None,
+        description="External correlation identifier when applicable.",
+    )
+
+    details: dict[str, Any] = Field(
+        default_factory=dict,
+        description="Safe structured diagnostic information.",
+    )
+
+
+class APIErrorResponse(BaseModel):
+    """Standard API error envelope."""
+
+    error: APIErrorDetail
 
 
 # ---------------------------------------------------------------------------
