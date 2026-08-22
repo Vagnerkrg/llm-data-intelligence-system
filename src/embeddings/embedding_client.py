@@ -10,12 +10,8 @@ class EmbeddingGenerator(ABC):
     this contract.
     """
 
-
     @abstractmethod
-    def generate(
-        self,
-        texts: List[str]
-    ) -> List[List[float]]:
+    def generate(self, texts: List[str]) -> List[List[float]]:
         """
         Generates vector embeddings from text inputs.
 

@@ -21,25 +21,17 @@ def test_execution_state_default_values():
     Validate default execution state creation.
     """
 
-    state = ExecutionState(
-        execution_id="exec_001"
-    )
+    state = ExecutionState(execution_id="exec_001")
 
     assert state.execution_id == "exec_001"
 
-    assert (
-        state.status
-        == ExecutionStatus.PENDING
-    )
+    assert state.status == ExecutionStatus.PENDING
 
     assert state.current_step_id is None
 
     assert state.events == []
 
-    assert isinstance(
-        state.metrics,
-        ExecutionMetrics
-    )
+    assert isinstance(state.metrics, ExecutionMetrics)
 
     assert state.results == []
 
@@ -63,10 +55,7 @@ def test_execution_state_with_events():
 
     assert len(state.events) == 1
 
-    assert (
-        state.events[0].event_type
-        == ExecutionEventType.STEP_STARTED
-    )
+    assert state.events[0].event_type == ExecutionEventType.STEP_STARTED
 
 
 def test_execution_state_with_metrics():
@@ -84,15 +73,9 @@ def test_execution_state_with_metrics():
         metrics=metrics,
     )
 
-    assert (
-        state.metrics.total_steps
-        == 3
-    )
+    assert state.metrics.total_steps == 3
 
-    assert (
-        state.metrics.completed_steps
-        == 1
-    )
+    assert state.metrics.completed_steps == 1
 
 
 def test_execution_state_custom_metadata():
@@ -108,12 +91,6 @@ def test_execution_state_custom_metadata():
         },
     )
 
-    assert (
-        state.current_step_id
-        == "step_01"
-    )
+    assert state.current_step_id == "step_01"
 
-    assert (
-        state.metadata["agent"]
-        == "analytics_agent"
-    )
+    assert state.metadata["agent"] == "analytics_agent"

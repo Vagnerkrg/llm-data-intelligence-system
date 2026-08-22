@@ -25,9 +25,7 @@ class EvolutionEvidence:
             raise ValueError("Evidence signal cannot be empty.")
 
         if not 0.0 <= self.confidence <= 1.0:
-            raise ValueError(
-                "Evidence confidence must be between 0.0 and 1.0."
-            )
+            raise ValueError("Evidence confidence must be between 0.0 and 1.0.")
 
     def to_dict(self) -> dict[str, Any]:
         """

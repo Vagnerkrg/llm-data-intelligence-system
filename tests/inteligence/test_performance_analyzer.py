@@ -124,10 +124,7 @@ def test_performance_analyzer_multiple_insights():
 
     assert len(insights) == 2
 
-    metric_names = {
-        insight.metric_name
-        for insight in insights
-    }
+    metric_names = {insight.metric_name for insight in insights}
 
     assert "execution_time_ms" in metric_names
     assert "error_count" in metric_names

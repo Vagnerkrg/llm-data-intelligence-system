@@ -2,12 +2,9 @@ from src.cognitive.evaluation.protocols.capability_evaluator import CapabilityEv
 
 
 class MockCapabilityEvaluator(CapabilityEvaluator):
-
     def evaluate(self, context):
 
-        return {
-            "score": 0.9
-        }
+        return {"score": 0.9}
 
 
 def test_capability_evaluator_protocol_creation():
@@ -28,10 +25,6 @@ def test_capability_evaluator_execution():
 
     evaluator = MockCapabilityEvaluator()
 
-    result = evaluator.evaluate(
-        {
-            "task": "reasoning"
-        }
-    )
+    result = evaluator.evaluate({"task": "reasoning"})
 
     assert result["score"] == 0.9

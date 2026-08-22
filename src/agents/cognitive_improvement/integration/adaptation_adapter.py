@@ -8,16 +8,9 @@ class AdaptationAdapter:
     produces adaptation signal.
     """
 
-
-    def execute(
-        self,
-        knowledge
-    ):
+    def execute(self, knowledge):
         """
         Execute adaptation step.
         """
 
-        return {
-            "status": "adapted",
-            "knowledge": knowledge
-        }
+        return {"status": "adapted", "knowledge": knowledge}

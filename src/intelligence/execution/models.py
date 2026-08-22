@@ -13,9 +13,7 @@ class ExecutionStep:
     output_data: dict | None = None
     status: str = "pending"
 
-    timestamp: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -34,9 +32,7 @@ class ExecutionMetric:
 
     category: str | None = None
 
-    timestamp: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass
@@ -50,16 +46,10 @@ class ExecutionRecord:
 
     status: str = "running"
 
-    started_at: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    started_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     finished_at: datetime | None = None
 
-    steps: list[ExecutionStep] = field(
-        default_factory=list
-    )
+    steps: list[ExecutionStep] = field(default_factory=list)
 
-    metrics: list[ExecutionMetric] = field(
-        default_factory=list
-    )
+    metrics: list[ExecutionMetric] = field(default_factory=list)

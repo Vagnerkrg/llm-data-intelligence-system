@@ -15,11 +15,7 @@ def test_executor():
 
     executor = ActionExecutor()
 
-    result = executor.execute(
-
-        Action(ActionType.ACCEPT)
-
-    )
+    result = executor.execute(Action(ActionType.ACCEPT))
 
     assert result.executed
 

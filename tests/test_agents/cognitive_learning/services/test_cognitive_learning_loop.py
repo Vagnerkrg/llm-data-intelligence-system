@@ -56,9 +56,7 @@ class FakeOptimizer:
                 strength=0.9,
                 confidence=0.9,
                 reason="Effective strategy.",
-                supporting_patterns=[
-                    "effective_execution_pattern"
-                ],
+                supporting_patterns=["effective_execution_pattern"],
             )
         ]
 
@@ -86,21 +84,14 @@ class FakeEvolutionBridge:
                 status=EvolutionStatus.PROPOSED,
                 reason="Learning supports evolution.",
             ),
-            learning_evidence_count=(
-                len(learning_outcomes)
-                + len(learning_signals)
-            ),
-            optimization_signal_count=len(
-                optimization_signals
-            ),
+            learning_evidence_count=(len(learning_outcomes) + len(learning_signals)),
+            optimization_signal_count=len(optimization_signals),
         )
 
 
 class FailingOptimizer:
     def optimize(self, context):
-        raise RuntimeError(
-            "optimization failed"
-        )
+        raise RuntimeError("optimization failed")
 
 
 def _evaluation_context():
@@ -149,9 +140,7 @@ def test_preserves_intermediate_learning_state():
         evolution_bridge=FakeEvolutionBridge(),
     )
 
-    result = loop.run(
-        _evaluation_context()
-    )
+    result = loop.run(_evaluation_context())
 
     assert result.evaluation_result is not None
     assert len(result.learning_experiences) == 1
@@ -167,9 +156,7 @@ def test_memory_stage_is_optional():
         evolution_bridge=FakeEvolutionBridge(),
     )
 
-    result = loop.run(
-        _evaluation_context()
-    )
+    result = loop.run(_evaluation_context())
 
     assert result.success
     assert result.memory_results == []
@@ -183,9 +170,7 @@ def test_isolates_component_failure():
         evolution_bridge=FakeEvolutionBridge(),
     )
 
-    result = loop.run(
-        _evaluation_context()
-    )
+    result = loop.run(_evaluation_context())
 
     assert not result.success
     assert result.failed_stage == "optimization"
@@ -228,28 +213,16 @@ def test_deterministic_learning_state_for_same_inputs():
         evolution_bridge=FakeEvolutionBridge(),
     )
 
-    first = first_loop.run(
-        _evaluation_context()
-    )
+    first = first_loop.run(_evaluation_context())
 
-    second = second_loop.run(
-        _evaluation_context()
-    )
+    second = second_loop.run(_evaluation_context())
 
-    assert [
-        item.signal_type
-        for item in first.learning_experiences
-    ] == [
-        item.signal_type
-        for item in second.learning_experiences
+    assert [item.signal_type for item in first.learning_experiences] == [
+        item.signal_type for item in second.learning_experiences
     ]
 
-    assert [
-        item.learned_pattern
-        for item in first.learning_outcomes
-    ] == [
-        item.learned_pattern
-        for item in second.learning_outcomes
+    assert [item.learned_pattern for item in first.learning_outcomes] == [
+        item.learned_pattern for item in second.learning_outcomes
     ]
 
     assert first.evolution_result.should_evolve == (

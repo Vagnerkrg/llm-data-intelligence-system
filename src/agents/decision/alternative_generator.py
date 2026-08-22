@@ -7,10 +7,7 @@ class AlternativeGenerator:
     Generates possible decision alternatives based on context.
     """
 
-    def generate(
-        self,
-        context: DecisionContext
-    ) -> list[DecisionAlternative]:
+    def generate(self, context: DecisionContext) -> list[DecisionAlternative]:
         """
         Generate candidate alternatives.
 
@@ -26,8 +23,6 @@ class AlternativeGenerator:
                 expected_outcome="Improved decision quality",
                 estimated_cost=0.0,
                 confidence=0.5,
-                metadata={
-                    "generated_by": "alternative_generator"
-                }
+                metadata={"generated_by": "alternative_generator"},
             )
         ]

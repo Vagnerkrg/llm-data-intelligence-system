@@ -19,9 +19,7 @@ def test_engine_requires_evolution_context() -> None:
 def test_engine_returns_pending_when_evidence_is_missing() -> None:
     engine = EvolutionDecisionEngine()
 
-    decision = engine.decide(
-        EvolutionContext()
-    )
+    decision = engine.decide(EvolutionContext())
 
     assert decision.should_evolve is False
     assert decision.status is EvolutionStatus.PENDING

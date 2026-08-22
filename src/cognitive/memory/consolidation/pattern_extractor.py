@@ -17,11 +17,7 @@ class PatternExtractor:
     def __init__(self):
         self.patterns = []
 
-
-    def extract(
-        self,
-        experiences: List[Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
+    def extract(self, experiences: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
         Extrai padrões a partir de experiências.
 
@@ -36,61 +32,35 @@ class PatternExtractor:
         if not experiences:
             return []
 
-
         grouped = {}
 
-
         for experience in experiences:
-
-            key = self._generate_key(
-                experience
-            )
-
+            key = self._generate_key(experience)
 
             if key not in grouped:
                 grouped[key] = {
-                    "topic": experience.get(
-                        "topic"
-                    ),
+                    "topic": experience.get("topic"),
                     "occurrences": 0,
-                    "examples": []
+                    "examples": [],
                 }
-
 
             grouped[key]["occurrences"] += 1
 
-            grouped[key]["examples"].append(
-                experience
-            )
+            grouped[key]["examples"].append(experience)
 
-
-        self.patterns = list(
-            grouped.values()
-        )
-
+        self.patterns = list(grouped.values())
 
         return self.patterns
 
-
-
-    def _generate_key(
-        self,
-        experience: Dict[str, Any]
-    ) -> str:
+    def _generate_key(self, experience: Dict[str, Any]) -> str:
         """
         Gera chave simples para agrupamento.
         """
 
         if "topic" in experience:
-            return str(
-                experience["topic"]
-            )
-
+            return str(experience["topic"])
 
         if "type" in experience:
-            return str(
-                experience["type"]
-            )
-
+            return str(experience["type"])
 
         return "general"

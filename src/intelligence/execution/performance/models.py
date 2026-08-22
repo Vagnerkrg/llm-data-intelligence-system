@@ -15,6 +15,4 @@ class ExecutionPerformanceReport:
 
     status: str = "unknown"
 
-    issues: list[str] = field(
-        default_factory=list
-    )
+    issues: list[str] = field(default_factory=list)

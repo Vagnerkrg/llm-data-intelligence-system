@@ -1,4 +1,4 @@
-﻿from .learning_context import LearningContext
+from .learning_context import LearningContext
 from .learning_experience import LearningExperience
 from .learning_insight import LearningInsight
 from .learning_outcome import LearningOutcome
@@ -13,4 +13,3 @@ __all__ = [
     "LearningSignal",
     "LearningStatus",
 ]
-

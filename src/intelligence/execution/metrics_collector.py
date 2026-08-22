@@ -19,7 +19,6 @@ class ExecutionMetricsCollector:
     ):
         self.store = store
 
-
     def collect(
         self,
         event: ExecutionEvent,
@@ -35,7 +34,6 @@ class ExecutionMetricsCollector:
 
         return metrics
 
-
     def collect_many(
         self,
         events: Iterable[ExecutionEvent],
@@ -44,12 +42,9 @@ class ExecutionMetricsCollector:
         collected = []
 
         for event in events:
-            collected.extend(
-                self.collect(event)
-            )
+            collected.extend(self.collect(event))
 
         return collected
-
 
     def _extract_metrics(
         self,
@@ -58,9 +53,7 @@ class ExecutionMetricsCollector:
 
         metrics = []
 
-
         if hasattr(event, "duration_ms"):
-
             metrics.append(
                 ExecutionMetric(
                     metric_name="duration_ms",
@@ -69,9 +62,7 @@ class ExecutionMetricsCollector:
                 )
             )
 
-
         if hasattr(event, "tools_used"):
-
             metrics.append(
                 ExecutionMetric(
                     metric_name="tools_used",
@@ -80,9 +71,7 @@ class ExecutionMetricsCollector:
                 )
             )
 
-
         if hasattr(event, "steps_count"):
-
             metrics.append(
                 ExecutionMetric(
                     metric_name="steps_count",
@@ -90,6 +79,5 @@ class ExecutionMetricsCollector:
                     category="execution",
                 )
             )
-
 
         return metrics

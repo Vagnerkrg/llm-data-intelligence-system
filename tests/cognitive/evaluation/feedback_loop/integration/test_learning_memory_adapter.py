@@ -25,8 +25,6 @@ def test_store_feedback_in_memory():
 
     assert result is True
 
-    stored = adapter.retrieve_feedback(
-        "fb-memory-001"
-    )
+    stored = adapter.retrieve_feedback("fb-memory-001")
 
     assert stored.feedback_id == "fb-memory-001"

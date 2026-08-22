@@ -16,10 +16,6 @@ class EvaluationResult:
 
     quality_level: str
 
-    findings: list[EvaluationFinding] = field(
-        default_factory=list
-    )
+    findings: list[EvaluationFinding] = field(default_factory=list)
 
-    signals: list[LearningSignal] = field(
-        default_factory=list
-    )
+    signals: list[LearningSignal] = field(default_factory=list)

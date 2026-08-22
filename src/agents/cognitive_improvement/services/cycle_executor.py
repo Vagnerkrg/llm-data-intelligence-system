@@ -9,9 +9,7 @@ from ..integration.knowledge_adapter import KnowledgeAdapter
 from ..integration.adaptation_adapter import AdaptationAdapter
 
 
-DEFAULT_COMPLETION_MESSAGE = (
-    "Cognitive improvement cycle completed."
-)
+DEFAULT_COMPLETION_MESSAGE = "Cognitive improvement cycle completed."
 
 
 class CycleExecutor:
@@ -41,15 +39,11 @@ class CycleExecutor:
         )
 
         self.learning_adapter = (
-            learning_adapter
-            if learning_adapter is not None
-            else LearningAdapter()
+            learning_adapter if learning_adapter is not None else LearningAdapter()
         )
 
         self.knowledge_adapter = (
-            knowledge_adapter
-            if knowledge_adapter is not None
-            else KnowledgeAdapter()
+            knowledge_adapter if knowledge_adapter is not None else KnowledgeAdapter()
         )
 
         self.adaptation_adapter = (
@@ -66,37 +60,21 @@ class CycleExecutor:
         Execute the complete cognitive improvement pipeline.
         """
 
-        evaluation = self.evaluation_adapter.execute(
-            context
-        )
+        evaluation = self.evaluation_adapter.execute(context)
 
-        reflection = self.reflection_adapter.execute(
-            evaluation
-        )
+        reflection = self.reflection_adapter.execute(evaluation)
 
-        learning = self.learning_adapter.execute(
-            reflection
-        )
+        learning = self.learning_adapter.execute(reflection)
 
-        knowledge = self.knowledge_adapter.execute(
-            learning
-        )
+        knowledge = self.knowledge_adapter.execute(learning)
 
-        adaptation = self.adaptation_adapter.execute(
-            knowledge
-        )
+        adaptation = self.adaptation_adapter.execute(knowledge)
 
         return ImprovementResult(
             status=ImprovementStatus.COMPLETED,
-            insights=[
-                DEFAULT_COMPLETION_MESSAGE
-            ],
-            knowledge=[
-                knowledge
-            ],
-            adaptations=[
-                adaptation
-            ],
+            insights=[DEFAULT_COMPLETION_MESSAGE],
+            knowledge=[knowledge],
+            adaptations=[adaptation],
             metadata={
                 "evaluation": evaluation,
                 "reflection": reflection,

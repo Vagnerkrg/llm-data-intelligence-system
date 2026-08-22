@@ -29,18 +29,13 @@ class FeedbackRuntime:
         self.handler = CognitiveFeedbackHandler()
         self.engine = FeedbackLoopEngine()
 
-
     def execute_feedback_cycle(
         self,
         context: RuntimeFeedbackContext,
     ):
 
-        feedback = self.handler.handle(
-            context
-        )
+        feedback = self.handler.handle(context)
 
-        cycle = self.engine.process_feedback(
-            feedback
-        )
+        cycle = self.engine.process_feedback(feedback)
 
         return cycle

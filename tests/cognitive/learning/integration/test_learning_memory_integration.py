@@ -15,9 +15,7 @@ def test_learning_memory_integration_store():
 
     store = KnowledgeStore()
 
-    integration = LearningMemoryIntegration(
-        knowledge_store=store
-    )
+    integration = LearningMemoryIntegration(knowledge_store=store)
 
     knowledge = ConsolidatedKnowledge(
         knowledge_id="knowledge-001",
@@ -26,22 +24,17 @@ def test_learning_memory_integration_store():
         confidence=0.95,
     )
 
-    result = integration.store_learning(
-        knowledge
-    )
+    result = integration.store_learning(knowledge)
 
     assert result["stored"] is True
     assert result["knowledge_id"] == "knowledge-001"
-
 
 
 def test_learning_memory_integration_retrieve():
 
     store = KnowledgeStore()
 
-    integration = LearningMemoryIntegration(
-        knowledge_store=store
-    )
+    integration = LearningMemoryIntegration(knowledge_store=store)
 
     knowledge = ConsolidatedKnowledge(
         knowledge_id="knowledge-002",
@@ -50,26 +43,19 @@ def test_learning_memory_integration_retrieve():
         confidence=0.90,
     )
 
-    integration.store_learning(
-        knowledge
-    )
+    integration.store_learning(knowledge)
 
-    recovered = integration.retrieve_learning(
-        "knowledge-002"
-    )
+    recovered = integration.retrieve_learning("knowledge-002")
 
     assert recovered is not None
     assert recovered.knowledge_id == "knowledge-002"
-
 
 
 def test_learning_memory_integration_exists():
 
     store = KnowledgeStore()
 
-    integration = LearningMemoryIntegration(
-        knowledge_store=store
-    )
+    integration = LearningMemoryIntegration(knowledge_store=store)
 
     knowledge = ConsolidatedKnowledge(
         knowledge_id="knowledge-003",
@@ -78,10 +64,6 @@ def test_learning_memory_integration_exists():
         confidence=0.85,
     )
 
-    integration.store_learning(
-        knowledge
-    )
+    integration.store_learning(knowledge)
 
-    assert integration.has_learning(
-        "knowledge-003"
-    ) is True
+    assert integration.has_learning("knowledge-003") is True

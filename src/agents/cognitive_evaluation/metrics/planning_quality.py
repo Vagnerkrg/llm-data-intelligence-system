@@ -46,30 +46,15 @@ class PlanningQualityMetric:
             )
 
         factors = [
-            self._normalize_value(
-                information.get("execution_steps")
-            ),
-            self._normalize_value(
-                information.get("step_consistency")
-            ),
-            self._normalize_value(
-                information.get("dependency_resolution")
-            ),
-            self._normalize_value(
-                information.get("plan_completeness")
-            ),
+            self._normalize_value(information.get("execution_steps")),
+            self._normalize_value(information.get("step_consistency")),
+            self._normalize_value(information.get("dependency_resolution")),
+            self._normalize_value(information.get("plan_completeness")),
         ]
 
-        available = [
-            factor for factor in factors
-            if factor is not None
-        ]
+        available = [factor for factor in factors if factor is not None]
 
-        score = (
-            sum(available) / len(available)
-            if available
-            else 0.0
-        )
+        score = sum(available) / len(available) if available else 0.0
 
         return EvaluationMetric(
             name=self.metric_name,

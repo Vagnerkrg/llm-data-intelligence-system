@@ -11,11 +11,9 @@ from src.cognitive.evaluation.feedback_loop.runtime.runtime_feedback_context imp
 )
 
 
-
 def test_cognitive_feedback_pipeline_execution():
 
     pipeline = CognitiveFeedbackPipeline()
-
 
     context = RuntimeFeedbackContext(
         execution_id="exec-100",
@@ -26,21 +24,15 @@ def test_cognitive_feedback_pipeline_execution():
         created_at=datetime.now(),
     )
 
-
-    result = pipeline.execute(
-        context
-    )
-
+    result = pipeline.execute(context)
 
     assert "feedback_cycle" in result
     assert "learning_feedback" in result
 
 
-
 def test_pipeline_preserves_execution_identity():
 
     pipeline = CognitiveFeedbackPipeline()
-
 
     context = RuntimeFeedbackContext(
         execution_id="exec-200",
@@ -51,13 +43,8 @@ def test_pipeline_preserves_execution_identity():
         created_at=datetime.now(),
     )
 
-
-    result = pipeline.execute(
-        context
-    )
-
+    result = pipeline.execute(context)
 
     cycle = result["feedback_cycle"]
-
 
     assert cycle.evaluation_id == "exec-200"

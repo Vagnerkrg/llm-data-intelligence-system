@@ -17,104 +17,54 @@ class Goal:
         required_capabilities: Optional[List[str]] = None,
         strategy: str = "default",
         constraints: Optional[Dict] = None,
-        metadata: Optional[Dict] = None
+        metadata: Optional[Dict] = None,
     ):
         """
         Create execution goal.
         """
 
-
         self.objective = objective
-
 
         self.intent = intent
 
-
         self.required_capabilities = (
-            required_capabilities
-            if required_capabilities
-            else []
+            required_capabilities if required_capabilities else []
         )
-
 
         self.strategy = strategy
 
+        self.constraints = constraints if constraints else {}
 
-        self.constraints = (
-            constraints
-            if constraints
-            else {}
-        )
+        self.metadata = metadata if metadata else {}
 
-
-        self.metadata = (
-            metadata
-            if metadata
-            else {}
-        )
-
-
-    def add_capability(
-        self,
-        capability: str
-    ):
+    def add_capability(self, capability: str):
         """
         Add required capability.
         """
 
         if capability not in self.required_capabilities:
+            self.required_capabilities.append(capability)
 
-            self.required_capabilities.append(
-                capability
-            )
-
-
-    def add_constraint(
-        self,
-        key: str,
-        value
-    ):
+    def add_constraint(self, key: str, value):
         """
         Add execution constraint.
         """
 
         self.constraints[key] = value
 
-
-    def to_dict(
-        self
-    ):
+    def to_dict(self):
         """
         Serialize goal information.
         """
 
         return {
-
             "objective": self.objective,
-
             "intent": self.intent,
-
-            "required_capabilities":
-                self.required_capabilities,
-
-            "strategy":
-                self.strategy,
-
-            "constraints":
-                self.constraints,
-
-            "metadata":
-                self.metadata
-
+            "required_capabilities": self.required_capabilities,
+            "strategy": self.strategy,
+            "constraints": self.constraints,
+            "metadata": self.metadata,
         }
 
-
-    def __repr__(
-        self
-    ):
-        return (
-            "Goal("
-            f"objective={self.objective!r}, "
-            f"intent={self.intent!r}"
-            ")"
-        )
+    def __repr__(self):
+        return f"Goal(objective={self.objective!r}, intent={self.intent!r})"

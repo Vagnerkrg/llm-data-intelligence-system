@@ -24,11 +24,7 @@ class FakeStorage:
 
     def get(self, memory_id):
         return next(
-            (
-                memory
-                for memory in self.saved
-                if memory.memory_id == memory_id
-            ),
+            (memory for memory in self.saved if memory.memory_id == memory_id),
             None,
         )
 
@@ -58,9 +54,7 @@ def test_stores_relevant_learning_as_memory():
     adapter = CognitiveMemoryAdapter(storage)
     bridge = LearningMemoryBridge(adapter)
 
-    result = bridge.store(
-        _outcome()
-    )
+    result = bridge.store(_outcome())
 
     assert result.stored
     assert result.memory is not None
@@ -81,14 +75,8 @@ def test_preserves_experience_context():
 
     assert result.memory is not None
     assert result.memory.memory_id == "learning-experience-42"
-    assert (
-        result.memory.metadata["experience_id"]
-        == "experience-42"
-    )
-    assert (
-        result.memory.metadata["source"]
-        == "cognitive_learning"
-    )
+    assert result.memory.metadata["experience_id"] == "experience-42"
+    assert result.memory.metadata["source"] == "cognitive_learning"
 
 
 def test_preserves_confidence():
@@ -228,10 +216,7 @@ def test_stores_multiple_outcomes_deterministically():
         ]
     )
 
-    assert [
-        result.stored
-        for result in results
-    ] == [
+    assert [result.stored for result in results] == [
         True,
         False,
     ]
@@ -255,11 +240,5 @@ def test_preserves_learning_metadata():
     )
 
     assert result.memory is not None
-    assert (
-        result.memory.metadata["signal_type"]
-        == "strategy"
-    )
-    assert (
-        result.memory.metadata["custom"]
-        == "value"
-    )
+    assert result.memory.metadata["signal_type"] == "strategy"
+    assert result.memory.metadata["custom"] == "value"

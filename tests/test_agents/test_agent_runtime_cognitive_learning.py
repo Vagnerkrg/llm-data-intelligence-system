@@ -20,9 +20,7 @@ class FakeLearningLoop:
 def test_agent_runtime_accepts_cognitive_learning_dependency():
     loop = FakeLearningLoop()
 
-    runtime = AgentRuntime(
-        cognitive_learning_loop=loop
-    )
+    runtime = AgentRuntime(cognitive_learning_loop=loop)
 
     assert runtime.cognitive_learning_loop is loop
 
@@ -30,39 +28,23 @@ def test_agent_runtime_accepts_cognitive_learning_dependency():
 def test_run_cognitive_learning_persists_result():
     loop = FakeLearningLoop()
 
-    runtime = AgentRuntime(
-        cognitive_learning_loop=loop
-    )
+    runtime = AgentRuntime(cognitive_learning_loop=loop)
 
-    context = runtime.create_context(
-        "test question"
-    )
+    context = runtime.create_context("test question")
 
-    result = runtime.run_cognitive_learning(
-        context
-    )
+    result = runtime.run_cognitive_learning(context)
 
     assert context.learning_loop_result is result
-    assert context.learning_experiences == [
-        "experience"
-    ]
-    assert context.learning_outcomes == [
-        "outcome"
-    ]
+    assert context.learning_experiences == ["experience"]
+    assert context.learning_outcomes == ["outcome"]
 
 
 def test_execution_context_summary_exposes_learning_state():
-    runtime = AgentRuntime(
-        cognitive_learning_loop=FakeLearningLoop()
-    )
+    runtime = AgentRuntime(cognitive_learning_loop=FakeLearningLoop())
 
-    context = runtime.create_context(
-        "test question"
-    )
+    context = runtime.create_context("test question")
 
-    runtime.run_cognitive_learning(
-        context
-    )
+    runtime.run_cognitive_learning(context)
 
     summary = context.summary()
 

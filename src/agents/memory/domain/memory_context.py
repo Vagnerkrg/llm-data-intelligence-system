@@ -1,9 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List
 
-from src.agents.memory.domain.memory_entry import (
-    MemoryEntry
-)
+from src.agents.memory.domain.memory_entry import MemoryEntry
 
 
 @dataclass
@@ -15,8 +13,6 @@ class MemoryContext:
 
     agent_id: str
 
-    memories: List[MemoryEntry] = field(
-        default_factory=list
-    )
+    memories: List[MemoryEntry] = field(default_factory=list)
 
     query: str = ""

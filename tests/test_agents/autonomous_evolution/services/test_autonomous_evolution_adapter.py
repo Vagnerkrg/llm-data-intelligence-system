@@ -18,31 +18,21 @@ from src.agents.runtime.execution_context import ExecutionContext
 def test_adapter_builds_evolution_context() -> None:
     adapter = AutonomousEvolutionAdapter()
 
-    context = ExecutionContext(
-        question="Analyze products"
-    )
+    context = ExecutionContext(question="Analyze products")
 
     context.status = "completed"
-    context.results.append(
-        {"result": "success"}
-    )
+    context.results.append({"result": "success"})
 
-    evolution_context = adapter.build_context(
-        context
-    )
+    evolution_context = adapter.build_context(context)
 
     assert isinstance(
         evolution_context,
         EvolutionContext,
     )
 
-    assert evolution_context.execution_information[
-        "score"
-    ] == 1.0
+    assert evolution_context.execution_information["score"] == 1.0
 
-    assert evolution_context.metadata[
-        "question"
-    ] == "Analyze products"
+    assert evolution_context.metadata["question"] == "Analyze products"
 
 
 def test_adapter_requires_execution_context() -> None:
@@ -57,15 +47,11 @@ def test_adapter_requires_execution_context() -> None:
 def test_adapter_stores_evolution_decision_and_result() -> None:
     adapter = AutonomousEvolutionAdapter()
 
-    context = ExecutionContext(
-        question="Analyze products"
-    )
+    context = ExecutionContext(question="Analyze products")
 
     context.status = "completed"
 
-    result = adapter.evaluate(
-        context
-    )
+    result = adapter.evaluate(context)
 
     assert isinstance(
         context.evolution_decision,
@@ -88,9 +74,7 @@ def test_adapter_translates_adaptation_action_to_evolution_action() -> None:
         adaptive_behavior_policy=AdaptiveBehaviorPolicy(),
     )
 
-    context = ExecutionContext(
-        question="Analyze products"
-    )
+    context = ExecutionContext(question="Analyze products")
 
     context.status = "completed"
 
@@ -101,9 +85,7 @@ def test_adapter_translates_adaptation_action_to_evolution_action() -> None:
         }
     )
 
-    result = adapter.evaluate(
-        context
-    )
+    result = adapter.evaluate(context)
 
     assert result.action is None or isinstance(
         result.action,
@@ -117,19 +99,13 @@ def test_adapter_translates_adaptation_action_to_evolution_action() -> None:
 def test_adapter_does_not_execute_adaptation() -> None:
     adapter = AutonomousEvolutionAdapter()
 
-    context = ExecutionContext(
-        question="Analyze products"
-    )
+    context = ExecutionContext(question="Analyze products")
 
     context.status = "completed"
 
-    adapter.evaluate(
-        context
-    )
+    adapter.evaluate(context)
 
-    assert (
-        context.evolution_result is not None
-    )
+    assert context.evolution_result is not None
 
 
 def test_adapter_uses_injected_dependencies() -> None:
@@ -170,13 +146,9 @@ def test_adapter_uses_injected_dependencies() -> None:
         adaptive_behavior_policy=policy,
     )
 
-    context = ExecutionContext(
-        question="Analyze products"
-    )
+    context = ExecutionContext(question="Analyze products")
 
-    adapter.evaluate(
-        context
-    )
+    adapter.evaluate(context)
 
     assert decision_engine.called is True
     assert policy.called is True

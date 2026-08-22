@@ -12,11 +12,7 @@ class ImprovementValidator:
     - Status must indicate completion
     """
 
-
-    def validate(
-        self,
-        result: ImprovementResult
-    ) -> bool:
+    def validate(self, result: ImprovementResult) -> bool:
         """
         Validate improvement result.
         """
@@ -24,8 +20,4 @@ class ImprovementValidator:
         if result is None:
             return False
 
-
-        return (
-            result.status
-            == ImprovementStatus.COMPLETED
-        )
+        return result.status == ImprovementStatus.COMPLETED

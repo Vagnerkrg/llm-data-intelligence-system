@@ -22,25 +22,15 @@ def test_execution_coordinator_start_execution():
 
     coordinator = ExecutionCoordinator()
 
-    state = ExecutionState(
-        execution_id="exec_001"
-    )
+    state = ExecutionState(execution_id="exec_001")
 
-    result = coordinator.start_execution(
-        state
-    )
+    result = coordinator.start_execution(state)
 
-    assert (
-        result.status
-        == ExecutionStatus.RUNNING
-    )
+    assert result.status == ExecutionStatus.RUNNING
 
     assert len(result.events) == 1
 
-    assert (
-        result.events[0].event_type
-        == ExecutionEventType.EXECUTION_STARTED
-    )
+    assert result.events[0].event_type == ExecutionEventType.EXECUTION_STARTED
 
 
 def test_execution_coordinator_complete_execution():
@@ -55,21 +45,13 @@ def test_execution_coordinator_complete_execution():
         status=ExecutionStatus.RUNNING,
     )
 
-    result = coordinator.complete_execution(
-        state
-    )
+    result = coordinator.complete_execution(state)
 
-    assert (
-        result.status
-        == ExecutionStatus.COMPLETED
-    )
+    assert result.status == ExecutionStatus.COMPLETED
 
     assert len(result.events) == 1
 
-    assert (
-        result.events[0].event_type
-        == ExecutionEventType.EXECUTION_COMPLETED
-    )
+    assert result.events[0].event_type == ExecutionEventType.EXECUTION_COMPLETED
 
 
 def test_execution_coordinator_fail_execution():
@@ -89,22 +71,13 @@ def test_execution_coordinator_fail_execution():
         error="Tool execution failed",
     )
 
-    assert (
-        result.status
-        == ExecutionStatus.FAILED
-    )
+    assert result.status == ExecutionStatus.FAILED
 
     assert len(result.events) == 1
 
-    assert (
-        result.events[0].event_type
-        == ExecutionEventType.EXECUTION_FAILED
-    )
+    assert result.events[0].event_type == ExecutionEventType.EXECUTION_FAILED
 
-    assert (
-        result.events[0].message
-        == "Tool execution failed"
-    )
+    assert result.events[0].message == "Tool execution failed"
 
 
 def test_execution_coordinator_preserves_state_data():
@@ -122,21 +95,10 @@ def test_execution_coordinator_preserves_state_data():
         },
     )
 
-    result = coordinator.start_execution(
-        state
-    )
+    result = coordinator.start_execution(state)
 
-    assert (
-        result.execution_id
-        == "exec_004"
-    )
+    assert result.execution_id == "exec_004"
 
-    assert (
-        result.current_step_id
-        == "step_01"
-    )
+    assert result.current_step_id == "step_01"
 
-    assert (
-        result.metadata["agent"]
-        == "analytics_agent"
-    )
+    assert result.metadata["agent"] == "analytics_agent"

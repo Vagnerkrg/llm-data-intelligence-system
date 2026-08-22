@@ -13,7 +13,6 @@ class EvaluationSummary:
 
     passed_evaluations: int = 0
 
-
     @property
     def pass_rate(self) -> float:
 

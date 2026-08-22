@@ -16,16 +16,10 @@ class ReflectionResult:
 
     analysis: str
 
-    findings: list[str] = field(
-        default_factory=list
-    )
+    findings: list[str] = field(default_factory=list)
 
     confidence: float = 0.0
 
-    recommendations: list[str] = field(
-        default_factory=list
-    )
+    recommendations: list[str] = field(default_factory=list)
 
-    metadata: dict[str, str] = field(
-        default_factory=dict
-    )
+    metadata: dict[str, str] = field(default_factory=dict)

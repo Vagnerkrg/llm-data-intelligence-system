@@ -7,7 +7,7 @@ def test_autonomy_decision_creation():
         decision_id="decision-001",
         context_id="ctx-001",
         strategy_id="strategy-001",
-        reason="Evidence supports adaptation"
+        reason="Evidence supports adaptation",
     )
 
     assert decision.decision_id == "decision-001"
@@ -22,7 +22,7 @@ def test_autonomy_decision_defaults():
         decision_id="decision-002",
         context_id="ctx-002",
         strategy_id="strategy-002",
-        reason="Manual review required"
+        reason="Manual review required",
     )
 
     assert decision.confidence == 0.0

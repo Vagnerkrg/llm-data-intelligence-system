@@ -49,30 +49,15 @@ class ReasoningQualityMetric:
             )
 
         factors = [
-            self._normalize_value(
-                information.get("completeness")
-            ),
-            self._normalize_value(
-                information.get("confidence")
-            ),
-            self._normalize_value(
-                information.get("strategy")
-            ),
-            self._normalize_value(
-                information.get("conclusion_quality")
-            ),
+            self._normalize_value(information.get("completeness")),
+            self._normalize_value(information.get("confidence")),
+            self._normalize_value(information.get("strategy")),
+            self._normalize_value(information.get("conclusion_quality")),
         ]
 
-        available = [
-            factor for factor in factors
-            if factor is not None
-        ]
+        available = [factor for factor in factors if factor is not None]
 
-        score = (
-            sum(available) / len(available)
-            if available
-            else 0.0
-        )
+        score = sum(available) / len(available) if available else 0.0
 
         return EvaluationMetric(
             name=self.metric_name,

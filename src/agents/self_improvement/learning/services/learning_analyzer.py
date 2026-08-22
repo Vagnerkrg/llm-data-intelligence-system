@@ -18,9 +18,7 @@ class LearningAnalyzer:
             patterns.append(
                 LearningPattern(
                     name="experience_learning_pattern",
-                    description=(
-                        "Pattern detected from accumulated experiences."
-                    ),
+                    description=("Pattern detected from accumulated experiences."),
                     frequency=len(context.experiences),
                     confidence=0.8,
                 )

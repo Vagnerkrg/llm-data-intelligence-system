@@ -9,9 +9,7 @@ def test_autonomy_engine_success_execution():
         execution_id="exec-001",
         result="Analysis completed successfully",
         success=True,
-        metrics={
-            "accuracy": 0.95
-        },
+        metrics={"accuracy": 0.95},
     )
 
     assert decision.decision_id == "auto-exec-001"
@@ -28,9 +26,7 @@ def test_autonomy_engine_failure_execution():
         execution_id="exec-002",
         result="Execution failed due to timeout",
         success=False,
-        metrics={
-            "latency": 2.5
-        },
+        metrics={"latency": 2.5},
     )
 
     assert decision.decision_id == "auto-exec-002"
@@ -49,9 +45,7 @@ def test_autonomy_engine_creates_adaptation_strategy():
         success=False,
     )
 
-    assert decision.strategy_id.startswith(
-        "strategy-learning-"
-    )
+    assert decision.strategy_id.startswith("strategy-learning-")
 
 
 def test_autonomy_engine_without_metrics():

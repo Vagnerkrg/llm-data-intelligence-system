@@ -25,10 +25,6 @@ class FeedbackEngine:
         evaluation: EvaluationResult,
     ) -> FeedbackResult:
 
-        analysis = self.analyzer.analyze(
-            evaluation
-        )
+        analysis = self.analyzer.analyze(evaluation)
 
-        return self.generator.generate(
-            analysis
-        )
+        return self.generator.generate(analysis)

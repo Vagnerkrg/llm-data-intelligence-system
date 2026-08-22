@@ -19,7 +19,6 @@ class InsightGenerator:
         """
 
         if isinstance(hypothesis, dict):
-
             return ReflectionFinding(
                 title=hypothesis.get(
                     "title",
@@ -36,19 +35,13 @@ class InsightGenerator:
                 reflection_type="insight",
             )
 
-
         if isinstance(hypothesis, ReflectionFinding):
-
             return ReflectionFinding(
                 title=hypothesis.title,
-                description=(
-                    f"Insight generated from "
-                    f"{hypothesis.description}"
-                ),
+                description=(f"Insight generated from {hypothesis.description}"),
                 confidence=hypothesis.confidence,
                 reflection_type="insight",
             )
-
 
         return ReflectionFinding(
             title="Unknown Insight",

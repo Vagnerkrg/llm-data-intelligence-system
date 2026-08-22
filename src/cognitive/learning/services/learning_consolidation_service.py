@@ -9,32 +9,18 @@ class LearningConsolidationService:
     de consolidação de aprendizado.
     """
 
-
-    def __init__(
-        self,
-        consolidation_engine: ConsolidationEngine
-    ):
+    def __init__(self, consolidation_engine: ConsolidationEngine):
         self.consolidation_engine = consolidation_engine
 
-
-    def process(
-        self,
-        pattern: LearningPattern
-    ) -> ConsolidatedKnowledge | None:
+    def process(self, pattern: LearningPattern) -> ConsolidatedKnowledge | None:
         """
         Processa um padrão aprendido
         e tenta transformá-lo em conhecimento.
         """
 
-        return self.consolidation_engine.consolidate(
-            pattern
-        )
+        return self.consolidation_engine.consolidate(pattern)
 
-
-    def can_consolidate(
-        self,
-        pattern: LearningPattern
-    ) -> bool:
+    def can_consolidate(self, pattern: LearningPattern) -> bool:
         """
         Verifica se um padrão possui
         condições para consolidação.

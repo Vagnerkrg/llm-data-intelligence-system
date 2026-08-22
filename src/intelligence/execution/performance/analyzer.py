@@ -36,11 +36,7 @@ class PerformanceAnalyzer:
         self,
         rules=None,
     ):
-        self.rules = (
-            rules
-            if rules is not None
-            else DEFAULT_PERFORMANCE_RULES
-        )
+        self.rules = rules if rules is not None else DEFAULT_PERFORMANCE_RULES
 
     def analyze(
         self,
@@ -56,11 +52,9 @@ class PerformanceAnalyzer:
         insights = []
 
         for metric in metrics:
-
             matching_insights = []
 
             for rule in self.rules:
-
                 if rule.metric_name != metric.metric_name:
                     continue
 
@@ -78,11 +72,9 @@ class PerformanceAnalyzer:
                     )
 
             if matching_insights:
-
                 best_insight = max(
                     matching_insights,
-                    key=lambda insight:
-                    self.SEVERITY_PRIORITY.get(
+                    key=lambda insight: self.SEVERITY_PRIORITY.get(
                         insight.severity,
                         0,
                     ),

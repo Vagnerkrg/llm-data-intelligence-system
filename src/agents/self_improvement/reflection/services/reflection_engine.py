@@ -19,12 +19,8 @@ class ReflectionEngine:
         validator: ReflectionValidator | None = None,
     ) -> None:
         self._analyzer = analyzer or PatternAnalyzer()
-        self._hypothesis_builder = (
-            hypothesis_builder or HypothesisBuilder()
-        )
-        self._insight_generator = (
-            insight_generator or InsightGenerator()
-        )
+        self._hypothesis_builder = hypothesis_builder or HypothesisBuilder()
+        self._insight_generator = insight_generator or InsightGenerator()
         self._validator = validator or ReflectionValidator()
 
     def reflect(

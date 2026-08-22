@@ -54,9 +54,7 @@ def test_should_return_zero_when_reasoning_information_is_missing():
 
 
 def test_should_return_zero_for_invalid_reasoning_information():
-    context = EvaluationContext(
-        reasoning_information="invalid"
-    )
+    context = EvaluationContext(reasoning_information="invalid")
 
     result = ReasoningQualityMetric().evaluate(context)
 

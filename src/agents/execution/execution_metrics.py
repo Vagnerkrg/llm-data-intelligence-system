@@ -23,9 +23,7 @@ class ExecutionMetrics:
 
     tool_calls: int = 0
 
-    metadata: Dict[str, object] = field(
-        default_factory=dict
-    )
+    metadata: Dict[str, object] = field(default_factory=dict)
 
     @property
     def duration_seconds(self) -> float | None:
@@ -36,6 +34,4 @@ class ExecutionMetrics:
         if not self.started_at or not self.completed_at:
             return None
 
-        return (
-            self.completed_at - self.started_at
-        ).total_seconds()
+        return (self.completed_at - self.started_at).total_seconds()

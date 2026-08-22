@@ -7,10 +7,7 @@ class NormalizedStrategy:
     """
 
     def evaluate(
-        self,
-        score: float,
-        minimum: float = 0.0,
-        maximum: float = 1.0
+        self, score: float, minimum: float = 0.0, maximum: float = 1.0
     ) -> float:
         """
         Normaliza um valor para intervalo [0,1].
@@ -23,11 +20,7 @@ class NormalizedStrategy:
         if maximum <= minimum:
             return 0.0
 
-        normalized = (
-            (score - minimum)
-            /
-            (maximum - minimum)
-        )
+        normalized = (score - minimum) / (maximum - minimum)
 
         if normalized < 0:
             return 0.0

@@ -36,11 +36,7 @@ class PerformanceRuleEvaluator:
         self,
         rules: list[PerformanceRule] | None = None,
     ):
-        self.rules = (
-            rules
-            if rules is not None
-            else DEFAULT_PERFORMANCE_RULES
-        )
+        self.rules = rules if rules is not None else DEFAULT_PERFORMANCE_RULES
 
     def evaluate(
         self,
@@ -53,11 +49,9 @@ class PerformanceRuleEvaluator:
         results: list[PerformanceEvaluationResult] = []
 
         for metric in metrics:
-
             matched_rules = []
 
             for rule in self.rules:
-
                 if rule.metric_name != metric.metric_name:
                     continue
 

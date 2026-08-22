@@ -30,17 +30,13 @@ class EvolutionDecision:
             )
 
         if not isinstance(self.status, EvolutionStatus):
-            raise TypeError(
-                "status must be an EvolutionStatus instance."
-            )
+            raise TypeError("status must be an EvolutionStatus instance.")
 
         if self.action is not None and not isinstance(
             self.action,
             EvolutionAction,
         ):
-            raise TypeError(
-                "action must be an EvolutionAction instance or None."
-            )
+            raise TypeError("action must be an EvolutionAction instance or None.")
 
         for item in self.evidence:
             if not isinstance(item, EvolutionEvidence):
@@ -53,9 +49,7 @@ class EvolutionDecision:
         Add supporting evidence to the evolution decision.
         """
         if not isinstance(evidence, EvolutionEvidence):
-            raise TypeError(
-                "evidence must be an EvolutionEvidence instance."
-            )
+            raise TypeError("evidence must be an EvolutionEvidence instance.")
 
         self.evidence.append(evidence)
 

@@ -17,21 +17,13 @@ class AnalyticsTool(BaseTool):
     Result normalization is handled by ToolExecutor.
     """
 
-
     @property
     def name(self) -> str:
         return "analytics"
 
-
-
     @property
     def description(self) -> str:
-        return (
-            "Executes structured data analysis "
-            "using available datasets."
-        )
-
-
+        return "Executes structured data analysis using available datasets."
 
     @property
     def metadata(self) -> ToolMetadata:
@@ -40,42 +32,16 @@ class AnalyticsTool(BaseTool):
         """
 
         return ToolMetadata(
-
             name=self.name,
-
             description=self.description,
-
-            capabilities=[
-
-                "aggregation",
-
-                "statistics",
-
-                "dataset analysis"
-
-            ]
-
+            capabilities=["aggregation", "statistics", "dataset analysis"],
         )
 
+    def __init__(self, analysis_agent=None):
 
+        self.agent = analysis_agent if analysis_agent else DataAnalysisAgent()
 
-    def __init__(
-        self,
-        analysis_agent=None
-    ):
-
-        self.agent = (
-            analysis_agent
-            if analysis_agent
-            else DataAnalysisAgent()
-        )
-
-
-
-    def execute(
-        self,
-        question: str
-    ) -> Dict:
+    def execute(self, question: str) -> Dict:
         """
         Execute analytical requests.
 
@@ -85,7 +51,4 @@ class AnalyticsTool(BaseTool):
         of ToolExecutor.
         """
 
-
-        return self.agent.run(
-            question
-        )
+        return self.agent.run(question)

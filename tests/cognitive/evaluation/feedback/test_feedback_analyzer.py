@@ -20,9 +20,7 @@ def test_feedback_analyzer_success():
 
     analyzer = FeedbackAnalyzer()
 
-    analysis = analyzer.analyze(
-        build_result(0.95)
-    )
+    analysis = analyzer.analyze(build_result(0.95))
 
     assert analysis["feedback_type"] == "success"
 
@@ -33,9 +31,7 @@ def test_feedback_analyzer_critical():
 
     analyzer = FeedbackAnalyzer()
 
-    analysis = analyzer.analyze(
-        build_result(0.20)
-    )
+    analysis = analyzer.analyze(build_result(0.20))
 
     assert analysis["feedback_type"] == "critical"
 

@@ -8,7 +8,6 @@ class LLMClient(ABC):
     All LLM providers must implement this contract.
     """
 
-
     @abstractmethod
     def generate(self, prompt: str) -> str:
         """

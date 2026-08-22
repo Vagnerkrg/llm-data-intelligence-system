@@ -53,9 +53,7 @@ def test_should_return_zero_when_memory_information_is_missing():
 
 
 def test_should_return_zero_for_invalid_memory_information():
-    context = EvaluationContext(
-        memory_information="invalid"
-    )
+    context = EvaluationContext(memory_information="invalid")
 
     result = MemoryEffectivenessMetric().evaluate(context)
 

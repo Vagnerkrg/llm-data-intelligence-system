@@ -13,107 +13,52 @@ class PlanExecutor:
     runtime context.
     """
 
+    def __init__(self, controller: AgentController = None):
 
-    def __init__(
-        self,
-        controller: AgentController = None
-    ):
+        self.controller = controller if controller else AgentController()
 
-        self.controller = (
-            controller
-            if controller
-            else AgentController()
-        )
-
-
-    def execute(
-        self,
-        context: ExecutionContext
-    ) -> ExecutionContext:
+    def execute(self, context: ExecutionContext) -> ExecutionContext:
         """
         Execute all steps from
         the current execution plan.
         """
 
-
         if not context.plan:
-
-            context.fail(
-                "No execution plan available."
-            )
+            context.fail("No execution plan available.")
 
             return context
 
-
-
         context.status = "executing"
 
-
-
         while True:
-
             context.update_current_step()
-
 
             step = context.current_step
 
-
             if not step:
-
                 break
 
-
-
             try:
+                result = self._execute_step(step.action, context)
 
-                result = self._execute_step(
-                    step.action,
-                    context
-                )
+                step.complete(result)
 
-
-                step.complete(
-                    result
-                )
-
-
-                context.add_result(
-                    result
-                )
-
+                context.add_result(result)
 
                 context.clear_current_step()
 
-
-
             except Exception as error:
+                step.fail(str(error))
 
-                step.fail(
-                    str(error)
-                )
-
-
-                context.fail(
-                    str(error)
-                )
-
+                context.fail(str(error))
 
                 return context
 
-
-
         context.complete()
-
 
         return context
 
-
-
-    def _execute_step(
-        self,
-        action: str,
-        context: ExecutionContext
-    ) -> Any:
+    def _execute_step(self, action: str, context: ExecutionContext) -> Any:
         """
         Execute a single plan step.
 
@@ -126,49 +71,21 @@ class PlanExecutor:
         - reasoning strategies
         """
 
-
         if action == "route_request":
-
             return {
-
                 "status": "ready",
-
                 "action": action,
-
-                "message":
-                    "Request prepared for routing."
-
+                "message": "Request prepared for routing.",
             }
-
-
 
         if action == "execute_tool":
-
-            return self.controller.run(
-                context.question
-            )
-
-
+            return self.controller.run(context.question)
 
         if action == "generate_response":
-
             return {
-
                 "status": "ready",
-
                 "action": action,
-
-                "message":
-                    "Response generation step prepared."
-
+                "message": "Response generation step prepared.",
             }
 
-
-
-        return {
-
-            "status": "unknown",
-
-            "action": action
-
-        }
+        return {"status": "unknown", "action": action}

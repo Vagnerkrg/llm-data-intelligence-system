@@ -13,10 +13,6 @@ class MemoryResponse:
 
     message: str = ""
 
-    memories: List[Any] = field(
-        default_factory=list
-    )
+    memories: List[Any] = field(default_factory=list)
 
-    metadata: Dict = field(
-        default_factory=dict
-    )
+    metadata: Dict = field(default_factory=dict)

@@ -7,64 +7,20 @@ from src.monitoring.dashboard_metrics import DashboardMetrics
 def test_dashboard_summary(tmp_path):
 
     metrics = [
-
-        {
-
-            "route": "analysis",
-
-            "execution_time": 0.10,
-
-            "status": "success"
-
-        },
-
-        {
-
-            "route": "rag",
-
-            "execution_time": 0.30,
-
-            "status": "success"
-
-        },
-
-        {
-
-            "route": "unknown",
-
-            "execution_time": 0.20,
-
-            "status": "error"
-
-        }
-
+        {"route": "analysis", "execution_time": 0.10, "status": "success"},
+        {"route": "rag", "execution_time": 0.30, "status": "success"},
+        {"route": "unknown", "execution_time": 0.20, "status": "error"},
     ]
-
 
     file = tmp_path / "metrics.jsonl"
 
-
-    with open(
-        file,
-        "w",
-        encoding="utf-8"
-    ) as f:
-
+    with open(file, "w", encoding="utf-8") as f:
         for item in metrics:
+            f.write(json.dumps(item) + "\n")
 
-            f.write(
-                json.dumps(item)
-                + "\n"
-            )
-
-
-    dashboard = DashboardMetrics(
-        file
-    )
-
+    dashboard = DashboardMetrics(file)
 
     summary = dashboard.summary()
-
 
     assert summary["total_requests"] == 3
 

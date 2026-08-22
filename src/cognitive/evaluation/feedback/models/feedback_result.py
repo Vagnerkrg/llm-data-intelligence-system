@@ -23,6 +23,4 @@ class FeedbackResult:
 
     source: str
 
-    metadata: dict[str, Any] = field(
-        default_factory=dict
-    )
+    metadata: dict[str, Any] = field(default_factory=dict)

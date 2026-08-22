@@ -49,25 +49,17 @@ def test_preserves_learning_provenance():
     repository = KnowledgeRepository()
     integrator = LearningKnowledgeIntegrator(repository)
 
-    result = integrator.integrate(
-        _outcome(experience_id="experience-42")
-    )
+    result = integrator.integrate(_outcome(experience_id="experience-42"))
 
-    assert result.knowledge.metadata["experience_id"] == (
-        "experience-42"
-    )
-    assert result.knowledge.metadata["source"] == (
-        "cognitive_learning"
-    )
+    assert result.knowledge.metadata["experience_id"] == ("experience-42")
+    assert result.knowledge.metadata["source"] == ("cognitive_learning")
 
 
 def test_preserves_confidence():
     repository = KnowledgeRepository()
     integrator = LearningKnowledgeIntegrator(repository)
 
-    result = integrator.integrate(
-        _outcome(confidence=0.73)
-    )
+    result = integrator.integrate(_outcome(confidence=0.73))
 
     assert result.knowledge.confidence == 0.73
 
@@ -78,9 +70,7 @@ def test_detects_redundant_knowledge():
 
     first = integrator.integrate(_outcome())
 
-    second = integrator.integrate(
-        _outcome(experience_id="exp-2")
-    )
+    second = integrator.integrate(_outcome(experience_id="exp-2"))
 
     assert first.created
     assert second.duplicated
@@ -116,9 +106,7 @@ def test_does_not_reduce_existing_confidence():
     repository = KnowledgeRepository()
     integrator = LearningKnowledgeIntegrator(repository)
 
-    integrator.integrate(
-        _outcome(confidence=0.95)
-    )
+    integrator.integrate(_outcome(confidence=0.95))
 
     result = integrator.integrate(
         _outcome(
@@ -136,45 +124,27 @@ def test_resolves_strategy_knowledge_type():
     repository = KnowledgeRepository()
     integrator = LearningKnowledgeIntegrator(repository)
 
-    result = integrator.integrate(
-        _outcome(
-            metadata={"signal_type": "strategy"}
-        )
-    )
+    result = integrator.integrate(_outcome(metadata={"signal_type": "strategy"}))
 
-    assert result.knowledge.knowledge_type == (
-        KnowledgeType.STRATEGY
-    )
+    assert result.knowledge.knowledge_type == (KnowledgeType.STRATEGY)
 
 
 def test_resolves_insight_knowledge_type():
     repository = KnowledgeRepository()
     integrator = LearningKnowledgeIntegrator(repository)
 
-    result = integrator.integrate(
-        _outcome(
-            metadata={"signal_type": "insight"}
-        )
-    )
+    result = integrator.integrate(_outcome(metadata={"signal_type": "insight"}))
 
-    assert result.knowledge.knowledge_type == (
-        KnowledgeType.INSIGHT
-    )
+    assert result.knowledge.knowledge_type == (KnowledgeType.INSIGHT)
 
 
 def test_defaults_unknown_signal_to_pattern():
     repository = KnowledgeRepository()
     integrator = LearningKnowledgeIntegrator(repository)
 
-    result = integrator.integrate(
-        _outcome(
-            metadata={"signal_type": "unknown"}
-        )
-    )
+    result = integrator.integrate(_outcome(metadata={"signal_type": "unknown"}))
 
-    assert result.knowledge.knowledge_type == (
-        KnowledgeType.PATTERN
-    )
+    assert result.knowledge.knowledge_type == (KnowledgeType.PATTERN)
 
 
 def test_rejects_invalid_outcome():
@@ -251,6 +221,4 @@ def test_preserves_metadata_from_learning_outcome():
     assert result.knowledge.metadata["signal_type"] == "strategy"
     assert result.knowledge.metadata["impact"] == "high"
     assert result.knowledge.metadata["custom"] == "value"
-    assert result.knowledge.metadata["source"] == (
-        "cognitive_learning"
-    )
+    assert result.knowledge.metadata["source"] == ("cognitive_learning")

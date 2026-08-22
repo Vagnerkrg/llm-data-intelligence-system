@@ -2,17 +2,11 @@ from src.agents.controller.agent_controller import AgentController
 
 
 class FakeExecutor:
-
     def __init__(self):
 
         self.called = False
 
-
-    def execute(
-        self,
-        tool,
-        question
-    ):
+    def execute(self, tool, question):
 
         self.called = True
 
@@ -22,36 +16,22 @@ class FakeExecutor:
             {
                 "success": True,
                 "tool": tool.name,
-                "data": {
-                    "executed_by": "executor"
-                },
-                "metadata": {}
-            }
+                "data": {"executed_by": "executor"},
+                "metadata": {},
+            },
         )()
-
 
 
 def test_agent_controller_uses_tool_executor():
 
     executor = FakeExecutor()
 
+    controller = AgentController(execution_executor=executor)
 
-    controller = AgentController(
-        execution_executor=executor
-    )
-
-
-    response = controller.run(
-        "Quantos produtos existem?"
-    )
-
+    response = controller.run("Quantos produtos existem?")
 
     assert executor.called is True
 
     assert response["status"] == "success"
 
-    assert (
-        response["result"]["executed_by"]
-        ==
-        "executor"
-    )
+    assert response["result"]["executed_by"] == "executor"

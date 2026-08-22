@@ -12,11 +12,7 @@ class LocalEmbeddingGenerator(EmbeddingGenerator):
     This component converts text documents into vector representations.
     """
 
-
-    def __init__(
-        self,
-        model_name: str = "all-MiniLM-L6-v2"
-    ):
+    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
         """
         Initializes the embedding model.
 
@@ -25,15 +21,9 @@ class LocalEmbeddingGenerator(EmbeddingGenerator):
                 HuggingFace sentence-transformers model.
         """
 
-        self.model = SentenceTransformer(
-            model_name
-        )
+        self.model = SentenceTransformer(model_name)
 
-
-    def generate(
-        self,
-        texts: List[str]
-    ) -> List[List[float]]:
+    def generate(self, texts: List[str]) -> List[List[float]]:
         """
         Generates embeddings from text inputs.
 
@@ -45,9 +35,6 @@ class LocalEmbeddingGenerator(EmbeddingGenerator):
             Vector embeddings.
         """
 
-        embeddings = self.model.encode(
-            texts,
-            convert_to_numpy=True
-        )
+        embeddings = self.model.encode(texts, convert_to_numpy=True)
 
         return embeddings.tolist()

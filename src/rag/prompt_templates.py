@@ -6,11 +6,7 @@ class RAGPromptTemplate:
     that will be sent to the language model.
     """
 
-    def build(
-        self,
-        context: str,
-        question: str
-    ) -> str:
+    def build(self, context: str, question: str) -> str:
         """
         Creates the final prompt for the LLM.
 

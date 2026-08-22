@@ -1,13 +1,10 @@
 from src.services.decision_engine import DecisionEngine
 
 
-
 class TestDecisionEngine:
     """
     Tests for DecisionEngine service.
     """
-
-
 
     def setup_method(self):
         """
@@ -16,40 +13,20 @@ class TestDecisionEngine:
 
         self.engine = DecisionEngine()
 
-
-
     def test_decide_analysis_when_analysis_exists(self):
         """
         Should prioritize structured analysis results.
         """
 
-        analysis = {
-            "operation": "count_rows",
-            "dataset": "products",
-            "result": 32951
-        }
+        analysis = {"operation": "count_rows", "dataset": "products", "result": 32951}
 
+        rag = {"answer": "Existem produtos cadastrados."}
 
-        rag = {
-            "answer": "Existem produtos cadastrados."
-        }
-
-
-        response = self.engine.decide(
-            rag,
-            analysis
-        )
-
+        response = self.engine.decide(rag, analysis)
 
         assert response["type"] == "analysis"
 
-        assert (
-            response["answer"]
-            ==
-            analysis
-        )
-
-
+        assert response["answer"] == analysis
 
     def test_decide_rag_when_analysis_is_unknown(self):
         """
@@ -57,31 +34,15 @@ class TestDecisionEngine:
         cannot answer the question.
         """
 
-        analysis = {
-            "operation": "unknown"
-        }
+        analysis = {"operation": "unknown"}
 
+        rag = {"answer": "Existem produtos cadastrados."}
 
-        rag = {
-            "answer": "Existem produtos cadastrados."
-        }
-
-
-        response = self.engine.decide(
-            rag,
-            analysis
-        )
-
+        response = self.engine.decide(rag, analysis)
 
         assert response["type"] == "rag"
 
-        assert (
-            response["answer"]
-            ==
-            rag
-        )
-
-
+        assert response["answer"] == rag
 
     def test_decide_rag_when_analysis_is_empty(self):
         """
@@ -90,37 +51,19 @@ class TestDecisionEngine:
 
         analysis = None
 
+        rag = {"answer": "Informação encontrada."}
 
-        rag = {
-            "answer": "Informação encontrada."
-        }
-
-
-        response = self.engine.decide(
-            rag,
-            analysis
-        )
-
+        response = self.engine.decide(rag, analysis)
 
         assert response["type"] == "rag"
 
-        assert (
-            response["answer"]
-            ==
-            rag
-        )
-
-
+        assert response["answer"] == rag
 
     def test_decide_empty_when_no_information_exists(self):
         """
         Should handle missing information safely.
         """
 
-        response = self.engine.decide(
-            None,
-            None
-        )
-
+        response = self.engine.decide(None, None)
 
         assert response["type"] == "unknown"

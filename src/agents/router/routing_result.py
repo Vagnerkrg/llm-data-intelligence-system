@@ -9,15 +9,11 @@ class RoutingResult:
     Supports single and multi-tool routing.
     """
 
-    tools: List[str] = field(
-        default_factory=list
-    )
+    tools: List[str] = field(default_factory=list)
 
     confidence: float = 0.0
 
     reason: str = ""
-
-
 
     @property
     def tool(self):

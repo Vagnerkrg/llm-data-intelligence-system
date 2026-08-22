@@ -20,11 +20,7 @@ class ExecutionFeedbackLoop:
         self,
         evaluator=None,
     ):
-        self.evaluator = (
-            evaluator
-            if evaluator
-            else PlanEvaluator()
-        )
+        self.evaluator = evaluator if evaluator else PlanEvaluator()
 
     def evaluate(
         self,
@@ -34,6 +30,4 @@ class ExecutionFeedbackLoop:
         Evaluate execution state and return feedback.
         """
 
-        return self.evaluator.evaluate(
-            state
-        )
+        return self.evaluator.evaluate(state)

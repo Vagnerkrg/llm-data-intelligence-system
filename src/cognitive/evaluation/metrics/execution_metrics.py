@@ -13,7 +13,6 @@ class ExecutionMetrics:
 
     duration: float
 
-
     @property
     def status(self) -> str:
 

@@ -20,9 +20,7 @@ class EvaluationResult:
 
     def __post_init__(self) -> None:
         if not 0.0 <= self.overall_score <= 1.0:
-            raise ValueError(
-                "Overall score must be between 0.0 and 1.0."
-            )
+            raise ValueError("Overall score must be between 0.0 and 1.0.")
 
         if not self.status.strip():
             raise ValueError("Evaluation status cannot be empty.")
@@ -32,9 +30,7 @@ class EvaluationResult:
         Add an individual evaluation metric.
         """
         if not isinstance(metric, EvaluationMetric):
-            raise TypeError(
-                "metric must be an EvaluationMetric instance."
-            )
+            raise TypeError("metric must be an EvaluationMetric instance.")
 
         self.metrics.append(metric)
 
@@ -43,9 +39,6 @@ class EvaluationResult:
         Serialize the evaluation result into a dictionary.
         """
         data = asdict(self)
-        data["metrics"] = [
-            metric.to_dict()
-            for metric in self.metrics
-        ]
+        data["metrics"] = [metric.to_dict() for metric in self.metrics]
 
         return data

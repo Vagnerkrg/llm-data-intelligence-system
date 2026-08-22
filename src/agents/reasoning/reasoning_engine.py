@@ -14,89 +14,42 @@ class ReasoningEngine:
     LLM based reasoning strategies.
     """
 
-
-
-    def reason(
-        self,
-        question: str
-    ) -> ReasoningResult:
+    def reason(self, question: str) -> ReasoningResult:
         """
         Generate structured reasoning
         result from a user request.
         """
 
+        reasoning = f"Analyzing request: {question}"
 
-        reasoning = (
-            f"Analyzing request: {question}"
-        )
+        conclusion = "Request analyzed successfully."
 
+        intent = self._detect_intent(question)
 
-        conclusion = (
-            "Request analyzed successfully."
-        )
+        goal = self._define_goal(question, intent)
 
+        capabilities = self._define_capabilities(intent)
 
-        intent = self._detect_intent(
-            question
-        )
-
-
-        goal = self._define_goal(
-            question,
-            intent
-        )
-
-
-        capabilities = (
-            self._define_capabilities(
-                intent
-            )
-        )
-
-
-        strategy = (
-            self._define_strategy(
-                intent
-            )
-        )
-
+        strategy = self._define_strategy(intent)
 
         return ReasoningResult(
-
             reasoning=reasoning,
-
             conclusion=conclusion,
-
             confidence=0.8,
-
             goal=goal,
-
             intent=intent,
-
             required_capabilities=capabilities,
-
             strategy=strategy,
-
             metadata={
-
                 "source": "reasoning_engine",
-
                 # V1.12
                 # Preserve original user request
                 # for GoalBuilder
-
-                "question": question
-
-            }
-
+                "question": question,
+            },
         )
 
-
-
-    def _detect_intent(
-        self,
-        question: str
-    ) -> str:
+    def _detect_intent(self, question: str) -> str:
         """
         Basic intent detection.
 
@@ -104,9 +57,7 @@ class ReasoningEngine:
         this logic with LLM reasoning.
         """
 
-
         text = question.lower()
-
 
         if any(
             keyword in text
@@ -119,38 +70,20 @@ class ReasoningEngine:
                 "produto",
                 "dados",
                 "sales",
-                "performance"
+                "performance",
             ]
         ):
-
             return "analytics"
-
-
 
         if any(
             keyword in text
-            for keyword in [
-                "buscar",
-                "encontrar",
-                "pesquisar",
-                "search",
-                "find"
-            ]
+            for keyword in ["buscar", "encontrar", "pesquisar", "search", "find"]
         ):
-
             return "search"
-
-
 
         return "general"
 
-
-
-    def _define_goal(
-        self,
-        question: str,
-        intent: str
-    ) -> str:
+    def _define_goal(self, question: str, intent: str) -> str:
         """
         Define the execution goal.
 
@@ -158,81 +91,31 @@ class ReasoningEngine:
         the expected execution direction.
         """
 
+        return f"Resolve user request with intent: {intent}"
 
-        return (
-            f"Resolve user request with intent: {intent}"
-        )
-
-
-
-    def _define_capabilities(
-        self,
-        intent: str
-    ):
+    def _define_capabilities(self, intent: str):
         """
         Define required capabilities
         for execution.
         """
 
-
         mapping = {
-
-            "analytics": [
-
-                "data_analysis"
-
-            ],
-
-
-            "search": [
-
-                "information_retrieval"
-
-            ],
-
-
-            "general": [
-
-                "general_reasoning"
-
-            ]
-
+            "analytics": ["data_analysis"],
+            "search": ["information_retrieval"],
+            "general": ["general_reasoning"],
         }
 
+        return mapping.get(intent, [])
 
-        return mapping.get(
-            intent,
-            []
-        )
-
-
-
-    def _define_strategy(
-        self,
-        intent: str
-    ) -> str:
+    def _define_strategy(self, intent: str) -> str:
         """
         Define initial execution strategy.
         """
 
-
         strategies = {
-
-            "analytics":
-                "Use analytics tools",
-
-
-            "search":
-                "Use retrieval tools",
-
-
-            "general":
-                "Use general reasoning"
-
+            "analytics": "Use analytics tools",
+            "search": "Use retrieval tools",
+            "general": "Use general reasoning",
         }
 
-
-        return strategies.get(
-            intent,
-            "Use default strategy"
-        )
+        return strategies.get(intent, "Use default strategy")

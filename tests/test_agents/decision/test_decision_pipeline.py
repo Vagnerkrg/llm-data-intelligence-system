@@ -7,14 +7,12 @@ def test_decision_pipeline_executes_complete_flow():
     context = DecisionContext(
         goal="Optimize data analysis workflow",
         capabilities=["data_analysis"],
-        available_tools=["python", "llm"]
+        available_tools=["python", "llm"],
     )
 
     pipeline = DecisionPipeline()
 
-    result = pipeline.run(
-        context
-    )
+    result = pipeline.run(context)
 
     assert result.decision_id is not None
 

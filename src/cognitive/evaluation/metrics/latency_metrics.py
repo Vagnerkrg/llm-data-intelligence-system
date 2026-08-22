@@ -11,7 +11,6 @@ class LatencyMetrics:
 
     latency_ms: float
 
-
     @property
     def latency_seconds(self) -> float:
         return self.latency_ms / 1000

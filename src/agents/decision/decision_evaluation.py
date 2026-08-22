@@ -19,34 +19,23 @@ class DecisionEvaluation:
 
     feedback: list[str] = field(default_factory=list)
 
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(UTC)
-    )
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
-    metadata: dict[str, str] = field(
-        default_factory=dict
-    )
+    metadata: dict[str, str] = field(default_factory=dict)
 
-    def add_feedback(
-        self,
-        message: str
-    ) -> None:
+    def add_feedback(self, message: str) -> None:
         """
         Add evaluation feedback.
         """
         self.feedback.append(message)
 
-    def is_successful(
-        self
-    ) -> bool:
+    def is_successful(self) -> bool:
         """
         Return whether the decision achieved success.
         """
         return self.success
 
-    def has_feedback(
-        self
-    ) -> bool:
+    def has_feedback(self) -> bool:
         """
         Check whether feedback exists.
         """

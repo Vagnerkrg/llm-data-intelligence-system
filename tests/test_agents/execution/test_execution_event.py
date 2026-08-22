@@ -11,50 +11,23 @@ def test_execution_event_types():
     Validate available execution event types.
     """
 
-    assert (
-        ExecutionEventType.EXECUTION_STARTED.value
-        == "execution_started"
-    )
+    assert ExecutionEventType.EXECUTION_STARTED.value == "execution_started"
 
-    assert (
-        ExecutionEventType.EXECUTION_COMPLETED.value
-        == "execution_completed"
-    )
+    assert ExecutionEventType.EXECUTION_COMPLETED.value == "execution_completed"
 
-    assert (
-        ExecutionEventType.EXECUTION_FAILED.value
-        == "execution_failed"
-    )
+    assert ExecutionEventType.EXECUTION_FAILED.value == "execution_failed"
 
-    assert (
-        ExecutionEventType.STEP_STARTED.value
-        == "step_started"
-    )
+    assert ExecutionEventType.STEP_STARTED.value == "step_started"
 
-    assert (
-        ExecutionEventType.STEP_COMPLETED.value
-        == "step_completed"
-    )
+    assert ExecutionEventType.STEP_COMPLETED.value == "step_completed"
 
-    assert (
-        ExecutionEventType.STEP_FAILED.value
-        == "step_failed"
-    )
+    assert ExecutionEventType.STEP_FAILED.value == "step_failed"
 
-    assert (
-        ExecutionEventType.TOOL_STARTED.value
-        == "tool_started"
-    )
+    assert ExecutionEventType.TOOL_STARTED.value == "tool_started"
 
-    assert (
-        ExecutionEventType.TOOL_COMPLETED.value
-        == "tool_completed"
-    )
+    assert ExecutionEventType.TOOL_COMPLETED.value == "tool_completed"
 
-    assert (
-        ExecutionEventType.RETRY_REQUESTED.value
-        == "retry_requested"
-    )
+    assert ExecutionEventType.RETRY_REQUESTED.value == "retry_requested"
 
 
 def test_execution_event_creation():
@@ -67,17 +40,11 @@ def test_execution_event_creation():
         message="Execution started",
     )
 
-    assert (
-        event.event_type
-        == ExecutionEventType.EXECUTION_STARTED
-    )
+    assert event.event_type == ExecutionEventType.EXECUTION_STARTED
 
     assert event.message == "Execution started"
 
-    assert isinstance(
-        event.timestamp,
-        datetime
-    )
+    assert isinstance(event.timestamp, datetime)
 
     assert event.metadata == {}
 

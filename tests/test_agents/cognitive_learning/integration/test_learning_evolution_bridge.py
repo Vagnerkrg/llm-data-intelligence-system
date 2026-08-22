@@ -59,9 +59,7 @@ def _optimization_signal(
         direction="reinforce",
         strength=strength,
         confidence=confidence,
-        reason=(
-            "Repeated execution outcomes indicate effectiveness."
-        ),
+        reason=("Repeated execution outcomes indicate effectiveness."),
         supporting_patterns=[
             "effective_execution_pattern",
         ],
@@ -82,14 +80,8 @@ def test_builds_evolution_context_from_learning_outcomes():
         EvolutionContext,
     )
     assert len(context.learning_information) == 1
-    assert (
-        context.learning_information[0]["source"]
-        == "learning_outcome"
-    )
-    assert (
-        context.learning_information[0]["experience_id"]
-        == "exp-1"
-    )
+    assert context.learning_information[0]["source"] == "learning_outcome"
+    assert context.learning_information[0]["experience_id"] == "exp-1"
 
 
 def test_exposes_learning_signals_to_evolution():
@@ -102,14 +94,8 @@ def test_exposes_learning_signals_to_evolution():
     )
 
     assert len(context.learning_information) == 1
-    assert (
-        context.learning_information[0]["source"]
-        == "learning_signal"
-    )
-    assert (
-        context.learning_information[0]["signal_type"]
-        == "strategy"
-    )
+    assert context.learning_information[0]["source"] == "learning_signal"
+    assert context.learning_information[0]["signal_type"] == "strategy"
 
 
 def test_exposes_optimization_signals_to_evolution():
@@ -122,14 +108,8 @@ def test_exposes_optimization_signals_to_evolution():
     )
 
     assert len(context.improvement_information) == 1
-    assert (
-        context.improvement_information[0]["source"]
-        == "optimization_signal"
-    )
-    assert (
-        context.improvement_information[0]["direction"]
-        == "reinforce"
-    )
+    assert context.improvement_information[0]["source"] == "optimization_signal"
+    assert context.improvement_information[0]["direction"] == "reinforce"
 
 
 def test_learning_can_contribute_to_evolution_decision():
@@ -214,15 +194,9 @@ def test_preserves_base_evolution_context():
         base_context=base_context,
     )
 
-    assert context.execution_information == (
-        base_context.execution_information
-    )
-    assert context.evaluation_information == (
-        base_context.evaluation_information
-    )
-    assert context.knowledge_information == (
-        base_context.knowledge_information
-    )
+    assert context.execution_information == (base_context.execution_information)
+    assert context.evaluation_information == (base_context.evaluation_information)
+    assert context.knowledge_information == (base_context.knowledge_information)
     assert context.metadata == {
         "question": "test",
     }
@@ -249,9 +223,7 @@ def test_rejects_invalid_base_context():
     except TypeError as error:
         assert "base_context" in str(error)
     else:
-        raise AssertionError(
-            "Expected TypeError was not raised."
-        )
+        raise AssertionError("Expected TypeError was not raised.")
 
 
 def test_rejects_invalid_learning_outcome():
@@ -266,9 +238,7 @@ def test_rejects_invalid_learning_outcome():
     except TypeError as error:
         assert "learning_outcomes" in str(error)
     else:
-        raise AssertionError(
-            "Expected TypeError was not raised."
-        )
+        raise AssertionError("Expected TypeError was not raised.")
 
 
 def test_rejects_invalid_learning_signal():
@@ -283,9 +253,7 @@ def test_rejects_invalid_learning_signal():
     except TypeError as error:
         assert "learning_signals" in str(error)
     else:
-        raise AssertionError(
-            "Expected TypeError was not raised."
-        )
+        raise AssertionError("Expected TypeError was not raised.")
 
 
 def test_rejects_invalid_optimization_signal():
@@ -300,9 +268,7 @@ def test_rejects_invalid_optimization_signal():
     except TypeError as error:
         assert "optimization_signals" in str(error)
     else:
-        raise AssertionError(
-            "Expected TypeError was not raised."
-        )
+        raise AssertionError("Expected TypeError was not raised.")
 
 
 def test_evaluation_is_deterministic():
@@ -345,11 +311,5 @@ def test_evaluation_is_deterministic():
     )
 
     assert first.context.to_dict() == second.context.to_dict()
-    assert (
-        first.decision.should_evolve
-        == second.decision.should_evolve
-    )
-    assert (
-        first.decision.confidence
-        == second.decision.confidence
-    )
+    assert first.decision.should_evolve == second.decision.should_evolve
+    assert first.decision.confidence == second.decision.confidence

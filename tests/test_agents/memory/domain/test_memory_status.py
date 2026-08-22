@@ -1,6 +1,4 @@
-from src.agents.memory.domain.memory_status import (
-    MemoryStatus
-)
+from src.agents.memory.domain.memory_status import MemoryStatus
 
 
 def test_should_have_expected_status_values():

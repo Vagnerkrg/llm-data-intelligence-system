@@ -19,46 +19,30 @@ class ExecutionCollector:
     Observes execution without controlling it.
     """
 
-    def __init__(
-        self,
-        store: ExecutionStore
-    ):
+    def __init__(self, store: ExecutionStore):
 
         self.store = store
 
-
-    def start_execution(
-        self,
-        request: str
-    ) -> str:
+    def start_execution(self, request: str) -> str:
 
         execution_id = str(uuid.uuid4())
 
         record = ExecutionRecord(
             execution_id=execution_id,
             request=request,
-            started_at=datetime.now(
-                timezone.utc
-            ),
+            started_at=datetime.now(timezone.utc),
         )
 
         self.store.save(record)
 
         return execution_id
 
+    def record_event(self, event: ExecutionEvent):
 
-    def record_event(
-        self,
-        event: ExecutionEvent
-    ):
-
-        execution = self.store.get(
-            event.execution_id
-        )
+        execution = self.store.get(event.execution_id)
 
         if execution is None:
             return
-
 
         step = ExecutionStep(
             component=event.component,
@@ -69,10 +53,7 @@ class ExecutionCollector:
 
         execution.steps.append(step)
 
-        self.store.save(
-            execution
-        )
-
+        self.store.save(execution)
 
     def add_metric(
         self,
@@ -82,13 +63,10 @@ class ExecutionCollector:
         category: str = "general",
     ):
 
-        execution = self.store.get(
-            execution_id
-        )
+        execution = self.store.get(execution_id)
 
         if execution is None:
             return
-
 
         execution.metrics.append(
             ExecutionMetric(
@@ -98,31 +76,17 @@ class ExecutionCollector:
             )
         )
 
-        self.store.save(
-            execution
-        )
+        self.store.save(execution)
 
+    def finish_execution(self, execution_id: str, status: str = "completed"):
 
-    def finish_execution(
-        self,
-        execution_id: str,
-        status: str = "completed"
-    ):
-
-        execution = self.store.get(
-            execution_id
-        )
+        execution = self.store.get(execution_id)
 
         if execution is None:
             return
 
-
         execution.status = status
 
-        execution.finished_at = datetime.now(
-            timezone.utc
-        )
+        execution.finished_at = datetime.now(timezone.utc)
 
-        self.store.save(
-            execution
-        )
+        self.store.save(execution)

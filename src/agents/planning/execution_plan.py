@@ -13,119 +13,63 @@ class ExecutionPlan:
     based on an agent goal.
     """
 
-
     def __init__(
         self,
         objective: Optional[str] = None,
         steps: Optional[List[PlanStep]] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        goal: Optional[Goal] = None
+        goal: Optional[Goal] = None,
     ):
 
         self.goal = goal
 
-        self.objective = (
-            goal.objective
-            if goal
-            else objective
-        )
+        self.objective = goal.objective if goal else objective
 
-        self.steps = (
-            steps
-            if steps
-            else []
-        )
+        self.steps = steps if steps else []
 
-        self.metadata = (
-            metadata
-            if metadata
-            else {}
-        )
+        self.metadata = metadata if metadata else {}
 
-
-    def add_step(
-        self,
-        step: PlanStep
-    ):
+    def add_step(self, step: PlanStep):
         """
         Add a new execution step
         to the plan.
         """
 
-        self.steps.append(
-            step
-        )
+        self.steps.append(step)
 
-
-    def next_step(
-        self
-    ) -> Optional[PlanStep]:
+    def next_step(self) -> Optional[PlanStep]:
         """
         Return the next pending step.
         """
 
         for step in self.steps:
-
             if step.status == "pending":
-
                 return step
-
 
         return None
 
-
-    def is_completed(
-        self
-    ) -> bool:
+    def is_completed(self) -> bool:
         """
         Check whether all steps
         were completed.
         """
 
         if not self.steps:
-
             return False
 
+        return all(step.is_completed() for step in self.steps)
 
-        return all(
-            step.is_completed()
-            for step in self.steps
-        )
-
-
-    def summary(
-        self
-    ) -> Dict[str, Any]:
+    def summary(self) -> Dict[str, Any]:
         """
         Return execution summary.
         """
 
         return {
-
             "objective": self.objective,
-
-            "goal": (
-                self.goal.objective
-                if self.goal
-                else None
-            ),
-
-            "total_steps": len(
-                self.steps
-            ),
-
+            "goal": (self.goal.objective if self.goal else None),
+            "total_steps": len(self.steps),
             "completed_steps": len(
-                [
-                    step
-                    for step in self.steps
-                    if step.status == "completed"
-                ]
+                [step for step in self.steps if step.status == "completed"]
             ),
-
-            "status": (
-                "completed"
-                if self.is_completed()
-                else "in_progress"
-            )
-
+            "status": ("completed" if self.is_completed() else "in_progress"),
         }

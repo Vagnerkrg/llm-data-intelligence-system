@@ -11,21 +11,13 @@ class ApplicationException(Exception):
     Base exception for application errors.
     """
 
-
-    def __init__(
-        self,
-        message: str,
-        component: str | None = None
-    ):
+    def __init__(self, message: str, component: str | None = None):
 
         self.message = message
 
         self.component = component
 
-        super().__init__(
-            self.message
-        )
-
+        super().__init__(self.message)
 
 
 # Backward compatibility
@@ -36,13 +28,11 @@ class ApplicationException(Exception):
 ApplicationError = ApplicationException
 
 
-
 class ConfigurationError(ApplicationException):
     """
     Raised when application configuration
     is invalid or unavailable.
     """
-
 
 
 class DataProcessingError(ApplicationException):
@@ -52,19 +42,16 @@ class DataProcessingError(ApplicationException):
     """
 
 
-
 class RetrievalError(ApplicationException):
     """
     Raised when retrieval operations fail.
     """
 
 
-
 class AnalysisError(ApplicationException):
     """
     Raised when analytical processing fails.
     """
-
 
 
 class IntelligenceError(ApplicationException):

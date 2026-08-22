@@ -14,117 +14,61 @@ class ToolRegistry:
 
         self._tools: Dict[str, BaseTool] = {}
 
-
-
-    def register_tool(
-        self,
-        tool: BaseTool
-    ):
+    def register_tool(self, tool: BaseTool):
         """
         Register an agent tool.
         """
 
         self._tools[tool.name] = tool
 
-
-
-    def get_tool(
-        self,
-        name: str
-    ):
+    def get_tool(self, name: str):
         """
         Retrieve a registered tool.
         """
 
         return self._tools.get(name)
 
-
-
-    def list_tools(
-        self
-    ):
+    def list_tools(self):
         """
         Return all registered tool names.
         """
 
-        return list(
-            self._tools.keys()
-        )
+        return list(self._tools.keys())
 
-
-
-    def list_active_tools(
-        self
-    ) -> List[BaseTool]:
+    def list_active_tools(self) -> List[BaseTool]:
         """
         Return only enabled tools.
         """
 
-        return [
+        return [tool for tool in self._tools.values() if tool.metadata.enabled]
 
-            tool
-
-            for tool in self._tools.values()
-
-            if tool.metadata.enabled
-
-        ]
-
-
-
-    def list_tool_metadata(
-        self
-    ) -> List[ToolMetadata]:
+    def list_tool_metadata(self) -> List[ToolMetadata]:
         """
         Return metadata from all tools.
         """
 
-        return [
+        return [tool.metadata for tool in self._tools.values()]
 
-            tool.metadata
-
-            for tool in self._tools.values()
-
-        ]
-
-
-
-    def find_tools_by_capability(
-        self,
-        capability: str
-    ) -> List[BaseTool]:
+    def find_tools_by_capability(self, capability: str) -> List[BaseTool]:
         """
         Find tools supporting
         a capability.
         """
 
         return [
-
             tool
-
             for tool in self._tools.values()
-
             if capability in tool.metadata.capabilities
-
         ]
 
-
-
-    def find_active_tools_by_capability(
-        self,
-        capability: str
-    ) -> List[BaseTool]:
+    def find_active_tools_by_capability(self, capability: str) -> List[BaseTool]:
         """
         Find enabled tools supporting
         a capability.
         """
 
         return [
-
             tool
-
             for tool in self.list_active_tools()
-
             if capability in tool.metadata.capabilities
-
         ]

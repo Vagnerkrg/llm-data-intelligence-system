@@ -12,21 +12,14 @@ class DataPreprocessor:
     def __init__(self, dataframe: pd.DataFrame):
         self.df = dataframe.copy()
 
-
     def standardize_columns(self):
         """
         Standardizes column names.
         """
 
-        self.df.columns = (
-            self.df.columns
-            .str.strip()
-            .str.lower()
-            .str.replace(" ", "_")
-        )
+        self.df.columns = self.df.columns.str.strip().str.lower().str.replace(" ", "_")
 
         return self.df
-
 
     def convert_datetime_columns(self):
         """
@@ -41,42 +34,26 @@ class DataPreprocessor:
             "created",
             "updated",
             "delivered",
-            "purchase"
+            "purchase",
         ]
 
         for column in self.df.columns:
-
             column_name = column.lower()
 
-            if any(
-                keyword in column_name
-                for keyword in datetime_keywords
-            ):
-
-                self.df[column] = pd.to_datetime(
-                    self.df[column],
-                    errors="coerce"
-                )
+            if any(keyword in column_name for keyword in datetime_keywords):
+                self.df[column] = pd.to_datetime(self.df[column], errors="coerce")
 
         return self.df
-
 
     def clean_text_columns(self):
         """
         Removes unnecessary spaces from text columns.
         """
 
-        for column in self.df.select_dtypes(
-            include="object"
-        ).columns:
-
-            self.df[column] = (
-                self.df[column]
-                .str.strip()
-            )
+        for column in self.df.select_dtypes(include="object").columns:
+            self.df[column] = self.df[column].str.strip()
 
         return self.df
-
 
     def process(self):
         """

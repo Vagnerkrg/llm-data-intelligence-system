@@ -2,12 +2,9 @@ from src.cognitive.evaluation.protocols.evaluation_strategy import EvaluationStr
 
 
 class MockEvaluationStrategy(EvaluationStrategy):
-
     def execute(self, evaluations):
 
-        return {
-            "score": 0.85
-        }
+        return {"score": 0.85}
 
 
 def test_evaluation_strategy_protocol_creation():
@@ -28,14 +25,6 @@ def test_evaluation_strategy_execution():
 
     strategy = MockEvaluationStrategy()
 
-    result = strategy.execute(
-        [
-            {
-                "capability": "reasoning",
-                "score": 0.85
-            }
-        ]
-    )
+    result = strategy.execute([{"capability": "reasoning", "score": 0.85}])
 
     assert result["score"] == 0.85
-    

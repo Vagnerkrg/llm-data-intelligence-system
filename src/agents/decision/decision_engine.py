@@ -33,25 +33,18 @@ class DecisionEngine:
 
         reason = DecisionReason(
             justification=(
-                f"Selected strategy '{selected.name}' "
-                "based on evaluation criteria."
+                f"Selected strategy '{selected.name}' based on evaluation criteria."
             ),
             confidence=selected.confidence,
-            evidence=[
-                context.objective
-            ],
+            evidence=[context.objective],
         )
 
-        trace = DecisionTrace(
-            decision_id=context.request_id
-        )
+        trace = DecisionTrace(decision_id=context.request_id)
 
         trace.add_reason(reason)
         trace.add_alternative(selected)
 
-        trace.select_alternative(
-            selected.name
-        )
+        trace.select_alternative(selected.name)
 
         return Decision(
             decision_id=context.request_id,

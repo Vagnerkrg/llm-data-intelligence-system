@@ -17,26 +17,16 @@ def test_replanning_decision_on_failure():
     feedback = ExecutionFeedback(
         success=False,
         message="Execution failed",
-        issues=[
-            "Tool timeout"
-        ],
+        issues=["Tool timeout"],
     )
 
-    decision = engine.decide(
-        feedback
-    )
+    decision = engine.decide(feedback)
 
     assert decision.should_replan is True
 
-    assert (
-        decision.reason
-        == "Execution failure detected"
-    )
+    assert decision.reason == "Execution failure detected"
 
-    assert (
-        "Tool timeout"
-        in decision.issues
-    )
+    assert "Tool timeout" in decision.issues
 
 
 def test_replanning_decision_on_success():
@@ -51,16 +41,11 @@ def test_replanning_decision_on_success():
         message="Completed",
     )
 
-    decision = engine.decide(
-        feedback
-    )
+    decision = engine.decide(feedback)
 
     assert decision.should_replan is False
 
-    assert (
-        decision.reason
-        == "Execution completed successfully"
-    )
+    assert decision.reason == "Execution completed successfully"
 
 
 def test_replanning_decision_preserves_multiple_issues():
@@ -79,9 +64,7 @@ def test_replanning_decision_preserves_multiple_issues():
         ],
     )
 
-    decision = engine.decide(
-        feedback
-    )
+    decision = engine.decide(feedback)
 
     assert len(decision.issues) == 2
 
@@ -98,8 +81,6 @@ def test_replanning_decision_default_issue_list():
         message="OK",
     )
 
-    decision = engine.decide(
-        feedback
-    )
+    decision = engine.decide(feedback)
 
     assert decision.issues == []

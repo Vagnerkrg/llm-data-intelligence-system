@@ -12,7 +12,6 @@ class AgentDecisionTrace:
     generated during an agent interaction.
     """
 
-
     question: str
 
     selected_tool: str | None

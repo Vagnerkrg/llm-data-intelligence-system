@@ -3,15 +3,9 @@ import pandas as pd
 from src.data.validator import DataValidator
 
 
-
 def test_validator_summary():
 
-    dataframe = pd.DataFrame(
-        {
-            "id": [1, 2, 3],
-            "price": [10.0, 20.0, 30.0]
-        }
-    )
+    dataframe = pd.DataFrame({"id": [1, 2, 3], "price": [10.0, 20.0, 30.0]})
 
     validator = DataValidator(dataframe)
 
@@ -22,15 +16,9 @@ def test_validator_summary():
     assert "memory_usage_mb" in summary
 
 
-
 def test_validator_missing_values():
 
-    dataframe = pd.DataFrame(
-        {
-            "id": [1, 2, 3],
-            "price": [10.0, None, 30.0]
-        }
-    )
+    dataframe = pd.DataFrame({"id": [1, 2, 3], "price": [10.0, None, 30.0]})
 
     validator = DataValidator(dataframe)
 
@@ -40,15 +28,9 @@ def test_validator_missing_values():
     assert missing["id"] == 0
 
 
-
 def test_validator_data_types():
 
-    dataframe = pd.DataFrame(
-        {
-            "id": [1, 2],
-            "name": ["A", "B"]
-        }
-    )
+    dataframe = pd.DataFrame({"id": [1, 2], "name": ["A", "B"]})
 
     validator = DataValidator(dataframe)
 
@@ -58,15 +40,9 @@ def test_validator_data_types():
     assert "name" in types
 
 
-
 def test_validator_complete_report():
 
-    dataframe = pd.DataFrame(
-        {
-            "id": [1, 2],
-            "value": [100, 200]
-        }
-    )
+    dataframe = pd.DataFrame({"id": [1, 2], "value": [100, 200]})
 
     validator = DataValidator(dataframe)
 

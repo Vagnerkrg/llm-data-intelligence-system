@@ -1,9 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from src.agents.memory.domain.memory_status import (
-    MemoryStatus
-)
+from src.agents.memory.domain.memory_status import MemoryStatus
 
 
 @dataclass

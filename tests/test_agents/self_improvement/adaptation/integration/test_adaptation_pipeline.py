@@ -26,6 +26,4 @@ def test_adaptation_pipeline():
 
     response = engine.adapt(request)
 
-    assert response.result.action.description == (
-        "optimize tool selection"
-    )
+    assert response.result.action.description == ("optimize tool selection")

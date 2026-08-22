@@ -13,11 +13,7 @@ from src.cognitive.evaluation.actions.models.action_type import (
 
 def test_action_result_execution():
 
-    result = ActionResult(
-
-        action=Action(ActionType.ACCEPT)
-
-    )
+    result = ActionResult(action=Action(ActionType.ACCEPT))
 
     assert not result.executed
 

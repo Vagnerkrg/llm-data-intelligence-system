@@ -15,8 +15,6 @@ class Pattern:
 
     occurrences: int = 0
 
-    memory_ids: List[str] = field(
-        default_factory=list
-    )
+    memory_ids: List[str] = field(default_factory=list)
 
     confidence: float = 0.0

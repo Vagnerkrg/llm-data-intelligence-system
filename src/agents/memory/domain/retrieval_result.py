@@ -13,9 +13,7 @@ class RetrievalResult:
 
     score: float = 0.0
 
-    memories: List[Any] = field(
-        default_factory=list
-    )
+    memories: List[Any] = field(default_factory=list)
 
     success: bool = False
 

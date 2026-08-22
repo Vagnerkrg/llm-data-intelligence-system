@@ -16,7 +16,6 @@ class ExecutionFeedbackMemory:
     def __init__(self):
         self._feedbacks: List[ExecutionFeedback] = []
 
-
     def add(
         self,
         feedback: ExecutionFeedback,
@@ -25,24 +24,16 @@ class ExecutionFeedbackMemory:
         Store a new execution feedback.
         """
 
-        self._feedbacks.append(
-            feedback
-        )
+        self._feedbacks.append(feedback)
 
-
-    def all(
-        self
-    ) -> List[ExecutionFeedback]:
+    def all(self) -> List[ExecutionFeedback]:
         """
         Return all stored feedback entries.
         """
 
         return self._feedbacks.copy()
 
-
-    def last(
-        self
-    ) -> ExecutionFeedback | None:
+    def last(self) -> ExecutionFeedback | None:
         """
         Return latest feedback.
         """
@@ -50,25 +41,16 @@ class ExecutionFeedbackMemory:
         if not self._feedbacks:
             return None
 
-
         return self._feedbacks[-1]
 
-
-    def count(
-        self
-    ) -> int:
+    def count(self) -> int:
         """
         Return number of stored feedback entries.
         """
 
-        return len(
-            self._feedbacks
-        )
+        return len(self._feedbacks)
 
-
-    def clear(
-        self
-    ):
+    def clear(self):
         """
         Clear feedback history.
         """

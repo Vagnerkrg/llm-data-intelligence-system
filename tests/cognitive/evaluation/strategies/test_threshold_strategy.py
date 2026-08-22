@@ -1,6 +1,4 @@
-from src.cognitive.evaluation.strategies.threshold_strategy import (
-    ThresholdStrategy
-)
+from src.cognitive.evaluation.strategies.threshold_strategy import ThresholdStrategy
 
 
 def test_threshold_strategy_creation():
@@ -37,8 +35,6 @@ def test_threshold_strategy_fail():
 
 def test_threshold_strategy_custom_threshold():
 
-    strategy = ThresholdStrategy(
-        threshold=0.8
-    )
+    strategy = ThresholdStrategy(threshold=0.8)
 
     assert strategy.evaluate(0.8) is True

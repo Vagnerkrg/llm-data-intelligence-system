@@ -13,7 +13,6 @@ from src.cognitive.evaluation.feedback_loop.protocols.feedback_loop_protocol imp
 
 
 class FakeFeedbackLoop(FeedbackLoopProtocol):
-
     def process_feedback(
         self,
         feedback: LearningFeedback,

@@ -21,7 +21,6 @@ class ExecutionObservability:
         self.store = ExecutionMetricsStore()
         self.aggregator = MetricsAggregator()
 
-
     def record_metric(
         self,
         execution_id: str,
@@ -40,12 +39,10 @@ class ExecutionObservability:
             category=category,
         )
 
-
         self.store.add(
             execution_id=execution_id,
             metric=metric,
         )
-
 
         self.aggregator.add_metric(
             execution_id=execution_id,
@@ -53,9 +50,7 @@ class ExecutionObservability:
             metric_value=metric_value,
         )
 
-
         return metric
-
 
     def get_execution_metrics(
         self,
@@ -65,15 +60,9 @@ class ExecutionObservability:
         Retrieve stored metrics.
         """
 
-        records = self.store.get_by_execution(
-            execution_id
-        )
+        records = self.store.get_by_execution(execution_id)
 
-        return [
-            record.metric
-            for record in records
-        ]
-
+        return [record.metric for record in records]
 
     def analyze_execution(
         self,
@@ -83,6 +72,4 @@ class ExecutionObservability:
         Generate execution intelligence summary.
         """
 
-        return self.aggregator.analyze(
-            execution_id
-        )
+        return self.aggregator.analyze(execution_id)

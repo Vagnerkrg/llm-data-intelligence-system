@@ -1,70 +1,27 @@
-from src.application.intelligence_system import (
-    IntelligenceSystem
-)
+from src.application.intelligence_system import IntelligenceSystem
 
-from src.core.interfaces.response import (
-    IntelligenceResponse
-)
+from src.core.interfaces.response import IntelligenceResponse
 
 
-from tests.fixtures.sample_responses import (
-    RAG_RESPONSE
-)
-
+from tests.fixtures.sample_responses import RAG_RESPONSE
 
 
 class FakeEngine:
-
-
-    def query(
-        self,
-        question
-    ):
+    def query(self, question):
 
         return RAG_RESPONSE
 
 
-
-
 def test_complete_intelligence_flow():
-
 
     system = IntelligenceSystem()
 
-
-
     system.engine = FakeEngine()
 
+    response = system.ask("Quais produtos aparecem?")
 
+    assert isinstance(response, IntelligenceResponse)
 
-    response = system.ask(
+    assert response.answer == ("RAG test response")
 
-        "Quais produtos aparecem?"
-
-    )
-
-
-
-    assert isinstance(
-
-        response,
-
-        IntelligenceResponse
-
-    )
-
-
-
-    assert response.answer == (
-
-        "RAG test response"
-
-    )
-
-
-
-    assert response.source == (
-
-        "rag"
-
-    )
+    assert response.source == ("rag")

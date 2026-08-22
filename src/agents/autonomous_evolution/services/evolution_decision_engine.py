@@ -71,16 +71,12 @@ class EvolutionDecisionEngine:
                 should_evolve=False,
                 confidence=self._calculate_confidence(evidence),
                 status=EvolutionStatus.PENDING,
-                reason=(
-                    "Insufficient evidence to justify autonomous evolution."
-                ),
+                reason=("Insufficient evidence to justify autonomous evolution."),
                 evidence=evidence,
             )
 
         eligible_evidence = [
-            item
-            for item in evidence
-            if item.confidence >= self.min_confidence
+            item for item in evidence if item.confidence >= self.min_confidence
         ]
 
         if len(eligible_evidence) < self.min_evidence:
@@ -95,13 +91,9 @@ class EvolutionDecisionEngine:
                 evidence=evidence,
             )
 
-        average_strength = self._calculate_average_strength(
-            eligible_evidence
-        )
+        average_strength = self._calculate_average_strength(eligible_evidence)
 
-        should_evolve = (
-            average_strength >= self.evolution_threshold
-        )
+        should_evolve = average_strength >= self.evolution_threshold
 
         if should_evolve:
             status = EvolutionStatus.PROPOSED
@@ -111,15 +103,11 @@ class EvolutionDecisionEngine:
             )
         else:
             status = EvolutionStatus.PENDING
-            reason = (
-                "Evidence does not satisfy the evolution score threshold."
-            )
+            reason = "Evidence does not satisfy the evolution score threshold."
 
         return EvolutionDecision(
             should_evolve=should_evolve,
-            confidence=self._calculate_confidence(
-                eligible_evidence
-            ),
+            confidence=self._calculate_confidence(eligible_evidence),
             status=status,
             reason=reason,
             evidence=evidence,
@@ -306,10 +294,7 @@ class EvolutionDecisionEngine:
         if not evidence:
             return 0.0
 
-        return sum(
-            float(item.value)
-            for item in evidence
-        ) / len(evidence)
+        return sum(float(item.value) for item in evidence) / len(evidence)
 
     def _calculate_confidence(
         self,
@@ -318,10 +303,7 @@ class EvolutionDecisionEngine:
         if not evidence:
             return 0.0
 
-        return sum(
-            item.confidence
-            for item in evidence
-        ) / len(evidence)
+        return sum(item.confidence for item in evidence) / len(evidence)
 
     @staticmethod
     def _validate_configuration(
@@ -330,16 +312,10 @@ class EvolutionDecisionEngine:
         evolution_threshold: float,
     ) -> None:
         if min_evidence < 1:
-            raise ValueError(
-                "min_evidence must be greater than or equal to 1."
-            )
+            raise ValueError("min_evidence must be greater than or equal to 1.")
 
         if not 0.0 <= min_confidence <= 1.0:
-            raise ValueError(
-                "min_confidence must be between 0.0 and 1.0."
-            )
+            raise ValueError("min_confidence must be between 0.0 and 1.0.")
 
         if not 0.0 <= evolution_threshold <= 1.0:
-            raise ValueError(
-                "evolution_threshold must be between 0.0 and 1.0."
-            )
+            raise ValueError("evolution_threshold must be between 0.0 and 1.0.")

@@ -1,4 +1,4 @@
-﻿from dataclasses import dataclass, field
+from dataclasses import dataclass, field
 from typing import Any
 
 
@@ -30,4 +30,3 @@ class LearningInsight:
             "confidence": self.confidence,
             "metadata": dict(self.metadata),
         }
-

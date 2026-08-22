@@ -13,7 +13,4 @@ class LearningValidator:
         if not outcomes:
             return False
 
-        return all(
-            getattr(outcome, "confidence", 0) >= 0.0
-            for outcome in outcomes
-        )
+        return all(getattr(outcome, "confidence", 0) >= 0.0 for outcome in outcomes)

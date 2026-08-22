@@ -10,7 +10,7 @@ def test_alternative_generator_creates_alternatives():
         constraints=[],
         capabilities=["data_analysis"],
         available_tools=["python", "llm"],
-        metadata={}
+        metadata={},
     )
 
     generator = AlternativeGenerator()

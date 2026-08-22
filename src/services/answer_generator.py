@@ -11,100 +11,41 @@ class AnswerGenerator:
     - RAG textual answers
     """
 
-
-    def generate(
-        self,
-        result: Any
-    ) -> str:
+    def generate(self, result: Any) -> str:
         """
         Generates natural language responses.
         """
 
-
         if not result:
-
-            return (
-                "Não encontrei informações "
-                "suficientes para responder."
-            )
-
-
+            return "Não encontrei informações suficientes para responder."
 
         # RAG already generated response
 
-        if isinstance(
-            result,
-            str
-        ):
-
+        if isinstance(result, str):
             return result
 
-
-
-        if not isinstance(
-            result,
-            dict
-        ):
-
+        if not isinstance(result, dict):
             return str(result)
 
-
-
-        operation = result.get(
-            "operation"
-        )
-
-
+        operation = result.get("operation")
 
         if operation == "count_rows":
+            dataset = result.get("dataset")
 
-            dataset = result.get(
-                "dataset"
-            )
+            value = result.get("result")
 
-            value = result.get(
-                "result"
-            )
-
-
-            return (
-                f"O dataset {dataset} "
-                f"possui {value} registros."
-            )
-
-
+            return f"O dataset {dataset} possui {value} registros."
 
         if operation == "columns":
+            columns = result.get("result", [])
 
-            columns = result.get(
-                "result",
-                []
-            )
-
-
-            return (
-                "As colunas disponíveis são: "
-                +
-                ", ".join(columns)
-            )
-
-
+            return "As colunas disponíveis são: " + ", ".join(columns)
 
         if operation == "value_counts":
-
-            values = result.get(
-                "result",
-                {}
-            )
-
+            values = result.get("result", {})
 
             if values:
-
-                category = max(
-                    values,
-                    key=values.get
-                )
-
+                category = max(values, key=values.get)
 
                 return (
                     f"A categoria com maior "
@@ -113,12 +54,6 @@ class AnswerGenerator:
                     f"{values[category]} registros."
                 )
 
-
-
         # Generic fallback
 
-        return (
-            "Resultado encontrado: "
-            +
-            str(result)
-        )
+        return "Resultado encontrado: " + str(result)

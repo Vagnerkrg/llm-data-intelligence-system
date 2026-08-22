@@ -28,26 +28,14 @@ class CognitiveEvaluationAdapter:
             execution_context,
             ExecutionContext,
         ):
-            raise TypeError(
-                "execution_context must be an ExecutionContext instance."
-            )
+            raise TypeError("execution_context must be an ExecutionContext instance.")
 
         return EvaluationContext(
-            execution_result=self._build_execution_result(
-                execution_context
-            ),
-            reasoning_information=self._build_reasoning_information(
-                execution_context
-            ),
-            planning_information=self._build_planning_information(
-                execution_context
-            ),
-            memory_information=self._build_memory_information(
-                execution_context
-            ),
-            improvement_information=(
-                execution_context.cognitive_improvement
-            ),
+            execution_result=self._build_execution_result(execution_context),
+            reasoning_information=self._build_reasoning_information(execution_context),
+            planning_information=self._build_planning_information(execution_context),
+            memory_information=self._build_memory_information(execution_context),
+            improvement_information=(execution_context.cognitive_improvement),
             metadata={
                 "question": execution_context.question,
                 "status": execution_context.status,
@@ -63,29 +51,17 @@ class CognitiveEvaluationAdapter:
         """
 
         completed_steps = float(
-            sum(
-                1
-                for result in context.results
-                if result is not None
-            )
+            sum(1 for result in context.results if result is not None)
         )
 
         failed_steps = 0.0
 
         if context.plan is not None:
             failed_steps = float(
-                sum(
-                    1
-                    for step in context.plan.steps
-                    if step.status == "failed"
-                )
+                sum(1 for step in context.plan.steps if step.status == "failed")
             )
 
-        execution_efficiency = (
-            1.0
-            if context.status == "completed"
-            else 0.0
-        )
+        execution_efficiency = 1.0 if context.status == "completed" else 0.0
 
         return {
             "execution_status": context.status,
@@ -173,17 +149,9 @@ class CognitiveEvaluationAdapter:
                 "plan_completeness": 0.0,
             }
 
-        completed_steps = sum(
-            1
-            for step in plan.steps
-            if step.status == "completed"
-        )
+        completed_steps = sum(1 for step in plan.steps if step.status == "completed")
 
-        failed_steps = sum(
-            1
-            for step in plan.steps
-            if step.status == "failed"
-        )
+        failed_steps = sum(1 for step in plan.steps if step.status == "failed")
 
         execution_steps = min(
             1.0,
@@ -195,21 +163,13 @@ class CognitiveEvaluationAdapter:
             if failed_steps == 0
             else max(
                 0.0,
-                1.0 - (
-                    failed_steps / total_steps
-                ),
+                1.0 - (failed_steps / total_steps),
             )
         )
 
-        dependency_resolution = (
-            1.0
-            if failed_steps == 0
-            else 0.0
-        )
+        dependency_resolution = 1.0 if failed_steps == 0 else 0.0
 
-        plan_completeness = (
-            completed_steps / total_steps
-        )
+        plan_completeness = completed_steps / total_steps
 
         return {
             "execution_steps": execution_steps,

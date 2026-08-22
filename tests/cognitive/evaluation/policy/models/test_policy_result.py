@@ -14,17 +14,9 @@ from src.cognitive.evaluation.policy.models.policy_type import (
 def test_policy_result():
 
     result = PolicyResult(
-
-        policy=Policy(
-
-            policy_type=PolicyType.AUTOMATIC
-
-        ),
-
+        policy=Policy(policy_type=PolicyType.AUTOMATIC),
         accepted=True,
-
         reason="Score accepted",
-
     )
 
     assert result.approved()

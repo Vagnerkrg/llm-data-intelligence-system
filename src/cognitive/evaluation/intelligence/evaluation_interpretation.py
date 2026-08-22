@@ -11,6 +11,4 @@ class EvaluationInterpretation:
 
     requires_improvement: bool
 
-    areas: list[str] = field(
-        default_factory=list
-    )
+    areas: list[str] = field(default_factory=list)

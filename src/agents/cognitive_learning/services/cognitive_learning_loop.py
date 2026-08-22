@@ -51,21 +51,11 @@ class CognitiveLearningLoopResult:
 
     success: bool = False
     evaluation_result: EvaluationResult | None = None
-    learning_experiences: list[LearningExperience] = field(
-        default_factory=list
-    )
-    learning_outcomes: list[LearningOutcome] = field(
-        default_factory=list
-    )
-    knowledge_results: list[LearningKnowledgeResult] = field(
-        default_factory=list
-    )
-    memory_results: list[LearningMemoryResult] = field(
-        default_factory=list
-    )
-    optimization_signals: list[OptimizationSignal] = field(
-        default_factory=list
-    )
+    learning_experiences: list[LearningExperience] = field(default_factory=list)
+    learning_outcomes: list[LearningOutcome] = field(default_factory=list)
+    knowledge_results: list[LearningKnowledgeResult] = field(default_factory=list)
+    memory_results: list[LearningMemoryResult] = field(default_factory=list)
+    optimization_signals: list[OptimizationSignal] = field(default_factory=list)
     evolution_result: LearningEvolutionResult | None = None
     failed_stage: str | None = None
     error: str | None = None
@@ -141,9 +131,7 @@ class CognitiveLearningLoop:
         evaluation = self._run_stage(
             result,
             "evaluation",
-            lambda: self.cognitive_evaluator.evaluate(
-                evaluation_context
-            ),
+            lambda: self.cognitive_evaluator.evaluate(evaluation_context),
         )
 
         if evaluation is None:
@@ -156,12 +144,8 @@ class CognitiveLearningLoop:
                 "signal_type": "cognitive_evaluation",
                 "pattern": "cognitive evaluation completed",
                 "confidence": evaluation.overall_score,
-                "impact": self._resolve_evaluation_impact(
-                    evaluation.overall_score
-                ),
-                "recommendation": (
-                    "Use cognitive evaluation as learning evidence."
-                ),
+                "impact": self._resolve_evaluation_impact(evaluation.overall_score),
+                "recommendation": ("Use cognitive evaluation as learning evidence."),
             },
             *list(learning_signals),
         ]
@@ -169,9 +153,7 @@ class CognitiveLearningLoop:
         experiences = self._run_stage(
             result,
             "learning_signal_processing",
-            lambda: self.learning_signal_processor.process(
-                signals
-            ),
+            lambda: self.learning_signal_processor.process(signals),
         )
 
         if experiences is None:
@@ -182,9 +164,7 @@ class CognitiveLearningLoop:
         outcomes = self._run_stage(
             result,
             "learning_outcome",
-            lambda: self.learning_outcome_engine.evaluate(
-                experiences
-            ),
+            lambda: self.learning_outcome_engine.evaluate(experiences),
         )
 
         if outcomes is None:
@@ -195,9 +175,7 @@ class CognitiveLearningLoop:
         knowledge_results = self._run_stage(
             result,
             "knowledge",
-            lambda: self.knowledge_integrator.integrate_many(
-                outcomes
-            ),
+            lambda: self.knowledge_integrator.integrate_many(outcomes),
         )
 
         if knowledge_results is None:
@@ -209,9 +187,7 @@ class CognitiveLearningLoop:
             memory_results = self._run_stage(
                 result,
                 "memory",
-                lambda: self.memory_bridge.store_many(
-                    outcomes
-                ),
+                lambda: self.memory_bridge.store_many(outcomes),
             )
 
             if memory_results is None:
@@ -220,17 +196,13 @@ class CognitiveLearningLoop:
             result.memory_results = memory_results
 
         optimization_context = ExperienceOptimizationContext(
-            execution_history=list(
-                execution_history
-            )
+            execution_history=list(execution_history)
         )
 
         optimization_signals = self._run_stage(
             result,
             "optimization",
-            lambda: self.experience_optimizer.optimize(
-                optimization_context
-            ),
+            lambda: self.experience_optimizer.optimize(optimization_context),
         )
 
         if optimization_signals is None:

@@ -12,18 +12,10 @@ class ImprovementResult:
 
     status: ImprovementStatus
 
-    insights: list[str] = field(
-        default_factory=list
-    )
+    insights: list[str] = field(default_factory=list)
 
-    knowledge: list[Any] = field(
-        default_factory=list
-    )
+    knowledge: list[Any] = field(default_factory=list)
 
-    adaptations: list[Any] = field(
-        default_factory=list
-    )
+    adaptations: list[Any] = field(default_factory=list)
 
-    metadata: Dict[str, Any] = field(
-        default_factory=dict
-    )
+    metadata: Dict[str, Any] = field(default_factory=dict)

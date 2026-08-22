@@ -13,14 +13,8 @@ class ExecutionFeedback:
 
     message: str
 
-    issues: List[str] = field(
-        default_factory=list
-    )
+    issues: List[str] = field(default_factory=list)
 
-    recommendations: List[str] = field(
-        default_factory=list
-    )
+    recommendations: List[str] = field(default_factory=list)
 
-    metadata: Dict[str, Any] = field(
-        default_factory=dict
-    )
+    metadata: Dict[str, Any] = field(default_factory=dict)

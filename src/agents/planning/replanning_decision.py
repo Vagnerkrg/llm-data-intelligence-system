@@ -2,10 +2,7 @@ from dataclasses import dataclass
 from typing import List
 
 
-from src.agents.execution.execution_feedback import (
-    ExecutionFeedback
-)
-
+from src.agents.execution.execution_feedback import ExecutionFeedback
 
 
 @dataclass
@@ -23,7 +20,6 @@ class ReplanningDecision:
 
     issues: List[str] = None
 
-
     def __post_init__(self):
         """
         Ensure issues always has
@@ -34,51 +30,29 @@ class ReplanningDecision:
             self.issues = []
 
 
-
 class ReplanningDecisionEngine:
     """
     Analyzes execution feedback and decides
     whether replanning is required.
     """
 
-
-    def decide(
-        self,
-        feedback: ExecutionFeedback
-    ) -> ReplanningDecision:
+    def decide(self, feedback: ExecutionFeedback) -> ReplanningDecision:
         """
         Evaluate execution feedback and
         generate replanning decision.
         """
 
-
         if not feedback.success:
-
             return ReplanningDecision(
                 should_replan=True,
-
-                reason=(
-                    "Execution failure detected"
-                ),
-
+                reason=("Execution failure detected"),
                 strategy="recovery",
-
-                issues=(
-                    feedback.issues
-                    if feedback.issues
-                    else []
-                )
+                issues=(feedback.issues if feedback.issues else []),
             )
-
 
         return ReplanningDecision(
             should_replan=False,
-
-            reason=(
-                "Execution completed successfully"
-            ),
-
+            reason=("Execution completed successfully"),
             strategy="continue",
-
-            issues=[]
+            issues=[],
         )

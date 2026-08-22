@@ -10,9 +10,7 @@ from src.agents.runtime.execution_context import ExecutionContext
 def test_should_adapt_execution_context_to_evaluation_context():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="Analyze customer data"
-    )
+    execution_context = ExecutionContext(question="Analyze customer data")
 
     execution_context.status = "completed"
 
@@ -26,25 +24,19 @@ def test_should_adapt_execution_context_to_evaluation_context():
 def test_should_preserve_execution_status():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="Test execution"
-    )
+    execution_context = ExecutionContext(question="Test execution")
 
     execution_context.status = "completed"
 
     result = adapter.adapt(execution_context)
 
-    assert result.execution_result["execution_status"] == (
-        "completed"
-    )
+    assert result.execution_result["execution_status"] == ("completed")
 
 
 def test_should_adapt_reasoning_information():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="Analyze products"
-    )
+    execution_context = ExecutionContext(question="Analyze products")
 
     execution_context.reasoning = {
         "completeness": 1.0,
@@ -66,9 +58,7 @@ def test_should_adapt_reasoning_information():
 def test_should_adapt_memory_context():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="Use previous customer information"
-    )
+    execution_context = ExecutionContext(question="Use previous customer information")
 
     execution_context.memory_context = {
         "memory_usage": 1.0,
@@ -90,23 +80,17 @@ def test_should_adapt_memory_context():
 def test_should_preserve_execution_question_in_metadata():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="How many customers exist?"
-    )
+    execution_context = ExecutionContext(question="How many customers exist?")
 
     result = adapter.adapt(execution_context)
 
-    assert result.metadata["question"] == (
-        "How many customers exist?"
-    )
+    assert result.metadata["question"] == ("How many customers exist?")
 
 
 def test_should_adapt_completed_steps():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="Execute analysis"
-    )
+    execution_context = ExecutionContext(question="Execute analysis")
 
     execution_context.results = [
         {"result": "step 1"},
@@ -121,9 +105,7 @@ def test_should_adapt_completed_steps():
 def test_should_return_valid_evaluation_context_when_information_is_missing():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="Simple question"
-    )
+    execution_context = ExecutionContext(question="Simple question")
 
     result = adapter.adapt(execution_context)
 
@@ -135,9 +117,7 @@ def test_should_return_valid_evaluation_context_when_information_is_missing():
 def test_should_adapt_cognitive_improvement_information():
     adapter = CognitiveEvaluationAdapter()
 
-    execution_context = ExecutionContext(
-        question="Improve execution"
-    )
+    execution_context = ExecutionContext(question="Improve execution")
 
     execution_context.cognitive_improvement = {
         "improvement_score": 0.8,

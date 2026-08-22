@@ -11,17 +11,13 @@ def test_decision_explainer_creates_explanation():
         status=DecisionStatus.SELECTED,
         strategy="strategy_b",
         trace=DecisionTrace(
-            decision_id="decision_001",
-            selected_alternative_id="strategy_b"
-        )
+            decision_id="decision_001", selected_alternative_id="strategy_b"
+        ),
     )
 
     explainer = DecisionExplainer()
 
-    explanation = explainer.explain(
-        decision,
-        confidence=0.9
-    )
+    explanation = explainer.explain(decision, confidence=0.9)
 
     assert isinstance(explanation, str)
 

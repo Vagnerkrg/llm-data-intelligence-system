@@ -7,16 +7,11 @@ def test_intelligence_system_has_agent_runtime():
 
     system = IntelligenceSystem()
 
-    assert isinstance(
-        system.agent_runtime,
-        AgentRuntime
-    )
+    assert isinstance(system.agent_runtime, AgentRuntime)
 
 
 def test_execution_context_creation():
 
-    context = ExecutionContext(
-        question="How many products exist?"
-    )
+    context = ExecutionContext(question="How many products exist?")
 
     assert context.question == "How many products exist?"

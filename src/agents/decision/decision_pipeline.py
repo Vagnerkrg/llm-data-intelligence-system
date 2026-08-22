@@ -34,40 +34,23 @@ class DecisionPipeline:
         self.confidence_analyzer = ConfidenceAnalyzer()
         self.explainer = DecisionExplainer()
 
-
-    def run(
-        self,
-        context: DecisionContext
-    ) -> DecisionPipelineResult:
+    def run(self, context: DecisionContext) -> DecisionPipelineResult:
         """
         Execute complete decision pipeline.
         """
 
-        alternatives = self.generator.generate(
-            context
-        )
+        alternatives = self.generator.generate(context)
 
-        evaluations = self.evaluator.evaluate(
-            alternatives,
-            context
-        )
+        evaluations = self.evaluator.evaluate(alternatives, context)
 
-        decision = self.selector.select(
-            alternatives,
-            evaluations
-        )
+        decision = self.selector.select(alternatives, evaluations)
 
-        confidence = self.confidence_analyzer.calculate(
-            evaluations
-        )
+        confidence = self.confidence_analyzer.calculate(evaluations)
 
-        explanation = self.explainer.explain(
-            decision,
-            confidence
-        )
+        explanation = self.explainer.explain(decision, confidence)
 
         return DecisionPipelineResult(
             decision_id=decision.decision_id,
             confidence=confidence,
-            explanation=explanation
+            explanation=explanation,
         )

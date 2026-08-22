@@ -74,9 +74,7 @@ def test_should_return_zero_when_execution_information_is_missing():
 
 
 def test_should_return_zero_for_invalid_execution_information():
-    context = EvaluationContext(
-        execution_result="invalid"
-    )
+    context = EvaluationContext(execution_result="invalid")
 
     result = ExecutionQualityMetric().evaluate(context)
 

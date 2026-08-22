@@ -16,6 +16,7 @@ from src.api.dependencies import (
     get_memory_knowledge_service,
 )
 from src.api.schemas import (
+    APIErrorResponse,
     AnswerResponse,
     CognitiveStateResponse,
     CreateExecutionRequest,
@@ -86,6 +87,28 @@ def ask_question(
 @router.post(
     "/api/v1/ask",
     response_model=ExecutionResponse,
+    responses={
+        400: {
+            "model": APIErrorResponse,
+            "description": "Invalid request.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Request validation failed.",
+        },
+        500: {
+            "model": APIErrorResponse,
+            "description": "Execution or internal error.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Service unavailable.",
+        },
+        504: {
+            "model": APIErrorResponse,
+            "description": "Execution timeout.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Execute a cognitive request",
     tags=["execution"],
@@ -105,6 +128,20 @@ def execute(
 @router.get(
     "/api/v1/executions/{execution_id}",
     response_model=ExecutionResponse,
+    responses={
+        404: {
+            "model": APIErrorResponse,
+            "description": "Execution not found.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Invalid execution identifier.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Execution trace unavailable.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Get execution status and result",
     tags=["execution"],
@@ -147,6 +184,20 @@ def get_execution(
 @router.get(
     "/api/v1/executions/{execution_id}/trace",
     response_model=ExecutionTraceResponse,
+    responses={
+        404: {
+            "model": APIErrorResponse,
+            "description": "Execution or trace not found.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Invalid execution identifier.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Execution trace unavailable.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Get complete execution trace",
     tags=["execution"],
@@ -194,6 +245,20 @@ def get_execution_trace(
 @router.get(
     "/api/v1/executions/{execution_id}/cognitive-state",
     response_model=CognitiveStateResponse,
+    responses={
+        404: {
+            "model": APIErrorResponse,
+            "description": "Execution not found.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Invalid execution identifier.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Cognitive state unavailable.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Get cognitive execution state",
     tags=["cognitive"],
@@ -241,6 +306,20 @@ def get_cognitive_state(
 @router.get(
     "/api/v1/executions/{execution_id}/memory",
     response_model=MemoryResponse,
+    responses={
+        404: {
+            "model": APIErrorResponse,
+            "description": "Execution not found.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Invalid execution identifier.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Memory service unavailable.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Get execution memory observations",
     tags=["memory"],
@@ -283,6 +362,20 @@ def get_execution_memory(
 @router.get(
     "/api/v1/executions/{execution_id}/knowledge",
     response_model=KnowledgeResponse,
+    responses={
+        404: {
+            "model": APIErrorResponse,
+            "description": "Execution not found.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Invalid execution identifier.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Knowledge service unavailable.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Get execution knowledge observations",
     tags=["knowledge"],
@@ -330,6 +423,20 @@ def get_execution_knowledge(
 @router.get(
     "/api/v1/executions/{execution_id}/learning",
     response_model=LearningResponse,
+    responses={
+        404: {
+            "model": APIErrorResponse,
+            "description": "Execution not found.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Invalid execution identifier.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Learning service unavailable.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Get execution learning state",
     tags=["learning"],
@@ -372,6 +479,20 @@ def get_execution_learning(
 @router.get(
     "/api/v1/executions/{execution_id}/evolution",
     response_model=EvolutionResponse,
+    responses={
+        404: {
+            "model": APIErrorResponse,
+            "description": "Execution not found.",
+        },
+        422: {
+            "model": APIErrorResponse,
+            "description": "Invalid execution identifier.",
+        },
+        503: {
+            "model": APIErrorResponse,
+            "description": "Evolution service unavailable.",
+        },
+    },
     status_code=status.HTTP_200_OK,
     summary="Get execution evolution state",
     tags=["evolution"],

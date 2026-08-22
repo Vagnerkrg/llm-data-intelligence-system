@@ -17,7 +17,6 @@ class FeedbackAnalyzer:
         score = evaluation.score
 
         if score >= 0.90:
-
             return {
                 "feedback_type": "success",
                 "message": "Execution quality is excellent.",
@@ -26,7 +25,6 @@ class FeedbackAnalyzer:
             }
 
         if score >= 0.75:
-
             return {
                 "feedback_type": "optimization",
                 "message": "Execution is good but can improve.",
@@ -35,7 +33,6 @@ class FeedbackAnalyzer:
             }
 
         if score >= 0.50:
-
             return {
                 "feedback_type": "improvement",
                 "message": "Execution requires improvement.",

@@ -26,9 +26,7 @@ def test_feedback_runtime_execution():
         created_at=datetime.now(),
     )
 
-    cycle = runtime.execute_feedback_cycle(
-        context
-    )
+    cycle = runtime.execute_feedback_cycle(context)
 
     assert cycle.evaluation_id == "exec-001"
     assert cycle.status == FeedbackCycleStatus.CREATED

@@ -28,7 +28,7 @@ def create_sample_plan():
                 action="analyze",
                 description="Initial analysis step",
             )
-        ]
+        ],
     )
 
 
@@ -54,7 +54,6 @@ def test_replanner_keeps_plan_when_no_replanning():
     assert len(updated_plan.steps) == 1
 
 
-
 def test_replanner_adds_recovery_step():
     """
     Validate adaptive recovery step creation.
@@ -67,9 +66,7 @@ def test_replanner_adds_recovery_step():
     decision = ReplanningDecision(
         should_replan=True,
         reason="Execution failure detected",
-        issues=[
-            "Tool timeout"
-        ],
+        issues=["Tool timeout"],
     )
 
     updated_plan = replanner.replan(
@@ -77,14 +74,9 @@ def test_replanner_adds_recovery_step():
         decision,
     )
 
-
     assert len(updated_plan.steps) == 2
 
-    assert (
-        updated_plan.steps[-1].action
-        == "adaptive_recovery"
-    )
-
+    assert updated_plan.steps[-1].action == "adaptive_recovery"
 
 
 def test_replanner_preserves_original_plan():
@@ -106,11 +98,9 @@ def test_replanner_preserves_original_plan():
         decision,
     )
 
-
     assert len(plan.steps) == 1
 
     assert len(updated_plan.steps) == 2
-
 
 
 def test_replanner_creates_metadata():
@@ -125,27 +115,16 @@ def test_replanner_creates_metadata():
     decision = ReplanningDecision(
         should_replan=True,
         reason="Need adaptation",
-        issues=[
-            "Timeout"
-        ],
+        issues=["Timeout"],
     )
-
 
     updated_plan = replanner.replan(
         plan,
         decision,
     )
 
-
     step = updated_plan.steps[-1]
 
+    assert step.metadata["reason"] == "Need adaptation"
 
-    assert (
-        step.metadata["reason"]
-        == "Need adaptation"
-    )
-
-    assert (
-        "Timeout"
-        in step.metadata["issues"]
-    )
+    assert "Timeout" in step.metadata["issues"]

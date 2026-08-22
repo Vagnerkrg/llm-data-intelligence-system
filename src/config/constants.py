@@ -5,7 +5,6 @@ Centralized immutable values used across
 the LLM Data Intelligence System.
 """
 
-
 APP_NAME = "LLM Data Intelligence System"
 
 

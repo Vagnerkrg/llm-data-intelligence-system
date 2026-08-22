@@ -1,16 +1,10 @@
-
-
 class ReflectionAdapter:
     """
     Adapter responsible for connecting
     cognitive improvement with reflection capability.
     """
 
-
-    def execute(
-        self,
-        evaluation
-    ):
+    def execute(self, evaluation):
         """
         Execute reflection phase.
 
@@ -18,7 +12,4 @@ class ReflectionAdapter:
         generates reflection signal from evaluation.
         """
 
-        return {
-            "reflection": "generated",
-            "evaluation": evaluation
-        }
+        return {"reflection": "generated", "evaluation": evaluation}

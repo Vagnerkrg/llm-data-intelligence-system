@@ -38,10 +38,7 @@ class ActionSelector:
             action = ActionType.ABORT
 
         return Action(
-
             action_type=action,
-
             priority=int(score * 100),
-
             reason=f"Evaluation score {score:.2f}",
         )

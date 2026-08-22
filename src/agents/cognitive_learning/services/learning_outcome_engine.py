@@ -72,33 +72,23 @@ class LearningOutcomeEngine:
         self,
         experience: LearningExperience,
     ) -> LearningOutcome | None:
-        pattern = self._normalize_text(
-            experience.pattern
-        )
+        pattern = self._normalize_text(experience.pattern)
 
-        signal_type = self._normalize_text(
-            experience.signal_type
-        )
+        signal_type = self._normalize_text(experience.signal_type)
 
         if not pattern or not signal_type:
             return None
 
-        confidence = self._calculate_confidence(
-            experience
-        )
+        confidence = self._calculate_confidence(experience)
 
-        learning_type = self._classify_learning(
-            experience
-        )
+        learning_type = self._classify_learning(experience)
 
         learned_pattern = self._build_learned_pattern(
             learning_type=learning_type,
             pattern=pattern,
         )
 
-        knowledge_candidate = (
-            f"{signal_type}: {learned_pattern}"
-        )
+        knowledge_candidate = f"{signal_type}: {learned_pattern}"
 
         recommendation = self._build_recommendation(
             learning_type=learning_type,
@@ -129,34 +119,22 @@ class LearningOutcomeEngine:
         ):
             return False
 
-        if not cls._normalize_text(
-            experience.experience_id
-        ):
+        if not cls._normalize_text(experience.experience_id):
             return False
 
-        if not cls._normalize_text(
-            experience.signal_type
-        ):
+        if not cls._normalize_text(experience.signal_type):
             return False
 
-        if not cls._normalize_text(
-            experience.pattern
-        ):
+        if not cls._normalize_text(experience.pattern):
             return False
 
-        if not cls._normalize_text(
-            experience.source
-        ):
+        if not cls._normalize_text(experience.source):
             return False
 
-        if not cls._normalize_text(
-            experience.impact
-        ):
+        if not cls._normalize_text(experience.impact):
             return False
 
-        return cls._is_valid_confidence(
-            experience.confidence
-        )
+        return cls._is_valid_confidence(experience.confidence)
 
     @classmethod
     def _is_valid_confidence(
@@ -171,11 +149,7 @@ class LearningOutcomeEngine:
 
         numeric = float(confidence)
 
-        return (
-            cls.MIN_CONFIDENCE
-            <= numeric
-            <= cls.MAX_CONFIDENCE
-        )
+        return cls.MIN_CONFIDENCE <= numeric <= cls.MAX_CONFIDENCE
 
     @classmethod
     def _calculate_confidence(
@@ -190,13 +164,9 @@ class LearningOutcomeEngine:
         Low-impact learning keeps 75% of the confidence.
         """
 
-        confidence = float(
-            experience.confidence
-        )
+        confidence = float(experience.confidence)
 
-        impact = cls._normalize_text(
-            experience.impact
-        ).lower()
+        impact = cls._normalize_text(experience.impact).lower()
 
         if impact == "high":
             factor = 1.0
@@ -219,19 +189,12 @@ class LearningOutcomeEngine:
         Classify the learning represented by an experience.
         """
 
-        pattern = cls._normalize_text(
-            experience.pattern
-        ).lower()
+        pattern = cls._normalize_text(experience.pattern).lower()
 
-        if any(
-            marker in pattern
-            for marker in cls.INEFFECTIVE_PATTERNS
-        ):
+        if any(marker in pattern for marker in cls.INEFFECTIVE_PATTERNS):
             return "ineffective_behavior"
 
-        impact = cls._normalize_text(
-            experience.impact
-        ).lower()
+        impact = cls._normalize_text(experience.impact).lower()
 
         if impact in cls.EFFECTIVE_IMPACTS:
             return "effective_behavior"
@@ -249,9 +212,7 @@ class LearningOutcomeEngine:
             "improvement_opportunity": "improvement",
         }
 
-        prefix = prefixes[
-            learning_type
-        ]
+        prefix = prefixes[learning_type]
 
         return f"{prefix}: {pattern}"
 
@@ -261,20 +222,12 @@ class LearningOutcomeEngine:
         experience: LearningExperience,
     ) -> str:
         if learning_type == "effective_behavior":
-            return (
-                "Reinforce this behavior in future executions."
-            )
+            return "Reinforce this behavior in future executions."
 
         if learning_type == "ineffective_behavior":
-            return (
-                "Avoid repeating this behavior and evaluate "
-                "alternative strategies."
-            )
+            return "Avoid repeating this behavior and evaluate alternative strategies."
 
-        return (
-            "Monitor this pattern and evaluate opportunities "
-            "for improvement."
-        )
+        return "Monitor this pattern and evaluate opportunities for improvement."
 
     @staticmethod
     def _normalize_text(

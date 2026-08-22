@@ -1,7 +1,4 @@
-from src.agents.memory.domain.memory_entry import (
-    MemoryEntry
-)
-
+from src.agents.memory.domain.memory_entry import MemoryEntry
 
 
 class MemoryMapper:
@@ -10,11 +7,8 @@ class MemoryMapper:
     transport representations.
     """
 
-
     @staticmethod
-    def to_dict(
-        memory: MemoryEntry
-    ):
+    def to_dict(memory: MemoryEntry):
 
         return {
             "memory_id": memory.memory_id,
@@ -22,5 +16,5 @@ class MemoryMapper:
             "memory_type": memory.memory_type.value,
             "status": memory.status.value,
             "source": memory.source,
-            "metadata": memory.metadata
+            "metadata": memory.metadata,
         }

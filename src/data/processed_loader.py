@@ -14,57 +14,25 @@ class ProcessedDataLoader:
     It only provides access to prepared datasets.
     """
 
+    def __init__(self, data_path="data/processed"):
 
-    def __init__(
-        self,
-        data_path="data/processed"
-    ):
+        self.data_path = Path(data_path)
 
-        self.data_path = Path(
-            data_path
-        )
-
-
-    def load_parquet(
-        self,
-        filename,
-        name=None
-    ):
+    def load_parquet(self, filename, name=None):
         """
         Loads a single parquet dataset.
         """
 
-        file_path = (
-            self.data_path /
-            filename
-        )
-
+        file_path = self.data_path / filename
 
         if not file_path.exists():
+            raise FileNotFoundError(f"Processed file not found: {file_path}")
 
-            raise FileNotFoundError(
-                f"Processed file not found: {file_path}"
-            )
+        dataframe = pd.read_parquet(file_path)
 
+        dataset_name = name if name else file_path.stem
 
-        dataframe = pd.read_parquet(
-            file_path
-        )
-
-
-        dataset_name = (
-            name
-            if name
-            else file_path.stem
-        )
-
-
-        return {
-            "name": dataset_name,
-            "dataframe": dataframe
-        }
-
-
+        return {"name": dataset_name, "dataframe": dataframe}
 
     def load_all(self):
         """
@@ -74,27 +42,16 @@ class ProcessedDataLoader:
             Dictionary containing DataFrames.
         """
 
-
         if not self.data_path.exists():
-
             raise FileNotFoundError(
                 f"Processed data directory not found: {self.data_path}"
             )
 
-
         datasets = {}
 
-
-        for file in self.data_path.glob(
-            "*.parquet"
-        ):
-
+        for file in self.data_path.glob("*.parquet"):
             dataset_name = file.stem
 
-
-            datasets[dataset_name] = (
-                pd.read_parquet(file)
-            )
-
+            datasets[dataset_name] = pd.read_parquet(file)
 
         return datasets

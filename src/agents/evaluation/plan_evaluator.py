@@ -24,40 +24,22 @@ class PlanEvaluator:
         Analyze execution result.
         """
 
-        if (
-            state.status
-            == ExecutionStatus.COMPLETED
-        ):
+        if state.status == ExecutionStatus.COMPLETED:
             return ExecutionFeedback(
                 success=True,
-                message=(
-                    "Execution completed successfully"
-                ),
+                message=("Execution completed successfully"),
             )
 
-        if (
-            state.status
-            == ExecutionStatus.FAILED
-        ):
+        if state.status == ExecutionStatus.FAILED:
             return ExecutionFeedback(
                 success=False,
-                message=(
-                    "Execution failed"
-                ),
-                issues=[
-                    "Execution status is failed"
-                ],
-                recommendations=[
-                    "Review execution strategy"
-                ],
+                message=("Execution failed"),
+                issues=["Execution status is failed"],
+                recommendations=["Review execution strategy"],
             )
 
         return ExecutionFeedback(
             success=False,
-            message=(
-                "Execution incomplete"
-            ),
-            issues=[
-                "Execution not finished"
-            ],
+            message=("Execution incomplete"),
+            issues=["Execution not finished"],
         )

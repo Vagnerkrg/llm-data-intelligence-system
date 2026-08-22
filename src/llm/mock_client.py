@@ -8,16 +8,9 @@ class MockLLMClient(LLMClient):
     Avoids external API dependency during CI execution.
     """
 
-
-    def generate(
-        self,
-        prompt: str
-    ) -> str:
+    def generate(self, prompt: str) -> str:
         """
         Generates deterministic mock responses.
         """
 
-        return (
-            "Mock LLM response generated "
-            "for validation."
-        )
+        return "Mock LLM response generated for validation."

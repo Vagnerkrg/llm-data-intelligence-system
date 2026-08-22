@@ -25,34 +25,23 @@ class DecisionTrace:
 
     selected_alternative_id: Optional[str] = None
 
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(UTC)
-    )
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
     metadata: dict = field(default_factory=dict)
 
-    def add_reason(
-        self,
-        reason: DecisionReason
-    ) -> None:
+    def add_reason(self, reason: DecisionReason) -> None:
         """
         Add a reasoning factor to the decision trace.
         """
         self.reasons.append(reason)
 
-    def add_alternative(
-        self,
-        alternative: DecisionAlternative
-    ) -> None:
+    def add_alternative(self, alternative: DecisionAlternative) -> None:
         """
         Add a considered alternative.
         """
         self.alternatives.append(alternative)
 
-    def select_alternative(
-        self,
-        alternative_id: str
-    ) -> None:
+    def select_alternative(self, alternative_id: str) -> None:
         """
         Register the selected alternative.
         """
@@ -64,9 +53,7 @@ class DecisionTrace:
         """
         return self.selected_alternative_id is not None
 
-    def get_selected_alternative(
-        self
-    ) -> Optional[DecisionAlternative]:
+    def get_selected_alternative(self) -> Optional[DecisionAlternative]:
         """
         Retrieve selected alternative from trace.
         """

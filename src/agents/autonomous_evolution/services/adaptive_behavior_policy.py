@@ -45,9 +45,7 @@ class AdaptiveBehaviorPolicy:
         min_confidence: float = DEFAULT_MIN_CONFIDENCE,
     ) -> None:
         if not 0.0 <= min_confidence <= 1.0:
-            raise ValueError(
-                "min_confidence must be between 0.0 and 1.0."
-            )
+            raise ValueError("min_confidence must be between 0.0 and 1.0.")
 
         self.min_confidence = min_confidence
 
@@ -65,14 +63,10 @@ class AdaptiveBehaviorPolicy:
         Returns None when the proposed adaptation must be rejected.
         """
         if not isinstance(decision, EvolutionDecision):
-            raise TypeError(
-                "decision must be an EvolutionDecision instance."
-            )
+            raise TypeError("decision must be an EvolutionDecision instance.")
 
         if not isinstance(adaptation_type, AdaptationType):
-            raise TypeError(
-                "adaptation_type must be an AdaptationType instance."
-            )
+            raise TypeError("adaptation_type must be an AdaptationType instance.")
 
         normalized_target = target.strip().lower()
 
@@ -95,8 +89,7 @@ class AdaptiveBehaviorPolicy:
             return None
 
         if any(
-            evidence.confidence < self.min_confidence
-            for evidence in decision.evidence
+            evidence.confidence < self.min_confidence for evidence in decision.evidence
         ):
             return None
 

@@ -4,11 +4,7 @@ class KnowledgeAdapter:
     cognitive improvement with knowledge capability.
     """
 
-
-    def execute(
-        self,
-        learning
-    ):
+    def execute(self, learning):
         """
         Execute knowledge phase.
 
@@ -17,7 +13,4 @@ class KnowledgeAdapter:
         from learning output.
         """
 
-        return {
-            "knowledge": "updated",
-            "learning": learning
-        }
+        return {"knowledge": "updated", "learning": learning}

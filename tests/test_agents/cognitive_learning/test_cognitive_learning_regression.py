@@ -100,9 +100,7 @@ def test_learning_outcome_serialization_is_stable():
     expected = {
         "experience_id": "exp-1",
         "learned_pattern": "effective: stable strategy",
-        "knowledge_candidate": (
-            "strategy: effective: stable strategy"
-        ),
+        "knowledge_candidate": ("strategy: effective: stable strategy"),
         "confidence": 0.9,
         "recommendation": "Reuse this strategy.",
         "metadata": {

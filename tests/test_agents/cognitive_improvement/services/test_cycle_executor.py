@@ -18,26 +18,19 @@ def test_should_create_cycle_executor():
     assert executor is not None
 
 
-
 def test_should_execute_cognitive_cycle():
 
     executor = CycleExecutor()
 
     context = ImprovementContext(
-        experience={
-            "execution": "completed"
-        },
-        objective="Improve agent performance"
+        experience={"execution": "completed"}, objective="Improve agent performance"
     )
 
-    result = executor.execute(
-        context
-    )
+    result = executor.execute(context)
 
     assert result is not None
 
     assert result.status == ImprovementStatus.COMPLETED
-
 
 
 def test_should_preserve_cognitive_cycle_outputs():
@@ -45,17 +38,10 @@ def test_should_preserve_cognitive_cycle_outputs():
     executor = CycleExecutor()
 
     context = ImprovementContext(
-        experience={
-            "execution": "completed"
-        },
-        objective="Improve agent performance"
+        experience={"execution": "completed"}, objective="Improve agent performance"
     )
 
-
-    result = executor.execute(
-        context
-    )
-
+    result = executor.execute(context)
 
     assert result is not None
 

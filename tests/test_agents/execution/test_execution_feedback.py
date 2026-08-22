@@ -15,10 +15,7 @@ def test_execution_feedback_default_values():
 
     assert feedback.success is True
 
-    assert (
-        feedback.message
-        == "Execution completed successfully"
-    )
+    assert feedback.message == "Execution completed successfully"
 
     assert feedback.issues == []
 
@@ -49,17 +46,11 @@ def test_execution_feedback_with_issues():
 
     assert len(feedback.issues) == 2
 
-    assert (
-        feedback.issues[0]
-        == "Tool timeout"
-    )
+    assert feedback.issues[0] == "Tool timeout"
 
     assert len(feedback.recommendations) == 2
 
-    assert (
-        feedback.recommendations[0]
-        == "Retry execution"
-    )
+    assert feedback.recommendations[0] == "Retry execution"
 
 
 def test_execution_feedback_metadata():
@@ -76,15 +67,9 @@ def test_execution_feedback_metadata():
         },
     )
 
-    assert (
-        feedback.metadata["execution_id"]
-        == "exec_001"
-    )
+    assert feedback.metadata["execution_id"] == "exec_001"
 
-    assert (
-        feedback.metadata["duration"]
-        == 4.5
-    )
+    assert feedback.metadata["duration"] == 4.5
 
 
 def test_execution_feedback_independent_lists():
@@ -102,8 +87,6 @@ def test_execution_feedback_independent_lists():
         message="Second",
     )
 
-    first.issues.append(
-        "Problem detected"
-    )
+    first.issues.append("Problem detected")
 
     assert second.issues == []

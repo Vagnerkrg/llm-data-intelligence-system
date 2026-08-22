@@ -13,6 +13,5 @@ class QualityMetrics:
 
     threshold: float = 0.80
 
-
     def is_high_quality(self) -> bool:
         return self.quality_score >= self.threshold

@@ -17,7 +17,4 @@ def test_learning_signal_creation():
     assert signal.pattern == "high_tool_usage"
     assert signal.confidence == 0.8
     assert signal.impact == "medium"
-    assert (
-        signal.recommendation
-        == "Optimize execution strategy"
-    )
+    assert signal.recommendation == "Optimize execution strategy"

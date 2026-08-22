@@ -29,15 +29,12 @@ class ExecutionCoordinator:
 
         state.events.append(
             ExecutionEvent(
-                event_type=(
-                    ExecutionEventType.EXECUTION_STARTED
-                ),
+                event_type=(ExecutionEventType.EXECUTION_STARTED),
                 message="Execution started",
             )
         )
 
         return state
-
 
     def complete_execution(
         self,
@@ -51,15 +48,12 @@ class ExecutionCoordinator:
 
         state.events.append(
             ExecutionEvent(
-                event_type=(
-                    ExecutionEventType.EXECUTION_COMPLETED
-                ),
+                event_type=(ExecutionEventType.EXECUTION_COMPLETED),
                 message="Execution completed",
             )
         )
 
         return state
-
 
     def fail_execution(
         self,
@@ -74,9 +68,7 @@ class ExecutionCoordinator:
 
         state.events.append(
             ExecutionEvent(
-                event_type=(
-                    ExecutionEventType.EXECUTION_FAILED
-                ),
+                event_type=(ExecutionEventType.EXECUTION_FAILED),
                 message=error,
             )
         )

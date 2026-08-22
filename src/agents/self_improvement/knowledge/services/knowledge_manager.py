@@ -18,30 +18,18 @@ class KnowledgeManager:
         builder=None,
     ):
 
-        self.repository = (
-            repository
-            if repository
-            else KnowledgeRepository()
-        )
+        self.repository = repository if repository else KnowledgeRepository()
 
-        self.builder = (
-            builder
-            if builder
-            else KnowledgeBuilder()
-        )
+        self.builder = builder if builder else KnowledgeBuilder()
 
     def process(
         self,
         learning_signal: dict,
     ):
 
-        knowledge = self.builder.build(
-            learning_signal
-        )
+        knowledge = self.builder.build(learning_signal)
 
-        self.repository.save(
-            knowledge
-        )
+        self.repository.save(knowledge)
 
         return knowledge
 

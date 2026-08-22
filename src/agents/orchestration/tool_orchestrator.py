@@ -15,30 +15,13 @@ class ToolOrchestrator:
     - returning a consolidated response.
     """
 
-    def __init__(
-        self,
-        tool_registry=None,
-        executor=None
-    ):
+    def __init__(self, tool_registry=None, executor=None):
 
-        self.tool_registry = (
-            tool_registry
-            if tool_registry
-            else ToolRegistry()
-        )
+        self.tool_registry = tool_registry if tool_registry else ToolRegistry()
 
-        self.executor = (
-            executor
-            if executor
-            else ToolExecutor()
-        )
+        self.executor = executor if executor else ToolExecutor()
 
-
-    def execute(
-        self,
-        tools: List[str],
-        question: str
-    ) -> Dict:
+    def execute(self, tools: List[str], question: str) -> Dict:
         """
         Execute multiple tools sequentially.
 
@@ -55,63 +38,25 @@ class ToolOrchestrator:
 
         results = []
 
-
         for tool_name in tools:
-
-            tool = self.tool_registry.get_tool(
-                tool_name
-            )
-
+            tool = self.tool_registry.get_tool(tool_name)
 
             if not tool:
-
                 results.append(
-                    {
-                        "tool": tool_name,
-                        "success": False,
-                        "error": "Tool not found"
-                    }
+                    {"tool": tool_name, "success": False, "error": "Tool not found"}
                 )
 
                 continue
 
-
-
-            execution_result = (
-                self.executor.execute(
-                    tool,
-                    question
-                )
-            )
-
-
+            execution_result = self.executor.execute(tool, question)
 
             results.append(
                 {
                     "tool": execution_result.tool,
-
-                    "success": (
-                        execution_result.success
-                    ),
-
-                    "data": (
-                        execution_result.data
-                    ),
-
-                    "metadata": (
-                        getattr(
-                            execution_result,
-                            "metadata",
-                            {}
-                        )
-                    )
+                    "success": (execution_result.success),
+                    "data": (execution_result.data),
+                    "metadata": (getattr(execution_result, "metadata", {})),
                 }
             )
 
-
-
-        return {
-            "status": "success",
-            "tools_executed": len(results),
-            "results": results
-        }
+        return {"status": "success", "tools_executed": len(results), "results": results}

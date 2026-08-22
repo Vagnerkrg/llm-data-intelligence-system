@@ -7,9 +7,7 @@ from src.agents.cognitive_improvement.domain.improvement_status import (
 
 
 def test_should_create_improvement_result():
-    result = ImprovementResult(
-        status=ImprovementStatus.PENDING
-    )
+    result = ImprovementResult(status=ImprovementStatus.PENDING)
 
     assert result is not None
     assert result.status == ImprovementStatus.PENDING

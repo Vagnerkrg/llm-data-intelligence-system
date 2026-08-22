@@ -35,7 +35,6 @@ class LearningMemoryAdapter:
         """
 
         for feedback in self.memory_store:
-
             if feedback.feedback_id == feedback_id:
                 return feedback
 

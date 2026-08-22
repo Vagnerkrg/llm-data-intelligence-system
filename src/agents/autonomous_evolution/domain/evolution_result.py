@@ -22,17 +22,13 @@ class EvolutionResult:
 
     def __post_init__(self) -> None:
         if not isinstance(self.status, EvolutionStatus):
-            raise TypeError(
-                "status must be an EvolutionStatus instance."
-            )
+            raise TypeError("status must be an EvolutionStatus instance.")
 
         if self.action is not None and not isinstance(
             self.action,
             EvolutionAction,
         ):
-            raise TypeError(
-                "action must be an EvolutionAction instance or None."
-            )
+            raise TypeError("action must be an EvolutionAction instance or None.")
 
     def to_dict(self) -> dict[str, Any]:
         """

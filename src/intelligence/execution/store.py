@@ -16,27 +16,13 @@ class ExecutionStore:
     def __init__(self):
         self._executions: Dict[str, ExecutionRecord] = {}
 
-    def save(
-        self,
-        execution: ExecutionRecord
-    ) -> None:
-        self._executions[
-            execution.execution_id
-        ] = execution
+    def save(self, execution: ExecutionRecord) -> None:
+        self._executions[execution.execution_id] = execution
 
-    def get(
-        self,
-        execution_id: str
-    ) -> ExecutionRecord | None:
+    def get(self, execution_id: str) -> ExecutionRecord | None:
 
-        return self._executions.get(
-            execution_id
-        )
+        return self._executions.get(execution_id)
 
-    def list_all(
-        self
-    ) -> list[ExecutionRecord]:
+    def list_all(self) -> list[ExecutionRecord]:
 
-        return list(
-            self._executions.values()
-        )
+        return list(self._executions.values())

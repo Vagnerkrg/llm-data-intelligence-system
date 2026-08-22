@@ -24,10 +24,7 @@ def test_execution_status_is_string_enum():
     Ensure ExecutionStatus behaves as a string enum.
     """
 
-    assert isinstance(
-        ExecutionStatus.RUNNING,
-        str
-    )
+    assert isinstance(ExecutionStatus.RUNNING, str)
 
 
 def test_execution_status_members():

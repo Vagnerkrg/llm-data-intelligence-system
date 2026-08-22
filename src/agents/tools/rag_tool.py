@@ -17,16 +17,8 @@ class RAGTool(BaseTool):
     Result normalization is handled by ToolExecutor.
     """
 
-    def __init__(
-        self,
-        query_engine=None
-    ):
-        self.query_engine = (
-            query_engine
-            if query_engine
-            else RAGQueryEngine()
-        )
-
+    def __init__(self, query_engine=None):
+        self.query_engine = query_engine if query_engine else RAGQueryEngine()
 
     @property
     def name(self) -> str:
@@ -36,8 +28,6 @@ class RAGTool(BaseTool):
 
         return "rag"
 
-
-
     @property
     def description(self) -> str:
         """
@@ -45,11 +35,8 @@ class RAGTool(BaseTool):
         """
 
         return (
-            "Retrieves contextual information "
-            "using semantic search and RAG generation."
+            "Retrieves contextual information using semantic search and RAG generation."
         )
-
-
 
     @property
     def metadata(self) -> ToolMetadata:
@@ -58,31 +45,17 @@ class RAGTool(BaseTool):
         """
 
         return ToolMetadata(
-
             name=self.name,
-
             description=self.description,
-
             capabilities=[
-
                 "semantic search",
-
                 "knowledge retrieval",
-
                 "context retrieval",
-
-                "question answering"
-
-            ]
-
+                "question answering",
+            ],
         )
 
-
-
-    def execute(
-        self,
-        question: str
-    ) -> Dict:
+    def execute(self, question: str) -> Dict:
         """
         Execute RAG query.
 
@@ -92,6 +65,4 @@ class RAGTool(BaseTool):
         of ToolExecutor.
         """
 
-        return self.query_engine.query(
-            question
-        )
+        return self.query_engine.query(question)

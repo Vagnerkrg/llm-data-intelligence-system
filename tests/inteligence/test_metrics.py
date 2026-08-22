@@ -20,7 +20,6 @@ def test_execution_metric_creation():
     assert metric.category == "performance"
 
 
-
 def test_execution_metrics_store_add_and_get():
 
     store = ExecutionMetricsStore()
@@ -35,14 +34,11 @@ def test_execution_metrics_store_add_and_get():
         metric=metric,
     )
 
-    result = store.get_by_execution(
-        "exec-001"
-    )
+    result = store.get_by_execution("exec-001")
 
     assert len(result) == 1
     assert result[0].execution_id == "exec-001"
     assert result[0].metric.metric_name == "tools_used"
-
 
 
 def test_execution_metrics_store_get_all():

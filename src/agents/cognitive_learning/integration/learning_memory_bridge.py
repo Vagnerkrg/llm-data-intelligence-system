@@ -47,14 +47,10 @@ class LearningMemoryBridge:
             memory_adapter,
             CognitiveMemoryAdapter,
         ):
-            raise ValueError(
-                "memory_adapter must be a CognitiveMemoryAdapter."
-            )
+            raise ValueError("memory_adapter must be a CognitiveMemoryAdapter.")
 
         if not 0.0 <= min_relevance <= 1.0:
-            raise ValueError(
-                "min_relevance must be between 0 and 1"
-            )
+            raise ValueError("min_relevance must be between 0 and 1")
 
         self.memory_adapter = memory_adapter
         self.min_relevance = min_relevance
@@ -69,13 +65,9 @@ class LearningMemoryBridge:
             outcome,
             LearningOutcome,
         ):
-            raise ValueError(
-                "outcome must be a LearningOutcome."
-            )
+            raise ValueError("outcome must be a LearningOutcome.")
 
-        relevance = self._calculate_relevance(
-            outcome
-        )
+        relevance = self._calculate_relevance(outcome)
 
         if relevance < self.min_relevance:
             return LearningMemoryResult(
@@ -91,9 +83,7 @@ class LearningMemoryBridge:
             relevance,
         )
 
-        self.memory_adapter.store_learning(
-            memory
-        )
+        self.memory_adapter.store_learning(memory)
 
         return LearningMemoryResult(
             outcome=outcome,
@@ -109,10 +99,7 @@ class LearningMemoryBridge:
     ) -> list[LearningMemoryResult]:
         """Store multiple learning outcomes deterministically."""
 
-        return [
-            self.store(outcome)
-            for outcome in outcomes
-        ]
+        return [self.store(outcome) for outcome in outcomes]
 
     def _calculate_relevance(
         self,
@@ -120,12 +107,16 @@ class LearningMemoryBridge:
     ) -> float:
         confidence = outcome.confidence
 
-        impact = str(
-            outcome.metadata.get(
-                "impact",
-                "medium",
+        impact = (
+            str(
+                outcome.metadata.get(
+                    "impact",
+                    "medium",
+                )
             )
-        ).strip().casefold()
+            .strip()
+            .casefold()
+        )
 
         impact_weight = {
             "high": 1.0,
@@ -146,9 +137,7 @@ class LearningMemoryBridge:
         outcome: LearningOutcome,
         relevance: float,
     ) -> MemoryEntry:
-        metadata: dict[str, Any] = dict(
-            outcome.metadata
-        )
+        metadata: dict[str, Any] = dict(outcome.metadata)
 
         metadata.update(
             {
@@ -164,10 +153,7 @@ class LearningMemoryBridge:
 
         return MemoryEntry(
             memory_id=f"learning-{outcome.experience_id}",
-            content=(
-                f"{outcome.knowledge_candidate}. "
-                f"{outcome.recommendation}"
-            ),
+            content=(f"{outcome.knowledge_candidate}. {outcome.recommendation}"),
             memory_type=MemoryType.PROCEDURAL,
             source="cognitive_learning",
             metadata=metadata,
