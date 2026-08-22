@@ -12,6 +12,7 @@ from src.api.dependencies import (
     get_execution_service,
     get_execution_trace_service,
     get_intelligence_system,
+    get_memory_knowledge_service,
 )
 from src.api.schemas import (
     AnswerResponse,
@@ -19,6 +20,8 @@ from src.api.schemas import (
     CreateExecutionRequest,
     ExecutionResponse,
     ExecutionTraceResponse,
+    KnowledgeResponse,
+    MemoryResponse,
     QuestionRequest,
 )
 from src.application.cognitive_state_service import (
@@ -32,6 +35,9 @@ from src.application.execution_trace_service import (
 )
 from src.application.intelligence_system import (
     IntelligenceSystem,
+)
+from src.application.memory_knowledge_service import (
+    MemoryKnowledgeApplicationService,
 )
 
 
@@ -216,6 +222,95 @@ def get_cognitive_state(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail={
                 "error": "COGNITIVE_STATE_UNAVAILABLE",
+                "message": str(exc),
+            },
+        ) from exc
+
+
+# ---------------------------------------------------------------------------
+# Memory & Knowledge API
+# ---------------------------------------------------------------------------
+
+
+@router.get(
+    "/api/v1/executions/{execution_id}/memory",
+    response_model=MemoryResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get execution memory observations",
+    tags=["memory"],
+)
+def get_execution_memory(
+    execution_id: str,
+    service: MemoryKnowledgeApplicationService = Depends(
+        get_memory_knowledge_service,
+    ),
+) -> MemoryResponse:
+    """Return public Memory observations for an execution."""
+    _validate_execution_id(
+        execution_id,
+    )
+
+    try:
+        return service.get_memory(
+            execution_id,
+        )
+
+    except LookupError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "error": "EXECUTION_NOT_FOUND",
+                "message": str(exc),
+            },
+        ) from exc
+
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error": "MEMORY_UNAVAILABLE",
+                "message": str(exc),
+            },
+        ) from exc
+
+
+@router.get(
+    "/api/v1/executions/{execution_id}/knowledge",
+    response_model=KnowledgeResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get execution knowledge observations",
+    tags=["knowledge"],
+)
+def get_execution_knowledge(
+    execution_id: str,
+    service: MemoryKnowledgeApplicationService = Depends(
+        get_memory_knowledge_service,
+    ),
+) -> KnowledgeResponse:
+    """Return public Knowledge observations for an execution."""
+    _validate_execution_id(
+        execution_id,
+    )
+
+    try:
+        return service.get_knowledge(
+            execution_id,
+        )
+
+    except LookupError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "error": "EXECUTION_NOT_FOUND",
+                "message": str(exc),
+            },
+        ) from exc
+
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error": "KNOWLEDGE_UNAVAILABLE",
                 "message": str(exc),
             },
         ) from exc

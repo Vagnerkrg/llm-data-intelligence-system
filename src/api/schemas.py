@@ -374,3 +374,68 @@ class CognitiveStateResponse(BaseModel):
     learning: CognitiveStageState
     evolution: CognitiveStageState
     adaptation: CognitiveStageState
+
+
+class MemoryItemResponse(BaseModel):
+    """Public memory item."""
+
+    id: str
+    content: str | None = None
+    relevance: float | None = Field(
+        default=None,
+        ge=0,
+        le=1,
+    )
+    source: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class MemoryResponse(BaseModel):
+    """Public memory retrieval response."""
+
+    execution_id: str
+    items: list[MemoryItemResponse] = Field(
+        default_factory=list,
+    )
+    total: int = Field(
+        default=0,
+        ge=0,
+    )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class KnowledgeItemResponse(BaseModel):
+    """Public knowledge item."""
+
+    id: str
+    source: str | None = None
+    relevance: float | None = Field(
+        default=None,
+        ge=0,
+        le=1,
+    )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )
+
+
+class KnowledgeResponse(BaseModel):
+    """Public knowledge access response."""
+
+    execution_id: str
+    items: list[KnowledgeItemResponse] = Field(
+        default_factory=list,
+    )
+    total: int = Field(
+        default=0,
+        ge=0,
+    )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+    )

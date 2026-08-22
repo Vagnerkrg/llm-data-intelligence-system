@@ -1,11 +1,10 @@
 """Dependency providers for the API layer."""
 
+from functools import lru_cache
+
 from src.application.cognitive_state_service import (
     CognitiveStateApplicationService,
 )
-
-from functools import lru_cache
-
 from src.application.execution_service import (
     ExecutionApplicationService,
 )
@@ -14,6 +13,9 @@ from src.application.execution_trace_service import (
 )
 from src.application.intelligence_system import (
     IntelligenceSystem,
+)
+from src.application.memory_knowledge_service import (
+    MemoryKnowledgeApplicationService,
 )
 
 
@@ -50,3 +52,9 @@ def get_execution_trace_service() -> ExecutionTraceApplicationService:
 def get_cognitive_state_service() -> CognitiveStateApplicationService:
     """Return the cognitive state application service."""
     return CognitiveStateApplicationService()
+
+
+@lru_cache
+def get_memory_knowledge_service() -> MemoryKnowledgeApplicationService:
+    """Return the Memory and Knowledge application service."""
+    return MemoryKnowledgeApplicationService()
