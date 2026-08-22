@@ -8,9 +8,7 @@ from src.agents.runtime.agent_runtime import AgentRuntime
 def test_agent_runtime_stores_autonomous_evolution_decision() -> None:
     runtime = AgentRuntime()
 
-    context = runtime.execute(
-        "Analyze products"
-    )
+    context = runtime.execute("Analyze products")
 
     assert context.evolution_decision is not None
 
@@ -23,9 +21,7 @@ def test_agent_runtime_stores_autonomous_evolution_decision() -> None:
 def test_agent_runtime_stores_autonomous_evolution_result() -> None:
     runtime = AgentRuntime()
 
-    context = runtime.execute(
-        "Analyze products"
-    )
+    context = runtime.execute("Analyze products")
 
     assert context.evolution_result is not None
 
@@ -38,28 +34,21 @@ def test_agent_runtime_stores_autonomous_evolution_result() -> None:
 def test_agent_runtime_evolution_has_cognitive_evaluation_first() -> None:
     runtime = AgentRuntime()
 
-    context = runtime.execute(
-        "Analyze products"
-    )
+    context = runtime.execute("Analyze products")
 
     assert context.cognitive_evaluation is not None
     assert context.evolution_decision is not None
 
-    assert context.evolution_result.metadata[
-        "evidence_count"
-    ] >= 1
+    assert context.evolution_result.metadata["evidence_count"] >= 1
 
 
 def test_agent_runtime_does_not_execute_adaptation() -> None:
     runtime = AgentRuntime()
 
-    context = runtime.execute(
-        "Analyze products"
-    )
+    context = runtime.execute("Analyze products")
 
     assert (
-        context.adaptation_action is None
-        or context.adaptation_action.target == "agent"
+        context.adaptation_action is None or context.adaptation_action.target == "agent"
     )
 
 
@@ -80,13 +69,9 @@ def test_agent_runtime_supports_evolution_dependency_injection() -> None:
         autonomous_evolution_adapter=adapter,
     )
 
-    context = runtime.prepare(
-        "Analyze products"
-    )
+    context = runtime.prepare("Analyze products")
 
-    result = runtime.evaluate_evolution(
-        context
-    )
+    result = runtime.evaluate_evolution(context)
 
     assert adapter.called is True
     assert isinstance(

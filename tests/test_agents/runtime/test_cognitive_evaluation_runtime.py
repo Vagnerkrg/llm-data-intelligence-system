@@ -7,9 +7,7 @@ from src.agents.cognitive_evaluation.domain.evaluation_result import (
 def test_agent_runtime_stores_cognitive_evaluation():
     runtime = AgentRuntime()
 
-    context = runtime.execute(
-        "How many products exist?"
-    )
+    context = runtime.execute("How many products exist?")
 
     assert context.cognitive_evaluation is not None
 
@@ -22,29 +20,19 @@ def test_agent_runtime_stores_cognitive_evaluation():
 def test_agent_runtime_cognitive_evaluation_is_completed():
     runtime = AgentRuntime()
 
-    context = runtime.execute(
-        "Analyze products"
-    )
+    context = runtime.execute("Analyze products")
 
-    assert (
-        context.cognitive_evaluation.status
-        == "completed"
-    )
+    assert context.cognitive_evaluation.status == "completed"
 
 
 def test_agent_runtime_cognitive_evaluation_contains_metrics():
     runtime = AgentRuntime()
 
-    context = runtime.execute(
-        "Analyze products"
-    )
+    context = runtime.execute("Analyze products")
 
     metrics = context.cognitive_evaluation.metrics
 
-    metric_names = [
-        metric.name
-        for metric in metrics
-    ]
+    metric_names = [metric.name for metric in metrics]
 
     assert "reasoning_quality" in metric_names
     assert "planning_quality" in metric_names
@@ -56,13 +44,9 @@ def test_agent_runtime_cognitive_evaluation_contains_metrics():
 def test_agent_runtime_cognitive_evaluation_is_deterministic():
     runtime = AgentRuntime()
 
-    first_context = runtime.execute(
-        "Analyze products"
-    )
+    first_context = runtime.execute("Analyze products")
 
-    second_context = runtime.execute(
-        "Analyze products"
-    )
+    second_context = runtime.execute("Analyze products")
 
     assert (
         first_context.cognitive_evaluation.overall_score

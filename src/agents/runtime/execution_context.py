@@ -11,7 +11,7 @@ class ExecutionContext:
 
     The context keeps the current state shared between reasoning,
     planning, execution, cognitive evaluation, improvement, memory,
-    learning, and autonomous evolution layers.
+    learning, autonomous evolution, and observability.
     """
 
     def __init__(
@@ -22,6 +22,8 @@ class ExecutionContext:
     ):
         self.question = question
         self.plan = plan
+
+        self.execution_id = None
 
         self.reasoning_result = None
         self.reasoning = None
@@ -42,13 +44,17 @@ class ExecutionContext:
         self.current_step = None
         self.results = []
 
-        self.metadata = (
-            metadata
-            if metadata is not None
-            else {}
-        )
+        self.metadata = metadata if metadata is not None else {}
 
         self.status = "initialized"
+
+    def set_execution_id(
+        self,
+        execution_id: str,
+    ):
+        """Associate the runtime context with an execution trace."""
+        self.execution_id = execution_id
+        self.metadata["execution_id"] = execution_id
 
     def set_reasoning(
         self,
@@ -85,17 +91,13 @@ class ExecutionContext:
         self,
         learning_experiences: Any,
     ):
-        self.learning_experiences = list(
-            learning_experiences
-        )
+        self.learning_experiences = list(learning_experiences)
 
     def set_learning_outcomes(
         self,
         learning_outcomes: Any,
     ):
-        self.learning_outcomes = list(
-            learning_outcomes
-        )
+        self.learning_outcomes = list(learning_outcomes)
 
     def set_learning_loop_result(
         self,
@@ -119,14 +121,10 @@ class ExecutionContext:
         )
 
         if experiences is not None:
-            self.set_learning_experiences(
-                experiences
-            )
+            self.set_learning_experiences(experiences)
 
         if outcomes is not None:
-            self.set_learning_outcomes(
-                outcomes
-            )
+            self.set_learning_outcomes(outcomes)
 
     def set_evolution_decision(
         self,
@@ -191,12 +189,9 @@ class ExecutionContext:
         return {
             "question": self.question,
             "status": self.status,
-            "has_reasoning": (
-                self.reasoning is not None
-            ),
-            "has_goal": (
-                self.goal is not None
-            ),
+            "execution_id": self.execution_id,
+            "has_reasoning": (self.reasoning is not None),
+            "has_goal": (self.goal is not None),
             "goal_type": (
                 getattr(
                     self.goal,
@@ -206,45 +201,17 @@ class ExecutionContext:
                 if self.goal
                 else None
             ),
-            "current_step": (
-                self.current_step.action
-                if self.current_step
-                else None
-            ),
-            "results_count": len(
-                self.results
-            ),
-            "has_plan": (
-                self.plan is not None
-            ),
-            "has_memory_context": (
-                self.memory_context is not None
-            ),
-            "has_cognitive_evaluation": (
-                self.cognitive_evaluation is not None
-            ),
-            "has_learning_experiences": bool(
-                self.learning_experiences
-            ),
-            "learning_experiences_count": len(
-                self.learning_experiences
-            ),
-            "has_learning_outcomes": bool(
-                self.learning_outcomes
-            ),
-            "learning_outcomes_count": len(
-                self.learning_outcomes
-            ),
-            "has_learning_loop_result": (
-                self.learning_loop_result is not None
-            ),
-            "has_evolution_decision": (
-                self.evolution_decision is not None
-            ),
-            "has_evolution_result": (
-                self.evolution_result is not None
-            ),
-            "has_adaptation_action": (
-                self.adaptation_action is not None
-            ),
+            "current_step": (self.current_step.action if self.current_step else None),
+            "results_count": len(self.results),
+            "has_plan": (self.plan is not None),
+            "has_memory_context": (self.memory_context is not None),
+            "has_cognitive_evaluation": (self.cognitive_evaluation is not None),
+            "has_learning_experiences": bool(self.learning_experiences),
+            "learning_experiences_count": len(self.learning_experiences),
+            "has_learning_outcomes": bool(self.learning_outcomes),
+            "learning_outcomes_count": len(self.learning_outcomes),
+            "has_learning_loop_result": (self.learning_loop_result is not None),
+            "has_evolution_decision": (self.evolution_decision is not None),
+            "has_evolution_result": (self.evolution_result is not None),
+            "has_adaptation_action": (self.adaptation_action is not None),
         }
