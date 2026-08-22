@@ -12,7 +12,6 @@ from src.observability.domain.enums import (
 from src.observability.domain.models import (
     ExecutionError,
     ExecutionEvent,
-    ExecutionMetric,
     ExecutionTrace,
 )
 from src.observability.infrastructure.storage.sqlite_repositories import (
